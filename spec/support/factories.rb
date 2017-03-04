@@ -28,4 +28,8 @@ FactoryGirl.define do
     email "someguy@gmail.com"
     password "opensesame"
   end
+
+  factory :neighborhood do
+    name "Hyde Park"
+  end
 end
