@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304211129) do
+ActiveRecord::Schema.define(version: 20170304212104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20170304211129) do
     t.string   "address"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "status",          default: 0
     t.index ["neighborhood_id"], name: "index_artworks_on_neighborhood_id", using: :btree
     t.index ["user_id"], name: "index_artworks_on_user_id", using: :btree
   end
@@ -41,8 +42,9 @@ ActiveRecord::Schema.define(version: 20170304211129) do
     t.time     "time"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "status",          default: 0
     t.index ["neighborhood_id"], name: "index_events_on_neighborhood_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -64,8 +66,9 @@ ActiveRecord::Schema.define(version: 20170304211129) do
     t.string   "address"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "status",          default: 0
     t.index ["neighborhood_id"], name: "index_stories_on_neighborhood_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree
   end
