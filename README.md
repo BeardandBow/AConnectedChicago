@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/CalebCowen/AConnectedChicago.png?label=ready&title=Ready)](https://waffle.io/CalebCowen/AConnectedChicago)
+[![Build Status](https://travis-ci.org/CalebCowen/AConnectedChicago.svg?branch=master)](https://travis-ci.org/CalebCowen/AConnectedChicago)
 # README
 
 This README would normally document whatever steps are necessary to get the
