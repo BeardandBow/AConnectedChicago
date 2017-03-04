@@ -14,4 +14,13 @@ FactoryGirl.define do
     description "description"
     address "this one place"
   end
+
+  factory :event do
+    title "event"
+    host_contact "someguy@gmail.com"
+    description "description"
+    address "this one place"
+    date Date.tomorrow
+    time Time.now
+  end
 end
