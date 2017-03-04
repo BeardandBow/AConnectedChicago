@@ -23,4 +23,9 @@ FactoryGirl.define do
     date Date.tomorrow
     time Time.now
   end
+
+  factory :user do
+    email "someguy@gmail.com"
+    password "opensesame"
+  end
 end
