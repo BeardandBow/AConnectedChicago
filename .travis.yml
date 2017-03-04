@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.2.2
+env:
+  - DB=postgresql
+script:
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - bundle exec rails db:test:prepare
+  - bundle exec rspec spec/
+before_script:
+  - RAILS_ENV=test bundle exec rails db:create
