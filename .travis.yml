@@ -4,10 +4,12 @@ rvm:
 - 2.2.2
 script:
 - RAILS_ENV=test bundle exec rails db:migrate
-- bundle exec rails parallel:test:prepare
+- bundle exec rails parallel:prepare
 - bundle exec rails parallel:spec
 before_script:
 - RAILS_ENV=test bundle exec rails parallel:create
 notifications:
+  email: false
+  
   slack:
     secure: Zudw4uA4rsKkKoS67I7bYFMcE/X9vgSYa0Syf/gt2vPbfJ5zwp1RSOZHevnaSlyVizrx2Lli66BoT+VfzFK1Xv5lD7iAsYCLCw37gfRI9IrzlAKr2y2CeZ5+Ym/8onyhP1Zn08A2yuGWlMIzUWuGb+QNCsBj78uENnLHchLoSPuMHUJMgqKBYfLmG/jywrWP1gp3ZtfX+qbdhKK2Yz8mGaz8vkOSDtKl2LaaceD4oZDpNmX7aIrxha0NYXUoMoz/8vhe+3mzcKHTwZDsNRUFcHNesTk22NHRTx1lMrvTHDGu0MLgEzggzU2T50pzpgYQQi0lLLG4sFkmfPdlPFs2oMhAsAuOGeeKd3bENlLIClcKLngMNtMJsvXs5Pqdrwt3Uiz+W/KZagPe0oTbl+RCARyYs/KgmffLDcGs5NqRz9vlfRC1iPzH36k9ui4fCZo8vbTIIkDyno6LzbwDlG9m60F13LkQL80KBTdi6g1tQ+v5LIgxLdMzfrJfnnFk+ZYicduGiXslmbsjPRHoHEu2ecIQagUQsUYGKWepGAQuwkE8BEstYtiBDy04Y1ITIwJ4/mwA+MGiRndx8EtEXZGhiZuVHvA/4Wii8QQwSDkV7ng8iRm6yHKD0D1g+KL+kUBXNEGcnsrBXW5EjOIBqzSup006PwPAB1w4dLgjf92I21k=
