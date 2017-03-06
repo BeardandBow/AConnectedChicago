@@ -3,10 +3,12 @@ rvm:
 - 2.2.2
 env:
 - DB=postgresql
+- TESTFOLDER=spec/models
+- TESTFOLDER=spec/features
 script:
 - RAILS_ENV=test bundle exec rails db:migrate
 - bundle exec rails db:test:prepare
-- bundle exec rspec spec/
+- bundle exec rspec $TESTFOLDER
 before_script:
 - RAILS_ENV=test bundle exec rails db:create
 notifications:
