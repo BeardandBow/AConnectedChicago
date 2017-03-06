@@ -48,6 +48,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'selenium-webdriver'
   gem 'pry-rails'
+  gem 'parallel_tests'
 end
 
 group :development do

@@ -1,20 +1,13 @@
 language: ruby
-
+cache: bundler
 rvm:
-  - 2.2.2
-
-env:
-  - TESTFOLDER=spec/models
-  - TESTFOLDER=spec/features
-
+- 2.2.2
 script:
-  - RAILS_ENV=test bundle exec rails db:migrate
-  - bundle exec rails db:test:prepare
-  - bundle exec rspec $TESTFOLDER
-
+- RAILS_ENV=test bundle exec rails db:migrate
+- bundle exec rails parallel:test:prepare
+- bundle exec rails parallel:spec
 before_script:
-  - RAILS_ENV=test bundle exec rails db:create
-
+- RAILS_ENV=test bundle exec rails parallel:create
 notifications:
   slack:
-    secure: QXgEywvzhYfXTb1BYKwSVW/y3bP+/3Q2/Iz7gsxEjkqA3zjDehMY3ZK7IT1zUpXcHbV1I6zvjZq8bW+Qn2Lyr7jNdM8EuTRTiAebOFA+YzcWC6KvYV8K6hOEWyIDHJ8tITREM50Ox7uYM7WV/BRzYa3a9OcPyM5rK1OC8bGyIat65+iJ9vQE7NqXTjhX+uQXdkvgqlbZAPTaHWduWwdMMW6cFFlWGoTohdlAf5mvb455HKXGzlklZuLBikdfTloVeSRzAZjZGrk8uvYUPIK3XQQpP9tGSx7wgepRam3DwRkkxr35yCHUgLRr0xFkT3j+jOg1xwqYpvEt+L01g5ryKGIDS8PQo4ZPMgSfB+Lmk/ADOFv5u7ubX7ZcDFhn88AgvDd3PuJziExSNWhFmYp9Jz3KAiQXlS6DQUCtZytkeOih4OMHId6Bla9NijeV8m+K0xM5OZaRle15jtTeA7mttsi+kdS7QRCMYN6euYLUdBShOT2tiFaDn5vGH3h1zUiJELsLiJPBW37OLn7NZOvuvxutNRkzfIoa583ekTtJdSTVNRZ5G23fNPdO2nsI+GV938y3YQ7a17OdnX5rJUIpnMoBTdWRoNyQRD4VCSWFhfi5m9znHc0c1tPJ2h7c/kEF45+BOpLViS8lPGmjtugzPjpeu0ETnkNO0xflLJp3h+Y=
+    secure: Zudw4uA4rsKkKoS67I7bYFMcE/X9vgSYa0Syf/gt2vPbfJ5zwp1RSOZHevnaSlyVizrx2Lli66BoT+VfzFK1Xv5lD7iAsYCLCw37gfRI9IrzlAKr2y2CeZ5+Ym/8onyhP1Zn08A2yuGWlMIzUWuGb+QNCsBj78uENnLHchLoSPuMHUJMgqKBYfLmG/jywrWP1gp3ZtfX+qbdhKK2Yz8mGaz8vkOSDtKl2LaaceD4oZDpNmX7aIrxha0NYXUoMoz/8vhe+3mzcKHTwZDsNRUFcHNesTk22NHRTx1lMrvTHDGu0MLgEzggzU2T50pzpgYQQi0lLLG4sFkmfPdlPFs2oMhAsAuOGeeKd3bENlLIClcKLngMNtMJsvXs5Pqdrwt3Uiz+W/KZagPe0oTbl+RCARyYs/KgmffLDcGs5NqRz9vlfRC1iPzH36k9ui4fCZo8vbTIIkDyno6LzbwDlG9m60F13LkQL80KBTdi6g1tQ+v5LIgxLdMzfrJfnnFk+ZYicduGiXslmbsjPRHoHEu2ecIQagUQsUYGKWepGAQuwkE8BEstYtiBDy04Y1ITIwJ4/mwA+MGiRndx8EtEXZGhiZuVHvA/4Wii8QQwSDkV7ng8iRm6yHKD0D1g+KL+kUBXNEGcnsrBXW5EjOIBqzSup006PwPAB1w4dLgjf92I21k=
