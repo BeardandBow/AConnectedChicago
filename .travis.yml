@@ -4,7 +4,8 @@ rvm:
 - 2.2.2
 env:
   - TESTFOLDER=spec/models
-  - TESTFOLDER=spec/features
+  - TESTFOLDER=spec/features/registered_user
+  - TESTFOLDER=spec/features/visitor
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
