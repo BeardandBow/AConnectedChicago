@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <% flash.each do |type, message| %>
+      <div data-alert class="flash_<%= type %>">
+        <%= sanitize(message) %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

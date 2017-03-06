@@ -22,6 +22,7 @@ RSpec.feature "visitor can create account" do
     expect(User.all.count).to eq(1)
     expect(User.first.email).to eq("someguy@gmail.com")
     # test redirection
+    expect(page).to have_content("Account created!")
   end
 
   scenario "visitor enters bad password confirmation" do
@@ -35,6 +36,7 @@ RSpec.feature "visitor can create account" do
 
     expect(User.all.count).to eq(0)
     # test flash message errors
+    expect(page).to have_content("Account was not created")
   end
   scenario "visitor creates valid account with google" do
     # or create an account with google or facebook
