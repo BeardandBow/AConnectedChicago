@@ -1,16 +1,22 @@
 language: ruby
+
 rvm:
-- 2.2.2
+  - 2.2.2
+
 env:
-- DB=postgresql
-- TESTFOLDER=spec/models
-- TESTFOLDER=spec/features
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/features
+
+install: true
+
 script:
-- RAILS_ENV=test bundle exec rails db:migrate
-- bundle exec rails db:test:prepare
-- bundle exec rspec $TESTFOLDER
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - bundle exec rails db:test:prepare
+  - bundle exec rspec $TESTFOLDER
+
 before_script:
-- RAILS_ENV=test bundle exec rails db:create
+  - RAILS_ENV=test bundle exec rails db:create
+
 notifications:
   slack:
     secure: QXgEywvzhYfXTb1BYKwSVW/y3bP+/3Q2/Iz7gsxEjkqA3zjDehMY3ZK7IT1zUpXcHbV1I6zvjZq8bW+Qn2Lyr7jNdM8EuTRTiAebOFA+YzcWC6KvYV8K6hOEWyIDHJ8tITREM50Ox7uYM7WV/BRzYa3a9OcPyM5rK1OC8bGyIat65+iJ9vQE7NqXTjhX+uQXdkvgqlbZAPTaHWduWwdMMW6cFFlWGoTohdlAf5mvb455HKXGzlklZuLBikdfTloVeSRzAZjZGrk8uvYUPIK3XQQpP9tGSx7wgepRam3DwRkkxr35yCHUgLRr0xFkT3j+jOg1xwqYpvEt+L01g5ryKGIDS8PQo4ZPMgSfB+Lmk/ADOFv5u7ubX7ZcDFhn88AgvDd3PuJziExSNWhFmYp9Jz3KAiQXlS6DQUCtZytkeOih4OMHId6Bla9NijeV8m+K0xM5OZaRle15jtTeA7mttsi+kdS7QRCMYN6euYLUdBShOT2tiFaDn5vGH3h1zUiJELsLiJPBW37OLn7NZOvuvxutNRkzfIoa583ekTtJdSTVNRZ5G23fNPdO2nsI+GV938y3YQ7a17OdnX5rJUIpnMoBTdWRoNyQRD4VCSWFhfi5m9znHc0c1tPJ2h7c/kEF45+BOpLViS8lPGmjtugzPjpeu0ETnkNO0xflLJp3h+Y=
