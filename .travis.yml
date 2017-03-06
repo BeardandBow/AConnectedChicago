@@ -2,12 +2,15 @@ language: ruby
 cache: bundler
 rvm:
 - 2.2.2
+env:
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/features
 script:
-- bundle exec rails parallel:spec
+- bundle exec rails rspec $TESTFOLDER
 before_script:
-- RAILS_ENV=test bundle exec rails parallel:create
+- RAILS_ENV=test bundle exec rails db:create
 - RAILS_ENV=test bundle exec rails db:migrate
-- RAILS_ENV=test bundle exec rails parallel:prepare
+- RAILS_ENV=test bundle exec rails db:test:prepare
 notifications:
   email: false
 
