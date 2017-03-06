@@ -6,11 +6,11 @@ env:
   - TESTFOLDER=spec/models
   - TESTFOLDER=spec/features
 script:
-- bundle exec rails rspec $TESTFOLDER
+  - RAILS_ENV=test bundle exec rails db:create
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - bundle exec rails rspec $TESTFOLDER
 before_script:
-- RAILS_ENV=test bundle exec rails db:create
-- RAILS_ENV=test bundle exec rails db:migrate
-- RAILS_ENV=test bundle exec rails db:test:prepare
+  - bundle exec rails db:test:prepare
 notifications:
   email: false
 
