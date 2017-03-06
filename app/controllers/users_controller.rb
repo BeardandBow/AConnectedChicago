@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_path(current_user)
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
+      flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
       render :new
     end
   end
