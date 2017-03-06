@@ -27,7 +27,6 @@ FactoryGirl.define do
   factory :user do
     email "someguy@gmail.com"
     password "opensesame"
-    password_confirmation "opensesame"
   end
 
   factory :neighborhood do

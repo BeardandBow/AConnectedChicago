@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if current_user
       @user = current_user
     else
-      render :file => 'public/403.html', :status => :forbidden, :layout => false 
+      render :file => 'public/403.html', :status => :forbidden, :layout => false
     end
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_path(current_user)
     else
-      flash.now[:error] = "Account was not created"
+      flash.now[:error] = @user.errors.full_messages.to_sentence
       render :new
     end
   end

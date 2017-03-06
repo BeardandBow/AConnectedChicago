@@ -8,11 +8,6 @@ RSpec.feature "visitor can create account" do
     # I should be able to click the sign up link
     expect(page).to have_link("Create Account")
     click_on "Create Account"
-    # and I should see the new account form
-    find_field "Email"
-    find_field "Password"
-    find_field "Password Confirmation"
-    find_button "Create Account"
     # and create an account with credentials
     fill_in "Email", with: "someguy@gmail.com"
     fill_in "Password", with: "opensesame"
