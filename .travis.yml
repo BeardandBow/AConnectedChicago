@@ -8,7 +8,7 @@ env:
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
-  - bundle exec rails rspec $TESTFOLDER
+  - bundle exec rspec $TESTFOLDER
 before_script:
   - bundle exec rails db:test:prepare
 notifications:
