@@ -7,8 +7,6 @@ env:
   - TESTFOLDER=spec/models
   - TESTFOLDER=spec/features
 
-install: true
-
 script:
   - RAILS_ENV=test bundle exec rails db:migrate
   - bundle exec rails db:test:prepare
