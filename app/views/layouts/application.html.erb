@@ -9,6 +9,14 @@
   </head>
 
   <body>
+    <% flash.each do |type, message| %>
+      <div data-alert class="flash_<%= type %>">
+        <%= sanitize(message) %>
+      </div>
+    <% end %>
+    <% if current_user %>
+      <%= link_to "Logout", logout_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
