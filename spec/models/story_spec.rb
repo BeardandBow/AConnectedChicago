@@ -3,46 +3,31 @@ require 'rails_helper'
 RSpec.describe Story, type: :model do
   context "validations" do
     it "is not valid without title" do
-      story = Story.create(author: "some guy",
-                           description: "description",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, title: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without author" do
-      story = Story.create(title: "story",
-                           description: "description",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, author: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without description" do
-      story = Story.create(title: "story",
-                           author: "some guy",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, description: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without body" do
-      story = Story.create(author: "some guy",
-                           title: "story",
-                           description: "description",
-                           address: "my place")
+      story = build(:story, body: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without address" do
-      story = Story.create(author: "some guy",
-                           title: "story",
-                           description: "description",
-                           body: "my story stuff")
+      story = build(:story, address: nil)
 
       expect(story).not_to be_valid
     end
@@ -57,6 +42,22 @@ RSpec.describe Story, type: :model do
       story = create(:story)
 
       expect(story.status).to eq('pending')
+    end
+
+    it "belongs to a user" do
+      user = create(:user, :with_story)
+
+      expect(user.stories.count).to eq(1)
+      expect(Story.all.count).to eq(1)
+      expect(Story.first.user_id).to eq(user.id)
+    end
+
+    it "belongs to a neighborhood" do
+      neighborhood = create(:neighborhood, :with_story)
+
+      expect(neighborhood.stories.count).to eq(1)
+      expect(Story.all.count).to eq(1)
+      expect(Story.first.neighborhood_id).to eq(neighborhood.id)
     end
   end
 end
