@@ -45,5 +45,9 @@ RSpec.describe Artwork, type: :model do
 
       expect(artwork.status).to eq('pending')
     end
+
+    it "belongs to a user" do
+      
+    end
   end
 end

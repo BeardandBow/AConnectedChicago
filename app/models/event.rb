@@ -7,4 +7,7 @@ class Event < ApplicationRecord
   validates :time, presence: true
   validates :address, presence: true
   enum status: %w(pending approved rejected)
+
+  belongs_to :user
+  belongs_to :neighborhood
 end
