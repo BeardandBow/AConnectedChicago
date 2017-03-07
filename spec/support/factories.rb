@@ -36,12 +36,17 @@ FactoryGirl.define do
     trait :with_story do
       after(:create) do |user|
         create(:story, user: user)
+      end
+    end
     trait :with_event do
       after(:create) do |user|
         create(:event, user: user)
+      end
+    end
     trait :with_artwork do
       after(:create) do |user|
         create(:artwork, user: user)
+      end
     end
   end
 
@@ -50,12 +55,17 @@ FactoryGirl.define do
     trait :with_story do
       after(:create) do |neighborhood|
         create(:story, neighborhood: neighborhood)
+      end
+    end
     trait :with_event do
       after(:create) do |neighborhood|
         create(:event, neighborhood: neighborhood)
+      end
+    end
     trait :with_artwork do
       after(:create) do |neighborhood|
         create(:artwork, neighborhood: neighborhood)
+      end
     end
   end
 end
