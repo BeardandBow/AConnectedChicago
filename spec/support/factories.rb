@@ -36,10 +36,24 @@ FactoryGirl.define do
   end
 
   factory :neighborhood do
-    name "Hyde Park"
+    sequence(:name) {|n| "Hyde Park #{n}"}
     trait :with_user do
       after(:create) do |neighborhood|
         create(:user, neighborhood: neighborhood)
+      end
+    end
+    trait :with_organizations do
+      after(:create) do |hood|
+        create_list(:organization, 2, neighborhoods: [hood])
+      end
+    end
+  end
+
+  factory :organization do
+    sequence(:name) {|n| "Organization #{n}"}
+    trait :with_neighborhoods do
+      after(:create) do |org|
+        create_list(:neighborhood, 2, organizations: [org])
       end
     end
   end
