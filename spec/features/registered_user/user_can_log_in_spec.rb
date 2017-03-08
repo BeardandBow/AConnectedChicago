@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.feature "user can log in" do
   scenario "user logs into their account" do
     #  As a user
-    user = create(:user)
+    neighborhood = create(:neighborhood, :with_user)
+    user = neighborhood.users.first
     #  When I visit the home page
     visit root_path
     #  and click the login link
@@ -30,7 +31,7 @@ RSpec.feature "user can log in" do
   end
 
   scenario "user enters wrong password" do
-    create(:user)
+    neighborhood = create(:neighborhood, :with_user)
     visit root_path
     click_on "Login"
 

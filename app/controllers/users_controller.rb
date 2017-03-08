@@ -13,7 +13,13 @@ class UsersController < ApplicationController
   end
 
   def create
+<<<<<<< HEAD
     @user = User.create(user_params)
+=======
+    # require "pry"; binding.pry
+    neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
+    @user = neighborhood.users.create(user_params)
+>>>>>>> regular_user_testing
     if @user.save
       flash[:success] = "Account created!"
       session[:user_id] = @user.id

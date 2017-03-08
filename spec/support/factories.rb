@@ -6,6 +6,8 @@ FactoryGirl.define do
     description "description"
     body "blah blah blah"
     address "this one place"
+    user
+    neighborhood
   end
 
   factory :artwork do
@@ -13,6 +15,8 @@ FactoryGirl.define do
     artist "some guy"
     description "description"
     address "this one place"
+    user
+    neighborhood
   end
 
   factory :event do
@@ -22,6 +26,8 @@ FactoryGirl.define do
     address "this one place"
     date Date.tomorrow
     time Time.now
+    user
+    neighborhood
   end
 
   factory :user do
@@ -31,5 +37,10 @@ FactoryGirl.define do
 
   factory :neighborhood do
     name "Hyde Park"
+    trait :with_user do
+      after(:create) do |neighborhood|
+        create(:user, neighborhood: neighborhood)
+      end
+    end
   end
 end

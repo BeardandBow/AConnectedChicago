@@ -2,61 +2,81 @@ require 'rails_helper'
 
 RSpec.describe Story, type: :model do
   context "validations" do
+    before :each do
+      @neighborhood = create(:neighborhood, :with_user)
+      @user = @neighborhood.users.first
+    end
+
     it "is not valid without title" do
-      story = Story.create(author: "some guy",
-                           description: "description",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, title: nil,
+                            neighborhood_id: @neighborhood.id,
+                            user_id: @user.id)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without author" do
-      story = Story.create(title: "story",
-                           description: "description",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, author: nil,
+                            neighborhood_id: @neighborhood.id,
+                            user_id: @user.id)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without description" do
-      story = Story.create(title: "story",
-                           author: "some guy",
-                           body: "my story stuff",
-                           address: "my place")
+      story = build(:story, description: nil,
+                            neighborhood_id: @neighborhood.id,
+                            user_id: @user.id)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without body" do
-      story = Story.create(author: "some guy",
-                           title: "story",
-                           description: "description",
-                           address: "my place")
+      story = build(:story, body: nil,
+                            neighborhood_id: @neighborhood.id,
+                            user_id: @user.id)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without address" do
-      story = Story.create(author: "some guy",
-                           title: "story",
-                           description: "description",
-                           body: "my story stuff")
+      story = build(:story, address: nil,
+                            neighborhood_id: @neighborhood.id,
+                            user_id: @user.id)
 
       expect(story).not_to be_valid
     end
 
     it "is valid with correct attributes" do
-      story = create(:story)
+      story = create(:story, neighborhood_id: @neighborhood.id,
+                             user_id: @user.id)
 
       expect(story).to be_valid
     end
 
     it "should have default status of 'pending'" do
-      story = create(:story)
+      story = create(:story, neighborhood_id: @neighborhood.id,
+                             user_id: @user.id)
 
       expect(story.status).to eq('pending')
+    end
+
+    it "belongs to a user" do
+      story = create(:story, neighborhood_id: @neighborhood.id,
+                             user_id: @user.id)
+
+      expect(@user.stories.count).to eq(1)
+      expect(Story.all.count).to eq(1)
+      expect(story.user_id).to eq(@user.id)
+    end
+
+    it "belongs to a neighborhood" do
+      story = create(:story, neighborhood_id: @neighborhood.id,
+                             user_id: @user.id)
+
+      expect(@neighborhood.stories.count).to eq(1)
+      expect(Story.all.count).to eq(1)
+      expect(story.neighborhood_id).to eq(@neighborhood.id)
     end
   end
 end
