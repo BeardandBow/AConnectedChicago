@@ -78,4 +78,37 @@ RSpec.feature "user sees dashboard" do
       expect(page).to have_content("Your Artwork has been sent to a Community Leader for approval.")
     end
   end
+
+  context "user submits incomplete content" do
+
+    scenario "user submits event" do
+      visit user_path(@user)
+
+      click_on "Submit Event"
+      click_on "Submit Event for Approval"
+
+      expect(current_path).to eq(events_path)
+      expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
+    end
+
+    scenario "user submits story" do
+      visit user_path(@user)
+
+      click_on "Submit Story"
+      click_on "Submit Story for Approval"
+
+      expect(current_path).to eq(stories_path)
+      expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
+    end
+
+    scenario "user submits artwork" do
+      visit user_path(@user)
+
+      click_on "Submit Artwork"
+      click_on "Submit Artwork for Approval"
+
+      expect(current_path).to eq(artworks_path)
+      expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
+    end
+  end
 end
