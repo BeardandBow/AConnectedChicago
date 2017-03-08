@@ -11,5 +11,6 @@ class Event < ApplicationRecord
   after_validation :geocode
 
   belongs_to :user
+  belongs_to :organization
   belongs_to :neighborhood
 end

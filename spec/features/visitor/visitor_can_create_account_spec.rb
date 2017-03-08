@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "visitor can create account" do
   before :each do
-    create(:neighborhood)
+    @neighborhood = create(:neighborhood)
   end
   scenario "visitor creates valid account manually" do
     # As a visitor
@@ -15,7 +15,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Email", with: "someguy@gmail.com"
     fill_in "Password", with: "opensesame"
     fill_in "Password Confirmation", with: "opensesame"
-    fill_in "Your Neighborhood", with: "Hyde Park"
+    fill_in "Your Neighborhood", with: @neighborhood.name
     click_on "Create Account"
 
     user = User.first
@@ -33,7 +33,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Email", with: "someguy@gmail.com"
     fill_in "Password", with: "opensesame"
     fill_in "Password Confirmation", with: "closesesame"
-    fill_in "Your Neighborhood", with: "Hyde Park"
+    fill_in "Your Neighborhood", with: @neighborhood.name
     click_on "Create Account"
 
     expect(User.all.count).to eq(0)
@@ -47,7 +47,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Email", with: "someguy@gmail.com"
     fill_in "Password", with: ""
     fill_in "Password Confirmation", with: "closesesame"
-    fill_in "Your Neighborhood", with: "Hyde Park"
+    fill_in "Your Neighborhood", with: @neighborhood.name
     click_on "Create Account"
 
     expect(User.all.count).to eq(0)

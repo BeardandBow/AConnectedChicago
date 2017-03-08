@@ -9,8 +9,8 @@ RSpec.describe Neighborhood, type: :model do
     end
 
     it "should have unique name" do
-      create(:neighborhood)
-      neighborhood = build(:neighborhood)
+      create(:neighborhood, name: "Hyde Park")
+      neighborhood = build(:neighborhood, name: "Hyde Park")
 
       expect(neighborhood).not_to be_valid
       expect(neighborhood.errors[:name]).to include("has already been taken")
@@ -20,6 +20,12 @@ RSpec.describe Neighborhood, type: :model do
       neighborhood = create(:neighborhood)
 
       expect(neighborhood).to be_valid
+    end
+
+    it "has many neighborhoods" do
+      neighborhood = create(:neighborhood, :with_organizations)
+
+      expect(neighborhood.organizations.count).to eq 2
     end
   end
 end
