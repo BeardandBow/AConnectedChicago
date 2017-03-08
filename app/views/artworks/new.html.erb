@@ -1,0 +1,7 @@
+<%= form_for @artwork do |f| %>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= f.text_field :artist, placeholder: "Artist" %>
+  <%= f.text_field :description, placeholder: "Description" %>
+  <%= f.text_field :address, placeholder: "Location" %>
+  <%= f.submit "Submit Artwork for Approval" %>
+<% end %>

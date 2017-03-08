@@ -6,8 +6,8 @@ FactoryGirl.define do
     description "description"
     body "blah blah blah"
     address "this one place"
-    association :user, factory: :user
-    association :neighborhood, factory: :neighborhood
+    user
+    neighborhood
   end
 
   factory :artwork do
@@ -15,8 +15,8 @@ FactoryGirl.define do
     artist "some guy"
     description "description"
     address "this one place"
-    association :user, factory: :user
-    association :neighborhood, factory: :neighborhood
+    user
+    neighborhood
   end
 
   factory :event do
@@ -26,45 +26,20 @@ FactoryGirl.define do
     address "this one place"
     date Date.tomorrow
     time Time.now
-    association :user, factory: :user
-    association :neighborhood, factory: :neighborhood
+    user
+    neighborhood
   end
 
   factory :user do
     email "someguy@gmail.com"
     password "opensesame"
-    trait :with_story do
-      after(:create) do |user|
-        create(:story, user: user)
-      end
-    end
-    trait :with_event do
-      after(:create) do |user|
-        create(:event, user: user)
-      end
-    end
-    trait :with_artwork do
-      after(:create) do |user|
-        create(:artwork, user: user)
-      end
-    end
   end
 
   factory :neighborhood do
     name "Hyde Park"
-    trait :with_story do
+    trait :with_user do
       after(:create) do |neighborhood|
-        create(:story, neighborhood: neighborhood)
-      end
-    end
-    trait :with_event do
-      after(:create) do |neighborhood|
-        create(:event, neighborhood: neighborhood)
-      end
-    end
-    trait :with_artwork do
-      after(:create) do |neighborhood|
-        create(:artwork, neighborhood: neighborhood)
+        create(:user, neighborhood: neighborhood)
       end
     end
   end

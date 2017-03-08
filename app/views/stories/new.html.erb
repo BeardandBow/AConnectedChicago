@@ -1,0 +1,8 @@
+<%= form_for @story do |f| %>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= f.text_field :author, placeholder: "Author" %>
+  <%= f.text_field :description, placeholder: "Description" %>
+  <%= f.text_field :address, placeholder: "Location" %>
+  <%= f.text_area :body, placeholder: "Story" %>
+  <%= f.submit "Submit Story for Approval" %>
+<% end %>

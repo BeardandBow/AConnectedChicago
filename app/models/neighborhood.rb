@@ -4,4 +4,5 @@ class Neighborhood < ApplicationRecord
   has_many :artworks
   has_many :events
   has_many :stories
+  has_many :users
 end

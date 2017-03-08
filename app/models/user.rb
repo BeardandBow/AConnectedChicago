@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :artworks
   has_many :events
   has_many :stories
+  belongs_to :neighborhood
 end
