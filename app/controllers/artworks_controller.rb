@@ -11,7 +11,7 @@ class ArtworksController < ApplicationController
       flash[:success] = "Your Artwork has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)
     else
-      flash[:error] = "Invalid info"
+      flash[:error] = "There is a problem with your submission. Please correct and resubmit."
       render :new
     end
   end

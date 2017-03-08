@@ -7,13 +7,16 @@ class EventsController < ApplicationController
   def create
     organization = Organization.find_by(name: params[:event][:organization])
     @event = current_user.events.create(event_params)
-    current_user.neighborhood.events << @event
-    organization.events << @event
+    if organization
+      current_user.neighborhood.events << @event
+      organization.events << @event
+    end
+
     if @event.save
       flash[:success] = "Your Event has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)
     else
-      flash[:error] = "Invalid info"
+      flash[:error] = "There is a problem with your submission. Please correct and resubmit."
       render :new
     end
   end
