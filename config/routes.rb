@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :events, only: [:new, :create]
   resources :stories, only: [:new, :create]
   resources :artworks, only: [:new, :create]
+  resources :submissions, only: [:index]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

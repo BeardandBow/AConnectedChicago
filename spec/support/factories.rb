@@ -28,6 +28,7 @@ FactoryGirl.define do
     time Time.now
     user
     neighborhood
+    organization
   end
 
   factory :user do
