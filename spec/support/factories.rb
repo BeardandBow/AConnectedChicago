@@ -37,6 +37,11 @@ FactoryGirl.define do
     trait :community_leader do
       role 1
     end
+    trait :with_organizations do
+      after(:create) do |user|
+        create_list(:organization, 2, users: [user])
+      end
+    end
   end
 
   factory :neighborhood do
