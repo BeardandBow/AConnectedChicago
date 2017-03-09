@@ -33,6 +33,9 @@ FactoryGirl.define do
   factory :user do
     email "someguy@gmail.com"
     password "opensesame"
+    trait :community_leader do
+      role: 1
+    end
   end
 
   factory :neighborhood do
@@ -46,6 +49,10 @@ FactoryGirl.define do
       after(:create) do |hood|
         create_list(:organization, 2, neighborhoods: [hood])
       end
+    end
+    trait :with_community_leader do
+      after(:create) do |hood|
+        create(:user, :community_leader, neighborhoods: [hood])
     end
   end
 
