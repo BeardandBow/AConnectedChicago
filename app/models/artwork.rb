@@ -9,4 +9,8 @@ class Artwork < ApplicationRecord
 
   belongs_to :user
   belongs_to :neighborhood
+
+  def path
+    "/artworks/#{self.id}"
+  end
 end

@@ -10,4 +10,8 @@ class Story < ApplicationRecord
 
   belongs_to :user
   belongs_to :neighborhood
+
+  def path
+    "/stories/#{self.id}"
+  end
 end

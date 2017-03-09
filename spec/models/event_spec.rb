@@ -56,23 +56,34 @@ RSpec.describe Event, type: :model do
 
       expect(event.status).to eq('pending')
     end
+  end
+
+  context "associations" do
+
+    before :each do
+      @event = create(:event)
+    end
 
     it "belongs to a user" do
-      event = create(:event)
-
-      expect(event).to respond_to(:user)
+      expect(@event).to respond_to(:user)
     end
 
     it "belongs to a neighborhood" do
-      event = create(:event)
-
-      expect(event).to respond_to(:neighborhood)
+      expect(@event).to respond_to(:neighborhood)
     end
 
     it "belongs to an organization" do
-      event = create(:event)
+      expect(@event).to respond_to(:organization)
+    end
+  end
 
-      expect(event).to respond_to(:organization)
+  context "custom methods" do
+    before :each do
+      @event = create(:event)
+    end
+
+    it "returns a path with .path" do
+      expect(@event.path).to eq("/events/#{@event.id}")
     end
   end
 end

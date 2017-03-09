@@ -37,17 +37,30 @@ RSpec.describe Artwork, type: :model do
 
       expect(artwork.status).to eq('pending')
     end
+  end
+
+  context "associations" do
+
+    before :each do
+      @artwork = create(:artwork)
+    end
 
     it "belongs to a user" do
-      artwork = create(:artwork)
-
-      expect(artwork).to respond_to(:user)
+      expect(@artwork).to respond_to(:user)
     end
 
     it "belongs to a neighborhood" do
-      artwork = create(:artwork)
+      expect(@artwork).to respond_to(:neighborhood)
+    end
+  end
 
-      expect(artwork).to respond_to(:neighborhood)
+  context "custom methods" do
+    before :each do
+      @artwork = create(:artwork)
+    end
+
+    it "returns a path with .path" do
+      expect(@artwork.path).to eq("/artworks/#{@artwork.id}")
     end
   end
 end

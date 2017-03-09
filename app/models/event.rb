@@ -13,4 +13,8 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :organization
   belongs_to :neighborhood
+
+  def path
+    "/events/#{self.id}"
+  end
 end

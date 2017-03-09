@@ -19,10 +19,46 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_link("Approve or Deny Submissions")
       # and when I click on the link
       click_on("Approve or Deny Submissions")
-      # I should see a list of pending submissions
-      expect(page).to have_content(@story.title)
-      expect(page).to have_content(@artwork.title)
+      # I should see a list of pending submissions with links to each
+      expect(page).to have_link(@story.title)
+      expect(page).to have_link(@artwork.title)
+      expect(page).to have_link(@event.title)
+    end
+  end
+
+  context "community leader sees submission details" do
+    scenario "community leader sees event details" do
+      visit user_path(@user)
+      click_on("Approve or Deny Submissions")
+      click_on(@event.title)
       expect(page).to have_content(@event.title)
+      expect(page).to have_content(@event.host_contact)
+      expect(page).to have_content(@event.description)
+      expect(page).to have_content(@event.address)
+      expect(page).to have_content(@event.date)
+      expect(page).to have_content(@event.time)
+      expect(page).to have_content(@event.organization.name)
+    end
+
+    scenario "community leader sees artwork details" do
+      visit user_path(@user)
+      click_on("Approve or Deny Submissions")
+      click_on(@artwork.title)
+      expect(page).to have_content(@artwork.title)
+      expect(page).to have_content(@artwork.artist)
+      expect(page).to have_content(@artwork.description)
+      expect(page).to have_content(@artwork.address)
+    end
+
+    scenario "community leader sees story details" do
+      visit user_path(@user)
+      click_on("Approve or Deny Submissions")
+      click_on(@story.title)
+      expect(page).to have_content(@story.title)
+      expect(page).to have_content(@story.author)
+      expect(page).to have_content(@story.description)
+      expect(page).to have_content(@story.address)
+      expect(page).to have_content(@story.body)
     end
   end
 end

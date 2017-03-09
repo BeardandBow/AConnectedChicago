@@ -44,17 +44,30 @@ RSpec.describe Story, type: :model do
 
       expect(story.status).to eq('pending')
     end
+  end
+
+  context "associations" do
+
+    before :each do
+      @story = create(:story)
+    end
 
     it "belongs to a user" do
-      story = create(:story)
-
-      expect(story).to respond_to(:user)
+      expect(@story).to respond_to(:user)
     end
 
     it "belongs to a neighborhood" do
-      story = create(:story)
+      expect(@story).to respond_to(:neighborhood)
+    end
+  end
 
-      expect(story).to respond_to(:neighborhood)
+  context "custom methods" do
+    before :each do
+      @story = create(:story)
+    end
+
+    it "returns a path with .path" do
+      expect(@story.path).to eq("/stories/#{@story.id}")
     end
   end
 end
