@@ -35,8 +35,8 @@ RSpec.describe User, type: :model do
     end
 
     it "should have unique email" do
-      create(:user, neighborhood_id: @neighborhood.id)
-      user = build(:user, neighborhood_id: @neighborhood.id)
+      create(:user, email: "someguy@gmail.com", neighborhood_id: @neighborhood.id)
+      user = build(:user, email: "someguy@gmail.com", neighborhood_id: @neighborhood.id)
 
       expect(user).not_to be_valid
       expect(user.errors[:email]).to include("has already been taken")

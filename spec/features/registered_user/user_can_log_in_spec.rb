@@ -10,7 +10,7 @@ RSpec.feature "user can log in" do
     #  and click the login link
     click_on "Login"
     #  I should be able to enter my credentials and login
-    fill_in "Email", with: "someguy@gmail.com"
+    fill_in "Email", with: user.email
     fill_in "Password", with: "opensesame"
     click_on "Login"
 
@@ -32,10 +32,11 @@ RSpec.feature "user can log in" do
 
   scenario "user enters wrong password" do
     neighborhood = create(:neighborhood, :with_user)
+    user = neighborhood.users.first
     visit root_path
     click_on "Login"
 
-    fill_in "Email", with: "someguy@gmail.com"
+    fill_in "Email", with: user.email
     fill_in "Password", with: "closesesame"
     click_on "Login"
 
