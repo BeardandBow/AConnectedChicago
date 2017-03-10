@@ -3,3 +3,7 @@
   <%= link_to "Submit Story", new_story_path %>
   <%= link_to "Submit Artwork", new_artwork_path %>
 </div>
+
+<% if community_leader? %>
+  <%= link_to "Pending Submissions", submissions_path %>
+<% end %>

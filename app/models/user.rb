@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_many :events
   has_many :stories
   belongs_to :neighborhood
-  belongs_to :organization, optional: true
+  has_many :organization_users
+  has_many :organizations, through: :organization_users
 end

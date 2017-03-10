@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.string :address
       t.date :date
       t.time :time
+      t.string :pkey
       t.references :user, foreign_key: true
       t.references :neighborhood, foreign_key: true
       t.timestamps

@@ -22,7 +22,7 @@ RSpec.describe Neighborhood, type: :model do
       expect(neighborhood).to be_valid
     end
 
-    it "has many neighborhoods" do
+    it "has many organizations" do
       neighborhood = create(:neighborhood, :with_organizations)
 
       expect(neighborhood.organizations.count).to eq 2

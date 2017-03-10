@@ -2,119 +2,110 @@ require 'rails_helper'
 
 RSpec.describe Event, type: :model do
   context "validations" do
-    before :each do
-      @neighborhood = create(:neighborhood, :with_user, :with_organizations)
-      @organization = @neighborhood.organizations.first
-      @user = @neighborhood.users.first
-    end
 
     it "is not valid without title" do
-      event = build(:event, title: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, title: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without host_contact" do
-      event = build(:event, host_contact: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, host_contact: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without description" do
-      event = build(:event, description: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, description: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without address" do
-      event = build(:event, address: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, address: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without date" do
-      event = build(:event, date: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, date: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without time" do
-      event = build(:event, time: nil,
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, time: nil)
 
       expect(event).not_to be_valid
     end
 
     it "should validate format of host_contact email" do
-      event = build(:event, host_contact: "someguygmailcom",
-                            neighborhood_id: @neighborhood.id,
-                            organization_id: @organization.id,
-                            user_id: @user.id)
+      event = build(:event, host_contact: "someguygmailcom")
 
       expect(event).not_to be_valid
     end
 
     it "is valid with correct attributes" do
-      event = create(:event, neighborhood_id: @neighborhood.id,
-                             organization_id: @organization.id,
-                             user_id: @user.id)
+      event = create(:event)
 
       expect(event).to be_valid
     end
 
     it "should have default status of 'pending'" do
-      event = create(:event, neighborhood_id: @neighborhood.id,
-                             organization_id: @organization.id,
-                             user_id: @user.id)
+      event = create(:event)
 
       expect(event.status).to eq('pending')
     end
+  end
+
+  context "associations" do
+
+    before :each do
+      @event = create(:event)
+    end
 
     it "belongs to a user" do
-      event = create(:event, neighborhood_id: @neighborhood.id,
-                             organization_id: @organization.id,
-                             user_id: @user.id)
-
-      expect(@user.events.count).to eq(1)
-      expect(Event.all.count).to eq(1)
-      expect(event.user_id).to eq(@user.id)
+      expect(@event).to respond_to(:user)
     end
 
     it "belongs to a neighborhood" do
-      event = create(:event, neighborhood_id: @neighborhood.id,
-                             organization_id: @organization.id,
-                             user_id: @user.id)
-
-      expect(@neighborhood.events.count).to eq(1)
-      expect(Event.all.count).to eq(1)
-      expect(event.neighborhood_id).to eq(@neighborhood.id)
+      expect(@event).to respond_to(:neighborhood)
     end
 
     it "belongs to an organization" do
-      event = create(:event, neighborhood_id: @neighborhood.id,
-                             organization_id: @organization.id,
-                             user_id: @user.id)
+      expect(@event).to respond_to(:organization)
+    end
+  end
 
-      expect(@organization.events.count).to eq(1)
-      expect(Event.all.count).to eq(1)
-      expect(event.organization_id).to eq(@organization.id)
+  context "custom methods" do
+    before :each do
+      @event = create(:event)
+    end
+
+    it "returns a path with .path" do
+      expect(@event.path).to eq("/events/#{@event.id}")
+    end
+
+    it "returns a type with .type" do
+      expect(@event.type).to eq("event")
+    end
+
+    it ".set_pkey sets a 'primary key' based on table and id" do
+      event = build(:event)
+      event.set_pkey
+      expect(event.pkey).to eq("EV-#{event.id}")
+    end
+
+    it ".approve sets event status to approved" do
+      expect(@event.status).to eq("pending")
+      @event.approve
+      expect(@event.status).to eq("approved")
+    end
+
+    it ".reject sets event status to rejected" do
+      expect(@event.status).to eq("pending")
+      @event.reject
+      expect(@event.status).to eq("rejected")
     end
   end
 end

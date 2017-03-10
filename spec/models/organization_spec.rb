@@ -15,11 +15,19 @@ RSpec.describe Organization, type: :model do
       expect(org).not_to be_valid
       expect(org.errors[:name]).to include("has already been taken")
     end
+  end
 
+  context "associations" do
     it "has many neighborhoods" do
       org = create(:organization, :with_neighborhoods)
 
       expect(org.neighborhoods.count).to eq 2
+    end
+
+    it "has many users" do
+      org = create(:organization, :with_users)
+
+      expect(org.users.count).to eq 2
     end
   end
 end

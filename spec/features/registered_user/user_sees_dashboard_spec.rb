@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "user sees dashboard" do
   before :each do
-    neighborhood = create(:neighborhood, :with_user)
-    @organization = create(:organization)
-    @organization.neighborhoods << neighborhood
-    @user = neighborhood.users.first
+    @user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
@@ -22,6 +19,7 @@ RSpec.feature "user sees dashboard" do
   context "user submits content to a community leader" do
 
     scenario "user submits event" do
+      organization = create(:organization)
       # As a logged-in user
       # when I visit my dashboard
       visit user_path(@user)
@@ -30,7 +28,7 @@ RSpec.feature "user sees dashboard" do
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
-      fill_in "Host Organization", with: @organization.name
+      fill_in "Host Organization", with: organization.name
       fill_in "Description", with: "description"
       fill_in "Location", with: "619 Logan St., Denver, CO 80203"
       fill_in "Date", with: Date.tomorrow

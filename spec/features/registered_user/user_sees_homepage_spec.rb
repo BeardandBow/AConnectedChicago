@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "user sees homepage" do
   scenario "visitor sees links to view content, logout, and view dashboard" do
-    neighborhood = create(:neighborhood, :with_user)
-    user = neighborhood.users.first
+    user = create(:user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
