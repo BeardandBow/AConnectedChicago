@@ -31,7 +31,7 @@ class Event < ApplicationRecord
     self.update_attributes(status: "approved")
   end
 
-  def deny
+  def reject
     self.update_attributes(status: "rejected")
   end
 end

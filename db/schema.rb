@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309171657) do
+ActiveRecord::Schema.define(version: 20170310195456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,9 @@ ActiveRecord::Schema.define(version: 20170309171657) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "status",          default: 0
+    t.integer  "organization_id"
     t.index ["neighborhood_id"], name: "index_artworks_on_neighborhood_id", using: :btree
+    t.index ["organization_id"], name: "index_artworks_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_artworks_on_user_id", using: :btree
   end
 
@@ -95,7 +97,9 @@ ActiveRecord::Schema.define(version: 20170309171657) do
     t.datetime "updated_at",                  null: false
     t.integer  "status",          default: 0
     t.text     "body"
+    t.integer  "organization_id"
     t.index ["neighborhood_id"], name: "index_stories_on_neighborhood_id", using: :btree
+    t.index ["organization_id"], name: "index_stories_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree
   end
 
@@ -110,6 +114,7 @@ ActiveRecord::Schema.define(version: 20170309171657) do
   end
 
   add_foreign_key "artworks", "neighborhoods"
+  add_foreign_key "artworks", "organizations"
   add_foreign_key "artworks", "users"
   add_foreign_key "events", "neighborhoods"
   add_foreign_key "events", "organizations"
@@ -119,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170309171657) do
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
   add_foreign_key "stories", "neighborhoods"
+  add_foreign_key "stories", "organizations"
   add_foreign_key "stories", "users"
   add_foreign_key "users", "neighborhoods"
 end

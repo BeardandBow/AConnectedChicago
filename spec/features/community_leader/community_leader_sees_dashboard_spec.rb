@@ -5,9 +5,9 @@ RSpec.feature "community leader sees dashboard" do
   before :each do
     # As a community leader
     @user = create(:user, :community_leader)
-    @artwork = create(:artwork)
-    @event = create(:event)
-    @story = create(:story)
+    @artwork = create(:artwork, neighborhood_id: @user.neighborhood.id)
+    @event = create(:event, organization_id: @user.organizations.first.id)
+    @story = create(:story, neighborhood_id: @user.neighborhood.id)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
@@ -23,6 +23,19 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_link(@story.title)
       expect(page).to have_link(@artwork.title)
       expect(page).to have_link(@event.title)
+    end
+
+    scenario "community leader only sees submissions for their organization or neighborhood" do
+      different_user = create(:user, :community_leader)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(different_user)
+      visit user_path(different_user)
+
+      click_on "Pending Submissions"
+
+      expect(page).to have_content("You have no pending submissions")
+      expect(page).not_to have_content(@artwork.title)
+      expect(page).not_to have_content(@story.title)
+      expect(page).not_to have_content(@event.title)
     end
   end
 
@@ -67,10 +80,12 @@ RSpec.feature "community leader sees dashboard" do
       visit user_path(@user)
       click_on "Pending Submissions"
       within ("#event-#{@event.id}") do
-        choose("Agac "pprove")
+        choose("Approve")
       end
-      click_on "Approve/Deny Submissions"
+      click_on "Approve/Reject Submissions"
       expect(page).not_to have_content(@event.title)
+      expect(page).to have_content(@artwork.title)
+      expect(page).to have_content(@story.title)
     end
 
     scenario "community leader approves artwork" do
@@ -79,8 +94,10 @@ RSpec.feature "community leader sees dashboard" do
       within ("#artwork-#{@artwork.id}") do
         choose("Approve")
       end
-      click_on "Approve/Deny Submissions"
+      click_on "Approve/Reject Submissions"
       expect(page).not_to have_content(@artwork.title)
+      expect(page).to have_content(@event.title)
+      expect(page).to have_content(@story.title)
     end
 
     scenario "community leader approves story" do
@@ -89,8 +106,48 @@ RSpec.feature "community leader sees dashboard" do
       within ("#story-#{@story.id}") do
         choose("Approve")
       end
-      click_on "Approve/Deny Submissions"
+      click_on "Approve/Reject Submissions"
       expect(page).not_to have_content(@story.title)
+      expect(page).to have_content(@artwork.title)
+      expect(page).to have_content(@event.title)
+    end
+  end
+
+  context "community leader denies submissions" do
+    scenario "community leader denies event" do
+      visit user_path(@user)
+      click_on "Pending Submissions"
+      within ("#event-#{@event.id}") do
+        choose("Reject")
+      end
+      click_on "Approve/Reject Submissions"
+      expect(page).not_to have_content(@event.title)
+      expect(page).to have_content(@artwork.title)
+      expect(page).to have_content(@story.title)
+    end
+
+    scenario "community leader denies artwork" do
+      visit user_path(@user)
+      click_on "Pending Submissions"
+      within ("#artwork-#{@artwork.id}") do
+        choose("Reject")
+      end
+      click_on "Approve/Reject Submissions"
+      expect(page).not_to have_content(@artwork.title)
+      expect(page).to have_content(@story.title)
+      expect(page).to have_content(@event.title)
+    end
+
+    scenario "community leader denies story" do
+      visit user_path(@user)
+      click_on "Pending Submissions"
+      within ("#story-#{@story.id}") do
+        choose("Reject")
+      end
+      click_on "Approve/Reject Submissions"
+      expect(page).not_to have_content(@story.title)
+      expect(page).to have_content(@artwork.title)
+      expect(page).to have_content(@event.title)
     end
   end
 end

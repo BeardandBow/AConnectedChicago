@@ -62,5 +62,27 @@ RSpec.describe Artwork, type: :model do
     it "returns a path with .path" do
       expect(@artwork.path).to eq("/artworks/#{@artwork.id}")
     end
+
+    it "returns a type with .type" do
+      expect(@artwork.type).to eq("artwork")
+    end
+
+    it ".set_pkey sets a 'primary key' based on table and id" do
+      artwork = build(:artwork)
+      artwork.set_pkey
+      expect(artwork.pkey).to eq("AR-#{artwork.id}")
+    end
+
+    it ".approve sets artwork status to approved" do
+      expect(@artwork.status).to eq("pending")
+      @artwork.approve
+      expect(@artwork.status).to eq("approved")
+    end
+
+    it ".reject sets artwork status to rejected" do
+      expect(@artwork.status).to eq("pending")
+      @artwork.reject
+      expect(@artwork.status).to eq("rejected")
+    end
   end
 end

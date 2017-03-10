@@ -10,6 +10,7 @@ class Artwork < ApplicationRecord
 
   belongs_to :user
   belongs_to :neighborhood
+  belongs_to :organization, optional: true
 
   def path
     "/artworks/#{self.id}"
@@ -27,7 +28,7 @@ class Artwork < ApplicationRecord
     self.update_attributes(status: "approved")
   end
 
-  def deny
+  def reject
     self.update_attributes(status: "rejected")
   end
 end

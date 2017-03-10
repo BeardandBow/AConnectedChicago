@@ -85,5 +85,27 @@ RSpec.describe Event, type: :model do
     it "returns a path with .path" do
       expect(@event.path).to eq("/events/#{@event.id}")
     end
+
+    it "returns a type with .type" do
+      expect(@event.type).to eq("event")
+    end
+
+    it ".set_pkey sets a 'primary key' based on table and id" do
+      event = build(:event)
+      event.set_pkey
+      expect(event.pkey).to eq("EV-#{event.id}")
+    end
+
+    it ".approve sets event status to approved" do
+      expect(@event.status).to eq("pending")
+      @event.approve
+      expect(@event.status).to eq("approved")
+    end
+
+    it ".reject sets event status to rejected" do
+      expect(@event.status).to eq("pending")
+      @event.reject
+      expect(@event.status).to eq("rejected")
+    end
   end
 end

@@ -69,5 +69,27 @@ RSpec.describe Story, type: :model do
     it "returns a path with .path" do
       expect(@story.path).to eq("/stories/#{@story.id}")
     end
+
+    it "returns a type with .type" do
+      expect(@story.type).to eq("story")
+    end
+
+    it ".set_pkey sets a 'primary key' based on table and id" do
+      story = build(:story)
+      story.set_pkey
+      expect(story.pkey).to eq("ST-#{story.id}")
+    end
+
+    it ".approve sets story status to approved" do
+      expect(@story.status).to eq("pending")
+      @story.approve
+      expect(@story.status).to eq("approved")
+    end
+
+    it ".reject sets story status to rejected" do
+      expect(@story.status).to eq("pending")
+      @story.reject
+      expect(@story.status).to eq("rejected")
+    end
   end
 end

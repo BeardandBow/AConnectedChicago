@@ -8,11 +8,11 @@ class SubmissionsController < ApplicationController
     submissions = get_submissions
     params[:pkeys].each do |pkey|
       if params[pkey] == "approved"
-        submissions.find { |submission| submission.pkey == pkey }
-        .approve
+        submission = submissions.find { |submission| submission.pkey == pkey }
+        submission ? submission.approve : flash[submission.pkey] = "'#{submission.title}' has already been approved or denied"
       elsif params[pkey] == "denied"
-        submissions.find { |submission| submission.pkey == pkey }
-        .deny
+        submission = submissions.find { |submission| submission.pkey == pkey }
+        submission ? submission.reject : flash[submission.pkey] = "'#{submission.title}' has already been approved or denied"
       end
     end
     redirect_to submissions_path
@@ -21,10 +21,32 @@ class SubmissionsController < ApplicationController
   private
 
   def get_submissions
-    events = Event.find_by(status: "pending")
-    artworks = Artwork.find_by(status: "pending")
-    stories = Story.find_by(status: "pending")
+    submissions = []
+    events = Event.where(status: "pending", organization: current_user.organizations)
+    submissions << events if events
+    artworks = Artwork.where(status: "pending")
+    if artworks
+      submissions << artworks.find_all do |artwork|
+        current_user.organizations.include(artwork.organization) if artwork.organization
+      end
+      submissions << artworks.find_all do |artwork|
+        current_user.neighborhood == artwork.neighborhood && !artwork.organization
+      end
+    end
+    stories = Story.where(status: "pending")
+    if stories
+      submissions << stories.find_all do |story|
+        current_user.organizations.include(story.organization) if story.organization
+      end
+      submissions << stories.find_all do |story|
+        current_user.neighborhood == story.neighborhood && !story.organization
+      end
+    end
 
-    submissions = [events, artworks, stories].flatten.sort_by { |submission| submission.created_at }
+    unless submissions.empty?
+      submissions.flatten.sort_by do |submission|
+        submission.created_at if submission
+      end
+    end
   end
 end
