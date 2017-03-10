@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170309171657) do
     t.decimal  "map_lat"
     t.decimal  "map_long"
     t.string   "address"
+    t.string   "pkey"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
     t.datetime "created_at",                  null: false
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170309171657) do
     t.string   "address"
     t.date     "date"
     t.time     "time"
+    t.string   "pkey"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
     t.datetime "created_at",                  null: false
@@ -86,6 +88,7 @@ ActiveRecord::Schema.define(version: 20170309171657) do
     t.decimal  "map_lat"
     t.decimal  "map_long"
     t.string   "address"
+    t.string   "pkey"
     t.integer  "user_id"
     t.integer  "neighborhood_id"
     t.datetime "created_at",                  null: false

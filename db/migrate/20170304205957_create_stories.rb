@@ -7,6 +7,7 @@ class CreateStories < ActiveRecord::Migration[5.0]
       t.decimal :map_lat
       t.decimal :map_long
       t.string :address
+      t.string :pkey
       t.references :user, foreign_key: true
       t.references :neighborhood, foreign_key: true
       t.timestamps

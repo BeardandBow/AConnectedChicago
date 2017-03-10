@@ -1,3 +1,13 @@
-<% @submissions.each do |submission| %>
-  <%= link_to submission.title, submission.path %>
-<% end %>
+<form method="post" action="/submissions">
+  <% @submissions.each do |submission| %>
+    <div id="<%= submission.type %>-<%= submission.id %>">
+      <%= link_to submission.title, submission.path %>
+      <label><input type="radio" name="<%= submission.pkey %>" value="approved">Approve</label>
+      <label><input type="radio" name="<%= submission.pkey %>" value="denied">Deny</label>
+      <input type="hidden" name="pkeys[]" value="<%= submission.pkey %>">
+    </div>
+  <% end %>
+  <input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="submit" value="Approve/Deny Submissions">
+</form>
