@@ -10,4 +10,8 @@ class User < ApplicationRecord
   belongs_to :neighborhood
   has_many :organization_users
   has_many :organizations, through: :organization_users
+
+  def promote
+    self.update_attributes(role: "community_leader")
+  end
 end

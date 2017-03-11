@@ -41,6 +41,9 @@ FactoryGirl.define do
         create(:organization, users: [user])
       end
     end
+    trait :admin do
+      role 2
+    end
     trait :with_organizations do
       after(:create) do |user|
         create_list(:organization, 2, users: [user])

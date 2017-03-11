@@ -7,3 +7,9 @@
 <% if community_leader? %>
   <%= link_to "Pending Submissions", submissions_path %>
 <% end %>
+
+<% if admin? %>
+  <%= link_to "Unowned Pending Submissions", admin_unowned_submissions_path %>
+  <%= link_to "All Pending Submissions", admin_submissions_path %>
+  <%= link_to "Add Community Leader", new_admin_user_path %>
+<% end %>

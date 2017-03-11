@@ -58,4 +58,14 @@ RSpec.describe User, type: :model do
       expect(user2.organizations.count).to eq 2
     end
   end
+
+  context "custom methods" do
+    it ".promote changes role to Community Leader" do
+      user = create(:user)
+
+      expect(user.role).to eq("user")
+      user.promote
+      expect(user.role).to eq("community_leader")
+    end
+  end
 end

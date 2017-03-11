@@ -43,7 +43,7 @@ RSpec.feature "community leader sees dashboard" do
     scenario "community leader sees event details" do
       visit user_path(@user)
       click_on "Pending Submissions"
-      click_on(@event.title)
+      click_on @event.title
       expect(page).to have_content(@event.title)
       expect(page).to have_content(@event.host_contact)
       expect(page).to have_content(@event.description)
@@ -56,7 +56,7 @@ RSpec.feature "community leader sees dashboard" do
     scenario "community leader sees artwork details" do
       visit user_path(@user)
       click_on "Pending Submissions"
-      click_on(@artwork.title)
+      click_on @artwork.title
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@artwork.artist)
       expect(page).to have_content(@artwork.description)
@@ -66,7 +66,7 @@ RSpec.feature "community leader sees dashboard" do
     scenario "community leader sees story details" do
       visit user_path(@user)
       click_on "Pending Submissions"
-      click_on(@story.title)
+      click_on @story.title
       expect(page).to have_content(@story.title)
       expect(page).to have_content(@story.author)
       expect(page).to have_content(@story.description)
@@ -86,6 +86,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@event.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
+      expect(@event.reload.status).to eq("approved")
     end
 
     scenario "community leader approves artwork" do
@@ -98,6 +99,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
       expect(page).to have_content(@story.title)
+      expect(@artwork.reload.status).to eq("approved")
     end
 
     scenario "community leader approves story" do
@@ -110,6 +112,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@story.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
+      expect(@story.reload.status).to eq("approved")
     end
   end
 
@@ -124,6 +127,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@event.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
+      expect(@event.reload.status).to eq("rejected")
     end
 
     scenario "community leader denies artwork" do
@@ -136,6 +140,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
       expect(page).to have_content(@event.title)
+      expect(@artwork.reload.status).to eq("rejected")
     end
 
     scenario "community leader denies story" do
@@ -148,6 +153,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@story.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
+      expect(@story.reload.status).to eq("rejected")
     end
   end
 end
