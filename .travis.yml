@@ -7,6 +7,7 @@ env:
   - TESTFOLDER=spec/features/registered_user
   - TESTFOLDER=spec/features/community_leader
   - TESTFOLDER=spec/features/visitor
+  - TESTFOLDER=spec/features/admin
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
