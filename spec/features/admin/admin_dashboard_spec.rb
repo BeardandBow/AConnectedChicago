@@ -18,6 +18,8 @@ RSpec.feature "admin functionality" do
       click_on "Unowned Pending Submissions"
 
       expect(page).to have_link(@artwork.title)
+      expect(page).not_to have_link(@event.title)
+      expect(page).not_to have_link(@story.title)
     end
 
     scenario "admin approves only pending submissions that do not have a community leader" do
@@ -28,6 +30,7 @@ RSpec.feature "admin functionality" do
       click_on "Approve/Reject Submissions"
 
       expect(page).not_to have_link(@artwork.title)
+      expect(@artwork.reload.status).to eq("approved")
     end
 
     scenario "admin rejects only pending submissions that do not have a community leader" do
@@ -38,6 +41,7 @@ RSpec.feature "admin functionality" do
       click_on "Approve/Reject Submissions"
 
       expect(page).not_to have_link(@artwork.title)
+      expect(@artwork.reload.status).to eq("rejected")
     end
   end
 
@@ -60,6 +64,7 @@ RSpec.feature "admin functionality" do
       expect(page).not_to have_link(@event.title)
       expect(page).to have_link(@artwork.title)
       expect(page).to have_link(@story.title)
+      expect(@event.reload.status).to eq("approved")
     end
 
     scenario "admin rejects any pending submissions regardless of ownership" do
@@ -72,6 +77,28 @@ RSpec.feature "admin functionality" do
       expect(page).not_to have_link(@story.title)
       expect(page).to have_link(@artwork.title)
       expect(page).to have_link(@event.title)
+      expect(@story.reload.status).to eq("rejected")
+    end
+  end
+
+  context "admin promotes user to community leader" do
+    scenario "admin promotes existing user" do
+      user = create(:user)
+
+      click_on "Add Community Leader"
+      fill_in "User Email", with: user.email
+      click_on "Promote User"
+
+      expect(page).to have_content("#{user.email} has been promoted to Community Leader.")
+      expect(user.reload.role).to eq("community_leader")
+    end
+
+    scenario "admin promotes non-existent user" do
+      click_on "Add Community Leader"
+      fill_in "User Email", with: "idontexist@gmail.com"
+      click_on "Promote User"
+
+      expect(page).to have_content("Could not find a User with that email.")
     end
   end
 end

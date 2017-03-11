@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
   root 'home#index'
   resources :users, only: [:create, :new, :show]
-  resources :events, only: [:new, :create, :show]
-  resources :stories, only: [:new, :create, :show]
-  resources :artworks, only: [:new, :create, :show]
+  resources :events, only: [:new, :create, :show, :index]
+  resources :stories, only: [:new, :create, :show, :index]
+  resources :artworks, only: [:new, :create, :show, :index]
   resources :submissions, only: [:index]
+  put '/submissions', to: 'submissions#update', as: 'update_submissions'
+
   namespace :admin do
     resources :submissions, only: [:index]
-    put '/submissions', to: 'submissions#update' as: "admin_update_submissions"
+    get '/unowned_submissions', to: 'submissions#show', as: 'unowned_submissions'
+    put '/submissions', to: 'submissions#update', as: 'update_submissions'
+    put '/unowned_submissions', to: 'submissions#update'
+    resources :users, only: [:new]
+    put '/users', to: 'users#update'
   end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-
-  patch '/submissions', to: 'submissions#update', as: "update_submissions"
-
 end

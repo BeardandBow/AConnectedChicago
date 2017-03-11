@@ -49,7 +49,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_content(@event.description)
       expect(page).to have_content(@event.address)
       expect(page).to have_content(@event.date)
-      expect(page).to have_content(@event.time)
+      expect(page).to have_content(@event.time.strftime("%I:%M %p"))
       expect(page).to have_content(@event.organization.name)
     end
 
@@ -86,6 +86,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@event.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
+      expect(@event.reload.status).to eq("approved")
     end
 
     scenario "community leader approves artwork" do
@@ -98,6 +99,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
       expect(page).to have_content(@story.title)
+      expect(@artwork.reload.status).to eq("approved")
     end
 
     scenario "community leader approves story" do
@@ -110,6 +112,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@story.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
+      expect(@story.reload.status).to eq("approved")
     end
   end
 
@@ -124,6 +127,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@event.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
+      expect(@event.reload.status).to eq("rejected")
     end
 
     scenario "community leader denies artwork" do
@@ -136,6 +140,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@artwork.title)
       expect(page).to have_content(@story.title)
       expect(page).to have_content(@event.title)
+      expect(@artwork.reload.status).to eq("rejected")
     end
 
     scenario "community leader denies story" do
@@ -148,6 +153,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).not_to have_content(@story.title)
       expect(page).to have_content(@artwork.title)
       expect(page).to have_content(@event.title)
+      expect(@story.reload.status).to eq("rejected")
     end
   end
 end
