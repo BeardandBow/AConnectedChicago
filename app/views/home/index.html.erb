@@ -1,5 +1,1 @@
-<% unless current_user %>
-  <span> <%= link_to "Login", login_path %> or <%= link_to "Create Account", new_user_path %></span><br><br>
-<% end %>
-
 <span><%= link_to "Events", events_path %> <%= link_to "Stories", stories_path %> <%= link_to "Artwork", artworks_path %></span>
