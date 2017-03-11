@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :story do
-    title "story"
+    sequence(:title) {|n| "story #{n}"}
     author "some guy"
     description "description"
     body "blah blah blah"
@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
 
   factory :artwork do
-    title "artwork"
+    sequence(:title) {|n| "artwork #{n}"}
     artist "some guy"
     description "description"
     address "this one place"
@@ -20,7 +20,7 @@ FactoryGirl.define do
   end
 
   factory :event do
-    title "event"
+    sequence(:title) {|n| "event #{n}"}
     host_contact "someguy@gmail.com"
     description "description"
     address "this one place"
