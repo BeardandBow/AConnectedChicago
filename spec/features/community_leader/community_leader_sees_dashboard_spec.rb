@@ -49,7 +49,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_content(@event.description)
       expect(page).to have_content(@event.address)
       expect(page).to have_content(@event.date)
-      expect(page).to have_content(@event.time)
+      expect(page).to have_content(@event.time.strftime("%I:%M %p"))
       expect(page).to have_content(@event.organization.name)
     end
 
