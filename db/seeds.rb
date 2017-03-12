@@ -1,6 +1,3 @@
-require 'factory_girl_rails'
-require './spec/support/factories'
-
 class Seed
   def self.start
     hood_1 = Neighborhood.create(name: "Neighborhood 1")
