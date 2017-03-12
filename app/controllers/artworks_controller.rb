@@ -1,7 +1,7 @@
 class ArtworksController < ApplicationController
 
   def index
-    @artworks = Artwork.all
+    @artworks = Artwork.where(status: "approved")
   end
 
   def show

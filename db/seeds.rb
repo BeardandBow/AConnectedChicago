@@ -1,21 +1,111 @@
 require 'factory_girl_rails'
 require './spec/support/factories'
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 class Seed
   def self.start
-    hood = FactoryGirl.create(:neighborhood)
-    FactoryGirl.create(:user, :community_leader)
-    FactoryGirl.create(:story, neighborhood_id: hood.id)
-    FactoryGirl.create(:event, neighborhood_id: hood.id)
-    FactoryGirl.create(:artwork, neighborhood_id: hood.id)
+    hood_1 = Neighborhood.create(name: "Neighborhood 1")
+    hood_2 = Neighborhood.create(name: "Neighborhood 2")
+    hood_3 = Neighborhood.create(name: "Neighborhood 3")
+    hood_4 = Neighborhood.create(name: "Neighborhood 4")
+
+    org_1 = Organization.create(name: "Organization 1", neighborhoods: [hood_1, hood_2])
+    org_2 = Organization.create(name: "Organization 2", neighborhoods: [hood_2, hood_3])
+    org_3 = Organization.create(name: "Organization 3", neighborhoods: [hood_3, hood_4])
+    org_4 = Organization.create(name: "Organization 4", neighborhoods: [hood_1, hood_4])
+
+    user = User.create(email: "user@example.com",
+                password: "user",
+                neighborhood: hood_1)
+    leader = User.create(email: "leader@example.com",
+                password: "leader",
+                role: "community_leader",
+                neighborhood: hood_1,
+                organizations: [org_1, org_2])
+    admin = User.create(email: "admin@example.com",
+                password: "admin",
+                role: "admin",
+                neighborhood: hood_1)
+
+    Event.create(title: "Event 1",
+                 host_contact: "person@example.com",
+                 description: "A description",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 date: Date.tomorrow,
+                 time: Time.now,
+                 user: user,
+                 neighborhood: hood_1,
+                 organization: org_1)
+    Event.create(title: "Event 2",
+                 host_contact: "person@example.com",
+                 description: "A description",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 date: Date.tomorrow,
+                 time: Time.now,
+                 user: user,
+                 neighborhood: hood_1,
+                 organization: org_2)
+    Event.create(title: "Event 3",
+                 host_contact: "person@example.com",
+                 description: "A description",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 date: Date.tomorrow,
+                 time: Time.now,
+                 user: user,
+                 neighborhood: hood_2,
+                 organization: org_2)
+    Event.create(title: "Event 4",
+                 host_contact: "person@example.com",
+                 description: "A description",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 date: Date.tomorrow,
+                 time: Time.now,
+                 status: "approved",
+                 user: user,
+                 neighborhood: hood_2,
+                 organization: org_2)
+
+    Artwork.create(title: "Art 1",
+                  artist: "Picasso",
+                  description: "A description",
+                  address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                  user: user,
+                  neighborhood: hood_1)
+    Artwork.create(title: "Art 2",
+                   artist: "da Vinci",
+                   description: "A description",
+                   address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                   user: user,
+                   neighborhood: hood_2)
+    Artwork.create(title: "Art 3",
+                   artist: "van Gogh",
+                   description: "A description",
+                   address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                   status: "approved",
+                   user: user,
+                   neighborhood: hood_2)
+
+    Story.create(title: "Story 1",
+                 author: "David Kelly",
+                 description: "A description",
+                 body: "A riveting story goes here",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 user: user,
+                 neighborhood: hood_1)
+    Story.create(title: "Story 2",
+                 author: "Mike Martinez",
+                 description: "A description",
+                 body: "A riveting story goes here",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 user: user,
+                 neighborhood: hood_2)
+    Story.create(title: "Story 3",
+                 author: "Some guy",
+                 description: "A description",
+                 body: "A riveting story goes here",
+                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 status: "approved",
+                 user: user,
+                 neighborhood: hood_2)
   end
 end
 

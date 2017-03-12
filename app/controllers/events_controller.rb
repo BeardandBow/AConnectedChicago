@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
   def index
-    @events = Event.all
+    @events = Event.where(status: "approved")
   end
 
   def show

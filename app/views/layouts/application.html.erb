@@ -19,6 +19,7 @@
     <% else %>
       <span> <%= link_to "Login", login_path %> or <%= link_to "Create Account", new_user_path %></span><br><br>
     <% end %>
+    <%= link_to "Home", root_path %>
     <%= yield %>
   </body>
 </html>
