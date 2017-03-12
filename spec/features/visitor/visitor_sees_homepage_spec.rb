@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "visitor sees homepage" do
   before :each do
-    @events = create_list(:event, 2)
-    @stories = create_list(:story, 2)
-    @artworks = create_list(:artwork, 2)
+    @events = create_list(:event, 2, status: "approved")
+    @stories = create_list(:story, 2, status: "approved")
+    @artworks = create_list(:artwork, 2, status: "approved")
   end
   scenario "visitor sees links to view content" do
     visit root_path
