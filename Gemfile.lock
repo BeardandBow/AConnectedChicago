@@ -42,7 +42,6 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     bcrypt (3.1.11)
-    brakeman (3.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.12.1)
@@ -209,7 +208,6 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  brakeman
   byebug
   capybara
   database_cleaner
