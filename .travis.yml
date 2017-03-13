@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.2.2
+- 2.3.0
 env:
   - TESTFOLDER=spec/models
   - TESTFOLDER=spec/features/registered_user
@@ -11,7 +11,7 @@ env:
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
-  - bundle exec rspec $TESTFOLDER
+  - bundle exec rspec $TESTFOLDER -p
 before_script:
   - bundle exec rails db:test:prepare
 notifications:

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Organization, type: :model do
   context "validations" do
     it "is not valid without a name" do
-      org = build(:organization, name: nil)
+      org = build_stubbed(:organization, name: nil)
 
       expect(org).not_to be_valid
     end

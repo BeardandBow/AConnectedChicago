@@ -4,19 +4,19 @@ RSpec.describe User, type: :model do
   context "validations" do
 
     it "is not valid without email" do
-      user = build(:user, email: "")
+      user = build_stubbed(:user, email: "")
 
       expect(user).not_to be_valid
     end
 
     it "is not valid without password" do
-      user = build(:user, password: "")
+      user = build_stubbed(:user, password: "")
 
       expect(user).not_to be_valid
     end
 
     it "is not valid with incorrect password confirmation" do
-      user = build(:user, password_confirmation: "closesesame")
+      user = build_stubbed(:user, password_confirmation: "closesesame")
 
       expect(user).not_to be_valid
     end
@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
     end
 
     it "is valid with correct attributes" do
-      user = create(:user)
+      user = build_stubbed(:user)
 
       expect(user).to be_valid
     end
@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
 
   context "associations" do
     it "belongs to a neighborhood" do
-      user = create(:user)
+      user = build_stubbed(:user)
 
       expect(user).to respond_to(:neighborhood)
     end
