@@ -4,7 +4,7 @@ RSpec.feature "user can log in and log out" do
   context "user logs in" do
     scenario "user logs into their account" do
       #  As a user
-      user = create(:user)
+      user = create(:user, :registered_user)
       #  When I visit the home page
       visit root_path
       #  and click the login link
@@ -31,7 +31,7 @@ RSpec.feature "user can log in and log out" do
     end
 
     scenario "user enters wrong password" do
-      user = create(:user)
+      user = create(:user, :registered_user)
       visit root_path
       click_link "Login"
 
@@ -45,7 +45,7 @@ RSpec.feature "user can log in and log out" do
   end
 
   scenario "user logs out" do
-    user = create(:user)
+    user = create(:user, :registered_user)
     visit root_path
     click_link "Login"
 

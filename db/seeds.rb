@@ -11,14 +11,21 @@ class Seed
     org_4 = Organization.create(name: "Organization 4", neighborhoods: [hood_1, hood_4])
 
     user = User.create(email: "user@example.com",
+                first_name: "Jack",
+                last_name: "Reacher",
                 password: "user",
+                role: "registered_user",
                 neighborhood: hood_1)
     leader = User.create(email: "leader@example.com",
+                first_name: "John",
+                last_name: "Wick",
                 password: "leader",
                 role: "community_leader",
                 neighborhood: hood_1,
                 organizations: [org_1, org_2])
     admin = User.create(email: "admin@example.com",
+                first_name: "Jason",
+                last_name: "Bourne",
                 password: "admin",
                 role: "admin",
                 neighborhood: hood_1)

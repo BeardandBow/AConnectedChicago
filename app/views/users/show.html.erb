@@ -2,6 +2,28 @@
   <%= link_to "Submit Event", new_event_path %>
   <%= link_to "Submit Story", new_story_path %>
   <%= link_to "Submit Artwork", new_artwork_path %>
+  <form action="/users/<%= current_user.id %>" method="post">
+    <input type="text" name="organization" placeholder="Join an organization">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Join">
+  </form>
+
+  <%= form_for @user do |f| %>
+    <%= f.label :why, value: "Tell us more about you:" %>
+    <%= f.text_area :why, placeholder: "Why do you want to be a part of Connected Chicago?", rows: "10", cols: "200" %>
+    <%= f.text_area :where, placeholder: "What part of Chicago do you want to connect with?", rows: "10", cols: "200" %>
+    <%= f.submit "Add" %>
+  <% end %>
+
+  <!-- <form action="/users/<%= current_user.id %>" method="post">
+    <label>Tell us more about you:</label>
+    <input type="textarea" rows="10" cols="200" name="why" placeholder="Why do you want to be a part of Connected Chicago?">
+    <input type="textarea" rows="10" cols="200" name="where" placeholder="What part of Chicago do you want to connect with?">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Add">
+  </form> -->
 </div>
 
 <% if community_leader? %>

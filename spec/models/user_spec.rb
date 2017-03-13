@@ -9,6 +9,18 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it "is not valid without a first name" do
+      user = build_stubbed(:user, first_name: "")
+
+      expect(user).not_to be_valid
+    end
+
+    it "is not valid without a last name" do
+      user = build_stubbed(:user, last_name: "")
+
+      expect(user).not_to be_valid
+    end
+
     it "is not valid without password" do
       user = build_stubbed(:user, password: "")
 
@@ -33,6 +45,12 @@ RSpec.describe User, type: :model do
 
       expect(user).not_to be_valid
       expect(user.errors[:email]).to include("has already been taken")
+    end
+
+    it "should have a default role of pending_user" do
+      user = build_stubbed(:user)
+
+      expect(user.role).to eq("pending_user")
     end
 
     it "is valid with correct attributes" do
@@ -61,9 +79,9 @@ RSpec.describe User, type: :model do
 
   context "custom methods" do
     it ".promote changes role to Community Leader" do
-      user = create(:user)
+      user = create(:user, :registered_user)
 
-      expect(user.role).to eq("user")
+      expect(user.role).to eq("registered_user")
       user.promote
       expect(user.role).to eq("community_leader")
     end
