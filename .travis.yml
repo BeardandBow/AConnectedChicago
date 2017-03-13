@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.2.2
+- 2.3.0
 env:
   - TESTFOLDER=spec/models
   - TESTFOLDER=spec/features/registered_user
@@ -9,11 +9,12 @@ env:
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/admin
 script:
-  - parallel_rspec $TESTFOLDER
+  - RAILS_ENV=test bundle exec rails db:create
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - bundle exec rspec $TESTFOLDER
   - brakeman -z
 before_script:
-  - rails parallel:create
-  - rails parallel:prepare
+  - bundle exec rails db:test:prepare
 notifications:
   email: false
 
