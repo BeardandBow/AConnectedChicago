@@ -21,7 +21,6 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "opensesame"
       fill_in "Your Neighborhood", with: @neighborhood.name
-      fill_in "Organization (optional)", with: @organization.name
       click_button "Create Account"
 
       user = User.first

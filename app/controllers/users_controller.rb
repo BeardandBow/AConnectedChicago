@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   def show
     if current_user
       @user = current_user
+      # use this to populate organizations dropdown
+      # @organizations = Organization.where("name NOT IN (?)", current_user.organizations)
     else
       render :file => 'public/403.html', :status => :forbidden, :layout => false
     end
@@ -14,9 +16,7 @@ class UsersController < ApplicationController
 
   def create
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
-    organization = Organization.find_by(name: params[:user][:organizations][:name])
     @user = neighborhood.users.create(user_params)
-    @user.organizations << organization if organization
     if @user.save
       ConfirmationMailer.send_confirmation(@user).deliver
       flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
@@ -25,6 +25,17 @@ class UsersController < ApplicationController
       flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
       render :new
     end
+  end
+
+  def update
+    if params[:user]
+      current_user.update_attibutes(user_params)
+    elsif params[:organization]
+      organization = Organization.find_by(name: params[:organization])
+      current_user.organizations << organization if organization
+      flash[:success] = "You have joined #{organization.name}"
+    end
+    redirect_to user_path(current_user)
   end
 
   def confirm_email

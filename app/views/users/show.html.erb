@@ -2,6 +2,12 @@
   <%= link_to "Submit Event", new_event_path %>
   <%= link_to "Submit Story", new_story_path %>
   <%= link_to "Submit Artwork", new_artwork_path %>
+  <form action="/users/<%= current_user.id %>" method="post">
+    <input type="text" name="organization" placeholder="Join an organization">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Join">
+  </form>
 </div>
 
 <% if community_leader? %>

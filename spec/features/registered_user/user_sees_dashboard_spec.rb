@@ -14,6 +14,20 @@ RSpec.feature "user sees dashboard" do
     expect(page).to have_link("Submit Event")
     expect(page).to have_link("Submit Story")
     expect(page).to have_link("Submit Artwork")
+    find_field("Join an organization")
+  end
+
+  context "user updates info" do
+    scenario "user joins an organization" do
+      organization = create(:organization)
+      visit user_path(@user)
+
+      fill_in "Join an organization", with: organization.name
+      click_button "Join"
+      expect(@user.organizations.count).to eq(1)
+      expect(current_path).to eq(user_path(@user))
+      expect(page).to have_content("You have joined #{organization.name}")
+    end
   end
 
   context "user submits content to a community leader" do
