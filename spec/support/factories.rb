@@ -33,6 +33,8 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:email) {|n| "someguy#{n}@gmail.com"}
+    sequence(:first_name) {|n| "Guy #{n}"}
+    sequence(:last_name) {|n| "Smith #{n}"}
     password "opensesame"
     neighborhood
     trait :community_leader do

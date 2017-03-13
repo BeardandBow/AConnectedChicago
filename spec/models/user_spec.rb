@@ -9,6 +9,18 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it "is not valid without a first name" do
+      user = build_stubbed(:user, first_name: "")
+
+      expect(user).not_to be_valid
+    end
+
+    it "is not valid without a last name" do
+      user = build_stubbed(:user, last_name: "")
+
+      expect(user).not_to be_valid
+    end
+
     it "is not valid without password" do
       user = build_stubbed(:user, password: "")
 

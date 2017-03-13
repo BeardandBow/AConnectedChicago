@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310195456) do
+ActiveRecord::Schema.define(version: 20170313155556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,8 @@ ActiveRecord::Schema.define(version: 20170310195456) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "neighborhood_id"
+    t.string   "first_name"
+    t.string   "last_name"
     t.index ["neighborhood_id"], name: "index_users_on_neighborhood_id", using: :btree
   end
 
