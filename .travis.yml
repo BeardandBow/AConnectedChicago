@@ -9,11 +9,11 @@ env:
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/admin
 script:
-  - RAILS_ENV=test bundle exec rails db:create
-  - RAILS_ENV=test bundle exec rails db:migrate
-  - bundle exec rspec $TESTFOLDER
+  - parallel_rspec $TESTFOLDER
+  - brakeman -z
 before_script:
-  - bundle exec rails db:test:prepare
+  - rails parallel:create
+  - rails parallel:prepare
 notifications:
   email: false
 

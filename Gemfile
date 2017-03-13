@@ -45,6 +45,9 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'selenium-webdriver'
   gem 'pry-rails'
+  gem 'brakeman', :require => false
+  gem 'parallel_tests'
+  gem 'guard-rspec', require: false
 end
 
 group :development do

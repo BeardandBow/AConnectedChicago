@@ -4,37 +4,37 @@ RSpec.describe Event, type: :model do
   context "validations" do
 
     it "is not valid without title" do
-      event = build(:event, title: nil)
+      event = build_stubbed(:event, title: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without host_contact" do
-      event = build(:event, host_contact: nil)
+      event = build_stubbed(:event, host_contact: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without description" do
-      event = build(:event, description: nil)
+      event = build_stubbed(:event, description: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without address" do
-      event = build(:event, address: nil)
+      event = build_stubbed(:event, address: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without date" do
-      event = build(:event, date: nil)
+      event = build_stubbed(:event, date: nil)
 
       expect(event).not_to be_valid
     end
 
     it "is not valid without time" do
-      event = build(:event, time: nil)
+      event = build_stubbed(:event, time: nil)
 
       expect(event).not_to be_valid
     end
@@ -46,13 +46,13 @@ RSpec.describe Event, type: :model do
     end
 
     it "is valid with correct attributes" do
-      event = create(:event)
+      event = build_stubbed(:event)
 
       expect(event).to be_valid
     end
 
     it "should have default status of 'pending'" do
-      event = create(:event)
+      event = build_stubbed(:event)
 
       expect(event.status).to eq('pending')
     end
@@ -61,7 +61,7 @@ RSpec.describe Event, type: :model do
   context "associations" do
 
     before :each do
-      @event = create(:event)
+      @event = build_stubbed(:event)
     end
 
     it "belongs to a user" do
@@ -79,7 +79,7 @@ RSpec.describe Event, type: :model do
 
   context "custom methods" do
     before :each do
-      @event = create(:event)
+      @event = build_stubbed(:event)
     end
 
     it "returns a path with .path" do
@@ -97,15 +97,17 @@ RSpec.describe Event, type: :model do
     end
 
     it ".approve sets event status to approved" do
-      expect(@event.status).to eq("pending")
-      @event.approve
-      expect(@event.status).to eq("approved")
+      event = build(:event)
+      expect(event.status).to eq("pending")
+      event.approve
+      expect(event.status).to eq("approved")
     end
 
     it ".reject sets event status to rejected" do
-      expect(@event.status).to eq("pending")
-      @event.reject
-      expect(@event.status).to eq("rejected")
+      event = build(:event)
+      expect(event.status).to eq("pending")
+      event.reject
+      expect(event.status).to eq("rejected")
     end
   end
 end

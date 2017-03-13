@@ -4,31 +4,31 @@ RSpec.describe Story, type: :model do
   context "validations" do
 
     it "is not valid without title" do
-      story = build(:story, title: nil)
+      story = build_stubbed(:story, title: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without author" do
-      story = build(:story, author: nil)
+      story = build_stubbed(:story, author: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without description" do
-      story = build(:story, description: nil)
+      story = build_stubbed(:story, description: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without body" do
-      story = build(:story, body: nil)
+      story = build_stubbed(:story, body: nil)
 
       expect(story).not_to be_valid
     end
 
     it "is not valid without address" do
-      story = build(:story, address: nil)
+      story = build_stubbed(:story, address: nil)
 
       expect(story).not_to be_valid
     end
@@ -63,7 +63,7 @@ RSpec.describe Story, type: :model do
 
   context "custom methods" do
     before :each do
-      @story = create(:story)
+      @story = build_stubbed(:story)
     end
 
     it "returns a path with .path" do
@@ -81,15 +81,17 @@ RSpec.describe Story, type: :model do
     end
 
     it ".approve sets story status to approved" do
-      expect(@story.status).to eq("pending")
-      @story.approve
-      expect(@story.status).to eq("approved")
+      story = build(:story)
+      expect(story.status).to eq("pending")
+      story.approve
+      expect(story.status).to eq("approved")
     end
 
     it ".reject sets story status to rejected" do
-      expect(@story.status).to eq("pending")
-      @story.reject
-      expect(@story.status).to eq("rejected")
+      story = build(:story)
+      expect(story.status).to eq("pending")
+      story.reject
+      expect(story.status).to eq("rejected")
     end
   end
 end
