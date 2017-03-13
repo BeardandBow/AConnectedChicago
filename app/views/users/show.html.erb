@@ -11,8 +11,8 @@
 
   <%= form_for @user do |f| %>
     <%= f.label :why, value: "Tell us more about you:" %><br>
-    <%= f.text_area :why, placeholder: "Why do you want to be a part of Connected Chicago?", rows: "10", cols: "200" %>
-    <%= f.text_area :where, placeholder: "What part of Chicago do you want to connect with?", rows: "10", cols: "200" %>
+    <%= f.text_area :why, placeholder: "Why do you want to be a part of Connected Chicago?", rows: "10", cols: "100" %>
+    <%= f.text_area :where, placeholder: "What part of Chicago do you want to connect with?", rows: "10", cols: "100" %><br>
     <%= f.submit "Add" %>
   <% end %>
 
