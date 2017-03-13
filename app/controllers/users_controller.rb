@@ -14,7 +14,9 @@ class UsersController < ApplicationController
 
   def create
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
+    organization = Organization.find_by(name: params[:user][:organizations][:name])
     @user = neighborhood.users.create(user_params)
+    @user.organizations << organization if organization
     if @user.save
       ConfirmationMailer.send_confirmation(@user).deliver
       flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
