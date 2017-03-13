@@ -37,14 +37,17 @@ FactoryGirl.define do
     sequence(:last_name) {|n| "Smith #{n}"}
     password "opensesame"
     neighborhood
-    trait :community_leader do
+    trait :registered_user do
       role 1
+    end
+    trait :community_leader do
+      role 2
       after(:create) do |user|
         create(:organization, users: [user])
       end
     end
     trait :admin do
-      role 2
+      role 3
     end
     trait :with_organizations do
       after(:create) do |user|

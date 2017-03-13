@@ -1,0 +1,5 @@
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>Thank for signing up for A Connected Chicago!</p>
+
+<p>Click <%= link_to "here", confirm_user_email_url(@user.email_token) %></p>

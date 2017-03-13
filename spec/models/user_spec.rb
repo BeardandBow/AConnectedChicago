@@ -47,6 +47,12 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include("has already been taken")
     end
 
+    it "should have a default role of pending_user" do
+      user = build_stubbed(:user)
+
+      expect(user.role).to eq("pending_user")
+    end
+
     it "is valid with correct attributes" do
       user = build_stubbed(:user)
 
@@ -73,9 +79,9 @@ RSpec.describe User, type: :model do
 
   context "custom methods" do
     it ".promote changes role to Community Leader" do
-      user = create(:user)
+      user = create(:user, :registered_user)
 
-      expect(user.role).to eq("user")
+      expect(user.role).to eq("registered_user")
       user.promote
       expect(user.role).to eq("community_leader")
     end

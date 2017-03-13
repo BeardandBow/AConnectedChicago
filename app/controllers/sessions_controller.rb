@@ -7,8 +7,14 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email]) || nil
     if @user && @user.authenticate(params[:session][:password])
-      session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      if @user.role == "registered_user"
+        session[:user_id] = @user.id
+        redirect_to user_path(@user)
+      else
+        flash.now[:error] = "Please activate your account by following the
+        instructions in the account confirmation email you received to proceed"
+        render :new
+      end
     elsif @user
       flash.now[:error] = "Password is incorrect"
       render :new

@@ -16,12 +16,25 @@ class UsersController < ApplicationController
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
     @user = neighborhood.users.create(user_params)
     if @user.save
-      flash[:success] = "Account created!"
-      session[:user_id] = @user.id
-      redirect_to user_path(current_user)
+      ConfirmationMailer.send_confirmation(@user).deliver
+      flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
+      redirect_to root_path
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
       render :new
+    end
+  end
+
+  def confirm_email
+    user = User.find_by(email_token: params[:email_token])
+    if user
+      user.activate
+      flash[:success] = "Welcome to A Connected Chicago! Your email has been confirmed.
+      Please sign in to continue."
+      redirect_to login_path
+    else
+      flash[:error] = "Invalid token. The user with that token has already been confirmed, or a user with that token does not exist."
+      redirect_to root_path
     end
   end
 

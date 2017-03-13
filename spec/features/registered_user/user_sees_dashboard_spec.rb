@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "user sees dashboard" do
   before :each do
-    @user = create(:user)
+    @user = create(:user, :registered_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
