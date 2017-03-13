@@ -3,13 +3,13 @@ cache: bundler
 rvm:
 - 2.3.0
 env:
-  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/registered_user
   - TESTFOLDER=spec/features/community_leader
   - TESTFOLDER=spec/features/pending_user
-  - TESTFOLDER=spec/mailers
-  - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/admin
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/mailers
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
