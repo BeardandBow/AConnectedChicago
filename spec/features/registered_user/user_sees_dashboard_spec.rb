@@ -15,6 +15,8 @@ RSpec.feature "user sees dashboard" do
     expect(page).to have_link("Submit Story")
     expect(page).to have_link("Submit Artwork")
     find_field("Join an organization")
+    find_field("Why do you want to be a part of Connected Chicago?")
+    find_field("What part of Chicago do you want to connect with?")
   end
 
   context "user updates info" do
@@ -27,6 +29,19 @@ RSpec.feature "user sees dashboard" do
       expect(@user.organizations.count).to eq(1)
       expect(current_path).to eq(user_path(@user))
       expect(page).to have_content("You have joined #{organization.name}")
+    end
+
+    scenario "user adds details" do
+      visit user_path(@user)
+
+      fill_in "Why do you want to be a part of Connected Chicago?", with: "Cause"
+      fill_in "What part of Chicago do you want to connect with?", with: "Places"
+      click_button "Add"
+
+      expect(@user.why).to eq("Cause")
+      expect(@user.where).to eq("Places")
+      expect(current_path).to eq(user_path(@user))
+      expect(page).to have_content("Your profile has been updated")
     end
   end
 

@@ -28,8 +28,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:user]
-      current_user.update_attibutes(user_params)
+    if params[:user] || params[:why] || params[:where]
+      current_user.update_attributes(user_params)
+      flash[:success] = "Your profile has been updated"
     elsif params[:organization]
       organization = Organization.find_by(name: params[:organization])
       current_user.organizations << organization if organization
@@ -54,6 +55,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :why, :where)
   end
 end
