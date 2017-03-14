@@ -1,13 +1,9 @@
 class UsersController < ApplicationController
 
   def show
-    if current_user
-      @user = current_user
-      # use this to populate organizations dropdown
-      # @organizations = Organization.where("name NOT IN (?)", current_user.organizations)
-    else
-      render :file => 'public/403.html', :status => :forbidden, :layout => false
-    end
+    @user = current_user
+    # use this to populate organizations dropdown
+    # @organizations = Organization.where("name NOT IN (?)", current_user.organizations)
   end
 
   def new

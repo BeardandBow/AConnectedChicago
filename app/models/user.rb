@@ -23,6 +23,18 @@ class User < ApplicationRecord
     self.update_attributes(role: "community_leader")
   end
 
+  def admin?
+    self.role == 'admin'
+  end
+
+  def community_leader?
+    self.role == 'community_leader'
+  end
+
+  def registered_user?
+    self.role == 'registered_user'
+  end
+
   private
     def create_token
       if self.email_token.blank?
