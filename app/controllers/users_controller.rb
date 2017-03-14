@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
     @user = neighborhood.users.create(user_params)
     if @user.save
-      ConfirmationMailer.send_confirmation(@user).deliver
+      ConfirmationMailer.send_confirmation(@user).deliver_now
       flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
       redirect_to root_path
     else
