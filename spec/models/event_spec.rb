@@ -109,5 +109,17 @@ RSpec.describe Event, type: :model do
       event.reject
       expect(event.status).to eq("rejected")
     end
+
+    it ".formatted_create_time formats the created_at" do
+      time = DateTime.now
+      event = build(:event, created_at: time)
+      expect(event.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+    end
+
+    it ".formatted_time formats the time" do
+      time = DateTime.now
+      event = build(:event, created_at: time)
+      expect(event.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+    end
   end
 end

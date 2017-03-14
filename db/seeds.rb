@@ -34,7 +34,7 @@ class Seed
                  host_contact: "person@example.com",
                  description: "A description",
                  address: "5114 S. Elizabeth St., Chicago, IL 60609",
-                 date: Date.tomorrow,
+                 date: Date.tomorrow + 10,
                  time: Time.now,
                  user: user,
                  neighborhood: hood_1,
@@ -43,8 +43,8 @@ class Seed
                  host_contact: "person@example.com",
                  description: "A description",
                  address: "5114 S. Elizabeth St., Chicago, IL 60609",
-                 date: Date.tomorrow,
-                 time: Time.now,
+                 date: Date.tomorrow + 10,
+                 time: Time.now + 20*60,
                  user: user,
                  neighborhood: hood_1,
                  organization: org_2)
@@ -53,7 +53,7 @@ class Seed
                  description: "A description",
                  address: "5114 S. Elizabeth St., Chicago, IL 60609",
                  date: Date.tomorrow,
-                 time: Time.now,
+                 time: Time.now + 20*60*60,
                  user: user,
                  neighborhood: hood_2,
                  organization: org_2)

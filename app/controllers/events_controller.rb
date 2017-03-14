@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
   def index
-    @events = Event.where(status: "approved")
+    @events = Event.where(status: "approved").where("date >= ?", Date.today).order(:date, :time)
   end
 
   def show

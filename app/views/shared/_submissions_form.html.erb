@@ -5,6 +5,7 @@
     <% @submissions.each do |submission| %>
     <div id="<%= submission.type %>-<%= submission.id %>">
       <%= link_to submission.title, submission.path %>
+      Submitted At: <%= submission.formatted_create_time %>
       <label><input type="radio" name="<%= submission.pkey %>" value="approved">Approve</label>
       <label><input type="radio" name="<%= submission.pkey %>" value="denied">Reject</label>
       <input type="hidden" name="pkeys[]" value="<%= submission.pkey %>">
