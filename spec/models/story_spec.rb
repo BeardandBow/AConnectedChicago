@@ -93,5 +93,17 @@ RSpec.describe Story, type: :model do
       story.reject
       expect(story.status).to eq("rejected")
     end
+
+    it ".formatted_create_time formats the created_at" do
+      time = DateTime.now
+      story = build(:story, created_at: time)
+      expect(story.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+    end
+
+    it ".formatted_update_time formats the updated_at" do
+      time = DateTime.now
+      story = build(:story, updated_at: time)
+      expect(story.formatted_update_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+    end
   end
 end

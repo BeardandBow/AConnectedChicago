@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
   def index
-    @stories = Story.where(status: "approved")
+    @stories = Story.where(status: "approved").reverse
   end
 
   def show

@@ -34,4 +34,12 @@ class Event < ApplicationRecord
   def reject
     self.update_attributes(status: "rejected")
   end
+
+  def formatted_time
+    self.time.strftime("%I:%M %p")
+  end
+
+  def formatted_create_time
+    self.created_at.strftime("%m/%d/%Y %I:%M %p")
+  end
 end
