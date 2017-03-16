@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require gmaps/google
+//= require underscore-min
 //= require_tree .
