@@ -18,7 +18,7 @@ RSpec.feature "visitor sees homepage" do
     scenario "visitor views events" do
       visit root_path
 
-      click_on "Events"
+      click_link "Events"
 
       expect(page).to have_link(@events.first.title)
       expect(page).to have_link(@events.second.title)
@@ -27,7 +27,7 @@ RSpec.feature "visitor sees homepage" do
     scenario "visitor views artworks" do
       visit root_path
 
-      click_on "Art"
+      click_link "Art"
 
       expect(page).to have_link(@artworks.first.title)
       expect(page).to have_link(@artworks.second.title)
@@ -36,7 +36,7 @@ RSpec.feature "visitor sees homepage" do
     scenario "visitor views stories" do
       visit root_path
 
-      click_on "Stories"
+      click_link "Stories"
 
       expect(page).to have_link(@stories.first.title)
       expect(page).to have_link(@stories.second.title)

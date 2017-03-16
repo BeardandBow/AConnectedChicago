@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313223338) do
+ActiveRecord::Schema.define(version: 20170316184445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,6 @@ ActiveRecord::Schema.define(version: 20170313223338) do
 
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "map_lat"
-    t.decimal  "map_long"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -115,6 +113,7 @@ ActiveRecord::Schema.define(version: 20170313223338) do
     t.string   "email_token"
     t.text     "why"
     t.text     "where"
+    t.text     "how"
     t.index ["neighborhood_id"], name: "index_users_on_neighborhood_id", using: :btree
   end
 
