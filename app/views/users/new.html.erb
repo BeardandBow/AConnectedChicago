@@ -4,7 +4,7 @@
   <%= f.text_field :last_name, placeholder: "Last Name" %>
   <%= f.password_field :password, placeholder: "Password" %>
   <%= f.password_field :password_confirmation, placeholder: "Password Confirmation" %>
-  <%= f.text_field :neighborhood, placeholder: "Your Neighborhood" %>
+  <%= f.select :neighborhood, @neighborhoods, prompt: "Select Your Neighborhood" %>
   <%= f.fields_for :organizations do |o| %>
     <%= o.text_field :name, placeholder: "Organization (optional)" %>
   <% end %>

@@ -1,10 +1,6 @@
-$(document).ready(function(){
-  createMap();
-})
-
 function createMap(){
   handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  handler.buildMap({ provider: {disableDefaultUI: true}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers([
       {
         "lat": 41.8781136,
