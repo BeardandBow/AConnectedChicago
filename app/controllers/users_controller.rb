@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :new, only: [:create]
+
   def show
     @user = current_user
     # use this to populate organizations dropdown
@@ -8,18 +10,25 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @neighborhoods = Neighborhood.order(:name).pluck(:name)
   end
 
   def create
+    @user = User.create(user_params)
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
-    @user = neighborhood.users.create(user_params)
-    if @user.save
-      ConfirmationMailer.send_confirmation(@user).deliver_now
-      flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
-      redirect_to root_path
-    else
-      flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
+    if neighborhood.nil?
+      flash.now[:error] = "Please select your home neighborhood."
       render :new
+    else
+      neighborhood.users << @user
+      if @user.save
+        ConfirmationMailer.send_confirmation(@user).deliver_now
+        flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
+        redirect_to root_path
+      else
+        flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
+        render :new
+      end
     end
   end
 
