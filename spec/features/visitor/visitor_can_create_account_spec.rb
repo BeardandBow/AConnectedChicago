@@ -20,7 +20,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Last Name", with: "Smith"
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "opensesame"
-      fill_in "Your Neighborhood", with: @neighborhood.name
+      select @neighborhood.name, from: "user_neighborhood"
       click_button "Create Account"
 
       user = User.first
@@ -56,7 +56,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Last Name", with: "Smith"
     fill_in "Password", with: "opensesame"
     fill_in "Password Confirmation", with: "opensesame"
-    fill_in "Your Neighborhood", with: @neighborhood.name
+    select @neighborhood.name, from: "user_neighborhood"
     click_button "Create Account"
 
     expect(User.all.count).to eq(0)
@@ -74,7 +74,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Last Name", with: ""
     fill_in "Password", with: "opensesame"
     fill_in "Password Confirmation", with: "opensesame"
-    fill_in "Your Neighborhood", with: @neighborhood.name
+    select @neighborhood.name, from: "user_neighborhood"
     click_button "Create Account"
 
     expect(User.all.count).to eq(0)
@@ -90,7 +90,7 @@ RSpec.feature "visitor can create account" do
     fill_in "Last Name", with: "Smith"
     fill_in "Password", with: "opensesame"
     fill_in "Password Confirmation", with: "closesesame"
-    fill_in "Your Neighborhood", with: @neighborhood.name
+    select @neighborhood.name, from: "user_neighborhood"
     click_button "Create Account"
 
     expect(User.all.count).to eq(0)
@@ -101,12 +101,13 @@ RSpec.feature "visitor can create account" do
     visit root_path
     click_link "Create Account"
 
+    save_and_open_page
     fill_in "Email", with: "someguy@gmail.com"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Smith"
     fill_in "Password", with: ""
     fill_in "Password Confirmation", with: "closesesame"
-    fill_in "Your Neighborhood", with: @neighborhood.name
+    select @neighborhood.name, from: "user_neighborhood"
     click_button "Create Account"
 
     expect(User.all.count).to eq(0)

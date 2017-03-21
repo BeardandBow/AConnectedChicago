@@ -1,0 +1,12 @@
+ <%= form_for @user do |f| %>
+  <%= f.text_field :first_name, placeholder: "First Name" %>
+  <%= f.text_field :last_name, placeholder: "Last Name" %>
+  <%= f.select :gender, options_for_select(['Man', 'Woman', 'Trans Man', 'Trans Woman', 'Nonbinary/Nonconforming'], @user.gender), include_blank: "Select your gender" %>
+  <%= f.select :race, options_for_select(['White', 'Hispanic/Latino', 'Black/African American', 'American Indian/Alaska Native', 'Asian', 'Native Hawaiian/Other Pacific Islander', 'Multiracial'], @user.race), include_blank: "Select your race" %>
+  <%= f.select :neighborhood, options_for_select(@neighborhoods, @user.neighborhood) %>
+  <%= f.select :organizations, @organizations, include_blank: "Add an Organization" %>
+  <%= f.text_area :why, placeholder: "What motivated you to join Connected Chicago?", rows: "10", cols: "100" %>
+  <%= f.text_area :where, placeholder: "What part of Chicago would you like to connect with?", rows: "10", cols: "100" %><br>
+  <%= f.text_field :how, placeholder: "How did you hear about Connected Chicago?", rows: "10", cols: "100" %><br>
+  <%= f.submit "Update Account" %>
+<% end %>
