@@ -1,6 +1,5 @@
 function createMap(){
   handler = Gmaps.build('Google');
-<<<<<<< Updated upstream
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 center: new google.maps.LatLng(41.8781136, -87.6297982),
