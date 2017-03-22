@@ -1,4 +1,3 @@
-
 function createMap(){
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {
