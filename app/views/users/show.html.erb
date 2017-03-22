@@ -7,7 +7,7 @@
 
   <h3>My Organizations</h3>
   <ul>
-    <% current_user.organizations.each do |org| %>
+    <% @user.organizations.each do |org| %>
       <li><%= org.name %></li>
     <% end %>
   </ul>

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature "user can update their profile" do
-  before :all do
+  before :each do
     @user = create(:user, :registered_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
   scenario "user updates their profile with good info" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
     visit user_path(@user)
 
@@ -32,9 +32,8 @@ RSpec.feature "user can update their profile" do
     expect(@user.where).to eq "hyde park"
   end
 
-  scenario "user with updated attributes can update some attributes without replacing all of them" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-    
+  scenario "user can update some attributes without adding all of them" do
+
     visit user_path(@user)
 
     click_link "Update My Account"
@@ -46,10 +45,24 @@ RSpec.feature "user can update their profile" do
 
     expect(@user.first_name).to eq "Mann"
     expect(@user.last_name).to eq "McMannerson"
-    expect(@user.gender).to eq "Man"
-    expect(@user.race).to eq "Hispanic/Latino"
-    expect(@user.why).to eq "I dunno"
+    expect(@user.gender).to eq nil
+    expect(@user.race).to eq nil
+    expect(@user.why).to eq nil
     expect(@user.how).to eq "my mom"
-    expect(@user.where).to eq "hyde park"
+    expect(@user.where).to eq nil
+  end
+
+  scenario "user joins an organization" do
+    organization = create(:organization)
+    visit user_path(@user)
+
+    click_link "Update My Account"
+    select organization.name, from: "user_organizations"
+    click_button "Update Account"
+
+    expect(@user.organizations.count).to eq(1)
+    expect(current_path).to eq(user_path(@user))
+    expect(page).to have_content("Your profile has been updated!")
+    expect(page).to have_content(organization.name)
   end
 end

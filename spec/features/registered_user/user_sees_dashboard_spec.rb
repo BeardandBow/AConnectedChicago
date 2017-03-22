@@ -14,38 +14,6 @@ RSpec.feature "user sees dashboard" do
     expect(page).to have_link("Submit Event")
     expect(page).to have_link("Submit Story")
     expect(page).to have_link("Submit Artwork")
-    find_field("Join an organization")
-    find_field("What motivated you to join Connected Chicago?")
-    find_field("What part of Chicago do you want to connect with?")
-    find_field("How did you hear about A Connected Chicago?")
-  end
-
-  context "user updates info" do
-    scenario "user joins an organization" do
-      organization = create(:organization)
-      visit user_path(@user)
-
-      fill_in "Join an organization", with: organization.name
-      click_button "Join"
-      expect(@user.organizations.count).to eq(1)
-      expect(current_path).to eq(user_path(@user))
-      expect(page).to have_content("You have joined #{organization.name}")
-    end
-
-    scenario "user adds details" do
-      visit user_path(@user)
-
-      fill_in "What motivated you to join Connected Chicago?", with: "Cause"
-      fill_in "What part of Chicago do you want to connect with?", with: "Places"
-      fill_in "How did you hear about A Connected Chicago?", with: "People"
-      click_button "Add"
-
-      expect(@user.why).to eq("Cause")
-      expect(@user.where).to eq("Places")
-      expect(@user.how).to eq("People")
-      expect(current_path).to eq(user_path(@user))
-      expect(page).to have_content("Your profile has been updated")
-    end
   end
 
   context "user submits content to a community leader" do

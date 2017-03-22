@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_action :new, only: [:create]
-  before_action :sanitize_params, only: [:update]
 
   def show
     @user = current_user
@@ -38,17 +37,20 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @neighborhoods = Neighborhood.order(:name).pluck(:name)
-    @organizations = Organization.where.not(id: current_user.organizations.pluck(:id)).pluck(:name)
+    @organizations = Organization.where.not(id: @user.organizations.pluck(:id)).pluck(:name)
   end
 
   def update
-    current_user.update_attributes(user_params)
-    if params[:user][:organizations]
-      org = Organization.find_by(name: params[:user][:organizations])
-      org.users << current_user
+    sanitize_user_params
+    @user = current_user
+    if @user.update_attributes(user_params)
+      if params[:user][:organizations]
+        org = Organization.find_by(name: params[:user][:organizations])
+        @user.organizations << org
+      end
+      flash[:success] = "Your profile has been updated!"
+      redirect_to user_path(current_user)
     end
-    flash[:success] = "Your profile has been updated!"
-    redirect_to user_path(current_user)
   end
 
   def confirm_email
@@ -70,7 +72,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :gender, :race, :why, :where, :how)
   end
 
-  def sanitize_params
+  def sanitize_user_params
     params[:user].delete_if {|k,v| v.blank?} if params[:user]
   end
 end
