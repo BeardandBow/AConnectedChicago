@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :new, only: [:create]
+
   def show
     @user = current_user
     # use this to populate organizations dropdown
@@ -8,31 +10,47 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @neighborhoods = Neighborhood.order(:name).pluck(:name)
+    @organizations = Organization.order(:name).pluck(:name)
   end
 
   def create
+    @user = User.create(user_params)
     neighborhood = Neighborhood.find_by(name: params[:user][:neighborhood])
-    @user = neighborhood.users.create(user_params)
-    if @user.save
-      ConfirmationMailer.send_confirmation(@user).deliver_now
-      flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
-      redirect_to root_path
-    else
-      flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
+    if neighborhood.nil?
+      flash.now[:error] = "Please select your home neighborhood."
       render :new
+    else
+      neighborhood.users << @user
+      if @user.save
+        ConfirmationMailer.send_confirmation(@user).deliver_now
+        flash[:success] = "Account created! Email confirmation sent to #{@user.email}"
+        redirect_to root_path
+      else
+        flash.now[:error] = @user.errors.full_messages.to_sentence.downcase.capitalize
+        render :new
+      end
     end
   end
 
+
+  def edit
+    @user = User.find(params[:id])
+    @neighborhoods = Neighborhood.order(:name).pluck(:name)
+    @organizations = Organization.where.not(id: @user.organizations.pluck(:id)).pluck(:name)
+  end
+
   def update
-    if params[:user] || params[:why] || params[:where]
-      current_user.update_attributes(user_params)
-      flash[:success] = "Your profile has been updated"
-    elsif params[:organization]
-      organization = Organization.find_by(name: params[:organization])
-      current_user.organizations << organization if organization
-      flash[:success] = "You have joined #{organization.name}"
+    sanitize_user_params
+    @user = current_user
+    if @user.update_attributes(user_params)
+      if params[:user][:organizations]
+        org = Organization.find_by(name: params[:user][:organizations])
+        @user.organizations << org
+      end
+      flash[:success] = "Your profile has been updated!"
+      redirect_to user_path(current_user)
     end
-    redirect_to user_path(current_user)
   end
 
   def confirm_email
@@ -51,6 +69,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :why, :where)
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :gender, :race, :why, :where, :how)
+  end
+
+  def sanitize_user_params
+    params[:user].delete_if {|k,v| v.blank?} if params[:user]
   end
 end

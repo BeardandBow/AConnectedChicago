@@ -41,4 +41,5 @@ class User < ApplicationRecord
           self.email_token = SecureRandom.urlsafe_base64.to_s
       end
     end
+
 end

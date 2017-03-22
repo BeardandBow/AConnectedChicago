@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :users, only: [:create, :new, :show, :update]
+  resources :users, only: [:create, :new, :show, :edit, :update]
   get '/users/:email_token/confirm_email', to: 'users#confirm_email', as: 'confirm_user_email'
 
   resources :events, only: [:new, :create, :show, :index]

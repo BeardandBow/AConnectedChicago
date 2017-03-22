@@ -1,37 +1,24 @@
 <div>
-  <%= link_to "Submit Event", new_event_path %>
-  <%= link_to "Submit Story", new_story_path %>
-  <%= link_to "Submit Artwork", new_artwork_path %>
-  <form action="/users/<%= current_user.id %>" method="post">
-    <input type="text" name="organization" placeholder="Join an organization">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="submit" value="Join">
-  </form>
+  <%= link_to "Submit Event", new_event_path %><br>
+  <%= link_to "Submit Story", new_story_path %><br>
+  <%= link_to "Submit Artwork", new_artwork_path %><br>
 
-  <%= form_for @user do |f| %>
-    <%= f.label :why, value: "Tell us more about you:" %><br>
-    <%= f.text_area :why, placeholder: "Why do you want to be a part of Connected Chicago?", rows: "10", cols: "100" %>
-    <%= f.text_area :where, placeholder: "What part of Chicago do you want to connect with?", rows: "10", cols: "100" %><br>
-    <%= f.submit "Add" %>
+  <%= link_to "Update My Account", edit_user_path(@user) %><br>
+
+  <h3>My Organizations</h3>
+  <ul>
+    <% @user.organizations.each do |org| %>
+      <li><%= org.name %></li>
+    <% end %>
+  </ul>
+
+  <% if community_leader? %>
+    <%= link_to "Pending Submissions", submissions_path %>
   <% end %>
 
-  <!-- <form action="/users/<%= current_user.id %>" method="post">
-    <label>Tell us more about you:</label>
-    <input type="textarea" rows="10" cols="200" name="why" placeholder="Why do you want to be a part of Connected Chicago?">
-    <input type="textarea" rows="10" cols="200" name="where" placeholder="What part of Chicago do you want to connect with?">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="submit" value="Add">
-  </form> -->
+  <% if admin? %>
+    <%= link_to "Unowned Pending Submissions", admin_unowned_submissions_path %>
+    <%= link_to "All Pending Submissions", admin_submissions_path %>
+    <%= link_to "Add Community Leader", new_admin_user_path %>
+  <% end %>
 </div>
-
-<% if community_leader? %>
-  <%= link_to "Pending Submissions", submissions_path %>
-<% end %>
-
-<% if admin? %>
-  <%= link_to "Unowned Pending Submissions", admin_unowned_submissions_path %>
-  <%= link_to "All Pending Submissions", admin_submissions_path %>
-  <%= link_to "Add Community Leader", new_admin_user_path %>
-<% end %>
