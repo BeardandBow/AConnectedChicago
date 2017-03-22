@@ -2,7 +2,7 @@
   <button type="button" class="btn btn-default"><%= link_to "Events", events_path %></button>
   <button type="button" class="btn btn-default"><%= link_to "Stories", stories_path %></button>
   <button type="button" class="btn btn-default"><%= link_to "Artwork", artworks_path %></button>
-  <select class="form-control" style="text-align-last: center;">
+  <select class="form-control" style="text-align-last: center;" id="hood-select">
     <%= @neighborhoods.each do |name| %>
       <option><%= name %></option>
     <% end %>

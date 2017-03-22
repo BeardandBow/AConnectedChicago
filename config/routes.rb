@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
   root 'home#index'
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      get '/neighborhoods/:name', to: "neighborhoods#show" do
+        resources :events
+        resources :stories
+        resources :artworks
+      end
+    end
+  end
+
   resources :users, only: [:create, :new, :show, :update]
   get '/users/:email_token/confirm_email', to: 'users#confirm_email', as: 'confirm_user_email'
 
