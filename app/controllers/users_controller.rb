@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @neighborhoods = Neighborhood.order(:name).pluck(:name)
+    @organizations = Organization.order(:name).pluck(:name)
   end
 
   def create
@@ -32,16 +33,24 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def edit
+    @user = User.find(params[:id])
+    @neighborhoods = Neighborhood.order(:name).pluck(:name)
+    @organizations = Organization.where.not(id: @user.organizations.pluck(:id)).pluck(:name)
+  end
+
   def update
-    if params[:user] || params[:why] || params[:where]
-      current_user.update_attributes(user_params)
-      flash[:success] = "Your profile has been updated"
-    elsif params[:organization]
-      organization = Organization.find_by(name: params[:organization])
-      current_user.organizations << organization if organization
-      flash[:success] = "You have joined #{organization.name}"
+    sanitize_user_params
+    @user = current_user
+    if @user.update_attributes(user_params)
+      if params[:user][:organizations]
+        org = Organization.find_by(name: params[:user][:organizations])
+        @user.organizations << org
+      end
+      flash[:success] = "Your profile has been updated!"
+      redirect_to user_path(current_user)
     end
-    redirect_to user_path(current_user)
   end
 
   def confirm_email
@@ -60,6 +69,14 @@ class UsersController < ApplicationController
   private
 
   def user_params
+<<<<<<< HEAD
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :why, :where, :how)
+=======
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :gender, :race, :why, :where, :how)
+  end
+
+  def sanitize_user_params
+    params[:user].delete_if {|k,v| v.blank?} if params[:user]
+>>>>>>> master
   end
 end
