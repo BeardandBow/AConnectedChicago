@@ -10,6 +10,7 @@ env:
   - TESTFOLDER=spec/features/admin
   - TESTFOLDER=spec/models
   - TESTFOLDER=spec/mailers
+  - TESTFOLDER=spec/requests
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
