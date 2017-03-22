@@ -4,13 +4,17 @@ function createMap(){
                                 disableDefaultUI: true,
                                 center: new google.maps.LatLng(41.8781136, -87.6297982),
                                 zoom: 11,
+                                scrollwheel: false,
+                                disableDoubleClickZoom: true,
                                 styles: mapStyle
                               },
                     internal: {id: 'map'}
                    },
     function(){
+      handler.addKml({url: "/images/untitled_layer.kml"});
+
       var hoods = document.getElementById("hood-select");
-      hoods.addEventListener("change", showNeighborhood)
+      hoods.addEventListener("change", showNeighborhood);
     }
   );
 }
@@ -20,6 +24,8 @@ function showNeighborhood(e){
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
+                                scrollwheel: false,
+                                disableDoubleClickZoom: false,
                                 styles: mapStyle
                               },
                     internal: {id: 'map'}
@@ -75,7 +81,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#004358"
+        "color": "#3E4660"
       }
     ]
   },
@@ -84,7 +90,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#933B3B"
       }
     ]
   },
@@ -93,7 +99,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#933B3B"
       }
     ]
   },
@@ -102,7 +108,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#4C2326"
       }
     ]
   },
@@ -111,7 +117,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#4C2326"
       },
       {
         "lightness": -20
@@ -123,7 +129,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#4C2326"
       },
       {
         "lightness": -17
@@ -177,7 +183,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#933B3B"
       },
       {
         "lightness": -10
@@ -190,7 +196,7 @@ var mapStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1f8a70"
+        "color": "#933B3B"
       },
       {
         "weight": 0.7

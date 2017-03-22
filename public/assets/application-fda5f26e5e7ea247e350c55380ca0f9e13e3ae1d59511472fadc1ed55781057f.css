@@ -5,8 +5,20 @@ body {
 .navbar-default {
   background-color: #994646;
 }
-.nav li !important{
-  color: #4c2326;
+.navbar-default .navbar-nav li a {
+  color: #E7E2E4;
+}
+
+.navbar-default .navbar-nav li a:hover {
+  color: black;
+}
+
+.navbar-default .navbar-brand {
+  color: #E7E2E4;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: black;
 }
 
 #map {
@@ -23,8 +35,8 @@ html, body {
 
 #homepage-controls {
   position: absolute;
-  top: 100px;
-  left: 500px;
+  top: 75px;
+  right: 50px;
   z-index: 2;
   float: right;
 }
