@@ -1,12 +1,12 @@
-<div class="btn-group-vertical" role="group" aria-label="..." style="float: right;">
+<div id="homepage-controls" class="btn-group-vertical" role="group" aria-label="...">
   <button type="button" class="btn btn-default"><%= link_to "Events", events_path %></button>
   <button type="button" class="btn btn-default"><%= link_to "Stories", stories_path %></button>
   <button type="button" class="btn btn-default"><%= link_to "Artwork", artworks_path %></button>
-  
-  <select class="form-control" style="text-align-last: center;" id="hood-select">
+
+  <select class="form-control center-dropdown" id="hood-select">
     <%= @neighborhoods.each do |name| %>
       <option><%= name %></option>
     <% end %>
   </select>
 </div>
-<div id="map" style='width: 800px; height: 800px;'></div>
+<div id="map"></div>
