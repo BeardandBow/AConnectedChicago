@@ -18,6 +18,7 @@ class Seed
                           "Riverdale", "Hegewisch"]
 
     neighborhood_names.each do |name|
+              puts "creating #{name}"
       Neighborhood.create(name: name)
     end
 
@@ -49,7 +50,7 @@ class Seed
     Event.create(title: "Event 1",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "2530 W Winona St, Chicago IL 60625",
+                 address: "1719 W Lunt Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 10,
                  time: Time.now,
                  user: user,
@@ -61,7 +62,6 @@ class Seed
                  date: Date.tomorrow + 10,
                  time: Time.now + 20*60,
                  user: user,
-                 neighborhood: Neighborhood.first,
                  organization: org_2)
     Event.create(title: "Event 3",
                  host_contact: "person@example.com",
@@ -70,7 +70,6 @@ class Seed
                  date: Date.tomorrow,
                  time: Time.now + 20*60*60,
                  user: user,
-                 neighborhood: Neighborhood.second,
                  organization: org_2)
     Event.create(title: "Event 4",
                  host_contact: "person@example.com",
@@ -80,51 +79,44 @@ class Seed
                  time: Time.now,
                  status: "approved",
                  user: user,
-                 neighborhood: Neighborhood.second,
                  organization: org_2)
 
     Artwork.create(title: "Art 1",
                   artist: "Picasso",
                   description: "A description",
                   address: "3291 S. Elizabeth St., Chicago, IL 60609",
-                  user: user,
-                  neighborhood: Neighborhood.first)
+                  user: user)
     Artwork.create(title: "Art 2",
                    artist: "da Vinci",
                    description: "A description",
                    address: "5000 S. Elizabeth St., Chicago, IL 60609",
-                   user: user,
-                   neighborhood: Neighborhood.second)
+                   user: user)
     Artwork.create(title: "Art 3",
                    artist: "van Gogh",
                    description: "A description",
                    address: "6111 S. Elizabeth St., Chicago, IL 60609",
                    status: "approved",
-                   user: user,
-                   neighborhood: Neighborhood.second)
+                   user: user)
 
     Story.create(title: "Story 1",
                  author: "David Kelly",
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "5120 S. Elizabeth St., Chicago, IL 60609",
-                 user: user,
-                 neighborhood: Neighborhood.first)
+                 user: user)
     Story.create(title: "Story 2",
                  author: "Mike Martinez",
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "4113 S. Elizabeth St., Chicago, IL 60609",
-                 user: user,
-                 neighborhood: Neighborhood.second)
+                 user: user)
     Story.create(title: "Story 3",
                  author: "Some guy",
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "3218 S. Elizabeth St., Chicago, IL 60609",
                  status: "approved",
-                 user: user,
-                 neighborhood: Neighborhood.second)
+                 user: user)
   end
 end
 

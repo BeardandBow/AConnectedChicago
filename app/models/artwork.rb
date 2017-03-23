@@ -5,6 +5,7 @@ class Artwork < ApplicationRecord
   validates :address, presence: true
   enum status: %w(pending approved rejected)
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
+  before_save :find_neighborhood
   after_validation :geocode
   after_create :set_pkey
 
@@ -45,6 +46,6 @@ class Artwork < ApplicationRecord
     hood = hoods.find do |hood|
       hood.has?(self.map_lat.to_f, self.map_long.to_f)
     end
-    hood.artworks << self
+    self.neighborhood = hood
   end
 end

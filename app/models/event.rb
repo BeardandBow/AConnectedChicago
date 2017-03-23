@@ -49,6 +49,6 @@ class Event < ApplicationRecord
     hood = hoods.find do |hood|
       hood.has?(self.map_lat.to_f, self.map_long.to_f)
     end
-    hood.events << self
+    self.neighborhood = hood
   end
 end
