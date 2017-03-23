@@ -5,8 +5,13 @@ body {
 .navbar-default {
   background-color: #994646;
 }
-.nav li !important{
-  color: #4c2326;
+
+.navbar-default .navbar-nav li a {
+  color: #E7E2E4;
+}
+
+.navbar-default .navbar-nav li a:hover {
+  color: black;
 }
 
 #map {
@@ -21,14 +26,19 @@ html, body {
   padding: 0;
 }
 
-#homepage-controls {
-  position: absolute;
-  top: 100px;
-  left: 500px;
-  z-index: 2;
-  float: right;
-}
+
 
 .center-dropdown {
   text-align-last: center;
+}
+
+#info-backdrop {
+  position: absolute;
+  background-color: #E7E2E4;
+  position: absolute;
+  top: 75px;
+  right: 25px;
+  bottom: 25px;
+  z-index: 2;
+  width: (50% - 25px);
 }
