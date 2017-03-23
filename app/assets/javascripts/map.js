@@ -33,7 +33,6 @@ function showNeighborhood(e){
     function(){
       var hoodName = e.target.options[e.target.selectedIndex].value
       $.get("api/v1/neighborhoods/" + hoodName, function(response){
-        console.log(response);
         response.events.forEach(function(event) {
           markers.push(handler.addMarker({
             "lat": event.map_lat,
@@ -67,6 +66,16 @@ function showNeighborhood(e){
             "infowindow": "artwork!"
           }))
         });
+        response.bounds.forEach(function(bound){
+          markers.push(handler.addMarker({
+            "lat": bound.lat,
+            "lng": bound.lng,
+            "picture": {
+              "height": 32,
+              "width": 32
+            }
+          }))
+        })
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
       })
