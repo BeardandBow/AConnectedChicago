@@ -14,7 +14,6 @@ class ArtworksController < ApplicationController
 
   def create
     @artwork = current_user.artworks.create(artwork_params)
-    current_user.neighborhood.artworks << @artwork
     if @artwork.save
       flash[:success] = "Your Artwork has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)

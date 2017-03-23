@@ -8,6 +8,7 @@ class Event < ApplicationRecord
   validates :address, presence: true
   enum status: %w(pending approved rejected)
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
+  before_save :find_neighborhood
   after_validation :geocode
   after_create :set_pkey
 
@@ -41,5 +42,13 @@ class Event < ApplicationRecord
 
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
+  end
+
+  def find_neighborhood
+    hoods = Neighborhood.all
+    hood = hoods.find do |hood|
+      hood.has?(self.map_lat.to_f, self.map_long.to_f)
+    end
+    hood.events << self
   end
 end

@@ -39,4 +39,12 @@ class Artwork < ApplicationRecord
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
   end
+
+  def find_neighborhood
+    hoods = Neighborhood.all
+    hood = hoods.find do |hood|
+      hood.has?(self.map_lat.to_f, self.map_long.to_f)
+    end
+    hood.artworks << self
+  end
 end

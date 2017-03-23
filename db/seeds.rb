@@ -49,11 +49,10 @@ class Seed
     Event.create(title: "Event 1",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 address: "2530 W Winona St, Chicago IL 60625",
                  date: Date.tomorrow + 10,
                  time: Time.now,
                  user: user,
-                 neighborhood: Neighborhood.first,
                  organization: org_1)
     Event.create(title: "Event 2",
                  host_contact: "person@example.com",
