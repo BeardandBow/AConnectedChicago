@@ -15,8 +15,8 @@ script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
 before_script:
-  - RAILS_ENV=test bundle exec rails db:migrate
   - RAILS_ENV=test bundle exec rails db:create
+  - RAILS_ENV=test bundle exec rails db:migrate
 notifications:
   email: false
 
