@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Story, type: :model do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
+
   context "validations" do
 
     it "is not valid without title" do

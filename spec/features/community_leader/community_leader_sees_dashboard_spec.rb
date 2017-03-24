@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 RSpec.feature "community leader sees dashboard" do
+  before :all do
+    @neighborhood = create(:neighborhood, name: "Hyde Park")
+  end
 
   before :each do
     # As a community leader
-    @user = create(:user, :community_leader)
-    @artwork = create(:artwork, neighborhood_id: @user.neighborhood.id)
-    @event = create(:event, organization_id: @user.organizations.first.id)
-    @story = create(:story, neighborhood_id: @user.neighborhood.id)
+    @user = create(:user, :community_leader, neighborhood: @neighborhood)
+    @artwork = create(:artwork)
+    @event = create(:event, organization: @user.organizations.first)
+    @story = create(:story)
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
@@ -19,6 +23,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_link("Pending Submissions")
       # and when I click on the link
       click_on "Pending Submissions"
+      
       # I should see a list of pending submissions with links to each
       expect(page).to have_link(@story.title)
       expect(page).to have_link(@artwork.title)
