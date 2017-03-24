@@ -5,7 +5,7 @@ rvm:
 services:
   - postgresql
 addons:
-  postgresql: "9.5.3"
+  postgresql: "9.4"
 env:
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/registered_user
