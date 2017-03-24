@@ -46,7 +46,7 @@ RSpec.describe Event, type: :model do
     end
 
     it "is valid with correct attributes" do
-      event = build_stubbed(:event)
+      event = create(:event)
 
       expect(event).to be_valid
     end
