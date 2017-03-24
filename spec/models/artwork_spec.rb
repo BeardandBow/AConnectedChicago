@@ -27,7 +27,7 @@ RSpec.describe Artwork, type: :model do
     end
 
     it "is valid with correct attributes" do
-      artwork = build_stubbed(:artwork)
+      artwork = create(:artwork)
 
       expect(artwork).to be_valid
     end
