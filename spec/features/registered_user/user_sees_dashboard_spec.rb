@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "user sees dashboard" do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
   before :each do
     @user = create(:user, :registered_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -30,7 +33,7 @@ RSpec.feature "user sees dashboard" do
       fill_in "Host Contact Email", with: "someguy@gmail.com"
       fill_in "Host Organization", with: organization.name
       fill_in "Description", with: "description"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
+      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
       fill_in "Date", with: Date.tomorrow
       fill_in "Time", with: Time.now
       # and click submit
@@ -50,7 +53,7 @@ RSpec.feature "user sees dashboard" do
       fill_in "Author", with: "some guy"
       fill_in "Description", with: "description"
       fill_in "Story", with: "body"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
+      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
       click_on "Submit Story for Approval"
       # I should be on my dashboard
@@ -67,7 +70,7 @@ RSpec.feature "user sees dashboard" do
       fill_in "Title", with: "artwork"
       fill_in "Artist", with: "some guy"
       fill_in "Description", with: "description"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
+      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
       click_on "Submit Artwork for Approval"
       # I should be on my dashboard

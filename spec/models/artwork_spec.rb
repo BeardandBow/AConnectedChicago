@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Artwork, type: :model do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
+
   context "validations" do
+    
     it "is not valid without title" do
       artwork = build_stubbed(:artwork, title: nil)
 
@@ -27,7 +32,7 @@ RSpec.describe Artwork, type: :model do
     end
 
     it "is valid with correct attributes" do
-      artwork = build_stubbed(:artwork)
+      artwork = create(:artwork)
 
       expect(artwork).to be_valid
     end

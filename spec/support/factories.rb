@@ -5,39 +5,27 @@ FactoryGirl.define do
     author "some guy"
     description "description"
     body "blah blah blah"
-    address "this one place"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
     user
-    neighborhood
-    after(:build) do |story|
-      story.class.skip_callback(:save, :before, :find_neighborhood)
-    end
   end
 
   factory :artwork do
     sequence(:title) {|n| "artwork #{n}"}
     artist "some guy"
     description "description"
-    address "this one place"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
     user
-    neighborhood
-    after(:build) do |artwork|
-      artwork.class.skip_callback(:save, :before, :find_neighborhood)
-    end
   end
 
   factory :event do
     sequence(:title) {|n| "event #{n}"}
     host_contact "someguy@gmail.com"
     description "description"
-    address "this one place"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
     date Date.tomorrow
     time Time.now
     user
-    neighborhood
     organization
-    after(:build) do |event|
-      event.class.skip_callback(:save, :before, :find_neighborhood)
-    end
   end
 
   factory :user do
@@ -67,9 +55,6 @@ FactoryGirl.define do
 
   factory :neighborhood do
     sequence(:name) {|n| "Hyde Park #{n}"}
-    after(:build) do |hood|
-      hood.class.skip_callback(:validation, :after, :geocode_location)
-    end
     trait :with_user do
       after(:create) do |neighborhood|
         create(:user, neighborhood: neighborhood)

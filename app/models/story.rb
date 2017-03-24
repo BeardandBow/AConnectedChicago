@@ -4,14 +4,18 @@ class Story < ApplicationRecord
   validates :description, presence: true
   validates :body, presence: true
   validates :address, presence: true
+
   enum status: %w(pending approved rejected)
+
+  mount_uploader :image, ImageUploader
+
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  before_save :find_neighborhood
-  after_validation :geocode
+  before_validation :geocode
+  before_validation :find_neighborhood
   after_create :set_pkey
 
   belongs_to :user
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: true
   belongs_to :organization, optional: true
 
   def path
@@ -43,11 +47,10 @@ class Story < ApplicationRecord
   end
 
   def find_neighborhood
-    require "pry"; binding.pry
     hoods = Neighborhood.all
     hood = hoods.find do |hood|
       hood.has?(self.map_lat.to_f, self.map_long.to_f)
     end
-    self.neighborhood = hood
+    self.update_attributes(neighborhood: hood)
   end
 end

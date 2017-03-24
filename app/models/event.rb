@@ -6,15 +6,19 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :time, presence: true
   validates :address, presence: true
+
   enum status: %w(pending approved rejected)
+
+  mount_uploader :image, ImageUploader
+
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  before_save :find_neighborhood
-  after_validation :geocode
+  before_validation :geocode
+  before_validation :find_neighborhood
   after_create :set_pkey
 
   belongs_to :user
   belongs_to :organization
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: true
 
   def path
     "/events/#{self.id}"
@@ -49,6 +53,6 @@ class Event < ApplicationRecord
     hood = hoods.find do |hood|
       hood.has?(self.map_lat.to_f, self.map_long.to_f)
     end
-    self.neighborhood = hood
+    self.update_attributes(neighborhood: hood)
   end
 end
