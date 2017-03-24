@@ -2,6 +2,10 @@ language: ruby
 cache: bundler
 rvm:
 - 2.3.0
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
 env:
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/registered_user
