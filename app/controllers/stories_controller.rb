@@ -14,7 +14,6 @@ class StoriesController < ApplicationController
 
   def create
     @story = current_user.stories.create(story_params)
-    current_user.neighborhood.stories << @story
     if @story.save
       flash[:success] = "Your Story has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)
