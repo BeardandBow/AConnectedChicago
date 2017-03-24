@@ -5,7 +5,7 @@ class Artwork < ApplicationRecord
   validates :address, presence: true
   enum status: %w(pending approved rejected)
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  before_save :find_neighborhood
+  before_create :find_neighborhood
   after_validation :geocode
   after_create :set_pkey
 
