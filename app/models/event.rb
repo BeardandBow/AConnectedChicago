@@ -18,7 +18,7 @@ class Event < ApplicationRecord
 
   belongs_to :user
   belongs_to :organization
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: true
 
   def path
     "/events/#{self.id}"
@@ -53,6 +53,6 @@ class Event < ApplicationRecord
     hood = hoods.find do |hood|
       hood.has?(self.map_lat.to_f, self.map_long.to_f)
     end
-    self.neighborhood = hood
+    self.update_attributes(neighborhood: hood)
   end
 end
