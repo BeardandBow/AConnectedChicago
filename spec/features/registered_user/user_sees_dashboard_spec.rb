@@ -31,11 +31,12 @@ RSpec.feature "user sees dashboard" do
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
-      fill_in "Host Organization", with: organization.name
+      select organization.name, from: "user_organizations"
       fill_in "Description", with: "description"
       fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
-      fill_in "Date", with: Date.tomorrow
-      fill_in "Time", with: Time.now
+      fill_in "Date", with: Date.tomorrow.strftime("%m/%d/%Y")
+      fill_in "Time", with: Time.now.strftime("%I:%M")
+      select "PM", from: "user_time"
       # and click submit
       click_on "Submit Event for Approval"
       # I should be on my dashboard
