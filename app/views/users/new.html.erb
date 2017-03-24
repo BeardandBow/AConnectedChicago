@@ -5,8 +5,6 @@
   <%= f.password_field :password, placeholder: "Password" %>
   <%= f.password_field :password_confirmation, placeholder: "Password Confirmation" %>
   <%= f.select :neighborhood, @neighborhoods, prompt: "Select Your Neighborhood" %>
-  <%= f.fields_for :organizations do |o| %>
-    <%= o.text_field :name, placeholder: "Organization (optional)" %>
-  <% end %>
+  <%= f.select :organizations, @organizations, prompt: "Choose an Organization (optional)" %>
   <%= f.submit "Create Account" %>
 <% end %>
