@@ -13186,7 +13186,7 @@ function createMap(){
                     internal: {id: 'map'}
                    },
     function(){
-      handler.addKml({url: "/images/untitled_layer.kml"});
+      handler.addKml({url: "https://aconnectedchicago/assets/images/untitled_layer.kml"});
 
       var hoods = document.getElementById("hood-select");
       hoods.addEventListener("change", showNeighborhood);

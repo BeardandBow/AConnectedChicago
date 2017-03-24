@@ -3,7 +3,7 @@ function createMap(){
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 center: new google.maps.LatLng(41.8781136, -87.6297982),
-                                zoom: 11,
+                                minZoom: 10,
                                 scrollwheel: false,
                                 disableDoubleClickZoom: true,
                                 styles: mapStyle
@@ -11,7 +11,7 @@ function createMap(){
                     internal: {id: 'map'}
                    },
     function(){
-      handler.addKml({url: "/images/untitled_layer.kml"});
+      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
 
       var hoods = document.getElementById("hood-select");
       hoods.addEventListener("change", showNeighborhood);
@@ -31,9 +31,9 @@ function showNeighborhood(e){
                     internal: {id: 'map'}
                    },
     function(){
+      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
       var hoodName = e.target.options[e.target.selectedIndex].value
       $.get("api/v1/neighborhoods/" + hoodName, function(response){
-        console.log(response);
         response.events.forEach(function(event) {
           markers.push(handler.addMarker({
             "lat": event.map_lat,
@@ -67,6 +67,17 @@ function showNeighborhood(e){
             "infowindow": "artwork!"
           }))
         });
+        response.bounds.forEach(function(bound){
+          markers.push(handler.addMarker({
+            "lat": bound.lat,
+            "lng": bound.lng,
+            "picture": {
+              "url": "",
+              "height": 32,
+              "width": 32
+            }
+          }))
+        })
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
       })

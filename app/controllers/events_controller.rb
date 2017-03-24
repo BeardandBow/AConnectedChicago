@@ -16,7 +16,6 @@ class EventsController < ApplicationController
     organization = Organization.find_by(name: params[:event][:organization])
     @event = current_user.events.create(event_params)
     if organization
-      current_user.neighborhood.events << @event
       organization.events << @event
     end
 
