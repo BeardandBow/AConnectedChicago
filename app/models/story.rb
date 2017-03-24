@@ -10,8 +10,8 @@ class Story < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  before_create :find_neighborhood
-  after_validation :geocode
+  before_validation :geocode
+  before_validation :find_neighborhood
   after_create :set_pkey
 
   belongs_to :user

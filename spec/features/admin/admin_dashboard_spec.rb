@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 RSpec.feature "admin functionality" do
+  before :all do
+    @neighborhood = create(:neighborhood, name: "Hyde Park")
+    create(:neighborhood, name: "Rogers Park")
+  end
 
   before :each do
     @admin = create(:user, :admin)
-    @c_l = create(:user, :community_leader)
-    @artwork = create(:artwork)
-    @event = create(:event, neighborhood_id: @c_l.neighborhood.id)
-    @story = create(:story, neighborhood_id: @c_l.neighborhood.id)
+    @c_l = create(:user, :community_leader, neighborhood: @neighborhood)
+    @artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626")
+    @event = create(:event)
+    @story = create(:story)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
     visit user_path(@admin)

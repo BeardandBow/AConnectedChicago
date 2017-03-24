@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "visitor can create account" do
   before :all do
-    @neighborhood = create(:neighborhood)
+    @neighborhood = create(:neighborhood, name: "Hyde Park")
     @organization = create(:organization)
   end
 
