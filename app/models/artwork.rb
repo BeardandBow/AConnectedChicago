@@ -7,7 +7,6 @@ class Artwork < ApplicationRecord
   enum status: %w(pending approved rejected)
 
   mount_uploader :image, ImageUploader
-
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
   before_validation :geocode
   before_validation :find_neighborhood
