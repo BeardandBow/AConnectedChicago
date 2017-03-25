@@ -6,7 +6,7 @@ RSpec.describe Artwork, type: :model do
   end
 
   context "validations" do
-    
+
     it "is not valid without title" do
       artwork = build_stubbed(:artwork, title: nil)
 
@@ -93,15 +93,15 @@ RSpec.describe Artwork, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now
+      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
       artwork = build(:artwork, created_at: time)
-      expect(artwork.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(artwork.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
     it ".formatted_update_time formats the updated_at" do
-      time = DateTime.now
+      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
       artwork = build(:artwork, updated_at: time)
-      expect(artwork.formatted_update_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(artwork.formatted_update_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
   end
 end

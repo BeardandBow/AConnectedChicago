@@ -1,10 +1,10 @@
 <%= form_for @event do |f| %>
   <%= f.text_field :title, placeholder: "Title" %>
   <%= f.text_field :host_contact, placeholder: "Host Contact Email" %>
-  <%= f.text_field :organization, placeholder: "Host Organization" %>
+  <%= f.select :organization, @organizations, prompt: "Host Organization" %>
   <%= f.text_field :description, placeholder: "Description" %>
   <%= f.text_field :address, placeholder: "Location" %>
-  <%= f.text_field :date, placeholder: "Date" %>
-  <%= f.text_field :time, placeholder: "Time" %>
+  <%= f.date_select :date, start_year: Date.today.year %>
+  <%= f.time_select :time, ampm: true, minute_step: 15 %>
   <%= f.submit "Submit Event for Approval" %>
 <% end %>

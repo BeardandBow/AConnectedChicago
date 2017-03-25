@@ -14,6 +14,7 @@ RSpec.feature "visitor can create account" do
 
   context "valid logins" do
     scenario "visitor creates valid account manually" do
+      expect(page).to have_select("user_organizations")
       fill_in "Email", with: "someguy@gmail.com"
       fill_in "First Name", with: "John"
       fill_in "Last Name", with: "Smith"
