@@ -28,15 +28,18 @@ RSpec.feature "user sees dashboard" do
       visit user_path(@user)
       # and click "Submit Event"
       click_on "Submit Event"
+
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
-      select organization.name, from: "user_organizations"
+      select organization.name, from: "event_organization"
       fill_in "Description", with: "description"
       fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
-      fill_in "Date", with: Date.tomorrow.strftime("%m/%d/%Y")
-      fill_in "Time", with: Time.now.strftime("%I:%M")
-      select "PM", from: "user_time"
+      select Date.tomorrow.year, from: "event_date_1i"
+      select Date.tomorrow.strftime("%B"), from: "event_date_2i"
+      select Date.tomorrow.day, from: "event_date_3i"
+      select Time.now.strftime("%I %p"), from: "event_time_4i"
+      select "30", from: "event_time_5i"
       # and click submit
       click_on "Submit Event for Approval"
       # I should be on my dashboard

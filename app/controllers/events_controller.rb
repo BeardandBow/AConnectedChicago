@@ -10,6 +10,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @organizations = Organization.pluck(:name)
   end
 
   def create
@@ -23,6 +24,7 @@ class EventsController < ApplicationController
       flash[:success] = "Your Event has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)
     else
+      @organizations = Organization.pluck(:name)
       flash[:error] = "There is a problem with your submission. Please correct and resubmit."
       render :new
     end
