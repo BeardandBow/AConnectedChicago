@@ -16,7 +16,7 @@ env:
   - TESTFOLDER=spec/mailers
   - TESTFOLDER=spec/requests
 before_install:
-  - export TZ=America/Chicago
+  - export TZ=US/Central
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
