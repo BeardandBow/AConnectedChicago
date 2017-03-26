@@ -16,7 +16,7 @@ env:
   - TESTFOLDER=spec/mailers
   - TESTFOLDER=spec/requests
 before_install:
-  - export TZ=Central Time (US & Canada)
+  - export TZ=America/Chicago
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
