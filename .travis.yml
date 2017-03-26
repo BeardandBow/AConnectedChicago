@@ -1,7 +1,5 @@
 language: ruby
 cache: bundler
-before_install:
-- export TZ=US/Central
 rvm:
 - 2.3.0
 services:
@@ -21,6 +19,7 @@ script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
 before_script:
+  - export TZ=US/Central
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
 notifications:
