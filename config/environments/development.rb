@@ -65,4 +65,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.time_zone = "Central Time (US & Canada)"
+  config.active_record.default_timezone = :local
 end
