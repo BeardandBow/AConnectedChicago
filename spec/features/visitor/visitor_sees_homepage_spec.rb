@@ -10,9 +10,9 @@ RSpec.feature "visitor sees homepage" do
   scenario "visitor sees links to view content" do
     visit root_path
 
-    expect(page).to have_link("Events")
-    expect(page).to have_link("Stories")
-    expect(page).to have_link("Art")
+    expect(page).to have_button("Events")
+    expect(page).to have_button("Stories")
+    expect(page).to have_button("Art")
   end
 
   context "visitor views content" do
