@@ -1,5 +1,7 @@
 language: ruby
 cache: bundler
+before_install:
+- export TZ=US/Central
 rvm:
 - 2.3.0
 services:
