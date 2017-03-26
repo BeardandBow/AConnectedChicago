@@ -1,4 +1,3 @@
-sudo: required
 language: ruby
 cache: bundler
 rvm:
@@ -20,8 +19,6 @@ script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
 before_script:
-  - echo 'US/Central' | sudo tee /cst/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
 notifications:
