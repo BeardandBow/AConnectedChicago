@@ -7,14 +7,14 @@ services:
 addons:
   postgresql: "9.4"
 env:
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/mailers
+  - TESTFOLDER=spec/requests
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/registered_user
   - TESTFOLDER=spec/features/community_leader
   - TESTFOLDER=spec/features/pending_user
   - TESTFOLDER=spec/features/admin
-  - TESTFOLDER=spec/models
-  - TESTFOLDER=spec/mailers
-  - TESTFOLDER=spec/requests
 before_install:
   - export TZ=US/Central
 script:
