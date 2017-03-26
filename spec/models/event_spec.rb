@@ -115,15 +115,15 @@ RSpec.describe Event, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       event = build(:event, created_at: time)
       expect(event.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
     it ".formatted_time formats the time" do
-      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
-      event = build(:event, created_at: time)
-      expect(event.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
+      event = build(:event, time: time)
+      expect(event.formatted_time).to eq(time.strftime("%I:%M %p"))
     end
   end
 end

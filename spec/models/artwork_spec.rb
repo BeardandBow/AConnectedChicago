@@ -93,13 +93,13 @@ RSpec.describe Artwork, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       artwork = build(:artwork, created_at: time)
       expect(artwork.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
     it ".formatted_update_time formats the updated_at" do
-      time = DateTime.now + 60*60 #offsets from Denver time to Chicago time
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       artwork = build(:artwork, updated_at: time)
       expect(artwork.formatted_update_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
