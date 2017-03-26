@@ -122,8 +122,8 @@ RSpec.describe Event, type: :model do
 
     it ".formatted_time formats the time" do
       time = Time.now.in_time_zone("Central Time (US & Canada)")
-      event = build(:event, created_at: time)
-      expect(event.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
+      event = build(:event, time: time)
+      expect(event.formatted_time).to eq(time.strftime("%I:%M %p"))
     end
   end
 end
