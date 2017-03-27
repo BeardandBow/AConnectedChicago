@@ -1,8 +1,10 @@
-<%= form_for @story do |f| %>
-  <%= f.text_field :title, placeholder: "Title" %>
-  <%= f.text_field :author, placeholder: "Author" %>
-  <%= f.text_field :description, placeholder: "Description" %>
-  <%= f.text_field :address, placeholder: "Location" %>
-  <%= f.text_area :body, placeholder: "Story" %>
-  <%= f.submit "Submit Story for Approval" %>
-<% end %>
+<div class="center">
+  <%= form_for @story do |f| %>
+    <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
+    <%= f.text_field :author, placeholder: "Author", class: "form-input" %>
+    <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
+    <%= f.text_field :address, placeholder: "Location", class: "form-input" %>
+    <%= f.text_area :body, placeholder: "Story", class: "form-input" %>
+    <%= f.submit "Submit Story for Approval", class: "form-input btn btn-success" %>
+  <% end %>
+</div>
