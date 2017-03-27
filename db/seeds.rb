@@ -66,7 +66,7 @@ class Seed
     Event.create(title: "Event 3",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "5120 S. Elizabeth St., Chicago, IL 60609",
+                 address: "5102 S. Elizabeth St., Chicago, IL 60609",
                  date: Date.tomorrow,
                  time: Time.now + 20*60*60,
                  user: user,
@@ -102,7 +102,7 @@ class Seed
                  author: "David Kelly",
                  description: "A description",
                  body: "A riveting story goes here",
-                 address: "5120 S. Elizabeth St., Chicago, IL 60609",
+                 address: "5102 S. Elizabeth St., Chicago, IL 60609",
                  user: user)
     Story.create(title: "Story 2",
                  author: "Mike Martinez",

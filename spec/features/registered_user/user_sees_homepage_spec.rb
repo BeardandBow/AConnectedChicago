@@ -8,9 +8,9 @@ RSpec.feature "user sees homepage" do
 
     visit root_path
 
-    expect(page).to have_link("Events")
-    expect(page).to have_link("Stories")
-    expect(page).to have_link("Art")
+    expect(page).to have_button("Events")
+    expect(page).to have_button("Stories")
+    expect(page).to have_button("Art")
     expect(page).to have_link("Logout")
     expect(page).to have_link("Dashboard")
   end

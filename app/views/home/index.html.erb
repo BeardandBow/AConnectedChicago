@@ -1,11 +1,16 @@
 <div id="homepage-controls" class="btn-group-vertical" role="group" aria-label="...">
-  <button type="button" class="btn btn-default"><%= link_to "Events", events_path %></button>
-  <button type="button" class="btn btn-default"><%= link_to "Stories", stories_path %></button>
-  <button type="button" class="btn btn-default"><%= link_to "Artwork", artworks_path %></button>
+  <button name="type-button" type="button" class="btn btn-default">Events</button>
+  <button name="type-button" type="button" class="btn btn-default">Stories</button>
+  <button name="type-button" type="button" class="btn btn-default">Artwork</button>
 
   <select class="form-control center-dropdown" id="hood-select">
+    <option>Select a neighborhood</option>
     <%= @neighborhoods.each do |name| %>
-      <option><%= name %></option>
+      <% if current_user && current_user.neighborhood.name == name %>
+        <option selected="selected"><%= name %></option>
+      <% else %>
+        <option><%= name %></option>
+      <% end %>
     <% end %>
   </select>
 </div>
