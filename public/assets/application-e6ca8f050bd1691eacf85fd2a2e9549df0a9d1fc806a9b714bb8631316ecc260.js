@@ -13225,7 +13225,7 @@ function showNeighborhood(e){
                 "height": 32,
                 "width": 32
               },
-              "infowindow": '<a href="/events/"' + event.id + '>' + event.title + '</a>'
+              "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
             });
             marker.type = event.pkey;
             markers.push(marker);
@@ -13240,7 +13240,7 @@ function showNeighborhood(e){
                 "height": 32,
                 "width": 32
               },
-              "infowindow": '<a href="/stories/"' + story.id + '>' + story.title + '</a>'
+              "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
             });
             marker.type = story.pkey;
             markers.push(marker);
@@ -13255,7 +13255,7 @@ function showNeighborhood(e){
                 "height": 32,
                 "width": 32
               },
-              "infowindow": '<a href="/artworks/"' + artwork.id + '>' + artwork.title + '</a>'
+              "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
             });
             marker.type = artwork.pkey;
             markers.push(marker);
