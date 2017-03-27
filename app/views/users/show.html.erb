@@ -1,24 +1,29 @@
-<div>
-  <%= link_to "Submit Event", new_event_path %><br>
-  <%= link_to "Submit Story", new_story_path %><br>
-  <%= link_to "Submit Artwork", new_artwork_path %><br>
+<div class="center">
+  <%= link_to "Submit Event", new_event_path, class: "form-input" %><br>
+  <%= link_to "Submit Story", new_story_path, class: "form-input" %><br>
+  <%= link_to "Submit Artwork", new_artwork_path, class: "form-input" %><br>
 
-  <%= link_to "Update My Account", edit_user_path(@user) %><br>
+  <%= link_to "Update My Account", edit_user_path(@user), class: "form-input" %><br>
 
-  <h3>My Organizations</h3>
-  <ul>
-    <% @user.organizations.each do |org| %>
-      <li><%= org.name %></li>
-    <% end %>
-  </ul>
-  
   <% if community_leader? %>
-    <%= link_to "Pending Submissions", submissions_path %>
+  <%= link_to "Pending Submissions", submissions_path, class: "form-input" %>
   <% end %>
 
   <% if admin? %>
-    <%= link_to "Unowned Pending Submissions", admin_unowned_submissions_path %>
-    <%= link_to "All Pending Submissions", admin_submissions_path %>
-    <%= link_to "Add Community Leader", new_admin_user_path %>
+  <%= link_to "Unowned Pending Submissions", admin_unowned_submissions_path, class: "form-input" %>
+  <%= link_to "All Pending Submissions", admin_submissions_path, class: "form-input" %>
+  <%= link_to "Add Community Leader", new_admin_user_path, class: "form-input" %>
   <% end %>
+  
+  <h3>My Organizations</h3>
+    <% if @user.organizations.empty? %>
+      <h5>You aren't affiliated with any organizations. Update your account above to add one!</h5>
+    <% else %>
+      <ul class="list-group">
+        <% @user.organizations.each do |org| %>
+          <li class="list-group-item"><%= org.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
 </div>

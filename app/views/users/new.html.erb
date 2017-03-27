@@ -1,10 +1,13 @@
- <%= form_for @user do |f| %>
-  <%= f.text_field :email, placeholder: "Email" %>
-  <%= f.text_field :first_name, placeholder: "First Name" %>
-  <%= f.text_field :last_name, placeholder: "Last Name" %>
-  <%= f.password_field :password, placeholder: "Password" %>
-  <%= f.password_field :password_confirmation, placeholder: "Password Confirmation" %>
-  <%= f.select :neighborhood, @neighborhoods, prompt: "Select Your Neighborhood" %>
-  <%= f.select :organizations, @organizations, prompt: "Choose an Organization (optional)" %>
-  <%= f.submit "Create Account" %>
-<% end %>
+<div class="center">
+  <h3>Create an account</h3>
+  <%= form_for @user do |f| %>
+    <%= f.text_field :email, placeholder: "Email", class: "form-input" %>
+    <%= f.text_field :first_name, placeholder: "First Name", class: "form-input" %>
+    <%= f.text_field :last_name, placeholder: "Last Name", class: "form-input" %>
+    <%= f.password_field :password, placeholder: "Password", class: "form-input" %>
+    <%= f.password_field :password_confirmation, placeholder: "Password Confirmation", class: "form-input" %>
+    <%= f.select :neighborhood, @neighborhoods, {prompt: "Select Your Neighborhood"}, {class: "form-control center-dropdown form-input"} %>
+    <%= f.select :organizations, @organizations, {prompt: "Choose an Organization (optional)"}, {class: "form-control center-dropdown form-input"} %>
+    <%= f.submit "Create Account", class: "btn btn-success form-input" %>
+  <% end %>
+</div>
