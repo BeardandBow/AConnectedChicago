@@ -35,37 +35,41 @@ function showNeighborhood(e){
       var hoodName = e.target.options[e.target.selectedIndex].value
       $.get("api/v1/neighborhoods/" + hoodName, function(response){
         response.events.forEach(function(event) {
-          markers.push(handler.addMarker({
+          var marker = handler.addMarker({
             "lat": event.map_lat,
             "lng": event.map_long,
+            "visible": false,
             "picture": {
               "height": 32,
               "width": 32
             },
-            "infowindow": "event!"
-          }))
+          });
+          marker.type = event.pkey;
+          markers.push(marker);
         });
         response.stories.forEach(function(story){
-          markers.push(handler.addMarker({
+          var marker = handler.addMarker({
             "lat": story.map_lat,
             "lng": story.map_long,
             "picture": {
               "height": 32,
               "width": 32
             },
-            "infowindow": "story!"
-          }))
+          });
+          marker.type = story.pkey;
+          markers.push(marker);
         });
         response.artworks.forEach(function(artwork){
-          markers.push(handler.addMarker({
+          var marker = handler.addMarker({
             "lat": artwork.map_lat,
             "lng": artwork.map_long,
             "picture": {
               "height": 32,
               "width": 32
             },
-            "infowindow": "artwork!"
-          }))
+          });
+          marker.type = artwork.pkey;
+          markers.push(marker);
         });
         response.bounds.forEach(function(bound){
           markers.push(handler.addMarker({
@@ -81,10 +85,22 @@ function showNeighborhood(e){
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
       })
+      var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
+      buttons.forEach(function(button){
+        button.addEventListener("click", function(){
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].type[0] !== button.innerText[0]) {
+              markers[i].serviceObject.setVisible(false)
+            } else {
+              markers[i].serviceObject.setVisible(true)
+            }
+          }
+          console.log(button);
+        });
+      })
     }
   );
 };
-
 
 var mapStyle = [
   {
