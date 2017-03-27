@@ -1,6 +1,8 @@
-<form action="/admin/users" method="post">
-  <input type="text" name="email" placeholder="User Email">
-  <input type="hidden" name="_method" value="put">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <input type="submit" value="Promote User">
-</form>
+<div class="center">
+  <form action="/admin/users" method="post">
+    <input class="form-input" type="text" name="email" placeholder="User Email">
+    <input class="form-input" type="hidden" name="_method" value="put">
+    <input class="form-input" type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input class="form-input btn btn-success" type="submit" value="Promote User">
+  </form>
+</div>

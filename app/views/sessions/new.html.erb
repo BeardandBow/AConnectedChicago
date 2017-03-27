@@ -1,5 +1,8 @@
-<%= form_for :session, url: login_path do |f| %>
-  <%= f.text_field :email, placeholder: "Email" %>
-  <%= f.password_field :password, placeholder: "Password" %>
-  <%= f.submit "Login" %>
-<% end %>
+<div class="center">
+  <h3>Log in to your account</h3>
+  <%= form_for :session, url: login_path do |f| %>
+    <%= f.text_field :email, placeholder: "Email", class: "form-input" %>
+    <%= f.password_field :password, placeholder: "Password", class: "form-input" %>
+    <%= f.submit "Login", class: "btn btn-success form-input" %>
+  <% end %>
+</div>

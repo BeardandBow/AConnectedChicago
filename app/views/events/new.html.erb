@@ -1,10 +1,14 @@
-<%= form_for @event do |f| %>
-  <%= f.text_field :title, placeholder: "Title" %>
-  <%= f.text_field :host_contact, placeholder: "Host Contact Email" %>
-  <%= f.select :organization, @organizations, prompt: "Host Organization" %>
-  <%= f.text_field :description, placeholder: "Description" %>
-  <%= f.text_field :address, placeholder: "Location" %>
-  <%= f.date_select :date, start_year: Date.today.year %>
-  <%= f.time_select :time, ampm: true, minute_step: 15 %>
-  <%= f.submit "Submit Event for Approval" %>
-<% end %>
+<div class="center">
+  <%= form_for @event do |f| %>
+    <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
+    <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>
+    <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
+    <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
+    <%= f.text_field :address, placeholder: "Location", class: "form-input" %>
+    <%= f.date_select :date, {start_year: Date.today.year}, {class: "form-input form-control center-dropdown"} %>
+    <div class="form-inline form-input">
+      <%= f.time_select :time, {ampm: true, minute_step: 15}, {class: "time-select form-control center-dropdown"} %>
+    </div>
+    <%= f.submit "Submit Event for Approval", class: "form-input btn btn-success" %>
+  <% end %>
+</div>
