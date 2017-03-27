@@ -1,9 +1,4 @@
 function createMap(){
-  var hoods = document.getElementById("hood-select");
-  if (hoods.selectedIndex !== 0) {
-    showNeighborhood(hoods);
-  }
-  hoods.addEventListener("change", showNeighborhood);
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
@@ -17,6 +12,11 @@ function createMap(){
                    },
     function(){
       handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
+      var hoods = document.getElementById("hood-select");
+      if (hoods.selectedIndex !== 0) {
+        showNeighborhood(hoods);
+      }
+      hoods.addEventListener("change", showNeighborhood);
     }
   );
 }
