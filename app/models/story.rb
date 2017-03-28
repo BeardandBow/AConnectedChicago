@@ -12,6 +12,7 @@ class Story < ApplicationRecord
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
   before_validation :geocode
   before_validation :find_neighborhood
+  after_create :format_embedded_youtube_link
   after_create :set_pkey
 
   belongs_to :user
@@ -46,10 +47,16 @@ class Story < ApplicationRecord
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
   end
 
-  def find_neighborhood
-    neighborhood = Neighborhood.find do |hood|
-      hood.has?(self.map_lat.to_f, self.map_long.to_f)
+  private
+
+    def find_neighborhood
+      neighborhood = Neighborhood.find do |hood|
+        hood.has?(self.map_lat.to_f, self.map_long.to_f)
+      end
+      self.assign_attributes(neighborhood: neighborhood)
     end
-    self.assign_attributes(neighborhood: neighborhood)
-  end
+
+    def format_embedded_youtube_link
+      self.assign_attributes(youtube_link: "https://www.youtube.com/embed/#{self.youtube_link}")
+    end
 end
