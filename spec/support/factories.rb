@@ -6,6 +6,7 @@ FactoryGirl.define do
     description "description"
     body "blah blah blah"
     address "5699 S Ellis Ave, Chicago, IL 60637"
+    youtube_link "YYrus5g5iN4"
     user
   end
 

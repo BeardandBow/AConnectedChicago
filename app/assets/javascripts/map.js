@@ -12,7 +12,6 @@ function createMap(){
                    },
     function(){
       handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/af51df0e6c42b56fa200cc2d04d15178/raw/4eb969be2aaac95a78f19ee7fb3ee423049d807d/labels.kml"});
       var hoods = document.getElementById("hood-select");
       if (hoods.selectedIndex !== 0) {
         showNeighborhood(hoods);
