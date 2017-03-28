@@ -111,8 +111,8 @@ RSpec.describe Story, type: :model do
       expect(story.formatted_update_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
-    it "formats a youtube ID into an embedded link" do
-      story= create(:story, youtube_link: "eRBOgtp0Hac")
+    it "formats a youtube link into an embedded link" do
+      story= create(:story, youtube_link: "https://www.youtube.com/watch?v=eRBOgtp0Hac")
 
       expect(story.youtube_link).to eq("https://www.youtube.com/embed/eRBOgtp0Hac")
     end
