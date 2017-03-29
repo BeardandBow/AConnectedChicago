@@ -23,7 +23,12 @@ class EventsController < ApplicationController
       organization.events << @event
     end
     if @event.save
-      flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      if community_leader? || admin?
+        @event.approve
+        flash[:success] = "Your Event has been created."
+      else
+        flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      end
       redirect_to user_path(current_user)
     else
       @organizations = Organization.pluck(:name)
