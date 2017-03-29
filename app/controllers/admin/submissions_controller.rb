@@ -30,12 +30,20 @@ class Admin::SubmissionsController < ApplicationController
 
   def get_unowned_submissions
     submissions = []
-    events = Event.where(organization_id: nil, status: "pending")
-    submissions << events if events
-    artworks = Artwork.where(organization_id: nil, status: "pending")
-    submissions << artworks if artworks
-    stories = Story.where(organization_id: nil, status: "pending")
-    submissions << stories if stories
+    # find events whose organizations have no community_leaders and have a status of pending
+    events = Event.joins(organization: [:users]).where.not(organization: { users: {role: "community_leader"}}).where(status: "pending")
+    submissions << events unless events.empty?
+
+    pending_artworks = Artwork.where(organization_id: nil, status: "pending")
+    artworks_without_community_leaders = Artwork.joins(organization: [:users]).where.not(organization: { users: {role: "community_leader"}}).where(status: "pending")
+    pending_artworks << artworks_without_community_leaders unless artworks_without_community_leaders.empty?
+    submissions << pending_artworks unless pending_artworks.empty?
+
+    pending_stories = Story.where(organization_id: nil, status: "pending")
+    stories_without_community_leaders = Story.joins(organization: [:users]).where.not(organization: { users: {role: "community_leader"}}).where(status: "pending")
+    pending_stories << stories_without_community_leaders unless stories_without_community_leaders.empty?
+    submissions << pending_stories unless pending_stories.empty?
+    
     unless submissions.empty?
       submissions = submissions.flatten.sort_by do |submission|
         submission.created_at if submission
