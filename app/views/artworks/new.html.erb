@@ -1,7 +1,8 @@
 <div class="center">
-  <%= form_for @artwork do |f| %>
+  <%= form_for @artwork, html: {multipart: true} do |f| %>
     <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
     <%= f.text_field :artist, placeholder: "Artist", class: "form-input" %>
+    <input type="file" name="artwork[image]" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
     <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
     <%= f.text_field :address, placeholder: "Location", class: "form-input" %>
     <%= f.submit "Submit Artwork for Approval", class: "form-input btn btn-success" %>
