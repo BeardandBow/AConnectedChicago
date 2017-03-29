@@ -14,6 +14,9 @@ class StoriesController < ApplicationController
 
   def create
     @story = current_user.stories.create(story_params)
+    if community_leader? || admin?
+      @story.approve
+    end
     if @story.save
       if community_leader? || admin?
         @story.approve
