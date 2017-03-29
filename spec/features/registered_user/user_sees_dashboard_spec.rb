@@ -58,6 +58,7 @@ RSpec.feature "user sees dashboard" do
       fill_in "Description", with: "description"
       fill_in "Story", with: "body"
       fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       # and click submit
       click_on "Submit Story for Approval"
       # I should be on my dashboard
@@ -86,7 +87,7 @@ RSpec.feature "user sees dashboard" do
 
   context "user submits incomplete content" do
 
-    scenario "user submits event" do
+    scenario "user submits incomplete event" do
       visit user_path(@user)
 
       click_on "Submit Event"
@@ -96,7 +97,7 @@ RSpec.feature "user sees dashboard" do
       expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
     end
 
-    scenario "user submits story" do
+    scenario "user submits incomplete story" do
       visit user_path(@user)
 
       click_on "Submit Story"
@@ -106,7 +107,7 @@ RSpec.feature "user sees dashboard" do
       expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
     end
 
-    scenario "user submits artwork" do
+    scenario "user submits incomplete artwork" do
       visit user_path(@user)
 
       click_on "Submit Artwork"

@@ -57,6 +57,9 @@ class Story < ApplicationRecord
     end
 
     def format_embedded_youtube_link
-      self.assign_attributes(youtube_link: "https://www.youtube.com/embed/#{self.youtube_link}")
+      if self.youtube_link
+        youtube_id = self.youtube_link.split('=').last
+        self.assign_attributes(youtube_link: "https://www.youtube.com/embed/#{youtube_id}")
+      end
     end
 end
