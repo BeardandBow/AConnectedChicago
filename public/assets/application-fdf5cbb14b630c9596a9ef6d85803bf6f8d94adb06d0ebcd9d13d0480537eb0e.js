@@ -13236,7 +13236,7 @@ function showNeighborhood(e){
         }
         if (response.stories.length !== 0) {
           response.stories.forEach(function(story){
-            if (event.status === "approved") {
+            if (story.status === "approved") {
               var marker = handler.addMarker({
                 "lat": story.map_lat,
                 "lng": story.map_long,
@@ -13253,7 +13253,7 @@ function showNeighborhood(e){
         }
         if (response.artworks.length !== 0) {
           response.artworks.forEach(function(artwork){
-            if (event.status === "approved") {
+            if (artwork.status === "approved") {
               var marker = handler.addMarker({
                 "lat": artwork.map_lat,
                 "lng": artwork.map_long,
