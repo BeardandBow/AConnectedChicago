@@ -2,8 +2,10 @@
 <br>
 <br>
 <br>
-<%= @artwork.title %><br>
-<%= @artwork.artist %><br>
+<%= @artwork.title %> - By <%= @artwork.artist %><br>
+<% if @artwork.image.file %>
+  <img src="<%= @artwork.image %>" alt="artwork image"/><br>
+<% end %>
 <%= @artwork.description %><br>
 <%= @artwork.address %><br>
 Posted At: <%= @artwork.formatted_update_time %><br>

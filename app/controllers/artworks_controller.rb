@@ -14,6 +14,7 @@ class ArtworksController < ApplicationController
 
   def create
     @artwork = current_user.artworks.create(artwork_params)
+    @artwork.update_attributes(image: params[:artwork][:image])
     if @artwork.save
       flash[:success] = "Your Artwork has been sent to a Community Leader for approval."
       redirect_to user_path(current_user)
@@ -28,6 +29,7 @@ class ArtworksController < ApplicationController
   def artwork_params
     params.require(:artwork).permit(:title,
                                     :artist,
+                                    :image,
                                     :description,
                                     :address)
   end

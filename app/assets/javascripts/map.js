@@ -43,48 +43,54 @@ function showNeighborhood(e){
       $.get("api/v1/neighborhoods/" + hoodName, function(response){
         if (response.events.length !== 0) {
           response.events.forEach(function(event) {
-            var marker = handler.addMarker({
-              "lat": event.map_lat,
-              "lng": event.map_long,
-              "visible": false,
-              "picture": {
-                "height": 32,
-                "width": 32
-              },
-              "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
-            });
-            marker.type = event.pkey;
-            markers.push(marker);
+            if (event.status === "approved") {
+              var marker = handler.addMarker({
+                "lat": event.map_lat,
+                "lng": event.map_long,
+                "visible": false,
+                "picture": {
+                  "height": 32,
+                  "width": 32
+                },
+                "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+              });
+              marker.type = event.pkey;
+              markers.push(marker);
+            }
           });
         }
         if (response.stories.length !== 0) {
           response.stories.forEach(function(story){
-            var marker = handler.addMarker({
-              "lat": story.map_lat,
-              "lng": story.map_long,
-              "picture": {
-                "height": 32,
-                "width": 32
-              },
-              "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
-            });
-            marker.type = story.pkey;
-            markers.push(marker);
+            if (story.status === "approved") {
+              var marker = handler.addMarker({
+                "lat": story.map_lat,
+                "lng": story.map_long,
+                "picture": {
+                  "height": 32,
+                  "width": 32
+                },
+                "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
+              });
+              marker.type = story.pkey;
+              markers.push(marker);
+            }
           });
         }
         if (response.artworks.length !== 0) {
           response.artworks.forEach(function(artwork){
-            var marker = handler.addMarker({
-              "lat": artwork.map_lat,
-              "lng": artwork.map_long,
-              "picture": {
-                "height": 32,
-                "width": 32
-              },
-              "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
-            });
-            marker.type = artwork.pkey;
-            markers.push(marker);
+            if (artwork.status === "approved") {
+              var marker = handler.addMarker({
+                "lat": artwork.map_lat,
+                "lng": artwork.map_long,
+                "picture": {
+                  "height": 32,
+                  "width": 32
+                },
+                "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
+              });
+              marker.type = artwork.pkey;
+              markers.push(marker);
+            }
           });
         }
         response.bounds.forEach(function(bound){
