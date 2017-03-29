@@ -16,14 +16,16 @@ class EventsController < ApplicationController
   def create
     organization = Organization.find_by(name: params[:event][:organization])
     @event = current_user.events.create(event_params)
-    if community_leader? || admin?
-      @event.approve
-    end
     if organization
       organization.events << @event
     end
     if @event.save
-      flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      if community_leader? || admin?
+        @event.approve
+        flash[:success] = "Your Event has been created."
+      else
+        flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      end
       redirect_to user_path(current_user)
     else
       @organizations = Organization.pluck(:name)
