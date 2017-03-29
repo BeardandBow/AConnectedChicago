@@ -35,7 +35,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 gem 'aws-sdk'
-gem 'streamio-ffmpeg'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

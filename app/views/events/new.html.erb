@@ -2,7 +2,7 @@
   <%= form_for @event, html: {multipart: true} do |f| %>
     <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
     <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>
-    <input type="file" name="image" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
+    <input type="file" name="event[image]" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
     <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
     <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
     <%= f.text_field :address, placeholder: "Location", class: "form-input" %>

@@ -3,9 +3,12 @@
 <br>
 <br>
 <%= @event.title %>
+<% if @event.image.file %>
+  <img src="<%= @event.image %>" alt="event image"/><br>
+<% end %>
 <%= @event.host_contact %>
 <%= @event.description %>
 <%= @event.address %>
 <%= @event.date %>
 <%= @event.formatted_time %>
-<%= @event.organization.name %>
+<%= @event.organization.name if @event.organization %>
