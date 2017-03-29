@@ -30,6 +30,7 @@ class StoriesController < ApplicationController
                                   :author,
                                   :description,
                                   :address,
+                                  :youtube_link,
                                   :body)
   end
 end
