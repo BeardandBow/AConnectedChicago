@@ -12,7 +12,7 @@ class Story < ApplicationRecord
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
   before_validation :geocode
   before_validation :find_neighborhood
-  after_create :format_embedded_youtube_link
+  before_create :format_embedded_youtube_link
   after_create :set_pkey
 
   belongs_to :user
@@ -57,7 +57,9 @@ class Story < ApplicationRecord
     end
 
     def format_embedded_youtube_link
-      if self.youtube_link
+      if self.youtube_link.empty?
+        self.assign_attributes(youtube_link: nil)
+      else
         youtube_id = self.youtube_link.split('=').last
         self.assign_attributes(youtube_link: "https://www.youtube.com/embed/#{youtube_id}")
       end

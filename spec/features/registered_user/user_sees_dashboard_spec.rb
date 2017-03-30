@@ -35,6 +35,7 @@ RSpec.feature "user sees dashboard" do
       select organization.name, from: "event_organization"
       fill_in "Description", with: "description"
       fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      select "Peace Circle", from: "event_event_type"
       select Date.tomorrow.year, from: "event_date_1i"
       select Date.tomorrow.strftime("%B"), from: "event_date_2i"
       select Date.tomorrow.day, from: "event_date_3i"

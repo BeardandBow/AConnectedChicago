@@ -43,6 +43,12 @@ RSpec.describe Event, type: :model do
       expect(event).not_to be_valid
     end
 
+    it "is not valid without event_type" do
+      event = build_stubbed(:event, event_type: nil)
+
+      expect(event).not_to be_valid
+    end
+
     it "should validate format of host_contact email" do
       event = build(:event, host_contact: "someguygmailcom")
 

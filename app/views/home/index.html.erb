@@ -6,7 +6,7 @@
   <select class="form-control center-dropdown" id="hood-select">
     <option>Select a neighborhood</option>
     <%= @neighborhoods.each do |name| %>
-      <% if current_user && current_user.neighborhood.name == name %>
+      <% if @role && @role > 0 && current_user.neighborhood.name == name %>
         <option selected="selected"><%= name %></option>
       <% else %>
         <option><%= name %></option>
