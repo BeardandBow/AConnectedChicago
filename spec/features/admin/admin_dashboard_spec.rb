@@ -4,6 +4,7 @@ RSpec.feature "admin functionality" do
   before :all do
     @neighborhood = create(:neighborhood, name: "Hyde Park")
     create(:neighborhood, name: "Rogers Park")
+    @organization = create(:organization)
   end
 
   before :each do
@@ -11,7 +12,7 @@ RSpec.feature "admin functionality" do
     @c_l = create(:user, :community_leader, neighborhood: @neighborhood)
     @artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626")
     @event = create(:event)
-    @story = create(:story)
+    @story = create(:story, organization: @organization, address: "1543 W Morse Ave, Chicago, IL 60626")
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
     visit user_path(@admin)
@@ -23,7 +24,7 @@ RSpec.feature "admin functionality" do
 
       expect(page).to have_link(@artwork.title)
       expect(page).not_to have_link(@event.title)
-      expect(page).not_to have_link(@story.title)
+      expect(page).to have_link(@story.title)
     end
 
     scenario "admin approves only pending submissions that do not have a community leader" do
