@@ -24,30 +24,11 @@ class SubmissionsController < ApplicationController
     submissions = []
     events = Event.where(status: "pending", organization: current_user.organizations)
     submissions << events if events
-    # artworks = Artwork.where(status: "pending")
-    # if artworks
-      # submissions << artworks.find_all do |artwork|
-        # current_user.organizations.include(artwork.organization) if artwork.organization
-      # end
-      submissions << Artwork.joins(:organization).where(organization_id: current_user.organizations, status: "pending")
-      submissions << Artwork.joins(:neighborhood).where(neighborhood_id: current_user.neighborhood, status: "pending")
+    submissions << Artwork.joins(:organization).where(organization_id: current_user.organizations, status: "pending")
+    submissions << Artwork.joins(:neighborhood).where(neighborhood_id: current_user.neighborhood, status: "pending")
 
-      submissions << Story.joins(:organization).where(organization_id: current_user.organizations, status: "pending")
-      submissions << Story.joins(:neighborhood).where(neighborhood_id: current_user.neighborhood, status: "pending")
-
-      # submissions << artworks.find_all do |artwork|
-      #   current_user.neighborhood == artwork.neighborhood && !artwork.organization
-      # end
-    # end
-    # stories = Story.where(status: "pending")
-    # if stories
-    #   submissions << stories.find_all do |story|
-    #     current_user.organizations.include(story.organization) if story.organization
-    #   end
-    #   submissions << stories.find_all do |story|
-    #     current_user.neighborhood == story.neighborhood && !story.organization
-    #   end
-    # end
+    submissions << Story.joins(:organization).where(organization_id: current_user.organizations, status: "pending")
+    submissions << Story.joins(:neighborhood).where(neighborhood_id: current_user.neighborhood, status: "pending")
 
     unless submissions.empty?
       submissions.flatten.uniq.sort_by do |submission|
