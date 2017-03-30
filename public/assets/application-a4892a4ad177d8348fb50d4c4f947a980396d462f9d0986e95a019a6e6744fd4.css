@@ -32,18 +32,14 @@ body {
 }
 
 .navbar-default {
-  background-color: #994646;
+  background-color: #E7E2E4;
 }
 .navbar-default .navbar-nav li a {
-  color: #E7E2E4;
+  color: #45494C;
 }
 
 .navbar-default .navbar-nav li a:hover {
   color: black;
-}
-
-.navbar-default .navbar-brand {
-  color: #E7E2E4;
 }
 
 .navbar-default .navbar-brand:hover {
