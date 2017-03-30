@@ -10,6 +10,7 @@ RSpec.feature "admin functionality" do
   before :each do
     @admin = create(:user, :admin)
     @c_l = create(:user, :community_leader, neighborhood: @neighborhood)
+    @neighborhood.users << @c_l
     @artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626")
     @event = create(:event)
     @story = create(:story, organization: @organization, address: "1543 W Morse Ave, Chicago, IL 60626")
