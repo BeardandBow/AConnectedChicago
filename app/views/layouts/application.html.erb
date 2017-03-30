@@ -14,7 +14,7 @@
     <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
   </head>
 
-  <body>
+  <body class="<%= yield (:body_class) %>">
     <%= render 'shared/navbar' %>
     <% flash.each do |type, message| %>
       <div data-alert class="flash_<%= type %>">
