@@ -27,3 +27,15 @@
 .bootstrap-filestyle {
   margin-bottom: 5px;
 }
+
+.btn-group-vertical {
+  width: 100%
+}
+
+div.btn-group-vertical form{
+  display: inline;
+}
+
+.white {
+  color: #E7E2E4;
+}

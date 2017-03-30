@@ -20,7 +20,7 @@ RSpec.feature "community leader sees dashboard" do
       # When I visit my dashboard
       visit user_path(@user)
       # I should see a link to view submitted content
-      expect(page).to have_link("Pending Submissions")
+      expect(page).to have_button("Pending Submissions")
       # and when I click on the link
       click_on "Pending Submissions"
 

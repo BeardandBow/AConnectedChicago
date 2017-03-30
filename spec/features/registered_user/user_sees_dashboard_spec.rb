@@ -14,9 +14,9 @@ RSpec.feature "user sees dashboard" do
     # When I visit my dashboard
     visit user_path(@user)
     # I should see links for adding an event, a story, and an art piece
-    expect(page).to have_link("Submit Event")
-    expect(page).to have_link("Submit Story")
-    expect(page).to have_link("Submit Artwork")
+    expect(page).to have_button("Submit Event")
+    expect(page).to have_button("Submit Story")
+    expect(page).to have_button("Submit Artwork")
   end
 
   context "user submits content to a community leader" do

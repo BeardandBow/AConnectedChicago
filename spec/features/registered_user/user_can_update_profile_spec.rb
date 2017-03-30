@@ -10,7 +10,7 @@ RSpec.feature "user can update their profile" do
 
     visit user_path(@user)
 
-    click_link "Update My Account"
+    click_button "Update My Account"
 
     fill_in "First Name", with: "Dude"
     fill_in "Last Name", with: "McDuderson"
@@ -36,7 +36,7 @@ RSpec.feature "user can update their profile" do
 
     visit user_path(@user)
 
-    click_link "Update My Account"
+    click_button "Update My Account"
 
     fill_in "First Name", with: "Mann"
     fill_in "Last Name", with: "McMannerson"
@@ -56,7 +56,7 @@ RSpec.feature "user can update their profile" do
     organization = create(:organization)
     visit user_path(@user)
 
-    click_link "Update My Account"
+    click_button "Update My Account"
     select organization.name, from: "user_organizations"
     click_button "Update Account"
 
