@@ -31,6 +31,7 @@ class Admin::SubmissionsController < ApplicationController
   def get_unowned_submissions
     submissions = []
     # find events whose organizations have no community_leaders and have a status of pending
+    # find events whose neighborhoods have no community leaders and have a status of pending
     events = Event.joins(organization: [:users]).where.not(organization: { users: {role: "community_leader"}}).where(status: "pending")
     submissions << events unless events.empty?
 
@@ -43,7 +44,7 @@ class Admin::SubmissionsController < ApplicationController
     stories_without_community_leaders = Story.joins(organization: [:users]).where.not(organization: { users: {role: "community_leader"}}).where(status: "pending")
     pending_stories << stories_without_community_leaders unless stories_without_community_leaders.empty?
     submissions << pending_stories unless pending_stories.empty?
-    
+
     unless submissions.empty?
       submissions = submissions.flatten.sort_by do |submission|
         submission.created_at if submission
