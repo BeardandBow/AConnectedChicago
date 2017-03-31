@@ -35,6 +35,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 gem 'aws-sdk'
+gem 'sass-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
