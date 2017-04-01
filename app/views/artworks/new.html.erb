@@ -1,6 +1,7 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="center">
   <h1 class="white">Submit Art</h1>
+  <h5 class="white">Reasons to upload that Mike will provide go here</h5>
   <%= form_for @artwork, html: {multipart: true} do |f| %>
     <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
     <%= f.text_field :artist, placeholder: "Artist", class: "form-input" %>
