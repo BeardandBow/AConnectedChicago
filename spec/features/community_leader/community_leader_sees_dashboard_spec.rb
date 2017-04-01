@@ -176,7 +176,7 @@ RSpec.feature "community leader sees dashboard" do
       fill_in "Host Contact Email", with: "someguy@gmail.com"
       select organization.name, from: "event_organization"
       fill_in "Description", with: "description"
-      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       select "Peace Circle", from: "event_event_type"
       select Date.tomorrow.year, from: "event_date_1i"
       select Date.tomorrow.strftime("%B"), from: "event_date_2i"
@@ -203,7 +203,7 @@ RSpec.feature "community leader sees dashboard" do
       fill_in "Author", with: "some guy"
       fill_in "Description", with: "description"
       fill_in "Story", with: "body"
-      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       fill_in "YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       # and click submit
       click_on "Submit Story for Approval"
@@ -225,7 +225,7 @@ RSpec.feature "community leader sees dashboard" do
       fill_in "Artist", with: "some guy"
       fill_in "Description", with: "description"
 
-      fill_in "Location", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
       click_on "Submit Artwork for Approval"
       # I should be on my dashboard
