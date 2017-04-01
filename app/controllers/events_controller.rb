@@ -16,12 +16,11 @@ class EventsController < ApplicationController
   def create
     organization = Organization.find_by(name: params[:event][:organization])
     @event = current_user.events.create(event_params)
-    if community_leader? || admin?
-      @event.approve
-    end
+
     if organization
       organization.events << @event
     end
+
     if @event.save
       if community_leader? || admin?
         @event.approve
@@ -45,6 +44,7 @@ class EventsController < ApplicationController
                                   :image,
                                   :description,
                                   :address,
+                                  :event_type,
                                   :date,
                                   :time)
   end

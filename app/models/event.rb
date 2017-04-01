@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :time, presence: true
   validates :address, presence: true
+  validates :event_type, presence: true
 
   enum status: %w(pending approved rejected)
 

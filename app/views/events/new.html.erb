@@ -8,6 +8,23 @@
     <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
     <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
     <%= f.text_field :address, placeholder: "Location", class: "form-input" %>
+    <%= f.select :event_type, options_for_select(["Peace Circle",
+                                                  "Circle Training",
+                                                  "Workshop",
+                                                  "Poetry Slam",
+                                                  "Open Mic",
+                                                  "Music Event",
+                                                  "Storytelling Event",
+                                                  "Shared Meal",
+                                                  "Cocktails & Conversation",
+                                                  "Interfaith Worship",
+                                                  "Sports / Recreation",
+                                                  "Game Night",
+                                                  "Meet the RJ Hubs",
+                                                  "Youth Speak Out",
+                                                  "Issue-Based Discussion"]),
+                                                  {include_blank: "Event Type"},
+                                                  {class: "form-input form-control center-dropdown"} %>
     <%= f.date_select :date, {start_year: Date.today.year}, {class: "form-input form-control center-dropdown"} %>
     <div class="form-inline form-input">
       <%= f.time_select :time, {ampm: true, minute_step: 15}, {class: "time-select form-control center-dropdown"} %>

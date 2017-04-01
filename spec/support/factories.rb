@@ -22,6 +22,7 @@ FactoryGirl.define do
     sequence(:title) {|n| "event #{n}"}
     host_contact "someguy@gmail.com"
     description "description"
+    event_type "Peace Circle"
     address "5699 S Ellis Ave, Chicago, IL 60637"
     date Date.tomorrow
     time Time.now

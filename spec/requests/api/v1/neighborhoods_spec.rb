@@ -4,9 +4,9 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
   it '/api/v1/neighborhoods/:name returns a neighborhood in #show and has associations' do
     create(:neighborhood, name: "Rogers Park")
     create(:neighborhood, name: "Hyde Park")
-    event = create(:event)
-    story = create(:story)
-    artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626")
+    event = create(:event, status: "approved")
+    story = create(:story, status: "approved")
+    artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626", status: "approved")
     name = Neighborhood.second.name
     encoded_url = URI.encode("/api/v1/neighborhoods/#{name}")
     url = URI.parse(encoded_url)
@@ -15,6 +15,7 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
     expect(response.status).to eq 200
 
     neighborhood = JSON.parse(response.body)
+
     expect(neighborhood["name"]).to eq(name)
     expect(neighborhood["events"].first["title"]).to eq(event.title)
     expect(neighborhood["stories"].first["title"]).to eq(story.title)

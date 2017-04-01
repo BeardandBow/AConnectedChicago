@@ -54,7 +54,8 @@ function showNeighborhood(e){
                 },
                 "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
               });
-              marker.type = event.pkey;
+              marker.key = event.pkey;
+              marker.type = event.event_type;
               markers.push(marker);
             }
           });
@@ -71,7 +72,7 @@ function showNeighborhood(e){
                 },
                 "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
               });
-              marker.type = story.pkey;
+              marker.key = story.pkey;
               markers.push(marker);
             }
           });
@@ -88,7 +89,7 @@ function showNeighborhood(e){
                 },
                 "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
               });
-              marker.type = artwork.pkey;
+              marker.key = artwork.pkey;
               markers.push(marker);
             }
           });
@@ -111,10 +112,12 @@ function showNeighborhood(e){
       buttons.forEach(function(button){
         button.addEventListener("click", function(){
           for (var i = 0; i < markers.length; i++) {
-            if (markers[i].type[0] !== button.innerText[0]) {
-              markers[i].serviceObject.setVisible(false)
-            } else {
+            if (markers[i].key && markers[i].key[0] === button.innerText[0]) {
               markers[i].serviceObject.setVisible(true)
+            } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+              markers[i].serviceObject.setVisible(true)
+            } else {
+              markers[i].serviceObject.setVisible(false)
             }
           }
         });
