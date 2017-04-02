@@ -14,7 +14,7 @@ function createMap(){
       handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
       handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/af51df0e6c42b56fa200cc2d04d15178/raw/4eb969be2aaac95a78f19ee7fb3ee423049d807d/labels.kml"});
       var hoods = document.getElementById("hood-select");
-      if (hoods.selectedIndex !== 0) {
+      if (hoods.selectedIndex > 1) {
         showNeighborhood(hoods);
       }
       hoods.addEventListener("change", showNeighborhood);
@@ -40,88 +40,92 @@ function showNeighborhood(e){
       } else {
         var hoodName = e.options[e.selectedIndex].value
       }
-      $.get("api/v1/neighborhoods/" + hoodName, function(response){
-        if (response.events.length !== 0) {
-          response.events.forEach(function(event) {
-            if (event.status === "approved") {
-              var marker = handler.addMarker({
-                "lat": event.map_lat,
-                "lng": event.map_long,
-                "visible": false,
-                "picture": {
-                  "height": 32,
-                  "width": 32
-                },
-                "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
-              });
-              marker.key = event.pkey;
-              marker.type = event.event_type;
-              markers.push(marker);
-            }
-          });
-        }
-        if (response.stories.length !== 0) {
-          response.stories.forEach(function(story){
-            if (story.status === "approved") {
-              var marker = handler.addMarker({
-                "lat": story.map_lat,
-                "lng": story.map_long,
-                "picture": {
-                  "height": 32,
-                  "width": 32
-                },
-                "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
-              });
-              marker.key = story.pkey;
-              markers.push(marker);
-            }
-          });
-        }
-        if (response.artworks.length !== 0) {
-          response.artworks.forEach(function(artwork){
-            if (artwork.status === "approved") {
-              var marker = handler.addMarker({
-                "lat": artwork.map_lat,
-                "lng": artwork.map_long,
-                "picture": {
-                  "height": 32,
-                  "width": 32
-                },
-                "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
-              });
-              marker.key = artwork.pkey;
-              markers.push(marker);
-            }
-          });
-        }
-        response.bounds.forEach(function(bound){
-          markers.push(handler.addMarker({
-            "lat": bound.lat,
-            "lng": bound.lng,
-            "picture": {
-              "url": "",
-              "height": 32,
-              "width": 32
-            }
-          }));
-        });
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-      });
-      var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
-      buttons.forEach(function(button){
-        button.addEventListener("click", function(){
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === button.innerText[0]) {
-              markers[i].serviceObject.setVisible(true)
-            } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
-              markers[i].serviceObject.setVisible(true)
-            } else {
-              markers[i].serviceObject.setVisible(false)
-            }
+      if (hoodName === "All") {
+        createMap();
+      } else {
+        $.get("api/v1/neighborhoods/" + hoodName, function(response){
+          if (response.events.length !== 0) {
+            response.events.forEach(function(event) {
+              if (event.status === "approved") {
+                var marker = handler.addMarker({
+                  "lat": event.map_lat,
+                  "lng": event.map_long,
+                  "visible": false,
+                  "picture": {
+                    "height": 32,
+                    "width": 32
+                  },
+                  "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+                });
+                marker.key = event.pkey;
+                marker.type = event.event_type;
+                markers.push(marker);
+              }
+            });
           }
+          if (response.stories.length !== 0) {
+            response.stories.forEach(function(story){
+              if (story.status === "approved") {
+                var marker = handler.addMarker({
+                  "lat": story.map_lat,
+                  "lng": story.map_long,
+                  "picture": {
+                    "height": 32,
+                    "width": 32
+                  },
+                  "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
+                });
+                marker.key = story.pkey;
+                markers.push(marker);
+              }
+            });
+          }
+          if (response.artworks.length !== 0) {
+            response.artworks.forEach(function(artwork){
+              if (artwork.status === "approved") {
+                var marker = handler.addMarker({
+                  "lat": artwork.map_lat,
+                  "lng": artwork.map_long,
+                  "picture": {
+                    "height": 32,
+                    "width": 32
+                  },
+                  "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
+                });
+                marker.key = artwork.pkey;
+                markers.push(marker);
+              }
+            });
+          }
+          response.bounds.forEach(function(bound){
+            markers.push(handler.addMarker({
+              "lat": bound.lat,
+              "lng": bound.lng,
+              "picture": {
+                "url": "",
+                "height": 32,
+                "width": 32
+              }
+            }));
+          });
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
         });
-      })
+        var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
+        buttons.forEach(function(button){
+          button.addEventListener("click", function(){
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === button.innerText[0]) {
+                markers[i].serviceObject.setVisible(true)
+              } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+                markers[i].serviceObject.setVisible(true)
+              } else {
+                markers[i].serviceObject.setVisible(false)
+              }
+            }
+          });
+        })
+      }
     }
   );
 };
