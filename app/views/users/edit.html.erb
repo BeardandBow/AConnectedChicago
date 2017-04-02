@@ -1,18 +1,19 @@
+ <% content_for :body_class, "dashboard-bg" %>
  <div class="center">
    <%= form_for @user do |f| %>
-    <%= f.label :first_name %>
+    <%= f.label :first_name, class: "white" %>
     <%= f.text_field :first_name, placeholder: "First Name", class: "form-input" %>
-    <%= f.label :last_name %>
+    <%= f.label :last_name, class: "white" %>
     <%= f.text_field :last_name, placeholder: "Last Name", class: "form-input" %>
     <%= f.select :gender, options_for_select(['Man', 'Woman', 'Trans Man', 'Trans Woman', 'Nonbinary/Nonconforming'], @user.gender), {include_blank: "Select your gender"}, {class: "form-input form-control center-dropdown"} %>
     <%= f.select :race, options_for_select(['White', 'Hispanic/Latino', 'Black/African American', 'American Indian/Alaska Native', 'Asian', 'Native Hawaiian/Other Pacific Islander', 'Multiracial'], @user.race), {include_blank: "Select your race"}, {class: "form-input form-control center-dropdown"} %>
     <%= f.select :neighborhood, options_for_select(@neighborhoods, @user.neighborhood), {}, {class: "form-input form-control center-dropdown"} %>
     <%= f.select :organizations, @organizations, {include_blank: "Add an Organization"}, {class: "form-input form-control center-dropdown"} %>
-    <%= f.label :why, "What motivated you to join Connected Chicago?" %>
+    <%= f.label :why, "What motivated you to join Connected Chicago?", class: "white" %>
     <%= f.text_area :why, class: "form-input" %>
-    <%= f.label :where, "What part of Chicago would you like to connect with?" %>
+    <%= f.label :where, "What part of Chicago would you like to connect with?", class: "white" %>
     <%= f.text_area :where, class: "form-input" %><br>
-    <%= f.label :how, "How did you hear about Connected Chicago?" %>
+    <%= f.label :how, "How did you hear about Connected Chicago?", class: "white" %>
     <%= f.text_area :how, class: "form-input" %><br>
     <%= f.submit "Update Account", class: "form-input btn btn-success" %>
   <% end %>
