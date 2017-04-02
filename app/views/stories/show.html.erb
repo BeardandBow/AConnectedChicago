@@ -1,16 +1,25 @@
-<br>
-<br>
-<br>
-<br>
-<%= @story.title %>
-<%= @story.author %>
-<% if @story.youtube_link %>
-  <iframe width="420" height="315"
-  src="<%= @story.youtube_link %>">
-  </iframe>
-<% end %>
-<%= @story.description %>
-<%= @story.address %>
-<%= @story.body %>
-
-Posted At: <%= @story.formatted_update_time %>
+<% content_for :body_class, "dashboard-bg" %>
+<div class="aes-container aes-center">
+  <div class="aes-format">
+    <h1><%= @story.title %></h1>
+  </div>
+  <div class="aes-format">
+    <h3>By: <%= @story.author %></h3>
+  </div>
+  <% if @story.youtube_link %>
+    <div class="aes-format">
+      <iframe width="420" height="315"
+      src="<%= @story.youtube_link %>">
+      </iframe>
+    </div>
+    <% end %>
+  <div class="aes-format">
+    <%= @story.description %>
+  </div>
+  <div class="aes-format">
+    <%= @story.body %>
+  </div>
+  <div class="aes-format">
+    Posted At: <%= @story.formatted_update_time %>
+  </div>
+</div>

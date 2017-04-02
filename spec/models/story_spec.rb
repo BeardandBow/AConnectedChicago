@@ -44,6 +44,13 @@ RSpec.describe Story, type: :model do
       expect(story).to be_valid
     end
 
+    it "is valid without a youtube link" do
+      event = create(:story, youtube_link: "")
+
+      expect(event).to be_valid
+      expect(event.youtube_link).to be_nil
+    end
+
     it "should have default status of 'pending'" do
       story = create(:story)
 

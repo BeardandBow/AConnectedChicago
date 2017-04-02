@@ -41,8 +41,8 @@ class Event < ApplicationRecord
     self.update_attributes(status: "rejected")
   end
 
-  def formatted_time
-    self.time.strftime("%I:%M %p")
+  def formatted_date_time
+    "#{self.date.strftime("%A, %B %e, %Y")} at #{self.time.strftime("%I:%M %p")}"
   end
 
   def formatted_create_time

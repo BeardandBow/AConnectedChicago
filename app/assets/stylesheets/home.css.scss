@@ -50,3 +50,29 @@ html, body {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("matthew-hamilton-136795.jpg") center center fixed;
   background-size: cover;
 }
+
+.aes-container {
+  background-color: rgba(255,255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.aes-center {
+  width: 500px;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.aes-format {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}

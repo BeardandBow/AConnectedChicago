@@ -1,14 +1,29 @@
-<br>
-<br>
-<br>
-<br>
-<%= @event.title %>
-<% if @event.image.file %>
-  <img src="<%= @event.image %>" alt="event image"/><br>
-<% end %>
-<%= @event.host_contact %>
-<%= @event.description %>
-<%= @event.address %>
-<%= @event.date %>
-<%= @event.formatted_time %>
-<%= @event.organization.name if @event.organization %>
+<% content_for :body_class, "dashboard-bg" %>
+<div class="aes-container aes-center">
+  <div class="aes-format">
+    <h1><%= @event.title %></h1>
+  </div>
+    <% if @event.image.file %>
+      <div class="aes-format">
+        <img src="<%= @event.image %>" alt="event image"/><br>
+      </div>
+    <% end %>
+  <div class="aes-format">
+    <h4> Hosted By <%= @event.organization.name if @event.organization %></h4>
+  </div>
+  <div class="aes-format">
+    <h5><%= @event.formatted_date_time %></h5>
+  </div>
+  <div class="aes-format">
+    <%= mail_to @event.host_contact, "Contact for more information" %>
+  </div>
+  <div class="aes-format">
+    <%= @event.event_type %>
+  </div>
+  <div class="aes-format">
+    <%= @event.description %>
+  </div>
+  <div class="aes-format">
+    <%= @event.address %>
+  </div>
+</div>
