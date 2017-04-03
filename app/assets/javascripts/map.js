@@ -40,11 +40,12 @@ function showNeighborhood(e){
       } else {
         var hoodName = e.options[e.selectedIndex].value
       }
-      if (hoodName === "All") {
+      if (hoodName === "All Neighborhoods") {
         createMap();
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
+            
             response.events.forEach(function(event) {
               if (event.status === "approved") {
                 var marker = handler.addMarker({

@@ -1,9 +1,11 @@
 body {
   background-color: #c6cdd4;
+  overflowy: scroll;
 }
 
 .navbar-default {
   background-color: #E7E2E4;
+  z-index: 100;
 }
 .navbar-default .navbar-nav li a {
   color: #45494C;
@@ -27,6 +29,7 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflowy: scroll;
 }
 
 #homepage-controls {
