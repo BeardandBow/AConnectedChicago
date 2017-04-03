@@ -3,13 +3,18 @@ class Artwork < ApplicationRecord
   validates :artist, presence: true
   validates :description, presence: true
   validates :address, presence: true
+
   enum status: %w(pending approved rejected)
+
+  mount_uploader :image, ImageUploader
+
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  after_validation :geocode
+  before_validation :geocode
+  before_validation :find_neighborhood
   after_create :set_pkey
 
   belongs_to :user
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: true
   belongs_to :organization, optional: true
 
   def path
@@ -38,5 +43,12 @@ class Artwork < ApplicationRecord
 
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
+  end
+
+  def find_neighborhood
+    neighborhood = Neighborhood.find do |hood|
+      hood.has?(self.map_lat.to_f, self.map_long.to_f)
+    end
+    self.assign_attributes(neighborhood: neighborhood)
   end
 end

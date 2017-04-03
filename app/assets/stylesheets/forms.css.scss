@@ -1,0 +1,43 @@
+.center {
+  width: 300px;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.time-select {
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.inline-radio {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.bootstrap-filestyle {
+  margin-top: 10px;
+}
+
+div.btn-group-vertical form{
+  display: inline;
+  width: 100%;
+}
+
+.white {
+  color: #E7E2E4;
+  margin-top: 5px;
+}
+
+label {
+  margin: 0;
+}

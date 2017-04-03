@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321190745) do
+ActiveRecord::Schema.define(version: 20170330220710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170321190745) do
     t.datetime "updated_at",                  null: false
     t.integer  "status",          default: 0
     t.integer  "organization_id"
+    t.string   "image"
     t.index ["neighborhood_id"], name: "index_artworks_on_neighborhood_id", using: :btree
     t.index ["organization_id"], name: "index_artworks_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_artworks_on_user_id", using: :btree
@@ -50,6 +51,8 @@ ActiveRecord::Schema.define(version: 20170321190745) do
     t.datetime "updated_at",                  null: false
     t.integer  "status",          default: 0
     t.integer  "organization_id"
+    t.string   "image"
+    t.string   "event_type"
     t.index ["neighborhood_id"], name: "index_events_on_neighborhood_id", using: :btree
     t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
@@ -57,8 +60,9 @@ ActiveRecord::Schema.define(version: 20170321190745) do
 
   create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.json     "bounds",     default: []
   end
 
   create_table "organization_neighborhoods", force: :cascade do |t|
@@ -96,6 +100,8 @@ ActiveRecord::Schema.define(version: 20170321190745) do
     t.integer  "status",          default: 0
     t.text     "body"
     t.integer  "organization_id"
+    t.string   "image"
+    t.string   "youtube_link"
     t.index ["neighborhood_id"], name: "index_stories_on_neighborhood_id", using: :btree
     t.index ["organization_id"], name: "index_stories_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree

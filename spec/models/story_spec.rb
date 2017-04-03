@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Story, type: :model do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
+
   context "validations" do
 
     it "is not valid without title" do
@@ -33,10 +37,18 @@ RSpec.describe Story, type: :model do
       expect(story).not_to be_valid
     end
 
+
     it "is valid with correct attributes" do
       story = create(:story)
 
       expect(story).to be_valid
+    end
+
+    it "is valid without a youtube link" do
+      event = create(:story, youtube_link: "")
+
+      expect(event).to be_valid
+      expect(event.youtube_link).to be_nil
     end
 
     it "should have default status of 'pending'" do
@@ -95,15 +107,21 @@ RSpec.describe Story, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       story = build(:story, created_at: time)
-      expect(story.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(story.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
     it ".formatted_update_time formats the updated_at" do
-      time = DateTime.now
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       story = build(:story, updated_at: time)
-      expect(story.formatted_update_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(story.formatted_update_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
+    end
+
+    it "formats a youtube link into an embedded link" do
+      story= create(:story, youtube_link: "https://www.youtube.com/watch?v=eRBOgtp0Hac")
+
+      expect(story.youtube_link).to eq("https://www.youtube.com/embed/eRBOgtp0Hac")
     end
   end
 end

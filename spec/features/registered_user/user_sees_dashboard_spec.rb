@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "user sees dashboard" do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
   before :each do
     @user = create(:user, :registered_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -11,9 +14,9 @@ RSpec.feature "user sees dashboard" do
     # When I visit my dashboard
     visit user_path(@user)
     # I should see links for adding an event, a story, and an art piece
-    expect(page).to have_link("Submit Event")
-    expect(page).to have_link("Submit Story")
-    expect(page).to have_link("Submit Artwork")
+    expect(page).to have_button("Submit Event")
+    expect(page).to have_button("Submit Story")
+    expect(page).to have_button("Submit Artwork")
   end
 
   context "user submits content to a community leader" do
@@ -25,14 +28,19 @@ RSpec.feature "user sees dashboard" do
       visit user_path(@user)
       # and click "Submit Event"
       click_on "Submit Event"
+
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
-      fill_in "Host Organization", with: organization.name
+      select organization.name, from: "event_organization"
       fill_in "Description", with: "description"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
-      fill_in "Date", with: Date.tomorrow
-      fill_in "Time", with: Time.now
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      select "Peace Circle", from: "event_event_type"
+      select Date.tomorrow.year, from: "event_date_1i"
+      select Date.tomorrow.strftime("%B"), from: "event_date_2i"
+      select Date.tomorrow.day, from: "event_date_3i"
+      select Time.now.strftime("%I %p"), from: "event_time_4i"
+      select "30", from: "event_time_5i"
       # and click submit
       click_on "Submit Event for Approval"
       # I should be on my dashboard
@@ -50,7 +58,8 @@ RSpec.feature "user sees dashboard" do
       fill_in "Author", with: "some guy"
       fill_in "Description", with: "description"
       fill_in "Story", with: "body"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       # and click submit
       click_on "Submit Story for Approval"
       # I should be on my dashboard
@@ -67,7 +76,7 @@ RSpec.feature "user sees dashboard" do
       fill_in "Title", with: "artwork"
       fill_in "Artist", with: "some guy"
       fill_in "Description", with: "description"
-      fill_in "Location", with: "619 Logan St., Denver, CO 80203"
+      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
       click_on "Submit Artwork for Approval"
       # I should be on my dashboard
@@ -79,7 +88,7 @@ RSpec.feature "user sees dashboard" do
 
   context "user submits incomplete content" do
 
-    scenario "user submits event" do
+    scenario "user submits incomplete event" do
       visit user_path(@user)
 
       click_on "Submit Event"
@@ -89,7 +98,7 @@ RSpec.feature "user sees dashboard" do
       expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
     end
 
-    scenario "user submits story" do
+    scenario "user submits incomplete story" do
       visit user_path(@user)
 
       click_on "Submit Story"
@@ -99,7 +108,7 @@ RSpec.feature "user sees dashboard" do
       expect(page).to have_content("There is a problem with your submission. Please correct and resubmit.")
     end
 
-    scenario "user submits artwork" do
+    scenario "user submits incomplete artwork" do
       visit user_path(@user)
 
       click_on "Submit Artwork"

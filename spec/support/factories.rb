@@ -5,29 +5,28 @@ FactoryGirl.define do
     author "some guy"
     description "description"
     body "blah blah blah"
-    address "this one place"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
+    youtube_link "YYrus5g5iN4"
     user
-    neighborhood
   end
 
   factory :artwork do
     sequence(:title) {|n| "artwork #{n}"}
     artist "some guy"
     description "description"
-    address "this one place"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
     user
-    neighborhood
   end
 
   factory :event do
     sequence(:title) {|n| "event #{n}"}
     host_contact "someguy@gmail.com"
     description "description"
-    address "this one place"
+    event_type "Peace Circle"
+    address "5699 S Ellis Ave, Chicago, IL 60637"
     date Date.tomorrow
     time Time.now
     user
-    neighborhood
     organization
   end
 

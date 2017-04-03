@@ -6,14 +6,20 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :time, presence: true
   validates :address, presence: true
+  validates :event_type, presence: true
+
   enum status: %w(pending approved rejected)
+
+  mount_uploader :image, ImageUploader
+
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
-  after_validation :geocode
+  before_validation :geocode
+  before_validation :find_neighborhood
   after_create :set_pkey
 
   belongs_to :user
   belongs_to :organization
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: true
 
   def path
     "/events/#{self.id}"
@@ -35,11 +41,18 @@ class Event < ApplicationRecord
     self.update_attributes(status: "rejected")
   end
 
-  def formatted_time
-    self.time.strftime("%I:%M %p")
+  def formatted_date_time
+    "#{self.date.strftime("%A, %B %e, %Y")} at #{self.time.strftime("%I:%M %p")}"
   end
 
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
+  end
+
+  def find_neighborhood
+    neighborhood = Neighborhood.find do |hood|
+      hood.has?(self.map_lat.to_f, self.map_long.to_f)
+    end
+    self.assign_attributes(neighborhood: neighborhood)
   end
 end

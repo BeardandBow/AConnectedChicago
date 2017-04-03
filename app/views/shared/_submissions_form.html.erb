@@ -1,18 +1,24 @@
-<% if @submissions.empty? %>
-  <p>You have no pending submissions</p>
-<% else %>
-  <form method="post" action"<%= path %>">
-    <% @submissions.each do |submission| %>
-    <div id="<%= submission.type %>-<%= submission.id %>">
-      <%= link_to submission.title, submission.path %>
-      Submitted At: <%= submission.formatted_create_time %>
-      <label><input type="radio" name="<%= submission.pkey %>" value="approved">Approve</label>
-      <label><input type="radio" name="<%= submission.pkey %>" value="denied">Reject</label>
-      <input type="hidden" name="pkeys[]" value="<%= submission.pkey %>">
-    </div>
-    <% end %>
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="submit" value="Approve/Reject Submissions">
-  </form>
-<% end %>
+<div class="center">
+  <h3>Pending Submissions</h3>
+  <% if @submissions.empty? %>
+    <p>You have no pending submissions</p>
+  <% else %>
+    <form method="post" action"<%= path %>">
+      <ul class="list-group">
+
+      <% @submissions.each do |submission| %>
+        <li class="list-group-item" id="<%= submission.type %>-<%= submission.id %>">
+          <h4><%= link_to submission.title, submission.path %></h4><br>
+          Submitted At: <%= submission.formatted_create_time %><br>
+          <label class="inline-radio"><input type="radio" name="<%= submission.pkey %>" value="approved"> Approve</label>
+          <label class="inline-radio"><input type="radio" name="<%= submission.pkey %>" value="denied"> Reject</label>
+          <input type="hidden" name="pkeys[]" value="<%= submission.pkey %>">
+        </li>
+      <% end %>
+    </ul>
+      <input type="hidden" name="_method" value="put">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="submit" value="Approve/Reject Submissions" class="form-input btn btn-success">
+    </form>
+  <% end %>
+</div>

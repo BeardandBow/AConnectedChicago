@@ -14,9 +14,16 @@ class StoriesController < ApplicationController
 
   def create
     @story = current_user.stories.create(story_params)
-    current_user.neighborhood.stories << @story
+    if community_leader? || admin?
+      @story.approve
+    end
     if @story.save
-      flash[:success] = "Your Story has been sent to a Community Leader for approval."
+      if community_leader? || admin?
+        @story.approve
+        flash[:success] = "Your Story has been created."
+      else
+        flash[:success] = "Your Story has been sent to a Community Leader for approval."
+      end
       redirect_to user_path(current_user)
     else
       flash[:error] = "There is a problem with your submission. Please correct and resubmit."
@@ -31,6 +38,7 @@ class StoriesController < ApplicationController
                                   :author,
                                   :description,
                                   :address,
+                                  :youtube_link,
                                   :body)
   end
 end

@@ -10,20 +10,27 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @organizations = Organization.pluck(:name)
   end
 
   def create
     organization = Organization.find_by(name: params[:event][:organization])
     @event = current_user.events.create(event_params)
+
     if organization
-      current_user.neighborhood.events << @event
       organization.events << @event
     end
 
     if @event.save
-      flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      if community_leader? || admin?
+        @event.approve
+        flash[:success] = "Your Event has been created."
+      else
+        flash[:success] = "Your Event has been sent to a Community Leader for approval."
+      end
       redirect_to user_path(current_user)
     else
+      @organizations = Organization.pluck(:name)
       flash[:error] = "There is a problem with your submission. Please correct and resubmit."
       render :new
     end
@@ -34,8 +41,10 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:title,
                                   :host_contact,
+                                  :image,
                                   :description,
                                   :address,
+                                  :event_type,
                                   :date,
                                   :time)
   end

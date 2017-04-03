@@ -10,6 +10,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
+require "carrierwave"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -22,5 +23,7 @@ module AConnectedChicago
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.active_record.time_zone_aware_types = [:datetime, :time]
+    config.time_zone = "Central Time (US & Canada)"
+    config.active_record.default_timezone = :local
   end
 end

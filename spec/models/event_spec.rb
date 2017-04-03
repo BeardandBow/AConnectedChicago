@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
+
   context "validations" do
 
     it "is not valid without title" do
@@ -39,6 +43,12 @@ RSpec.describe Event, type: :model do
       expect(event).not_to be_valid
     end
 
+    it "is not valid without event_type" do
+      event = build_stubbed(:event, event_type: nil)
+
+      expect(event).not_to be_valid
+    end
+
     it "should validate format of host_contact email" do
       event = build(:event, host_contact: "someguygmailcom")
 
@@ -46,7 +56,7 @@ RSpec.describe Event, type: :model do
     end
 
     it "is valid with correct attributes" do
-      event = build_stubbed(:event)
+      event = create(:event)
 
       expect(event).to be_valid
     end
@@ -111,15 +121,15 @@ RSpec.describe Event, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       event = build(:event, created_at: time)
-      expect(event.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(event.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
-    it ".formatted_time formats the time" do
-      time = DateTime.now
-      event = build(:event, created_at: time)
-      expect(event.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+    it ".formatted_date_time formats the date and time" do
+      time = DateTime.now.in_time_zone("Central Time (US & Canada)")
+      event = build(:event, date: time, time: time)
+      expect(event.formatted_date_time).to eq(time.strftime("%A, %B %e, %Y at %I:%M %p"))
     end
   end
 end

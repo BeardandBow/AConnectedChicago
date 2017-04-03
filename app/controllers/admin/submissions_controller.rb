@@ -30,20 +30,54 @@ class Admin::SubmissionsController < ApplicationController
 
   def get_unowned_submissions
     submissions = []
-    events = Event.where(organization_id: nil, status: "pending")
-    submissions << events if events
-    artworks = Artwork.where(organization_id: nil, status: "pending")
-    submissions << artworks if artworks
-    stories = Story.where(organization_id: nil, status: "pending")
-    submissions << stories if stories
+    # find events whose organizations have no community_leaders and have a status of pending
+    events_without_hood_users = Event.joins(:neighborhood).find_all { |e| e.neighborhood.users.empty? }
+    
+    events = Event.joins(organization: [:users])
+            .where.not(organization: { users: {role: "community_leader"}})
+            .joins(neighborhood: [:users])
+            .where.not(neighborhood: { users: {role: "community_leader"}})
+            .where(status: "pending")
+
+    submissions << events unless events.empty?
+    submissions << events_without_hood_users unless events_without_hood_users.empty?
+
+    pending_artworks = Artwork.where(organization_id: nil, status: "pending").to_a
+    art_without_org_users = Artwork.joins(:organization).find_all { |a| a.organization.users.empty? }
+    art_without_hood_users = Artwork.joins(:neighborhood).find_all { |a| a.neighborhood.users.empty? }
+
+    pending_artworks << art_without_org_users unless art_without_org_users.empty?
+    pending_artworks << art_without_hood_users unless art_without_hood_users.empty?
+
+    artworks_without_community_leaders = Artwork.joins(organization: [:users])
+                                        .where.not(organization: { users: {role: "community_leader"}})
+                                        .joins(neighborhood: [:users])
+                                        .where.not(neighborhood: { users: {role: "community_leader"}})
+                                        .where(status: "pending")
+
+    pending_artworks << artworks_without_community_leaders unless artworks_without_community_leaders.empty?
+    submissions << pending_artworks unless pending_artworks.empty?
+
+    pending_stories = Story.where(organization_id: nil, status: "pending").to_a
+    stories_without_org_users = Story.joins(:organization).find_all { |s| s.organization.users.empty? }
+    stories_without_hood_users = Story.joins(:neighborhood).find_all { |s| s.neighborhood.users.empty? }
+
+    pending_stories << stories_without_org_users unless stories_without_org_users.empty?
+    pending_stories << stories_without_hood_users unless stories_without_hood_users.empty?
+
+    stories_without_community_leaders = Story.joins(organization: [:users])
+                                        .where.not(organization: { users: {role: "community_leader"}})
+                                        .joins(neighborhood: [:users])
+                                        .where.not(neighborhood: { users: {role: "community_leader"}})
+                                        .where(status: "pending")
+
+    pending_stories << stories_without_community_leaders unless stories_without_community_leaders.empty?
+    submissions << pending_stories unless pending_stories.empty?
+
     unless submissions.empty?
-      submissions = submissions.flatten.sort_by do |submission|
+      submissions = submissions.flatten.uniq.sort_by do |submission|
         submission.created_at if submission
       end
-    end
-    submissions.each do |submission|
-      users = User.where(neighborhood_id: submission.neighborhood_id, role: "community_leader")
-      submissions.delete(submission) unless users.empty?
     end
     submissions
   end

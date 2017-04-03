@@ -1,0 +1,78 @@
+body {
+  background-color: #c6cdd4;
+}
+
+.navbar-default {
+  background-color: #E7E2E4;
+}
+.navbar-default .navbar-nav li a {
+  color: #45494C;
+}
+
+.navbar-default .navbar-nav li a:hover {
+  color: black;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: black;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#homepage-controls {
+  position: absolute;
+  top: 75px;
+  right: 25px;
+  z-index: 2;
+  float: right;
+}
+
+.center-dropdown {
+  text-align-last: center;
+}
+
+.btn-default {
+  background-color: #C3DBF9;
+  color: #3E4660;
+}
+
+.dashboard-bg {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("matthew-hamilton-136795.jpg") center center fixed;
+  background-size: cover;
+}
+
+.aes-container {
+  background-color: rgba(255,255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.aes-center {
+  width: 500px;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.aes-format {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}

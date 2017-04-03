@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Artwork, type: :model do
+  before :all do
+    create(:neighborhood, name: "Hyde Park")
+  end
+
   context "validations" do
+
     it "is not valid without title" do
       artwork = build_stubbed(:artwork, title: nil)
 
@@ -27,7 +32,7 @@ RSpec.describe Artwork, type: :model do
     end
 
     it "is valid with correct attributes" do
-      artwork = build_stubbed(:artwork)
+      artwork = create(:artwork)
 
       expect(artwork).to be_valid
     end
@@ -88,15 +93,15 @@ RSpec.describe Artwork, type: :model do
     end
 
     it ".formatted_create_time formats the created_at" do
-      time = DateTime.now
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       artwork = build(:artwork, created_at: time)
-      expect(artwork.formatted_create_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(artwork.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
     it ".formatted_update_time formats the updated_at" do
-      time = DateTime.now
+      time = Time.now.in_time_zone("Central Time (US & Canada)")
       artwork = build(:artwork, updated_at: time)
-      expect(artwork.formatted_update_time).to eq(time.utc.strftime("%m/%d/%Y %I:%M %p"))
+      expect(artwork.formatted_update_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
   end
 end

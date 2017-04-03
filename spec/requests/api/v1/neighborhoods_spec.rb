@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.describe Api::V1::NeighborhoodsController, type: :request do
   it '/api/v1/neighborhoods/:name returns a neighborhood in #show and has associations' do
-    neighborhoods = create_list(:neighborhood, 2)
-    event = create(:event, neighborhood_id: neighborhoods.last.id)
-    story = create(:story, neighborhood_id: neighborhoods.last.id)
-    artwork = create(:artwork, neighborhood_id: neighborhoods.last.id)
-    name = neighborhoods.last.name
+    create(:neighborhood, name: "Rogers Park")
+    create(:neighborhood, name: "Hyde Park")
+    event = create(:event, status: "approved")
+    story = create(:story, status: "approved")
+    artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626", status: "approved")
+    name = Neighborhood.second.name
     encoded_url = URI.encode("/api/v1/neighborhoods/#{name}")
     url = URI.parse(encoded_url)
     get url
@@ -18,6 +19,6 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
     expect(neighborhood["name"]).to eq(name)
     expect(neighborhood["events"].first["title"]).to eq(event.title)
     expect(neighborhood["stories"].first["title"]).to eq(story.title)
-    expect(neighborhood["artworks"].first["title"]).to eq(artwork.title)
+    expect(neighborhood["artworks"]).to be_empty
   end
 end

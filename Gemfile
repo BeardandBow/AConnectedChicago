@@ -31,6 +31,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'responders'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'aws-sdk'
+gem 'sass-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

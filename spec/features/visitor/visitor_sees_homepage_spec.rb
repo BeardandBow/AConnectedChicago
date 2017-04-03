@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "visitor sees homepage" do
   before :all do
+    create(:neighborhood, name: "Hyde Park")
     @events = create_list(:event, 2, status: "approved")
     @stories = create_list(:story, 2, status: "approved")
     @artworks = create_list(:artwork, 2, status: "approved")
@@ -9,9 +10,10 @@ RSpec.feature "visitor sees homepage" do
   scenario "visitor sees links to view content" do
     visit root_path
 
-    expect(page).to have_link("Events")
-    expect(page).to have_link("Stories")
-    expect(page).to have_link("Art")
+    expect(page).to have_button("Peace Circles")
+    expect(page).to have_button("Events")
+    expect(page).to have_button("Stories")
+    expect(page).to have_button("Art")
   end
 
   context "visitor views content" do
@@ -51,11 +53,12 @@ RSpec.feature "visitor sees homepage" do
       click_on event.title
 
       expect(page).to have_content(event.title)
-      expect(page).to have_content(event.host_contact)
+      expect(page).to have_content(event.organization.name)
+      expect(page).to have_content(event.formatted_date_time)
+      expect(page).to have_content("Contact for more information")
       expect(page).to have_content(event.description)
+      expect(page).to have_content(event.event_type)
       expect(page).to have_content(event.address)
-      expect(page).to have_content(event.date)
-      expect(page).to have_content(event.time.strftime("%I:%M %p"))
     end
 
     scenario "visitor views artwork details" do
@@ -79,7 +82,6 @@ RSpec.feature "visitor sees homepage" do
       expect(page).to have_content(story.title)
       expect(page).to have_content(story.body)
       expect(page).to have_content(story.description)
-      expect(page).to have_content(story.address)
       expect(page).to have_content(story.body)
     end
   end
