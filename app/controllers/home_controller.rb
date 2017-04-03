@@ -4,4 +4,8 @@ class HomeController < ApplicationController
     @neighborhoods = Neighborhood.order(:name).pluck(:name)
     @role = User.roles[current_user.role] if current_user
   end
+
+  def resources
+
+  end
 end
