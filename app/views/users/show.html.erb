@@ -21,7 +21,7 @@
 
   <h1 class="white">My Organizations</h1>
     <% if @user.organizations.empty? %>
-      <h5>You aren't affiliated with any organizations. Update your account above to add one!</h5>
+      <h5 class="white">You aren't affiliated with any organizations. Update your account above to add one!</h5>
     <% else %>
       <ul class="list-group">
         <% @user.organizations.each do |org| %>
