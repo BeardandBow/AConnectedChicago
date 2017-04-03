@@ -5,7 +5,8 @@
   <button type="button" class="btn btn-default">Artwork</button>
 
   <select class="form-control center-dropdown" id="hood-select">
-    <option>Select a neighborhood</option>
+    <option disabled selected>Select a neighborhood</option>
+    <option>All</option>
     <%= @neighborhoods.each do |name| %>
       <% if @role && @role > 0 && current_user.neighborhood.name == name %>
         <option selected="selected"><%= name %></option>
