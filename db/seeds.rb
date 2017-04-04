@@ -53,6 +53,7 @@ class Seed
                  address: "1719 W Lunt Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now,
+                 status: "approved",
                  user: user,
                  event_type: "Poetry Slam",
                  organization: org_1)
@@ -63,6 +64,7 @@ class Seed
                  event_type: "Music Event",
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
+                 status: "approved",
                  user: user,
                  organization: org_2)
     Event.create(title: "Event 3",
@@ -71,6 +73,7 @@ class Seed
                  address: "5102 S. Elizabeth St., Chicago, IL 60609",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now + 20*60*60,
+                 status: "approved",
                  user: user,
                  event_type: "Open Mic",
                  organization: org_2)
@@ -89,11 +92,13 @@ class Seed
                   artist: "Picasso",
                   description: "A description",
                   address: "3291 S. Elizabeth St., Chicago, IL 60609",
+                  status: "approved",
                   user: user)
     Artwork.create(title: "Art 2",
                    artist: "da Vinci",
                    description: "A description",
                    address: "5000 S. Elizabeth St., Chicago, IL 60609",
+                   status: "approved",
                    user: user)
     Artwork.create(title: "Art 3",
                    artist: "van Gogh",
@@ -108,6 +113,7 @@ class Seed
                  body: "A riveting story goes here",
                  address: "5102 S. Elizabeth St., Chicago, IL 60609",
                  youtube_link: "",
+                 status: "approved",
                  user: user)
     Story.create(title: "Story 2",
                  author: "Mike Martinez",
@@ -115,6 +121,7 @@ class Seed
                  body: "A riveting story goes here",
                  address: "4113 S. Elizabeth St., Chicago, IL 60609",
                  youtube_link: "",
+                 status: "approved",
                  user: user)
     Story.create(title: "Story 3",
                  author: "Some guy",

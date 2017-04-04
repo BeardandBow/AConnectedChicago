@@ -32,7 +32,7 @@ function showNeighborhood(e){
                     internal: {id: 'map'}
                    },
     function(){
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
+      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"}, {preserveViewport: true});
       if (e.target !== undefined) {
         var hoodName = e.target.options[e.target.selectedIndex].value
       } else {
@@ -96,7 +96,7 @@ function showNeighborhood(e){
             });
           }
           response.bounds.forEach(function(bound){
-            markers.push(handler.addMarker({
+            var marker = handler.addMarker({
               "lat": bound.lat,
               "lng": bound.lng,
               "picture": {
@@ -104,10 +104,14 @@ function showNeighborhood(e){
                 "height": 32,
                 "width": 32
               }
-            }));
+            });
+            markers.push(marker);
           });
+          var xCenter = window.innerWidth * 0.3 / 2
           handler.bounds.extendWith(markers);
           handler.fitMapToBounds();
+          handler.getMap().setZoom(14);
+          handler.map.serviceObject.panBy(xCenter, 0);
         });
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
