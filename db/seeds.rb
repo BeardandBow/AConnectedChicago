@@ -20,6 +20,7 @@ class Seed
     neighborhood_names.each do |name|
               puts "creating #{name}"
       Neighborhood.create(name: name)
+      sleep 0.5
     end
 
     org_1 = Organization.create(name: "Organization 1", neighborhoods: [Neighborhood.first, Neighborhood.second])
