@@ -19,7 +19,7 @@ class Neighborhood < ApplicationRecord
 
     def geocode_location
       if self.bounds.empty?
-        response = Geocoder.search("#{self.name}, Chicago IL")
+        response = Geocoder.search("#{self.name}(neighborhood), Chicago IL")
         self.bounds << response[0].data["geometry"]["viewport"]["northeast"]
         self.bounds << response[0].data["geometry"]["viewport"]["southwest"]
       end
