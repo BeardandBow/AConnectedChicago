@@ -10,10 +10,10 @@ env:
   - TESTFOLDER=spec/features/community_leader
   - TESTFOLDER=spec/features/visitor
   - TESTFOLDER=spec/features/registered_user
-  - TESTFOLDER=spec/features/pending_user
-  - TESTFOLDER=spec/features/admin
-  - TESTFOLDER=spec/mailers
   - TESTFOLDER=spec/requests
+  - TESTFOLDER=spec/mailers
+  - TESTFOLDER=spec/features/admin
+  - TESTFOLDER=spec/features/pending_user
   - TESTFOLDER=spec/models
 script:
   - bundle exec rails db:test:prepare
