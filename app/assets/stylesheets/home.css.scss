@@ -86,9 +86,21 @@ h1, h2, h3, h4, h5, h6 {
   right: 25px;
   bottom: 25px;
   z-index: 2;
-  width: 40%;
+  width: 30%;
 }
 
-.button-group {
-    position: relative;
+#artworks {
+  display: none;
+}
+
+#events {
+  // display: none;
+}
+
+#peace-circles {
+  display: none;
+}
+
+#stories {
+  display: none;
 }

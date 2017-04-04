@@ -21,6 +21,7 @@ function createMap(){
 }
 
 function showNeighborhood(e){
+  clearSubmissionDivs();
   var markers = []
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {
@@ -43,8 +44,8 @@ function showNeighborhood(e){
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
-            
             response.events.forEach(function(event) {
+              document.getElementById("events").appendChild(formatEvent(event));
               if (event.status === "approved") {
                 var marker = handler.addMarker({
                   "lat": event.map_lat,
@@ -128,6 +129,27 @@ function showNeighborhood(e){
     }
   );
 };
+
+function formatEvent(event) {
+var listing = document.createElement("div");
+var heading = document.createElement("h3");
+var dateTime = document.createElement("p");
+var description = document.createElement("p");
+heading.innerHTML = event.title.link("/events/" + event.id);
+description.innerHTML = event.description.split(" ", 25).join(" ") + "...";
+dateTime.innerHTML = event.time
+listing.appendChild(heading);
+listing.appendChild(dateTime);
+listing.appendChild(description);
+return listing;
+}
+
+function clearSubmissionDivs() {
+  $('#artwork').empty();
+  $('#events').empty();
+  $('#peace-circles').empty();
+  $('#stories').empty();
+}
 
 var mapStyle = [
     {
