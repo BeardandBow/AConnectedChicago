@@ -17,15 +17,17 @@ class Seed
                           "Roseland", "Pullman", "South Deering", "East Side", "West Pullman",
                           "Riverdale", "Hegewisch"]
 
-    neighborhood_names.each do |name|
-              puts "creating #{name}"
-      Neighborhood.create(name: name)
-    end
+    # neighborhood_names.each do |name|
+    #           puts "creating #{name}"
+    #   Neighborhood.create(name: name)
+    # end
 
-    org_1 = Organization.create(name: "Organization 1", neighborhoods: [Neighborhood.first, Neighborhood.second])
-    org_2 = Organization.create(name: "Organization 2", neighborhoods: [Neighborhood.second, Neighborhood.third])
-    org_3 = Organization.create(name: "Organization 3", neighborhoods: [Neighborhood.third, Neighborhood.fourth])
-    org_4 = Organization.create(name: "Organization 4", neighborhoods: [Neighborhood.first, Neighborhood.fourth])
+    Neighborhood.create(name: "Rogers Park")
+
+    org_1 = Organization.create(name: "Organization 1", neighborhoods: [Neighborhood.first])
+    org_2 = Organization.create(name: "Organization 2", neighborhoods: [Neighborhood.first])
+    org_3 = Organization.create(name: "Organization 3", neighborhoods: [Neighborhood.first])
+    org_4 = Organization.create(name: "Organization 4", neighborhoods: [Neighborhood.first])
 
     user = User.create(email: "user@example.com",
                 first_name: "Jack",
@@ -50,7 +52,7 @@ class Seed
     Event.create(title: "Event 1",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "1719 W Lunt Ave, Chicago, IL 60626",
+                 address: "1823 W Farwell Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now,
                  status: "approved",
@@ -60,7 +62,7 @@ class Seed
     Event.create(title: "Event 2",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "5100 S. Elizabeth St., Chicago, IL 60609",
+                 address: "1170d W Farwell Ave, Chicago, IL 60626",
                  event_type: "Music Event",
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
@@ -80,7 +82,7 @@ class Seed
     Event.create(title: "Event 4",
                  host_contact: "person@example.com",
                  description: "A description",
-                 address: "5114 S. Elizabeth St., Chicago, IL 60609",
+                 address: "1930 W Farwell Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now,
                  status: "approved",
@@ -88,22 +90,47 @@ class Seed
                  event_type: "Peace Circle",
                  organization: org_2)
 
+    addresses = ["1912 Touhy Ave, Chicago, IL 60626",
+                 "1708 W Chase Ave, Chicago, IL 60626",
+                 "1419 W Greenleaf Ave, Chicago, IL 60626",
+                 "1918 W Farwell Ave, Chicago, IL 60626",
+                 "1106 W Loyola Ave, Chicago, IL 60626",
+                 "7644 N Bosworth Ave, Chicago, IL 60626",
+                 "1512 W Juneway Terrace, Chicago, IL 60626",
+                 "7729 N Hermitage Ave, Chicago, IL 60626",
+                 "1436 W Fargo Ave, Chicago, IL 60626",
+                 "1437 Howard St, Chicago, IL 60626"
+                ]
+
+    10.times do |n|
+      Event.create(title: "Event #{n + 10}",
+                   host_contact: "person@example.com",
+                   description: "A description that is long with many words and phrases and sentences. it just keeps going and going and going forever until the end of time, because we cant stop, and we won't stop. we run things, things don't run we. Don't take nothing from nobody.",
+                   address: addresses[n],
+                   date: Date.tomorrow + 2.week.to_i,
+                   time: Time.now,
+                   status: "approved",
+                   user: user,
+                   event_type: "Poetry Slam",
+                   organization: org_1)
+    end
+
     Artwork.create(title: "Art 1",
                   artist: "Picasso",
                   description: "A description",
-                  address: "3291 S. Elizabeth St., Chicago, IL 60609",
+                  address: "1321 W Chase Ave, Chicago, IL 60626",
                   status: "approved",
                   user: user)
     Artwork.create(title: "Art 2",
                    artist: "da Vinci",
                    description: "A description",
-                   address: "5000 S. Elizabeth St., Chicago, IL 60609",
+                   address: "1530 W Pratt Blvd, Chicago, IL 60626",
                    status: "approved",
                    user: user)
     Artwork.create(title: "Art 3",
                    artist: "van Gogh",
                    description: "A description",
-                   address: "6111 S. Elizabeth St., Chicago, IL 60609",
+                   address: "1199 W Morse Ave, Chicago, IL 60626",
                    status: "approved",
                    user: user)
 
@@ -111,7 +138,7 @@ class Seed
                  author: "David Kelly",
                  description: "A description",
                  body: "A riveting story goes here",
-                 address: "5102 S. Elizabeth St., Chicago, IL 60609",
+                 address: "7550 N Sheridan Rd, Chicago, IL 60626",
                  youtube_link: "",
                  status: "approved",
                  user: user)
@@ -119,7 +146,7 @@ class Seed
                  author: "Mike Martinez",
                  description: "A description",
                  body: "A riveting story goes here",
-                 address: "4113 S. Elizabeth St., Chicago, IL 60609",
+                 address: "1426 W Sherwin Ave, Chicago, IL 60626",
                  youtube_link: "",
                  status: "approved",
                  user: user)
@@ -127,7 +154,7 @@ class Seed
                  author: "Some guy",
                  description: "A description",
                  body: "A riveting story goes here",
-                 address: "3218 S. Elizabeth St., Chicago, IL 60609",
+                 address: "1544 W Jonquil Terrace, Chicago, IL 60626",
                  youtube_link: "",
                  status: "approved",
                  user: user)

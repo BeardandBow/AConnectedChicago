@@ -45,7 +45,7 @@ function showNeighborhood(e){
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
             response.events.forEach(function(event) {
-              document.getElementById("events").appendChild(formatEvent(event));
+              document.getElementById("event-listings").appendChild(formatEvent(event));
               if (event.status === "approved") {
                 var marker = handler.addMarker({
                   "lat": event.map_lat,
@@ -128,11 +128,49 @@ function showNeighborhood(e){
               }
             }
           });
-        })
+        });
+        artworkButton = document.getElementById("btn-artwork")
+        artworkButton.addEventListener("click", function(){
+          console.log("artwork")
+          $("#about-us").hide()
+          $("#artwork-listings").show()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+        });
+        eventButton = document.getElementById("btn-events")
+        eventButton.addEventListener("click", function(){
+          console.log("event")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").show()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+        });
+        peaceButton = document.getElementById("btn-peace-circles")
+        peaceButton.addEventListener("click", function(){
+          console.log("peace")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").show()
+          $("#story-listings").hide()
+        });
+        storyButton = document.getElementById("btn-stories")
+        storyButton.addEventListener("click", function(){
+          console.log("story")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").show()
+        });
       }
     }
   );
 };
+
+
 
 function formatEvent(event) {
 var listing = document.createElement("div");
@@ -145,14 +183,16 @@ dateTime.innerHTML = event.time
 listing.appendChild(heading);
 listing.appendChild(dateTime);
 listing.appendChild(description);
+listing.className = "listing";
+listing.id = event.pkey;
 return listing;
 }
 
 function clearSubmissionDivs() {
-  $('#artwork').empty();
-  $('#events').empty();
-  $('#peace-circles').empty();
-  $('#stories').empty();
+  $('#artwork-listings').empty();
+  $('#event-listings').empty();
+  $('#peace-circle-listings').empty();
+  $('#story-listings').empty();
 }
 
 var mapStyle = [
