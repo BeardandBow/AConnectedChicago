@@ -1,19 +1,33 @@
-<div id="homepage-controls" class="btn-group-vertical" role="group" aria-label="...">
-  <button type="button" class="btn btn-default">Peace Circles</button>
-  <button type="button" class="btn btn-default">Events</button>
-  <button type="button" class="btn btn-default">Stories</button>
-  <button type="button" class="btn btn-default">Artwork</button>
-
-  <select class="form-control center-dropdown" id="hood-select">
-    <option disabled selected>Select a neighborhood</option>
-    <option>All Neighborhoods</option>
-    <%= @neighborhoods.each do |name| %>
-      <% if @role && @role > 0 && current_user.neighborhood.name == name %>
-        <option selected="selected"><%= name %></option>
-      <% else %>
-        <option><%= name %></option>
+<div id="info-backdrop">
+  <div id="homepage-controls">
+    <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+      <div class="btn-group" style="width: 40%">
+        <button type="button" class="btn btn-default">Peace Circles</button>
+      </div>
+      <div class="btn-group" style="width: 30%">
+        <button type="button" class="btn btn-default">Events</button>
+      </div>
+      <div class="btn-group" style="width: 30%">
+        <button type="button" class="btn btn-default">Stories</button>
+      </div>
+      <div class="btn-group" style="width: 30%">
+        <button type="button" class="btn btn-default">Artwork</button>
+      </div>
+    </div>
+    <select class="form-control center-dropdown" id="hood-select">
+      <option disabled selected>Select a neighborhood</option>
+      <option>All Neighborhoods</option>
+      <%= @neighborhoods.each do |name| %>
+        <% if @role && @role > 0 && current_user.neighborhood.name == name %>
+          <option selected="selected"><%= name %></option>
+        <% else %>
+          <option><%= name %></option>
+        <% end %>
       <% end %>
-    <% end %>
-  </select>
+    </select>
+  </div>
+  <div class="marker-info">
+
+  </div>
 </div>
 <div id="map"></div>

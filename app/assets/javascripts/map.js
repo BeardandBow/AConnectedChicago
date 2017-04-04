@@ -2,24 +2,22 @@ function createMap(){
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
-                                center: new google.maps.LatLng(41.8781136, -87.6297982),
-                                minZoom: 11,
+                                zoom: 11,
                                 scrollwheel: false,
+                                center: new google.maps.LatLng(41.8581136, -87.5297982),
                                 disableDoubleClickZoom: true,
                                 styles: mapStyle
                               },
                     internal: {id: 'map'}
                    },
-    function(){
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/af51df0e6c42b56fa200cc2d04d15178/raw/4eb969be2aaac95a78f19ee7fb3ee423049d807d/labels.kml"});
-      var hoods = document.getElementById("hood-select");
-      if (hoods.selectedIndex > 1) {
-        showNeighborhood(hoods);
-      }
-      hoods.addEventListener("change", showNeighborhood);
+  function(){
+    handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"}, {preserveViewport: true});
+    var hoods = document.getElementById("hood-select");
+    if (hoods.selectedIndex > 1) {
+      showNeighborhood(hoods);
     }
-  );
+    hoods.addEventListener("change", showNeighborhood);
+  });
 }
 
 function showNeighborhood(e){
@@ -28,19 +26,19 @@ function showNeighborhood(e){
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 scrollwheel: false,
-                                disableDoubleClickZoom: false,
+                                disableDoubleClickZoom: true,
                                 styles: mapStyle
                               },
                     internal: {id: 'map'}
                    },
     function(){
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"});
+      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/ff9e60a8ff19800207edbbd4745485d670865953/Neighborhoods.kml"}, {preserveViewport: true});
       if (e.target !== undefined) {
         var hoodName = e.target.options[e.target.selectedIndex].value
       } else {
         var hoodName = e.options[e.selectedIndex].value
       }
-      if (hoodName === "All") {
+      if (hoodName === "All Neighborhoods") {
         createMap();
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
@@ -98,7 +96,7 @@ function showNeighborhood(e){
             });
           }
           response.bounds.forEach(function(bound){
-            markers.push(handler.addMarker({
+            var marker = handler.addMarker({
               "lat": bound.lat,
               "lng": bound.lng,
               "picture": {
@@ -106,10 +104,14 @@ function showNeighborhood(e){
                 "height": 32,
                 "width": 32
               }
-            }));
+            });
+            markers.push(marker);
           });
+          var xCenter = window.innerWidth * 0.3 / 2
           handler.bounds.extendWith(markers);
           handler.fitMapToBounds();
+          handler.getMap().setZoom(14);
+          handler.map.serviceObject.panBy(xCenter, 0);
         });
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
