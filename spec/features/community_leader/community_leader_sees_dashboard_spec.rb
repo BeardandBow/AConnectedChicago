@@ -8,8 +8,11 @@ RSpec.feature "community leader sees dashboard" do
   before :each do
     # As a community leader
     @user = create(:user, :community_leader, neighborhood: @neighborhood)
+    sleep 0.5
     @artwork = create(:artwork)
+    sleep 0.5
     @event = create(:event, organization: @user.organizations.first)
+    sleep 0.5
     @story = create(:story)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
