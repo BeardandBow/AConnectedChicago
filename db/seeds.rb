@@ -25,10 +25,21 @@ class Seed
 
     Neighborhood.create(name: "Rogers Park")
 
-    org_1 = Organization.create(name: "Organization 1", neighborhoods: [Neighborhood.first])
-    org_2 = Organization.create(name: "Organization 2", neighborhoods: [Neighborhood.first])
-    org_3 = Organization.create(name: "Organization 3", neighborhoods: [Neighborhood.first])
-    org_4 = Organization.create(name: "Organization 4", neighborhoods: [Neighborhood.first])
+    org_1 = Organization.create(name: "Precious Blood Ministry of Reconciliation", website: "http://www.pbmr.org")
+
+    org_2 = Organization.create(name: "Urban Life Skills", website: "http://www.urbanlifeskills.org")
+
+    org_3 = Organization.create(name: "Lawndale Christian Legal Center", website: "http://lclc.net")
+
+    org_4 = Organization.create(name: "Community Justice for Youth Institute", website: "http://cjyiorg.publishpath.com")
+
+    org_5 = Organization.create(name: "Institute on Public Safety and Social Justice at Adler University", website: "http://www.adler.edu/page/institutes/institute-on-public-safety-and-social-justice/about")
+
+    org_6 = Organization.create(name: "Circles and Ciphers", website: "http://www.ucrogerspark.org/childrenyouthprograms/circlesciphers.html")
+
+    org_7 = Organization.create(name: "Austin Coming Together", website: "http://austincomingtogether.org")
+
+    org_8 = Organization.create(name: "Target Area Development Corporation", website: "http://targetarea.org")
 
     user = User.create(email: "user@example.com",
                 first_name: "Jack",
