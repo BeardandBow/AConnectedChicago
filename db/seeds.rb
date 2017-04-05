@@ -165,7 +165,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "1426 W Sherwin Ave, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
     Story.create(title: "Story 3",
@@ -173,7 +173,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "1544 W Jonquil Terrace, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
   end
