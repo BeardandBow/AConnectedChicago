@@ -26,4 +26,9 @@
   <div class="aes-format">
     <%= @event.description %>
   </div>
+  <% if @event.link %>
+    <div class="aes-format">
+      <%= link_to "View Event Page", @event.link %>
+    </div>
+  <% end %>
 </div>

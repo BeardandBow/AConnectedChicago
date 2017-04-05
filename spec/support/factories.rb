@@ -26,6 +26,7 @@ FactoryGirl.define do
     address "5699 S Ellis Ave, Chicago, IL 60637"
     date Date.tomorrow
     time Time.now
+    link "https://www.eventbrite.com/"
     user
     organization
   end
