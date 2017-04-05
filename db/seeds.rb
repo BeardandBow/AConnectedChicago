@@ -157,7 +157,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "7550 N Sheridan Rd, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
     Story.create(title: "Story 2",
