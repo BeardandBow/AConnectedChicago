@@ -13400,7 +13400,7 @@ var description = document.createElement("p");
 var event_type = document.createElement("p");
 heading.innerHTML = event.title.link("/events/" + event.id);
 description.innerHTML = event.description.split(" ", 25).join(" ") + "...";
-dateTime.innerHTML = event.time
+dateTime.innerHTML = event.formatted_date_time
 event_type.innerHTML = event.event_type
 listing.appendChild(heading);
 listing.appendChild(dateTime);
