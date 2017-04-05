@@ -107,7 +107,7 @@ html, body {
   border-radius:0px;
 }
 
-.flash_notice {
+.flash_success {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -126,6 +126,27 @@ html, body {
 #about-us {
   display: block;
   overflow-y: scroll;
-  font-size: 12px;
+}
+.iframe {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+}
 
+/* 16x9 Aspect Ratio */
+.iframe-16x9 {
+}
+
+/* 4x3 Aspect Ratio */
+.iframe-4x3 {
+  padding-bottom: 75%;
+}
+
+.iframe iframe {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

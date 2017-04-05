@@ -227,7 +227,7 @@ html, body {
 }
 
 /* line 110, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
-.flash_notice {
+.flash_success {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -248,7 +248,30 @@ html, body {
 #about-us {
   display: block;
   overflow-y: scroll;
-  font-size: 12px;
+}
+
+/* line 130, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.iframe {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+}
+
+/* 16x9 Aspect Ratio */
+/* 4x3 Aspect Ratio */
+/* line 142, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.iframe-4x3 {
+  padding-bottom: 75%;
+}
+
+/* line 146, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
