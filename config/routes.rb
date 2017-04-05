@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :new, :show, :edit, :update]
   get '/users/:email_token/confirm_email', to: 'users#confirm_email', as: 'confirm_user_email'
 
-  resources :events, only: [:new, :create, :show, :index]
-  resources :stories, only: [:new, :create, :show, :index]
-  resources :artworks, only: [:new, :create, :show, :index]
+  resources :events, only: [:new, :create, :show, :destroy]
+  resources :stories, only: [:new, :create, :show, :destroy]
+  resources :artworks, only: [:new, :create, :show, :destroy]
   resources :submissions, only: [:index]
   put '/submissions', to: 'submissions#update', as: 'update_submissions'
 
