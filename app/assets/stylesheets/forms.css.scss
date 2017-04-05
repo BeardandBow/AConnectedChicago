@@ -8,6 +8,11 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.form-padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 .time-select {
   width: 100%;
 }
@@ -41,4 +46,49 @@ div.btn-group-vertical form{
 
 label {
   margin: 0;
+}
+
+.aes-container {
+  background-color: rgba(231, 226, 228, 0.8);
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+.aes-center {
+  width: 500px;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.aes-format {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.resources-center {
+  width: 50%;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.resources-container {
+  background-color: rgba(231, 226, 228, 0.8);
+  margin-top: 100px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }

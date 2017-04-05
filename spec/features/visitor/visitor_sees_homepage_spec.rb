@@ -59,6 +59,7 @@ RSpec.feature "visitor sees homepage" do
       expect(page).to have_content(event.description)
       expect(page).to have_content(event.event_type)
       expect(page).to have_content(event.address)
+      expect(page).to have_link("View Event Page")
     end
 
     scenario "visitor views artwork details" do

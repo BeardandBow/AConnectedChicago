@@ -13307,9 +13307,11 @@ function showNeighborhood(e){
         buttons.forEach(function(button){
           button.addEventListener("click", function(){
             for (var i = 0; i < markers.length; i++) {
-              if (markers[i].key && markers[i].key[0] === button.innerText[0]) {
+              if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
                 markers[i].serviceObject.setVisible(true)
               } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+                markers[i].serviceObject.setVisible(true)
+              } else if (button.innerText === "All") {
                 markers[i].serviceObject.setVisible(true)
               } else {
                 markers[i].serviceObject.setVisible(false)
@@ -13317,6 +13319,18 @@ function showNeighborhood(e){
             }
           });
         });
+<<<<<<< HEAD
+=======
+        var allButton = document.getElementById("btn-all")
+        allButton.addEventListener("click", function(){
+          console.log("artwork")
+          $("#about-us").show()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+        });
+>>>>>>> a680875cb6fafd4435bab07dffe79f7f2e287bd9
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
           console.log("artwork")

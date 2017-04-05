@@ -1,33 +1,34 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="center">
-  <h1 class="white">Welcome to your Dashboard!</h1>
-  <div class="btn-group-vertical">
-    <%= button_to "Submit Event", new_event_path, class: "form-input btn btn-default", method: :get %><br>
-    <%= button_to "Submit Story", new_story_path, class: "form-input btn btn-default", method: :get %><br>
-    <%= button_to "Submit Artwork", new_artwork_path, class: "form-input btn btn-default", method: :get %><br>
+  <div class="form-padding">
+    <h1 class="white">Welcome to your Dashboard!</h1>
+    <div class="btn-group-vertical">
+      <%= button_to "Submit Event", new_event_path, class: "form-input btn btn-default", method: :get %><br>
+      <%= button_to "Submit Story", new_story_path, class: "form-input btn btn-default", method: :get %><br>
+      <%= button_to "Submit Artwork", new_artwork_path, class: "form-input btn btn-default", method: :get %><br>
 
-    <%= button_to "Update My Account", edit_user_path(@user), class: "form-input btn btn-default", method: :get %><br>
+      <%= button_to "Update My Account", edit_user_path(@user), class: "form-input btn btn-default", method: :get %><br>
 
-    <% if community_leader? %>
-    <%= button_to "Pending Submissions", submissions_path, class: "form-input btn btn-default", method: :get %>
-    <% end %>
+      <% if community_leader? %>
+      <%= button_to "Pending Submissions", submissions_path, class: "form-input btn btn-default", method: :get %>
+      <% end %>
 
-    <% if admin? %>
-    <%= button_to "Unowned Pending Submissions", admin_unowned_submissions_path, class: "form-input btn btn-default", method: :get %>
-    <%= button_to "All Pending Submissions", admin_submissions_path, class: "form-input btn btn-default", method: :get %>
-    <%= button_to "Add Community Leader", new_admin_user_path, class: "form-input btn btn-default", method: :get %>
-    <% end %>
+      <% if admin? %>
+      <%= button_to "Unowned Pending Submissions", admin_unowned_submissions_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "All Pending Submissions", admin_submissions_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "Add Community Leader", new_admin_user_path, class: "form-input btn btn-default", method: :get %>
+      <% end %>
+    </div>
+
+    <h1 class="white">My Organizations</h1>
+      <% if @user.organizations.empty? %>
+        <h5 class="white">You aren't affiliated with any organizations. Update your account above to add one!</h5>
+      <% else %>
+        <ul class="list-group">
+          <% @user.organizations.each do |org| %>
+            <li class="list-group-item btn btn-default form-input"><%= org.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
   </div>
-
-  <h1 class="white">My Organizations</h1>
-    <% if @user.organizations.empty? %>
-      <h5 class="white">You aren't affiliated with any organizations. Update your account above to add one!</h5>
-    <% else %>
-      <ul class="list-group">
-        <% @user.organizations.each do |org| %>
-          <li class="list-group-item btn btn-default form-input"><%= org.name %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
 </div>
