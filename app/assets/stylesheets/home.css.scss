@@ -85,14 +85,17 @@ html, body {
 }
 
 .listing {
-  padding-left: 20px;
-  padding-right: 20px;
+
 }
 
 #neighborhood {
-  margin-top: 20px;
+  position: absolute;
+  padding-left: 20px;
+  padding-right: 20px;
+  top: 210px;
+  bottom: 10px;
   overflow: auto;
-  height: 60%;
+  height: inherit;
 }
 
 .alert-fixed {
@@ -118,4 +121,32 @@ html, body {
   padding-bottom: 10px;
   background-color: #c85b54;
   color: #7c0700;
+}
+
+#about-us {
+  display: block;
+  overflow-y: scroll;
+}
+.iframe {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+}
+
+/* 16x9 Aspect Ratio */
+.iframe-16x9 {
+}
+
+/* 4x3 Aspect Ratio */
+.iframe-4x3 {
+  padding-bottom: 75%;
+}
+
+.iframe iframe {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
