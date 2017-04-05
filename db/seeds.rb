@@ -68,6 +68,7 @@ class Seed
                  address: "1823 W Farwell Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now,
+                 link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
                  event_type: "Poetry Slam",
@@ -79,6 +80,7 @@ class Seed
                  event_type: "Music Event",
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
+                 link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
                  organization: org_2)
@@ -88,6 +90,7 @@ class Seed
                  address: "5102 S. Elizabeth St., Chicago, IL 60609",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now + 20*60*60,
+                 link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
                  event_type: "Open Mic",
@@ -98,6 +101,7 @@ class Seed
                  address: "1930 W Farwell Ave, Chicago, IL 60626",
                  date: Date.tomorrow + 2.week.to_i,
                  time: Time.now,
+                 link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
                  event_type: "Peace Circle",
@@ -122,6 +126,7 @@ class Seed
                    address: addresses[n],
                    date: Date.tomorrow + 2.week.to_i,
                    time: Time.now,
+                   link: "https://www.eventbrite.com/",
                    status: "approved",
                    user: user,
                    event_type: "Poetry Slam",
@@ -152,7 +157,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "7550 N Sheridan Rd, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
     Story.create(title: "Story 2",
@@ -160,7 +165,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "1426 W Sherwin Ave, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
     Story.create(title: "Story 3",
@@ -168,7 +173,7 @@ class Seed
                  description: "A description",
                  body: "A riveting story goes here",
                  address: "1544 W Jonquil Terrace, Chicago, IL 60626",
-                 youtube_link: "",
+                 youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
                  status: "approved",
                  user: user)
   end

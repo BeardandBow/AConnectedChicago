@@ -205,20 +205,18 @@ html, body {
   display: none;
 }
 
-/* line 87, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
-.listing {
+/* line 91, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+#neighborhood {
+  position: absolute;
   padding-left: 20px;
   padding-right: 20px;
-}
-
-/* line 92, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
-#neighborhood {
-  margin-top: 20px;
+  top: 210px;
+  bottom: 10px;
   overflow: auto;
-  height: 60%;
+  height: inherit;
 }
 
-/* line 98, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 101, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .alert-fixed {
   position: fixed;
   top: 50px;
@@ -228,8 +226,8 @@ html, body {
   border-radius: 0px;
 }
 
-/* line 107, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
-.flash_success {
+/* line 110, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.flash_notice {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -237,13 +235,20 @@ html, body {
   color: #308700;
 }
 
-/* line 115, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 118, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .flash_error {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #c85b54;
   color: #7c0700;
+}
+
+/* line 126, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+#about-us {
+  display: block;
+  overflow-y: scroll;
+  font-size: 12px;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
