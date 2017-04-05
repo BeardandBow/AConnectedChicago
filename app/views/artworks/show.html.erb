@@ -20,4 +20,9 @@
   <div class="aes-format">
     Posted At: <%= @artwork.formatted_update_time %>
   </div>
+  <% if @artwork.deletable_by?(current_user) %>
+    <div class="aes-format">
+      <%= button_to "Delete", artwork_path(@artwork), class: "btn btn-danger", method: :delete %>
+    </div>
+  <% end %>
 </div>
