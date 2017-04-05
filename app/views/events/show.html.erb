@@ -9,7 +9,7 @@
       </div>
     <% end %>
   <div class="aes-format">
-    <h4> Hosted By <%= @event.organization.name if @event.organization %></h4>
+    <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website %></h4>
   </div>
   <div class="aes-format">
     <h5><%= @event.formatted_date_time %></h5>
