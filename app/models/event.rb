@@ -15,6 +15,7 @@ class Event < ApplicationRecord
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
   before_validation :geocode
   before_validation :find_neighborhood
+  after_create :format_date_time
   after_create :set_pkey
 
   belongs_to :user
@@ -41,9 +42,6 @@ class Event < ApplicationRecord
     self.update_attributes(status: "rejected")
   end
 
-  def formatted_date_time
-    "#{self.date.strftime("%A, %B %e, %Y")} at #{self.time.strftime("%I:%M %p")}"
-  end
 
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")
@@ -56,3 +54,9 @@ class Event < ApplicationRecord
     self.assign_attributes(neighborhood: neighborhood)
   end
 end
+
+private
+
+  def format_date_time
+    self.update_attributes(formatted_date_time: "#{self.date.strftime("%A, %B %e, %Y")} at #{self.time.strftime("%I:%M %p")}")
+  end

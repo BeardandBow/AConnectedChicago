@@ -126,9 +126,9 @@ RSpec.describe Event, type: :model do
       expect(event.formatted_create_time).to eq(time.strftime("%m/%d/%Y %I:%M %p"))
     end
 
-    it ".formatted_date_time formats the date and time" do
+    it "formats the date and time into a string" do
       time = DateTime.now.in_time_zone("Central Time (US & Canada)")
-      event = build(:event, date: time, time: time)
+      event = create(:event, date: time, time: time)
       expect(event.formatted_date_time).to eq(time.strftime("%A, %B %e, %Y at %I:%M %p"))
     end
   end
