@@ -1,9 +1,11 @@
 body {
   background-color: #c6cdd4;
+  overflowy: scroll;
 }
 
 .navbar-default {
   background-color: #E7E2E4;
+  z-index: 100;
 }
 .navbar-default .navbar-nav li a {
   color: #45494C;
@@ -27,6 +29,7 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #homepage-controls {
@@ -51,6 +54,9 @@ html, body {
 .aes-container {
   background-color: rgba(231, 226, 228, 0.8);
   border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }
 
 .aes-center {
@@ -83,9 +89,54 @@ h1, h2, h3, h4, h5, h6 {
   right: 25px;
   bottom: 25px;
   z-index: 2;
-  width: 40%;
+  width: 30%;
 }
 
-.button-group {
-    position: relative;
+#artwork-listings {
+  display: none;
+}
+
+#event-listings {
+  display: none;
+}
+
+#peace-circle-listings {
+  display: none;
+}
+
+#story-listings {
+  display: none;
+}
+
+.listing {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#neighborhood {
+  margin-top: 20px;
+  overflow: auto;
+  height: 60%;
+}
+
+.alert-fixed {
+  position:fixed;
+  top: 50px;
+  left: 0px;
+  width: 100%;
+  z-index:9999;
+  border-radius:0px;
+}
+
+.flash_success {
+  background-color: #84bb66;
+  color: #308700;
+}
+
+.flash_error {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #c85b54;
+  color: #7c0700;
 }

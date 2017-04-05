@@ -18,12 +18,12 @@
     <%= mail_to @event.host_contact, "Contact for more information" %>
   </div>
   <div class="aes-format">
+    <%= @event.address %>
+  </div>
+  <div class="aes-format">
     <%= @event.event_type %>
   </div>
   <div class="aes-format">
     <%= @event.description %>
-  </div>
-  <div class="aes-format">
-    <%= @event.address %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 function createMap(){
-  handler = Gmaps.build('Google');
+  var handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 zoom: 11,
@@ -21,8 +21,9 @@ function createMap(){
 }
 
 function showNeighborhood(e){
+  clearSubmissionDivs();
   var markers = []
-  handler = Gmaps.build('Google');
+  var handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 scrollwheel: false,
@@ -40,11 +41,17 @@ function showNeighborhood(e){
       }
       if (hoodName === "All Neighborhoods") {
         createMap();
+        $("#about-us").show();
+        $("#artwork-listings").hide()
+        $("#event-listings").hide()
+        $("#peace-circle-listings").hide()
+        $("#story-listings").hide()
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
             response.events.forEach(function(event) {
               if (event.status === "approved") {
+                document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker({
                   "lat": event.map_lat,
                   "lng": event.map_long,
@@ -60,10 +67,16 @@ function showNeighborhood(e){
                 markers.push(marker);
               }
             });
+            response.events.forEach(function(event) {
+              if (event.status === "approved" && event.event_type === "Peace Circle") {
+                document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
+              }
+            });
           }
           if (response.stories.length !== 0) {
             response.stories.forEach(function(story){
               if (story.status === "approved") {
+                document.getElementById("story-listings").appendChild(formatStory(story));
                 var marker = handler.addMarker({
                   "lat": story.map_lat,
                   "lng": story.map_long,
@@ -81,6 +94,7 @@ function showNeighborhood(e){
           if (response.artworks.length !== 0) {
             response.artworks.forEach(function(artwork){
               if (artwork.status === "approved") {
+                document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
                 var marker = handler.addMarker({
                   "lat": artwork.map_lat,
                   "lng": artwork.map_long,
@@ -127,11 +141,117 @@ function showNeighborhood(e){
               }
             }
           });
-        })
+        });
+        var artworkButton = document.getElementById("btn-artwork")
+        artworkButton.addEventListener("click", function(){
+          console.log("artwork")
+          $("#about-us").hide()
+          $("#artwork-listings").show()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+        });
+        var eventButton = document.getElementById("btn-events")
+        eventButton.addEventListener("click", function(){
+          console.log("event")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").show()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+        });
+        var peaceButton = document.getElementById("btn-peace-circles")
+        peaceButton.addEventListener("click", function(){
+          console.log("peace")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").show()
+          $("#story-listings").hide()
+        });
+        var storyButton = document.getElementById("btn-stories")
+        storyButton.addEventListener("click", function(){
+          console.log("story")
+          $("#about-us").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").show()
+        });
       }
     }
   );
 };
+
+
+
+function formatArtwork(artwork) {
+var listing = document.createElement("div");
+var heading = document.createElement("h3");
+var artist = document.createElement("p");
+var description = document.createElement("p");
+heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
+description.innerHTML = artwork.description.split(" ", 25).join(" ") + "...";
+artist.innerHTML = "by " + artwork.artist
+listing.appendChild(heading);
+if (artwork.image.thumb.url) {
+  var image = document.createElement("img");
+  image.src = artwork.image.thumb.url;
+  listing.appendChild(image);
+}
+listing.appendChild(artist);
+listing.appendChild(description);
+listing.className = "listing";
+listing.id = artwork.pkey;
+return listing;
+}
+
+function formatEvent(event) {
+var listing = document.createElement("div");
+var heading = document.createElement("h3");
+var dateTime = document.createElement("p");
+var description = document.createElement("p");
+var event_type = document.createElement("p");
+heading.innerHTML = event.title.link("/events/" + event.id);
+description.innerHTML = event.description.split(" ", 25).join(" ") + "...";
+dateTime.innerHTML = event.time
+event_type.innerHTML = event.event_type
+listing.appendChild(heading);
+listing.appendChild(dateTime);
+listing.appendChild(event_type);
+listing.appendChild(description);
+listing.className = "listing";
+listing.id = event.pkey;
+return listing;
+}
+
+function formatStory(story) {
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var author = document.createElement("p");
+  var description = document.createElement("p");
+  heading.innerHTML = story.title.link("/stories/" + story.id);
+  description.innerHTML = story.description.split(" ", 25).join(" ") + "...";
+  author.innerHTML = "by " + story.author
+  listing.appendChild(heading);
+  if (story.image.thumb.url) {
+    var image = document.createElement("img");
+    image.src = story.image.thumb.url;
+    listing.appendChild(image);
+  }
+  listing.appendChild(author);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = story.pkey;
+  return listing;
+}
+
+function clearSubmissionDivs() {
+  $('#artwork-listings').empty();
+  $('#event-listings').empty();
+  $('#peace-circle-listings').empty();
+  $('#story-listings').empty();
+}
 
 var mapStyle = [
     {

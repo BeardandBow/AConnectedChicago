@@ -17,7 +17,7 @@
   <body class="<%= yield (:body_class) %>">
     <%= render 'shared/navbar' %>
     <% flash.each do |type, message| %>
-      <div data-alert class="flash_<%= type %>">
+      <div data-alert class="flash_<%= type %> alert-fixed">
         <%= sanitize(message) %>
       </div>
     <% end %>
