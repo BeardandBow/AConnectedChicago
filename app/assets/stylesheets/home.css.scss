@@ -25,11 +25,12 @@ body {
 }
 
 html, body {
+  top: 50px;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #homepage-controls {
@@ -51,34 +52,9 @@ html, body {
   background-size: cover;
 }
 
-.aes-container {
-  background-color: rgba(231, 226, 228, 0.8);
-  border-radius: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
-}
-
-.aes-center {
-  width: 500px;
-  margin: auto;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.aes-format {
-  width: 100%;
-  margin-top: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-}
+// h1, h2, h3, h4, h5, h6 {
+//   margin: 0;
+// }
 
 #info-backdrop {
   position: absolute;
@@ -129,6 +105,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .flash_success {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: #84bb66;
   color: #308700;
 }

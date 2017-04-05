@@ -13319,6 +13319,8 @@ function showNeighborhood(e){
             }
           });
         });
+<<<<<<< HEAD
+=======
         var allButton = document.getElementById("btn-all")
         allButton.addEventListener("click", function(){
           console.log("artwork")
@@ -13328,6 +13330,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
         });
+>>>>>>> a680875cb6fafd4435bab07dffe79f7f2e287bd9
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
           console.log("artwork")
