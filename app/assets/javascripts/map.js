@@ -54,16 +54,7 @@ function showNeighborhood(e){
             response.events.forEach(function(event) {
               if (event.status === "approved") {
                 document.getElementById("event-listings").appendChild(formatEvent(event));
-                var marker = handler.addMarker({
-                  "lat": event.map_lat,
-                  "lng": event.map_long,
-                  "visible": false,
-                  "picture": {
-                    "height": 32,
-                    "width": 32
-                  },
-                  "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
-                });
+                var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
                 marker.type = event.event_type;
                 markers.push(marker);
@@ -84,7 +75,8 @@ function showNeighborhood(e){
                   "lng": story.map_long,
                   "picture": {
                     "height": 32,
-                    "width": 32
+                    "width": 21,
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e7e2e4"
                   },
                   "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
                 });
@@ -102,7 +94,8 @@ function showNeighborhood(e){
                   "lng": artwork.map_long,
                   "picture": {
                     "height": 32,
-                    "width": 32
+                    "width": 21,
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|444444"
                   },
                   "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
                 });
@@ -196,7 +189,33 @@ function showNeighborhood(e){
   );
 };
 
-
+function determineEventType(event) {
+  if (event.event_type !== "Peace Circle") {
+    return {
+      "lat": event.map_lat,
+      "lng": event.map_long,
+      "visible": false,
+      "picture": {
+        "height": 32,
+        "width": 21,
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
+      },
+      "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+    }
+  } else {
+    return {
+      "lat": event.map_lat,
+      "lng": event.map_long,
+      "visible": false,
+      "picture": {
+        "height": 32,
+        "width": 21,
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|4e7eb7"
+      },
+      "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+    }
+  }
+}
 
 function formatArtwork(artwork) {
 var listing = document.createElement("div");
