@@ -1,9 +1,5 @@
 class EventsController < ApplicationController
 
-  def index
-    @events = Event.where(status: "approved").where("date >= ?", Date.today).order(:date, :time)
-  end
-
   def show
     @event = Event.find(params[:id])
   end

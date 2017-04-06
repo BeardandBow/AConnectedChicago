@@ -59,11 +59,11 @@ class PermissionsService
   end
 
   def visitor_permissions
-    return true if controller == 'artworks' && action.in?(%w(show index))
-    return true if controller == 'events' && action.in?(%w(show index))
+    return true if controller == 'artworks' && action.in?(%w(show))
+    return true if controller == 'events' && action.in?(%w(show))
     return true if controller == 'home'
-    return true if controller == 'sessions'
-    return true if controller == 'stories' && action.in?(%w(show index))
+    return true if controller == 'sessions' && action.in?(%w(new create))
+    return true if controller == 'stories' && action.in?(%w(show))
     return true if controller == 'users' && action.in?(%w(new create confirm_email))
   end
 end

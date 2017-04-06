@@ -106,6 +106,12 @@ label {
   padding-right: 15px;
   padding-bottom: 15px;
 }
+
+/* line 96, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+.btn-danger {
+  width: 100px;
+  text-decoration-color: white;
+}
 /* line 1, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 body {
   background-color: #c6cdd4;

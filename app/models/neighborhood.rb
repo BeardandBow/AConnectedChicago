@@ -12,7 +12,9 @@ class Neighborhood < ApplicationRecord
   has_many :organizations, through: :organization_neighborhoods
 
   def has?(lat, long)
-    lat.between?(self.bounds[1]["lat"], self.bounds[0]["lat"]) && long.between?(self.bounds[1]["lng"], self.bounds[0]["lng"])
+    if self.bounds[0]
+      lat.between?(self.bounds[1]["lat"], self.bounds[0]["lat"]) && long.between?(self.bounds[1]["lng"], self.bounds[0]["lng"])
+    end
   end
 
   private
