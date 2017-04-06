@@ -4,6 +4,7 @@ rvm:
 - 2.3.0
 services:
   - postgresql
+  - homebrew
 addons:
   postgresql: "9.4"
 env:
