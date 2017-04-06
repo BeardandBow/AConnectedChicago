@@ -18,6 +18,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
       click_button "Events"
 
@@ -31,6 +32,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
       click_button "Art"
 
@@ -43,6 +45,7 @@ RSpec.feature "visitor sees homepage", js: true do
       @stories = create_list(:story, 2, status: "approved")
       visit root_path
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
       click_button "Stories"
 
@@ -52,15 +55,16 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content details" do
-    xscenario "visitor views event details" do
+    scenario "visitor views event details" do
       @hood = create(:neighborhood, name: "Hyde Park")
       @events = create_list(:event, 2, status: "approved")
-      @stories = create_list(:story, 2, status: "approved")
-      @artworks = create_list(:artwork, 2, status: "approved")
+
       event = @events.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
+      click_button "Events"
       click_on event.title
 
       expect(page).to have_content(event.title)
@@ -73,15 +77,16 @@ RSpec.feature "visitor sees homepage", js: true do
       expect(page).to have_link("View Event Page")
     end
 
-    xscenario "visitor views artwork details" do
+    scenario "visitor views artwork details" do
       @hood = create(:neighborhood, name: "Hyde Park")
-      @events = create_list(:event, 2, status: "approved")
-      @stories = create_list(:story, 2, status: "approved")
       @artworks = create_list(:artwork, 2, status: "approved")
+
       artwork = @artworks.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
+      click_button "Art"
       click_on artwork.title
 
       expect(page).to have_content(artwork.title)
@@ -90,15 +95,16 @@ RSpec.feature "visitor sees homepage", js: true do
       expect(page).to have_content(artwork.address)
     end
 
-    xscenario "visitor views story details" do
+    scenario "visitor views story details" do
       @hood = create(:neighborhood, name: "Hyde Park")
-      @events = create_list(:event, 2, status: "approved")
       @stories = create_list(:story, 2, status: "approved")
-      @artworks = create_list(:artwork, 2, status: "approved")
+
       story = @stories.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
+      sleep(1)
 
+      click_button "Stories"
       click_on story.title
 
       expect(page).to have_content(story.title)
