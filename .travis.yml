@@ -21,6 +21,7 @@ script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
 before_install:
+  - brew update
   - brew install chromedriver
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
