@@ -1,9 +1,5 @@
 class StoriesController < ApplicationController
 
-  def index
-    @stories = Story.where(status: "approved").reverse
-  end
-
   def show
     @story = Story.find(params[:id])
   end

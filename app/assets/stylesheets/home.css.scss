@@ -43,7 +43,19 @@ html, body {
 }
 
 .btn-default {
-  background-color: #C3DBF9;
+  background-color: #9ABBE2;
+  border-color: #7F9AB9;
+  color: #3E4660;
+}
+
+#hood-select {
+  background-color: #9ABBE2;
+  border-color: #7F9AB9;
+  color: #3E4660;
+  }
+
+.btn-default:hover {
+  background-color: #7F9AB9;
   color: #3E4660;
 }
 
