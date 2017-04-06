@@ -70,7 +70,7 @@ FactoryGirl.define do
     end
     trait :with_community_leader do
       after(:create) do |hood|
-        create(:user, :community_leader, neighborhoods: [hood])
+        create(:user, :community_leader, neighborhood: hood)
       end
     end
   end
