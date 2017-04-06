@@ -1,3 +1,5 @@
+os:
+  - osx
 language: ruby
 cache: bundler
 rvm:
@@ -6,9 +8,7 @@ services:
   - postgresql
 addons:
   postgresql: "9.4"
-  homebrew:
-    packages:
-        - chromedriver
+
 env:
   - TESTFOLDER=spec/features/community_leader
   - TESTFOLDER=spec/features/visitor
@@ -22,6 +22,9 @@ script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
 
+before_install:
+  - brew update
+  - brew install chromedriver
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
