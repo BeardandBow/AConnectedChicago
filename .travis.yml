@@ -1,5 +1,6 @@
 language: ruby
 cache: bundler
+install: true
 rvm:
 - 2.3.0
 services:
@@ -18,6 +19,9 @@ env:
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
+before_install:
+  - brew update
+  - brew install chromedriver
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
