@@ -18,7 +18,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Events"
 
@@ -32,7 +32,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Art"
 
@@ -45,7 +45,7 @@ RSpec.feature "visitor sees homepage", js: true do
       @stories = create_list(:story, 2, status: "approved")
       visit root_path
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Stories"
 
@@ -62,7 +62,7 @@ RSpec.feature "visitor sees homepage", js: true do
       event = @events.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Events"
       click_on event.title
@@ -84,7 +84,7 @@ RSpec.feature "visitor sees homepage", js: true do
       artwork = @artworks.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Art"
       click_on artwork.title
@@ -102,7 +102,7 @@ RSpec.feature "visitor sees homepage", js: true do
       story = @stories.first
       visit root_path
       select @hood.name, from: "neighborhood_select"
-      sleep(2)
+      sleep(3)
 
       click_button "Stories"
       click_on story.title

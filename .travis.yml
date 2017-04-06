@@ -1,6 +1,6 @@
 language: ruby
 cache: bundler
-sudo: false
+sudo: required
 dist: trusty
 rvm:
   - 2.3.1
@@ -15,41 +15,18 @@ addons:
       - google-chrome-stable
       - chromium-chromedriver
 
-# env:
-#   - TESTFOLDER=spec/features/community_leader
-#   - TESTFOLDER=spec/features/registered_user
-#   - TESTFOLDER=spec/requests
-#   - TESTFOLDER=spec/mailers
-#   - TESTFOLDER=spec/features/admin
-#   - TESTFOLDER=spec/features/pending_user
-#   - TESTFOLDER=spec/models
-#   - TESTFOLDER=spec/features/visitor
 env:
-  matrix:
-   - GROUP=1
-   - GROUP=2
-   - GROUP=3
-   - GROUP=4
-   - GROUP=5
-   - GROUP=6
-   - GROUP=7
-   - GROUP=8
-   - GROUP=9
-   - GROUP=10
-   - GROUP=11
-   - GROUP=12
-   - GROUP=13
-   - GROUP=14
-   - GROUP=15
-   - GROUP=16
-   - GROUP=17
-   - GROUP=18
-   - GROUP=19
-   - GROUP=20
-   - GROUP=21
+  - TESTFOLDER=spec/features/community_leader
+  - TESTFOLDER=spec/features/registered_user
+  - TESTFOLDER=spec/requests
+  - TESTFOLDER=spec/mailers
+  - TESTFOLDER=spec/features/admin
+  - TESTFOLDER=spec/features/pending_user
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/features/visitor
 script:
-  - bundle exec rails parallel:prepare
-  - parallel_rspec spec -n 20 --only-group $GROUP
+  - bundle exec rails db:test:prepare
+  - bundle exec rspec $TESTFOLDER -p
 
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
@@ -58,9 +35,6 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sleep 3
-
-branches:
-  only: [master, staging, production]
 
 notifications:
   email: false
