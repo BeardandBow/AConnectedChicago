@@ -1,7 +1,5 @@
 language: ruby
 cache: bundler
-os:
-  - osx
 rvm:
   - 2.3.0
 services:
