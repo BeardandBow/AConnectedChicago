@@ -1,4 +1,4 @@
-require 'rails_helper'
+  require 'rails_helper'
 
 RSpec.feature "visitor sees homepage", js: true do
   scenario "visitor sees links to view content" do

@@ -53,6 +53,20 @@ class Event < ApplicationRecord
     end
     self.assign_attributes(neighborhood: neighborhood)
   end
+
+  def deletable_by?(current_user)
+    if current_user
+      if self.user == current_user
+        true
+      elsif current_user.role == "community_leader" && current_user.organizations.include?(self.organization)
+        true
+      elsif current_user.role == "community_leader" && current_user.neighborhood == self.neighborhood
+        true
+      elsif current_user.role == "admin"
+        true
+      end
+    end
+  end
 end
 
 private

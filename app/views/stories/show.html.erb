@@ -22,4 +22,9 @@
   <div class="aes-format">
     Posted At: <%= @story.formatted_update_time %>
   </div>
+  <% if @story.deletable_by?(current_user) %>
+    <div class="aes-format">
+      <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete %>
+    </div>
+  <% end %>
 </div>
