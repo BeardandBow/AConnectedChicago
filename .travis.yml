@@ -1,10 +1,10 @@
 language: ruby
 cache: bundler
+sudo: required
 rvm:
   - 2.3.0
 services:
   - postgresql
-  - chromedriver
 addons:
   postgresql: "9.4"
 env:
@@ -19,11 +19,17 @@ env:
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
+before_install:
+ - sudo apt-get update
+ - sudo apt-get install chromium-chromedriver
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+  - "export PATH=$PATH:/usr/lib/chromium-browser/"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+
 notifications:
   email: false
 
