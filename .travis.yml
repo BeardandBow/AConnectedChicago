@@ -19,9 +19,9 @@ env:
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
-before_install:
- - sudo apt-get update
- - sudo apt-get install chromium-chromedriver
+# before_install:
+#  - sudo apt-get update
+#  - sudo apt-get install chromium-chromedriver
 before_script:
   - RAILS_ENV=test bundle exec rails db:create
   - RAILS_ENV=test bundle exec rails db:migrate
