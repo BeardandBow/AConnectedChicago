@@ -318,6 +318,12 @@ html, body {
   color: #e7e2e4;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
+/* line 187, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+#twitter {
+  color: #1DA1F2;
+  font-weight: bold;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
