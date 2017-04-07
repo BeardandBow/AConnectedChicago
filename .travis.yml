@@ -16,15 +16,14 @@ addons:
       - chromium-chromedriver
 
 env:
-  matrix:
-    - TESTFOLDER=spec/features/community_leader
-    - TESTFOLDER=spec/features/registered_user
-    - TESTFOLDER=spec/requests
-    - TESTFOLDER=spec/mailers
-    - TESTFOLDER=spec/features/admin
-    - TESTFOLDER=spec/features/pending_user
-    - TESTFOLDER=spec/models
-    - TESTFOLDER=spec/features/visitor
+  - TESTFOLDER=spec/features/community_leader
+  - TESTFOLDER=spec/features/registered_user
+  - TESTFOLDER=spec/requests
+  - TESTFOLDER=spec/mailers
+  - TESTFOLDER=spec/features/admin
+  - TESTFOLDER=spec/features/pending_user
+  - TESTFOLDER=spec/models
+  - TESTFOLDER=spec/features/visitor
 script:
   - bundle exec rails db:test:prepare
   - bundle exec rspec $TESTFOLDER -p
