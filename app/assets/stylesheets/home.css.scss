@@ -43,19 +43,30 @@ html, body {
 }
 
 .btn-default {
+  background-color: #933B3B;
+  border-color: #4C2326;
+  color: #E7E2E4;
+}
+
+#hood-select {
+  background-color: #E7E2E4;
+  }
+
+.btn-default:hover {
+  background-color: #4C2326;
+  border-color: #3F1D20;
+  color: #E7E2E4;
+}
+
+.btn-all {
   background-color: #9ABBE2;
   border-color: #7F9AB9;
   color: #3E4660;
 }
 
-#hood-select {
-  background-color: #9ABBE2;
-  border-color: #7F9AB9;
-  color: #3E4660;
-  }
-
-.btn-default:hover {
+.btn-all:hover {
   background-color: #7F9AB9;
+  border-color: #7189A5;
   color: #3E4660;
 }
 
@@ -183,9 +194,4 @@ html, body {
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000;
-}
-
-#twitter {
-  color: #1DA1F2;
-  font-weight: bold;
 }
