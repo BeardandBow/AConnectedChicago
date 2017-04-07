@@ -56,6 +56,7 @@ function showNeighborhood(e){
                 document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
+                marker.id = event.id;
                 marker.type = event.event_type;
                 markers.push(marker);
               }
@@ -84,6 +85,7 @@ function showNeighborhood(e){
 
                 });
                 marker.key = story.pkey;
+                marker.id = story.id;
                 markers.push(marker);
               }
             });
@@ -105,6 +107,7 @@ function showNeighborhood(e){
                                 '<p>' + artwork.description.split(" ", 10).join(" ") + "..." + '</p>'
                 });
                 marker.key = artwork.pkey;
+                marker.id = artwork.id;
                 markers.push(marker);
               }
             });
@@ -156,11 +159,22 @@ function showNeighborhood(e){
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
           console.log("artwork")
+          $("#artwork-listings")
           $("#about-us").hide()
           $("#artwork-listings").show()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          var listings = document.getElementById('artwork-listings').childNodes;
+          listings.forEach(function(listing){
+            listing.addEventListener("mouseover", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                  debugger;
+                }
+              }
+            });
+          });
         });
         var eventButton = document.getElementById("btn-events")
         eventButton.addEventListener("click", function(){
@@ -231,6 +245,7 @@ function determineEventType(event) {
 
 function formatArtwork(artwork) {
 var listing = document.createElement("div");
+console.log(listing.id);
 var heading = document.createElement("h3");
 var artist = document.createElement("p");
 var description = document.createElement("p");
@@ -246,7 +261,7 @@ if (artwork.image.thumb.url) {
 listing.appendChild(artist);
 listing.appendChild(description);
 listing.className = "listing";
-listing.id = artwork.pkey;
+listing.id = artwork.id;
 return listing;
 }
 
@@ -265,7 +280,7 @@ listing.appendChild(dateTime);
 listing.appendChild(event_type);
 listing.appendChild(description);
 listing.className = "listing";
-listing.id = event.pkey;
+listing.id = event.id;
 return listing;
 }
 
@@ -286,7 +301,7 @@ function formatStory(story) {
   listing.appendChild(author);
   listing.appendChild(description);
   listing.className = "listing";
-  listing.id = story.pkey;
+  listing.id = story.id;
   return listing;
 }
 
