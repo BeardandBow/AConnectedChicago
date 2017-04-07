@@ -89,22 +89,22 @@ html, body {
 
 #artwork-listings {
   display: none;
+  width: 100%;
 }
 
 #event-listings {
   display: none;
+  width: 100%;
 }
 
 #peace-circle-listings {
   display: none;
+  width: 100%;
 }
 
 #story-listings {
   display: none;
-}
-
-.listing {
-
+  width: 100%;
 }
 
 #neighborhood {
@@ -115,6 +115,7 @@ html, body {
   bottom: 10px;
   overflow: auto;
   height: inherit;
+  width: 100%;
 }
 
 .alert-fixed {

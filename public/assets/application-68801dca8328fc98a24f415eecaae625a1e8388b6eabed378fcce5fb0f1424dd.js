@@ -13173,8 +13173,8 @@ return jQuery;
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
-function createMap(){
-  var handler = Gmaps.build('Google');
+function createMap () {
+  var handler = Gmaps.build('Google')
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
                                 zoom: 11,
@@ -13187,7 +13187,7 @@ function createMap(){
                    },
   function(){
     handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/6981eff719cd212aa72a2e962dcef74e9ea5a0ab/Neighborhoods.kml"}, {preserveViewport: true});
-    var xCenter = window.innerWidth * 0.15 / 2
+    var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     if (hoods.selectedIndex > 1) {
@@ -13199,7 +13199,7 @@ function createMap(){
 
 function showNeighborhood(e){
   clearSubmissionDivs();
-  var markers = []
+  var markers = [];
   var handler = Gmaps.build('Google');
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
@@ -13212,26 +13212,34 @@ function showNeighborhood(e){
     function(){
       handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/6981eff719cd212aa72a2e962dcef74e9ea5a0ab/Neighborhoods.kml"}, {preserveViewport: true});
       if (e.target !== undefined) {
-        var hoodName = e.target.options[e.target.selectedIndex].value
+        var hoodName = e.target.options[e.target.selectedIndex].value;
       } else {
-        var hoodName = e.options[e.selectedIndex].value
+        var hoodName = e.options[e.selectedIndex].value;
       }
       if (hoodName === "All Neighborhoods") {
         createMap();
         $("#about-us").show();
-        $("#artwork-listings").hide()
-        $("#event-listings").hide()
-        $("#peace-circle-listings").hide()
-        $("#story-listings").hide()
+        $("#artwork-listings").hide();
+        $("#event-listings").hide();
+        $("#peace-circle-listings").hide();
+        $("#story-listings").hide();
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
             response.events.forEach(function(event) {
               if (event.status === "approved") {
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
+                           '<p>' + event.formatted_date_time + '</p>' +
+                           '<p>' + event.event_type + '</p>' +
+                           '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
+                });
                 document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
+                marker.id = event.id;
                 marker.type = event.event_type;
+                marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
               }
             });
@@ -13244,6 +13252,11 @@ function showNeighborhood(e){
           if (response.stories.length !== 0) {
             response.stories.forEach(function(story){
               if (story.status === "approved") {
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
+                           '<p>' + "by " + story.author + '</p>' +
+                           '<p>' + story.description.split(" ", 10).join(" ") + "..." + '</p>'
+                });
                 document.getElementById("story-listings").appendChild(formatStory(story));
                 var marker = handler.addMarker({
                   "lat": story.map_lat,
@@ -13252,13 +13265,11 @@ function showNeighborhood(e){
                     "height": 32,
                     "width": 21,
                     "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e7e2e4"
-                  },
-                  "infowindow": '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
-                                '<p>' + "by " + story.author + '</p>' +
-                                '<p>' + story.description.split(" ", 10).join(" ") + "..." + '</p>'
-
+                  }
                 });
                 marker.key = story.pkey;
+                marker.id = story.id;
+                marker.serviceObject.set('infowindow', infowindow);
                 markers.push(marker);
               }
             });
@@ -13266,6 +13277,11 @@ function showNeighborhood(e){
           if (response.artworks.length !== 0) {
             response.artworks.forEach(function(artwork){
               if (artwork.status === "approved") {
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
+                            '<p>' + "by " + artwork.artist + '</p>' +
+                            '<p>' + artwork.description.split(" ", 10).join(" ") + "..." + '</p>'
+                });
                 document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
                 var marker = handler.addMarker({
                   "lat": artwork.map_lat,
@@ -13274,12 +13290,11 @@ function showNeighborhood(e){
                     "height": 32,
                     "width": 21,
                     "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|444444"
-                  },
-                  "infowindow": '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
-                                '<p>' + "by " + artwork.artist + '</p>' +
-                                '<p>' + artwork.description.split(" ", 10).join(" ") + "..." + '</p>'
+                  }
                 });
                 marker.key = artwork.pkey;
+                marker.id = artwork.id;
+                marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
               }
             });
@@ -13301,7 +13316,6 @@ function showNeighborhood(e){
           handler.getMap().setZoom(14);
           var xCenter = window.innerWidth * 0.3 / 2
           handler.map.serviceObject.panBy(xCenter, 0);
-
         });
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
@@ -13321,7 +13335,6 @@ function showNeighborhood(e){
         });
         var allButton = document.getElementById("btn-all")
         allButton.addEventListener("click", function(){
-          console.log("artwork")
           $("#about-us").show()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
@@ -13330,43 +13343,108 @@ function showNeighborhood(e){
         });
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
-          console.log("artwork")
+          $("#artwork-listings")
           $("#about-us").hide()
           $("#artwork-listings").show()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          var listings = document.getElementById('artwork-listings').childNodes;
+          listings.forEach(function(listing){
+            listing.addEventListener("mouseover", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+          });
         });
         var eventButton = document.getElementById("btn-events")
         eventButton.addEventListener("click", function(){
-          console.log("event")
           $("#about-us").hide()
           $("#artwork-listings").hide()
           $("#event-listings").show()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          var listings = document.getElementById('event-listings').childNodes;
+          listings.forEach(function(listing){
+            listing.addEventListener("mouseover", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+          });
         });
         var peaceButton = document.getElementById("btn-peace-circles")
         peaceButton.addEventListener("click", function(){
-          console.log("peace")
           $("#about-us").hide()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
           $("#peace-circle-listings").show()
           $("#story-listings").hide()
+          var listings = document.getElementById('peace-circle-listings').childNodes;
+          listings.forEach(function(listing){
+            listing.addEventListener("mouseover", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+          });
         });
         var storyButton = document.getElementById("btn-stories")
         storyButton.addEventListener("click", function(){
-          console.log("story")
           $("#about-us").hide()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").show()
-        });
-      }
+          var listings = document.getElementById('story-listings').childNodes;
+          listings.forEach(function(listing){
+            listing.addEventListener("mouseover", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function(){
+              for (var i = 0; i < markers.length; i++) {
+                if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
+                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+                }
+              }
+            })
+          })
+        })
+      };
     }
-  );
+  )
 };
 
 function determineEventType(event) {
@@ -13379,11 +13457,7 @@ function determineEventType(event) {
         "height": 32,
         "width": 21,
         "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
-      },
-      "infowindow": '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
-                    '<p>' + event.formatted_date_time + '</p>' +
-                    '<p>' + event.event_type + '</p>' +
-                    '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
+      }
     }
   } else {
     return {
@@ -13394,12 +13468,7 @@ function determineEventType(event) {
         "height": 32,
         "width": 21,
         "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|4e7eb7"
-      },
-      "infowindow": '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
-                    '<p>' + event.formatted_date_time + '</p>' +
-                    '<p>' + event.event_type + '</p>' +
-                    '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
-
+      }
     }
   }
 }
@@ -13421,7 +13490,7 @@ if (artwork.image.thumb.url) {
 listing.appendChild(artist);
 listing.appendChild(description);
 listing.className = "listing";
-listing.id = artwork.pkey;
+listing.id = artwork.id;
 return listing;
 }
 
@@ -13440,7 +13509,7 @@ listing.appendChild(dateTime);
 listing.appendChild(event_type);
 listing.appendChild(description);
 listing.className = "listing";
-listing.id = event.pkey;
+listing.id = event.id;
 return listing;
 }
 
@@ -13461,7 +13530,7 @@ function formatStory(story) {
   listing.appendChild(author);
   listing.appendChild(description);
   listing.className = "listing";
-  listing.id = story.pkey;
+  listing.id = story.id;
   return listing;
 }
 
