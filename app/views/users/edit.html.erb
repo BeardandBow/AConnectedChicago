@@ -10,12 +10,16 @@
       <%= f.select :race, options_for_select(['White', 'Hispanic/Latino', 'Black/African American', 'American Indian/Alaska Native', 'Asian', 'Native Hawaiian/Other Pacific Islander', 'Multiracial'], @user.race), {include_blank: "Select your race"}, {class: "form-input form-control center-dropdown"} %>
       <%= f.select :neighborhood, options_for_select(@neighborhoods, @user.neighborhood), {}, {class: "form-input form-control center-dropdown"} %>
       <%= f.select :organizations, @organizations, {include_blank: "Add an Organization"}, {class: "form-input form-control center-dropdown"} %>
+      <%= f.select :how, options_for_select(["CTA Ads",
+                                             "Online",
+                                             "Billboards",
+                                             "Fliers",
+                                             "Neighborhood Meetings",
+                                             "Word of Mouth"]), {include_blank: "How did you hear about Connected Chicago?"}, {class: "form-input form-control center-dropdown"} %>
       <%= f.label :why, "What motivated you to join Connected Chicago?", class: "white" %>
       <%= f.text_area :why, class: "form-input" %>
       <%= f.label :where, "What part of Chicago would you like to connect with?", class: "white" %>
       <%= f.text_area :where, class: "form-input" %><br>
-      <%= f.label :how, "How did you hear about Connected Chicago?", class: "white" %>
-      <%= f.text_area :how, class: "form-input" %><br>
       <%= f.submit "Update Account", class: "form-input btn btn-success" %>
     <% end %>
    </div>
