@@ -167,8 +167,8 @@ RSpec.feature "community leader sees dashboard" do
       # As a logged-in user
       # when I visit my dashboard
       visit user_path(@user)
-      # and click "Submit Event"
-      click_on "Submit Event"
+      # and click "Share your Event"
+      click_on "Share your Event"
 
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "event"
@@ -183,7 +183,7 @@ RSpec.feature "community leader sees dashboard" do
       select Time.now.strftime("%I %p"), from: "event_time_4i"
       select "30", from: "event_time_5i"
       # and click submit
-      click_on "Submit Event for Approval"
+      click_on "Share your Event"
       # I should be on my dashboard
       expect(current_path).to eq(user_path(@user))
       # and I should see text that my event has been sent to a community leader for approval.
@@ -195,8 +195,8 @@ RSpec.feature "community leader sees dashboard" do
       # As a logged-in user
       # when I visit my dashboard
       visit user_path(@user)
-      # and click "Submit Event"
-      click_on "Submit Story"
+      # and click "Share your Event"
+      click_on "Share your Story"
 
       fill_in "Title", with: "story"
       fill_in "Author", with: "some guy"
@@ -205,7 +205,7 @@ RSpec.feature "community leader sees dashboard" do
       fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       fill_in "YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       # and click submit
-      click_on "Submit Story for Approval"
+      click_on "Share your Story"
       # I should be on my dashboard
       expect(current_path).to eq(user_path(@user))
       # and I should see text that my event has been sent to a community leader for approval.
@@ -217,8 +217,8 @@ RSpec.feature "community leader sees dashboard" do
       # As a logged-in user
       # when I visit my dashboard
       visit user_path(@user)
-      # and click "Submit Event"
-      click_on "Submit Artwork"
+      # and click "Share your Event"
+      click_on "Share your Artwork"
       # and fill in the information for a new event in the text fields
       fill_in "Title", with: "artwork"
       fill_in "Artist", with: "some guy"
@@ -226,7 +226,7 @@ RSpec.feature "community leader sees dashboard" do
 
       fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
-      click_on "Submit Artwork for Approval"
+      click_on "Share your Art"
       # I should be on my dashboard
       expect(current_path).to eq(user_path(@user))
       # and I should see text that my event has been sent to a community leader for approval.

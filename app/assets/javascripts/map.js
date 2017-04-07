@@ -366,7 +366,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 20
@@ -378,7 +378,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 17
@@ -393,7 +393,7 @@ var mapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 20
@@ -405,7 +405,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -414,7 +414,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -423,7 +423,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -441,7 +441,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -450,7 +450,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -462,7 +462,7 @@ var mapStyle = [
                 "visibility": "on"
             },
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -471,7 +471,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -480,7 +480,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -489,7 +489,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -498,7 +498,7 @@ var mapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -507,7 +507,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -516,7 +516,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -534,7 +534,7 @@ var mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -543,7 +543,7 @@ var mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -552,7 +552,7 @@ var mapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -714,7 +714,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 20
@@ -726,7 +726,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 17
@@ -741,7 +741,7 @@ var hoodStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             },
             {
                 "lightness": 20
@@ -753,7 +753,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -762,7 +762,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -771,7 +771,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -789,7 +789,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -798,7 +798,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
@@ -810,7 +810,7 @@ var hoodStyle = [
               "visibility": "off"
           },
           {
-              "color": "#717782"
+              "color": "#9ABBE2"
           }
         ]
     },
@@ -822,7 +822,7 @@ var hoodStyle = [
                 "visibility": "on"
             },
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -831,7 +831,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -840,7 +840,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -849,7 +849,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -858,7 +858,7 @@ var hoodStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -867,7 +867,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -876,7 +876,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -894,7 +894,7 @@ var hoodStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -903,7 +903,7 @@ var hoodStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#676c75"
+                "color": "#a3c1e4"
             }
         ]
     },
@@ -912,7 +912,7 @@ var hoodStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#717782"
+                "color": "#9ABBE2"
             }
         ]
     },
