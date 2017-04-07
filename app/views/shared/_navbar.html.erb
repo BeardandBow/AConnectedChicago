@@ -15,6 +15,9 @@
         <li>
           <%= link_to "Resources", resources_path %>
         </li>
+        <li>
+          <%= mail_to  "connectedchicago@gmail.com", "Contact Us" %>
+        </li>
         <% if registered_user? || community_leader? || admin? %>
           <li>
             <%= link_to "Logout", logout_path, method: :delete %>

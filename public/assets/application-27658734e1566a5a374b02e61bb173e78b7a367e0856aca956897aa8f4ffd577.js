@@ -13253,7 +13253,10 @@ function showNeighborhood(e){
                     "width": 21,
                     "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e7e2e4"
                   },
-                  "infowindow": '<a href="/stories/' + story.id + '">' + story.title + '</a>'
+                  "infowindow": '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
+                                '<p>' + "by " + story.author + '</p>' +
+                                '<p>' + story.description.split(" ", 10).join(" ") + "..." + '</p>'
+
                 });
                 marker.key = story.pkey;
                 markers.push(marker);
@@ -13272,7 +13275,9 @@ function showNeighborhood(e){
                     "width": 21,
                     "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|444444"
                   },
-                  "infowindow": '<a href="/artworks/' + artwork.id + '">' + artwork.title + '</a>'
+                  "infowindow": '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
+                                '<p>' + "by " + artwork.artist + '</p>' +
+                                '<p>' + artwork.description.split(" ", 10).join(" ") + "..." + '</p>'
                 });
                 marker.key = artwork.pkey;
                 markers.push(marker);
@@ -13375,7 +13380,10 @@ function determineEventType(event) {
         "width": 21,
         "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
       },
-      "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+      "infowindow": '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
+                    '<p>' + event.formatted_date_time + '</p>' +
+                    '<p>' + event.event_type + '</p>' +
+                    '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
     }
   } else {
     return {
@@ -13387,7 +13395,11 @@ function determineEventType(event) {
         "width": 21,
         "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|4e7eb7"
       },
-      "infowindow": '<a href="/events/' + event.id + '">' + event.title + '</a>'
+      "infowindow": '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
+                    '<p>' + event.formatted_date_time + '</p>' +
+                    '<p>' + event.event_type + '</p>' +
+                    '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
+
     }
   }
 }
