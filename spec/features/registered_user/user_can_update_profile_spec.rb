@@ -17,7 +17,7 @@ RSpec.feature "user can update their profile" do
     select "Man", from: "user_gender"
     select "Hispanic/Latino", from: "user_race"
     fill_in "What motivated you to join Connected Chicago?", with: "I dunno"
-    fill_in "How did you hear about Connected Chicago?", with: "a friend"
+    select "Online", from: "user_how"
     fill_in "What part of Chicago would you like to connect with?", with: "hyde park"
     click_on "Update Account"
 
@@ -28,7 +28,7 @@ RSpec.feature "user can update their profile" do
     expect(@user.gender).to eq "Man"
     expect(@user.race).to eq "Hispanic/Latino"
     expect(@user.why).to eq "I dunno"
-    expect(@user.how).to eq "a friend"
+    expect(@user.how).to eq "Online"
     expect(@user.where).to eq "hyde park"
   end
 
@@ -40,7 +40,7 @@ RSpec.feature "user can update their profile" do
 
     fill_in "First Name", with: "Mann"
     fill_in "Last Name", with: "McMannerson"
-    fill_in "How did you hear about Connected Chicago?", with: "my mom"
+    select "Online", from: "user_how"
     click_on "Update Account"
 
     expect(@user.first_name).to eq "Mann"
@@ -48,7 +48,7 @@ RSpec.feature "user can update their profile" do
     expect(@user.gender).to eq nil
     expect(@user.race).to eq nil
     expect(@user.why).to eq nil
-    expect(@user.how).to eq "my mom"
+    expect(@user.how).to eq "Online"
     expect(@user.where).to eq nil
   end
 
