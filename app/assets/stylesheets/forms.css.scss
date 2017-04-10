@@ -1,16 +1,17 @@
 .center {
   width: 300px;
   margin: auto;
-  position: absolute;
+  position: relative;
   text-align: center;
   top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateY(-50%);;
 }
 
-.form-padding {
-  padding-top: 50px;
-  padding-bottom: 50px;
+.inner-scroll-container {
+  height: 100%;
+  position: relative;
+  overflow: scroll;
+  max-height: 500px;
 }
 
 .time-select {
@@ -51,19 +52,16 @@ label {
 .aes-container {
   background-color: rgba(231, 226, 228, 0.8);
   border-radius: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
+  padding: 15px;
 }
 
 .aes-center {
   width: 500px;
   margin: auto;
-  position: absolute;
+  position: relative;
   text-align: center;
   top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .aes-format {
@@ -96,4 +94,10 @@ label {
 .btn-danger {
   width: 100px;
   text-decoration-color: white;
+}
+
+.form-container {
+  position: relative;
+  min-height: 500px;
+  overflow: auto;
 }
