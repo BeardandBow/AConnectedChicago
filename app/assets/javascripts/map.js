@@ -24,6 +24,7 @@ function createMap () {
 
 function showNeighborhood(e){
   clearSubmissionDivs();
+  var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
   handler.buildMap({provider: {
@@ -66,6 +67,13 @@ function showNeighborhood(e){
                 marker.type = event.event_type;
                 marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
+                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+                  if (openedMarker && openedMarker !== marker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = marker
+                })
               }
             });
             response.events.forEach(function(event) {
@@ -96,6 +104,13 @@ function showNeighborhood(e){
                 marker.id = story.id;
                 marker.serviceObject.set('infowindow', infowindow);
                 markers.push(marker);
+                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+                  if (openedMarker && openedMarker !== marker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = marker
+                })
               }
             });
           }
@@ -121,6 +136,13 @@ function showNeighborhood(e){
                 marker.id = artwork.id;
                 marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
+                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+                  if (openedMarker && openedMarker !== marker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = marker
+                })
               }
             });
           }
@@ -180,6 +202,10 @@ function showNeighborhood(e){
               for (var i = 0; i < markers.length; i++) {
                 if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
                   markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
                 }
               }
             });
@@ -205,6 +231,10 @@ function showNeighborhood(e){
               for (var i = 0; i < markers.length; i++) {
                 if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
                   markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
                 }
               }
             });
@@ -230,6 +260,10 @@ function showNeighborhood(e){
               for (var i = 0; i < markers.length; i++) {
                 if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
                   markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
                 }
               }
             });
@@ -255,6 +289,10 @@ function showNeighborhood(e){
               for (var i = 0; i < markers.length; i++) {
                 if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
                   markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
                 }
               }
             });
