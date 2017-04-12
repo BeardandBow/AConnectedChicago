@@ -17,13 +17,11 @@ class Seed
                           "Roseland", "Pullman", "South Deering", "East Side", "West Pullman",
                           "Riverdale", "Hegewisch"]
 
-    # neighborhood_names.each do |name|
-    #           puts "creating #{name}"
-    #   Neighborhood.create(name: name)
-      # sleep 0.5
-    # end
-
-    Neighborhood.create(name: "Rogers Park")
+    neighborhood_names.each do |name|
+              puts "creating #{name}"
+      Neighborhood.create(name: name)
+      sleep 0.5
+    end
 
     org_1 = Organization.create(name: "Precious Blood Ministry of Reconciliation",
                                 website: "http://www.pbmr.org")
