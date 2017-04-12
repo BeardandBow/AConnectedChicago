@@ -13233,7 +13233,7 @@ function showNeighborhood(e){
                   content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
                            '<p>' + event.formatted_date_time + '</p>' +
                            '<p>' + event.event_type + '</p>' +
-                           '<p>' + event.description.split(" ", 10).join(" ") + "..." + '</p>'
+                           '<p>' + stringTruncate(event.description, 50) + '</p>'
                 });
                 document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker(determineEventType(event));
@@ -13263,7 +13263,7 @@ function showNeighborhood(e){
                 var infowindow = new google.maps.InfoWindow({
                   content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
                            '<p>' + "by " + story.author + '</p>' +
-                           '<p>' + story.description.split(" ", 10).join(" ") + "..." + '</p>'
+                           '<p>' + stringTruncate(story.description, 50) + '</p>'
                 });
                 document.getElementById("story-listings").appendChild(formatStory(story));
                 var marker = handler.addMarker({
@@ -13295,7 +13295,7 @@ function showNeighborhood(e){
                 var infowindow = new google.maps.InfoWindow({
                   content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
                             '<p>' + "by " + artwork.artist + '</p>' +
-                            '<p>' + artwork.description.split(" ", 10).join(" ") + "..." + '</p>'
+                            '<p>' + stringTruncate(artwork.description, 50) + '</p>'
                 });
                 document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
                 var marker = handler.addMarker({
@@ -13485,6 +13485,14 @@ function showNeighborhood(e){
   )
 };
 
+function stringTruncate(string, length) {
+  if (string.length > length) {
+    return string.substr(0, string.lastIndexOf(' ', length)) + " ...";
+  } else {
+    return string;
+  }
+}
+
 function determineEventType(event) {
   if (event.event_type !== "Peace Circle") {
     return {
@@ -13517,7 +13525,7 @@ var heading = document.createElement("h3");
 var artist = document.createElement("p");
 var description = document.createElement("p");
 heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
-description.innerHTML = artwork.description.split(" ", 25).join(" ") + "...";
+description.innerHTML = stringTruncate(artwork.description, 50);
 artist.innerHTML = "by " + artwork.artist
 listing.appendChild(heading);
 if (artwork.image.thumb.url) {
@@ -13539,7 +13547,7 @@ var dateTime = document.createElement("p");
 var description = document.createElement("p");
 var event_type = document.createElement("p");
 heading.innerHTML = event.title.link("/events/" + event.id);
-description.innerHTML = event.description.split(" ", 25).join(" ") + "...";
+description.innerHTML = stringTruncate(event.description, 50);
 dateTime.innerHTML = event.formatted_date_time
 event_type.innerHTML = event.event_type
 listing.appendChild(heading);
@@ -13557,7 +13565,7 @@ function formatStory(story) {
   var author = document.createElement("p");
   var description = document.createElement("p");
   heading.innerHTML = story.title.link("/stories/" + story.id);
-  description.innerHTML = story.description.split(" ", 25).join(" ") + "...";
+  description.innerHTML = stringTruncate(story.description, 50);
   author.innerHTML = "by " + story.author
   listing.appendChild(heading);
   if (story.image.thumb.url) {
