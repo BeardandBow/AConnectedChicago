@@ -1,35 +1,37 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="center">
-  <h1 class="white">Submit an Event</h1>
-  <h5 class="white">Reasons to upload that Mike will provide go here</h5>
-  <%= form_for @event, html: {multipart: true} do |f| %>
-    <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
-    <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>
-    <input type="file" name="event[image]" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
-    <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
-    <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
-    <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
-    <%= f.select :event_type, options_for_select(["Peace Circle",
-                                                  "Circle Training",
-                                                  "Workshop",
-                                                  "Poetry Slam",
-                                                  "Open Mic",
-                                                  "Music Event",
-                                                  "Storytelling Event",
-                                                  "Shared Meal",
-                                                  "Cocktails & Conversation",
-                                                  "Interfaith Worship",
-                                                  "Sports / Recreation",
-                                                  "Game Night",
-                                                  "Meet the RJ Hubs",
-                                                  "Youth Speak Out",
-                                                  "Issue-Based Discussion"]),
-                                                  {include_blank: "Event Type"},
-                                                  {class: "form-input form-control center-dropdown"} %>
-    <%= f.date_select :date, {start_year: Date.today.year}, {class: "form-input form-control center-dropdown"} %>
-    <div class="form-inline form-input">
-      <%= f.time_select :time, {ampm: true, minute_step: 15}, {class: "time-select form-control center-dropdown"} %>
-    </div>
-    <%= f.submit "Share your Event", class: "form-input btn btn-success" %>
-  <% end %>
+  <div class="form-container">
+    <h1 class="white">Submit an Event</h1>
+    <h5 class="white">Reasons to upload that Mike will provide go here</h5>
+    <%= form_for @event, html: {multipart: true} do |f| %>
+      <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
+      <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>
+      <input type="file" name="event[image]" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
+      <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
+      <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
+      <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
+      <%= f.select :event_type, options_for_select(["Peace Circle",
+                                                    "Circle Training",
+                                                    "Workshop",
+                                                    "Poetry Slam",
+                                                    "Open Mic",
+                                                    "Music Event",
+                                                    "Storytelling Event",
+                                                    "Shared Meal",
+                                                    "Cocktails & Conversation",
+                                                    "Interfaith Worship",
+                                                    "Sports / Recreation",
+                                                    "Game Night",
+                                                    "Meet the RJ Hubs",
+                                                    "Youth Speak Out",
+                                                    "Issue-Based Discussion"]),
+                                                    {include_blank: "Event Type"},
+                                                    {class: "form-input form-control center-dropdown"} %>
+      <%= f.date_select :date, {start_year: Date.today.year}, {class: "form-input form-control center-dropdown"} %>
+      <div class="form-inline form-input">
+        <%= f.time_select :time, {ampm: true, minute_step: 15}, {class: "time-select form-control center-dropdown"} %>
+      </div>
+      <%= f.submit "Share your Event", class: "form-input btn btn-success" %>
+    <% end %>
+  </div>
 </div>

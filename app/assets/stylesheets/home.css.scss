@@ -1,6 +1,5 @@
 .navbar-default {
   background-color: #E7E2E4;
-  z-index: 100;
 }
 .navbar-default .navbar-nav li a {
   color: #45494C;
@@ -19,13 +18,17 @@
   width: 100%;
 }
 
-html, body {
-  top: 50px;
+html {
+  position: absolute;
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-y: scroll;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin-top: 55px;
+  overflow: auto;
 }
 
 #homepage-controls {

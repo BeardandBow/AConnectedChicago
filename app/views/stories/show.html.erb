@@ -1,30 +1,28 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="aes-container aes-center">
-  <div class="aes-format">
-    <h1><%= @story.title %></h1>
-  </div>
-  <div class="aes-format">
-    <h3>By: <%= @story.author %></h3>
-  </div>
-  <% if @story.youtube_link %>
-    <div class="aes-format">
-      <div class="iframe">
-        <iframe src="<%= @story.youtube_link %>"></iframe>
+  <div class="inner-scroll-container">
+      <h1><%= @story.title %></h1>
+      <h3>By: <%= @story.author %></h3>
+    <% if @story.youtube_link %>
+      <div class="aes-format">
+        <div class="iframe">
+          <iframe src="<%= @story.youtube_link %>"></iframe>
+        </div>
       </div>
-    </div>
-    <% end %>
-  <div class="aes-format">
-    <%= @story.description %>
-  </div>
-  <div class="aes-format">
-    <%= @story.body %>
-  </div>
-  <div class="aes-format">
-    Posted At: <%= @story.formatted_update_time %>
-  </div>
-  <% if @story.deletable_by?(current_user) %>
+      <% end %>
     <div class="aes-format">
-      <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete %>
+      <%= @story.description %>
     </div>
-  <% end %>
+    <div class="aes-format">
+      <%= @story.body %>
+    </div>
+    <div class="aes-format">
+      Posted At: <%= @story.formatted_update_time %>
+    </div>
+    <% if @story.deletable_by?(current_user) %>
+      <div class="aes-format">
+        <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete %>
+      </div>
+    <% end %>
+  </div>
 </div>

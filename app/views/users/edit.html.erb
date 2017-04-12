@@ -1,6 +1,7 @@
  <% content_for :body_class, "dashboard-bg" %>
  <div class="center">
-   <div class="form-padding">
+   <div class="form-container">
+     <h1 class="white">Update Your Account Info</h1>
      <%= form_for @user do |f| %>
       <%= f.label :first_name, class: "white" %>
       <%= f.text_field :first_name, placeholder: "First Name", class: "form-input" %>
