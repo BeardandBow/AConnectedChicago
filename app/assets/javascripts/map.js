@@ -44,7 +44,7 @@ function showNeighborhood(e){
       }
       if (hoodName === "All Neighborhoods") {
         createMap();
-        $("#about-us").show();
+        $("#instructions").show();
         $("#artwork-listings").hide();
         $("#event-listings").hide();
         $("#peace-circle-listings").hide();
@@ -97,7 +97,7 @@ function showNeighborhood(e){
                   "picture": {
                     "height": 32,
                     "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|a30313"
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
                   }
                 });
                 marker.key = story.pkey;
@@ -129,7 +129,7 @@ function showNeighborhood(e){
                   "picture": {
                     "height": 32,
                     "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e9ed02"
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|d4b411"
                   }
                 });
                 marker.key = artwork.pkey;
@@ -182,7 +182,7 @@ function showNeighborhood(e){
         });
         var allButton = document.getElementById("btn-all")
         allButton.addEventListener("click", function(){
-          $("#about-us").show()
+          $("#instructions").show()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
@@ -191,7 +191,7 @@ function showNeighborhood(e){
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
           $("#artwork-listings")
-          $("#about-us").hide()
+          $("#instructions").hide()
           $("#artwork-listings").show()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
@@ -220,7 +220,7 @@ function showNeighborhood(e){
         });
         var eventButton = document.getElementById("btn-events")
         eventButton.addEventListener("click", function(){
-          $("#about-us").hide()
+          $("#instructions").hide()
           $("#artwork-listings").hide()
           $("#event-listings").show()
           $("#peace-circle-listings").hide()
@@ -249,7 +249,7 @@ function showNeighborhood(e){
         });
         var peaceButton = document.getElementById("btn-peace-circles")
         peaceButton.addEventListener("click", function(){
-          $("#about-us").hide()
+          $("#instructions").hide()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
           $("#peace-circle-listings").show()
@@ -278,7 +278,7 @@ function showNeighborhood(e){
         });
         var storyButton = document.getElementById("btn-stories")
         storyButton.addEventListener("click", function(){
-          $("#about-us").hide()
+          $("#instructions").hide()
           $("#artwork-listings").hide()
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
@@ -327,7 +327,7 @@ function determineEventType(event) {
       "picture": {
         "height": 32,
         "width": 21,
-        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0cad14"
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|08820e"
       }
     }
   } else {

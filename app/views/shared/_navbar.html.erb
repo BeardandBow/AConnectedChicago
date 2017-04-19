@@ -27,7 +27,7 @@
           <%= link_to "Resources", resources_path %>
         </li>
         <li>
-          <%= mail_to  "connectedchicago@gmail.com", "Contact Us" %>
+          <%= link_to "About Us", about_path %>
         </li>
         <% if registered_user? || community_leader? || admin? %>
           <li>

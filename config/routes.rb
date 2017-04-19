@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/resources', to: 'home#resources', as: 'resources'
+  get '/about', to: 'home#about', as: 'about'
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

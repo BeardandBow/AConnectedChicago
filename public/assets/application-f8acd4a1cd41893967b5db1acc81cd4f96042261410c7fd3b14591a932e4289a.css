@@ -306,7 +306,7 @@ body {
 }
 
 /* line 160, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
-#about-us {
+#instructions {
   display: block;
   overflow-y: scroll;
 }
@@ -338,26 +338,26 @@ body {
 /* line 188, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
 .art-text {
   font-weight: bold;
-  color: #e9ed02;
-}
-
-/* line 193, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
-.events-text {
-  font-weight: bold;
-  color: #0cad14;
+  color: #d4b411;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 /* line 198, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.events-text {
+  font-weight: bold;
+  color: #08820e;
+}
+
+/* line 203, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
 .peace-circles-text {
   font-weight: bold;
   color: #4e7eb7;
 }
 
-/* line 203, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+/* line 208, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
 .stories-text {
   font-weight: bold;
-  color: #a30313;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: #933b3b;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files

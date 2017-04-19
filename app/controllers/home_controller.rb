@@ -6,6 +6,8 @@ class HomeController < ApplicationController
   end
 
   def resources
+  end
 
+  def about
   end
 end
