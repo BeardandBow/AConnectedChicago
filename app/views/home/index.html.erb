@@ -1,8 +1,19 @@
 <div id="info-backdrop">
   <div id="homepage-controls">
+
     <div class="btn-group-vertical" role="group" aria-label="Justified button group" style="width: 100%">
       <div class="btn-group" role="group">
-        <button type="button" id="btn-all" class="btn btn-all">All</button>
+        <select class="form-control center-dropdown" id="hood-select" name="neighborhood_select">
+          <option disabled selected>Select a neighborhood</option>
+          <option>All Neighborhoods</option>
+          <%= @neighborhoods.each do |name| %>
+          <% if @role && @role > 0 && current_user.neighborhood.name == name %>
+          <option selected="selected"><%= name %></option>
+          <% else %>
+          <option><%= name %></option>
+          <% end %>
+          <% end %>
+        </select>
       </div>
       <div class="btn-group" role="group">
         <button type="button" id="btn-peace-circles" class="btn btn-default">Peace Circles</button>
@@ -17,17 +28,7 @@
         <button type="button" id="btn-artwork" class="btn btn-default">Artwork</button>
       </div>
       <div class="btn-group" role="group">
-        <select class="form-control center-dropdown" id="hood-select" name="neighborhood_select">
-          <option disabled selected>Select a neighborhood</option>
-          <option>All Neighborhoods</option>
-          <%= @neighborhoods.each do |name| %>
-            <% if @role && @role > 0 && current_user.neighborhood.name == name %>
-              <option selected="selected"><%= name %></option>
-            <% else %>
-              <option><%= name %></option>
-            <% end %>
-          <% end %>
-        </select>
+        <button type="button" id="btn-all" class="btn btn-all">All</button>
       </div>
     </div>
   </div>

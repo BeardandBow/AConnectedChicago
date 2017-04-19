@@ -97,7 +97,7 @@ function showNeighborhood(e){
                   "picture": {
                     "height": 32,
                     "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e7e2e4"
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|a30313"
                   }
                 });
                 marker.key = story.pkey;
@@ -129,7 +129,7 @@ function showNeighborhood(e){
                   "picture": {
                     "height": 32,
                     "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|444444"
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e9ed02"
                   }
                 });
                 marker.key = artwork.pkey;
@@ -327,7 +327,7 @@ function determineEventType(event) {
       "picture": {
         "height": 32,
         "width": 21,
-        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0cad14"
       }
     }
   } else {
