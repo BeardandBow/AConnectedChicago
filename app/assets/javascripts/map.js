@@ -1,3 +1,4 @@
+var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
 function createMap () {
   var handler = Gmaps.build('Google')
   handler.buildMap({provider: {
@@ -11,7 +12,7 @@ function createMap () {
                     internal: {id: 'map'}
                    },
   function(){
-    handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/6981eff719cd212aa72a2e962dcef74e9ea5a0ab/Neighborhoods.kml"}, {preserveViewport: true});
+    handler.addKml({url: kmlFile}, {preserveViewport: true});
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
@@ -36,7 +37,7 @@ function showNeighborhood(e){
                     internal: {id: 'map'}
                    },
     function(){
-      handler.addKml({url: "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/6981eff719cd212aa72a2e962dcef74e9ea5a0ab/Neighborhoods.kml"}, {preserveViewport: true});
+      handler.addKml({url: kmlFile}, {preserveViewport: true});
       if (e.target !== undefined) {
         var hoodName = e.target.options[e.target.selectedIndex].value;
       } else {
