@@ -14,6 +14,10 @@
   margin: auto;
 }
 
+.overflow-container {
+  overflow: auto;
+}
+
 .time-select {
   width: 100%;
 }
@@ -57,11 +61,13 @@ label {
 
 .aes-center {
   width: 500px;
+  max-height: 90%;
+  min-height: 300px;
   margin: auto;
   position: relative;
-  text-align: center;
   top: 50%;
   transform: translateY(-50%);
+  overflow: auto;
 }
 
 .aes-format {
