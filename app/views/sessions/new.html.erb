@@ -1,6 +1,6 @@
 <% content_for :body_class, "login-bg" %>
 <div class="center">
-  <div class="inner-scroll-container">
+  <div class="centered-container">
     <h3 class="white">Log in to your account</h3>
     <%= form_for :session, url: login_path do |f| %>
       <%= f.text_field :email, placeholder: "Email", class: "form-input" %>

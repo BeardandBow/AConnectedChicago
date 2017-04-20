@@ -131,6 +131,36 @@ class Seed
                    organization: org_1)
     end
 
+    3.times do |n|
+      Event.create(title: "Event #{n + 100}",
+                   host_contact: "person@example.com",
+                   description: "An event that is not approved",
+                   address: addresses[n],
+                   date: Date.tomorrow + 2.week.to_i,
+                   time: Time.now,
+                   link: "https://www.eventbrite.com/",
+                   status: "pending",
+                   user: user,
+                   event_type: "Poetry Slam",
+                   organization: org_1)
+
+      Artwork.create(title: "Art #{n + 100}",
+                     artist: "Picasso",
+                     description: "An artwork that is not approved",
+                     address: addresses[n + 3],
+                     status: "pending",
+                     user: user)
+
+      Story.create(title: "Story #{n + 100}",
+                   author: "David Kelly",
+                   description: "A story that is not approved",
+                   body: "A riveting story goes here",
+                   address: addresses[n + 6],
+                   youtube_link: "https://www.youtube.com/watch?v=bXAdFETvL8M",
+                   status: "pending",
+                   user: user)
+    end
+
     Artwork.create(title: "Art 1",
                   artist: "Picasso",
                   description: "A description",
