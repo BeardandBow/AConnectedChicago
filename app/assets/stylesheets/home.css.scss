@@ -85,8 +85,18 @@ body {
   background-size: cover;
 }
 
-.story-submission-bg {
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("film.JPG") center center fixed;
+.artwork-bg {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("art.jpg") center center fixed;
+  background-size: cover;
+}
+
+.event-bg {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("event.jpg") center center fixed;
+  background-size: cover;
+}
+
+.story-bg {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), image-url("story.jpg") center center fixed;
   background-size: cover;
 }
 
