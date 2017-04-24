@@ -19,15 +19,15 @@
           <%= link_to(image_tag("YouTube_logo.svg", width: "50", height: "auto"), "https://www.youtube.com/channel/UCEFd2_O_UXCm4d7NbK9L11Q", target: :_blank) %>
         </li>
         <li>
-          <%= link_to(image_tag("Facebook_logo.svg", size: "25"), "https://www.youtube.com/watch?v=1eO5U_uN7DQ", target: :_blank) %>
+          <%= link_to(image_tag("Facebook_logo.svg", size: "25"), "https://www.facebook.com/AConnectedChicago/", target: :_blank) %>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <%= link_to "Resources", resources_path %>
+          <%= link_to "About Us", about_path %>
         </li>
         <li>
-          <%= link_to "About Us", about_path %>
+          <%= link_to "Resources", resources_path %>
         </li>
         <% if registered_user? || community_leader? || admin? %>
           <li>

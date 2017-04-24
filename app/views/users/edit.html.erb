@@ -7,8 +7,8 @@
       <%= f.text_field :first_name, placeholder: "First Name", class: "form-input" %>
       <%= f.label :last_name, class: "white" %>
       <%= f.text_field :last_name, placeholder: "Last Name", class: "form-input" %>
-      <%= f.select :gender, options_for_select(['Man', 'Woman', 'Trans Man', 'Trans Woman', 'Nonbinary/Nonconforming'], @user.gender), {include_blank: "Select your gender"}, {class: "form-input form-control center-dropdown"} %>
-      <%= f.select :race, options_for_select(['White', 'Hispanic/Latino', 'Black/African American', 'American Indian/Alaska Native', 'Asian', 'Native Hawaiian/Other Pacific Islander', 'Multiracial'], @user.race), {include_blank: "Select your race"}, {class: "form-input form-control center-dropdown"} %>
+      <%= f.text_field :gender, placeholder: "Gender", class: "form-input" %>
+      <%= f.text_field :race, placeholder: "Race/Ethnicity", class: "form-input form-control center-dropdown" %>
       <%= f.select :neighborhood, options_for_select(@neighborhoods, @user.neighborhood), {}, {class: "form-input form-control center-dropdown"} %>
       <%= f.select :organizations, @organizations, {include_blank: "Add an Organization"}, {class: "form-input form-control center-dropdown"} %>
       <%= f.select :how, options_for_select(["CTA Ads",

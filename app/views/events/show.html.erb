@@ -9,7 +9,7 @@
       </div>
     <% end %>
   <div class="aes-format">
-    <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website %></h4>
+    <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website, target: :_blank %></h4>
   </div>
   <div class="aes-format">
     <h5><%= @event.formatted_date_time %></h5>
@@ -28,7 +28,7 @@
   </div>
   <% if @event.link %>
     <div class="aes-format">
-      <%= link_to "View Event Page", @event.link %>
+      <%= link_to "View Event Page", @event.link, target: :_blank %>
     </div>
   <% end %>
   <% if @event.deletable_by?(current_user) %>
