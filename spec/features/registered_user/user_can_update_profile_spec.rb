@@ -14,8 +14,8 @@ RSpec.feature "user can update their profile" do
 
     fill_in "First Name", with: "Dude"
     fill_in "Last Name", with: "McDuderson"
-    select "Man", from: "user_gender"
-    select "Hispanic/Latino", from: "user_race"
+    fill_in "Gender", with: "Man"
+    fill_in "Race/Ethnicity", with: "Hispanic/Latino"
     fill_in "What motivated you to join Connected Chicago?", with: "I dunno"
     select "Online", from: "user_how"
     fill_in "What part of Chicago would you like to connect with?", with: "hyde park"
