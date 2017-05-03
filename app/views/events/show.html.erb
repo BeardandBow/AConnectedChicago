@@ -1,39 +1,41 @@
 <% content_for :body_class, "event-bg" %>
 <div class="aes-container aes-center">
-  <div class="aes-format">
-    <h1><%= @event.title %></h1>
-  </div>
-    <% if @event.image.file %>
+  <div class="centered-container">
+    <div class="aes-format">
+      <h1><%= @event.title %></h1>
+    </div>
+      <% if @event.image.file %>
+        <div class="aes-format">
+          <img src="<%= @event.image %>" alt="event image"/><br>
+        </div>
+      <% end %>
+    <div class="aes-format">
+      <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website, target: :_blank %></h4>
+    </div>
+    <div class="aes-format">
+      <h5><%= @event.formatted_date_time %></h5>
+    </div>
+    <div class="aes-format">
+      <%= mail_to @event.host_contact, "Contact for more information" %>
+    </div>
+    <div class="aes-format">
+      <%= @event.address %>
+    </div>
+    <div class="aes-format">
+      <%= @event.event_type %>
+    </div>
+    <div class="aes-format">
+      <%= @event.description %>
+    </div>
+    <% if @event.link %>
       <div class="aes-format">
-        <img src="<%= @event.image %>" alt="event image"/><br>
+        <%= link_to "View Event Page", @event.link, target: :_blank %>
       </div>
     <% end %>
-  <div class="aes-format">
-    <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website, target: :_blank %></h4>
+    <% if @event.deletable_by?(current_user) %>
+      <div class="aes-format">
+        <%= button_to "Delete", event_path(@event), class: "btn btn-danger", method: :delete %>
+      </div>
+    <% end %>
   </div>
-  <div class="aes-format">
-    <h5><%= @event.formatted_date_time %></h5>
-  </div>
-  <div class="aes-format">
-    <%= mail_to @event.host_contact, "Contact for more information" %>
-  </div>
-  <div class="aes-format">
-    <%= @event.address %>
-  </div>
-  <div class="aes-format">
-    <%= @event.event_type %>
-  </div>
-  <div class="aes-format">
-    <%= @event.description %>
-  </div>
-  <% if @event.link %>
-    <div class="aes-format">
-      <%= link_to "View Event Page", @event.link, target: :_blank %>
-    </div>
-  <% end %>
-  <% if @event.deletable_by?(current_user) %>
-    <div class="aes-format">
-      <%= button_to "Delete", event_path(@event), class: "btn btn-danger", method: :delete %>
-    </div>
-  <% end %>
 </div>
