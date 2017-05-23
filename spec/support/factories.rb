@@ -81,6 +81,7 @@ FactoryGirl.define do
 
   factory :organization do
     sequence(:name) {|n| "Organization #{n}"}
+    description "A Description"
     trait :with_neighborhoods do
       after(:create) do |org|
         create_list(:neighborhood, 2, organizations: [org])
