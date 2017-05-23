@@ -60,6 +60,11 @@ class Seed
                 role: "admin",
                 neighborhood: Neighborhood.first)
 
+    Type.create(name: "Poetry Slam", category: 0)
+    Type.create(name: "Music Event", category: 0)
+    Type.create(name: "Open Mic", category: 0)
+    Type.create(name: "Peace Circle", category: 0)
+
     Event.create(title: "Event 1",
                  host_contact: "person@example.com",
                  description: "A description",
@@ -69,13 +74,13 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Poetry Slam",
+                 type_id: 1,
                  organization: org_1)
     Event.create(title: "Event 2",
                  host_contact: "person@example.com",
                  description: "A description",
                  address: "1170d W Farwell Ave, Chicago, IL 60626",
-                 event_type: "Music Event",
+                 type_id: 2,
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
                  link: "https://www.eventbrite.com/",
@@ -91,7 +96,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Open Mic",
+                 type_id: 3,
                  organization: org_2)
     Event.create(title: "Event 4",
                  host_contact: "person@example.com",
@@ -102,7 +107,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Peace Circle",
+                 type_id: 4,
                  organization: org_2)
 
     addresses = ["1912 Touhy Ave, Chicago, IL 60626",
@@ -127,7 +132,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "approved",
                    user: user,
-                   event_type: "Poetry Slam",
+                   type_id: 1,
                    organization: org_1)
     end
 
@@ -141,7 +146,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "pending",
                    user: user,
-                   event_type: "Poetry Slam",
+                   type_id: 1,
                    organization: org_1)
 
       Artwork.create(title: "Art #{n + 100}",

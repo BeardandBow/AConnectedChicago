@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405173945) do
+ActiveRecord::Schema.define(version: 20170522203354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,12 +52,25 @@ ActiveRecord::Schema.define(version: 20170405173945) do
     t.integer  "status",              default: 0
     t.integer  "organization_id"
     t.string   "image"
-    t.string   "event_type"
     t.string   "formatted_date_time"
     t.string   "link"
+    t.integer  "type_id"
     t.index ["neighborhood_id"], name: "index_events_on_neighborhood_id", using: :btree
     t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
+    t.index ["type_id"], name: "index_events_on_type_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.integer  "neighborhood_id"
+    t.string   "address"
+    t.decimal  "map_lat"
+    t.decimal  "map_long"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["neighborhood_id"], name: "index_locations_on_neighborhood_id", using: :btree
+    t.index ["organization_id"], name: "index_locations_on_organization_id", using: :btree
   end
 
   create_table "neighborhoods", force: :cascade do |t|
@@ -86,6 +99,8 @@ ActiveRecord::Schema.define(version: 20170405173945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "website"
+    t.integer  "type_id"
+    t.index ["type_id"], name: "index_organizations_on_type_id", using: :btree
   end
 
   create_table "stories", force: :cascade do |t|
@@ -108,6 +123,13 @@ ActiveRecord::Schema.define(version: 20170405173945) do
     t.index ["neighborhood_id"], name: "index_stories_on_neighborhood_id", using: :btree
     t.index ["organization_id"], name: "index_stories_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -133,11 +155,15 @@ ActiveRecord::Schema.define(version: 20170405173945) do
   add_foreign_key "artworks", "users"
   add_foreign_key "events", "neighborhoods"
   add_foreign_key "events", "organizations"
+  add_foreign_key "events", "types"
   add_foreign_key "events", "users"
+  add_foreign_key "locations", "neighborhoods"
+  add_foreign_key "locations", "organizations"
   add_foreign_key "organization_neighborhoods", "neighborhoods"
   add_foreign_key "organization_neighborhoods", "organizations"
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
+  add_foreign_key "organizations", "types"
   add_foreign_key "stories", "neighborhoods"
   add_foreign_key "stories", "organizations"
   add_foreign_key "stories", "users"

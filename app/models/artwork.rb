@@ -21,7 +21,7 @@ class Artwork < ApplicationRecord
     "/artworks/#{self.id}"
   end
 
-  def type
+  def submission_type
     "artwork"
   end
 

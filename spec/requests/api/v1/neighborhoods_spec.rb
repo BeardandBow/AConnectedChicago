@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::NeighborhoodsController, type: :request do
   it '/api/v1/neighborhoods/:name returns a neighborhood in #show and has associations' do
+    type = create(:type)
     create(:neighborhood, name: "Rogers Park")
     create(:neighborhood, name: "Hyde Park")
-    event = create(:event, status: "approved")
+    event = create(:event, status: "approved", type: type)
     story = create(:story, status: "approved")
     artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626", status: "approved")
     name = Neighborhood.second.name

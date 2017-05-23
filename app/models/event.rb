@@ -6,7 +6,6 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :time, presence: true
   validates :address, presence: true
-  validates :event_type, presence: true
 
   enum status: %w(pending approved rejected)
 
@@ -18,6 +17,7 @@ class Event < ApplicationRecord
   after_create :format_date_time
   after_create :set_pkey
 
+  belongs_to :type
   belongs_to :user
   belongs_to :organization
   belongs_to :neighborhood, optional: true
@@ -26,7 +26,7 @@ class Event < ApplicationRecord
     "/events/#{self.id}"
   end
 
-  def type
+  def submission_type
     "event"
   end
 
@@ -41,7 +41,6 @@ class Event < ApplicationRecord
   def reject
     self.update_attributes(status: "rejected")
   end
-
 
   def formatted_create_time
     self.created_at.strftime("%m/%d/%Y %I:%M %p")

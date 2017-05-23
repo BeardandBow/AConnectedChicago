@@ -7,6 +7,7 @@ class Neighborhood < ApplicationRecord
   has_many :artworks
   has_many :events
   has_many :stories
+  has_many :locations
   has_many :users
   has_many :organization_neighborhoods
   has_many :organizations, through: :organization_neighborhoods

@@ -4,10 +4,11 @@ require 'rails_helper'
 RSpec.feature "community leader can delete submission" do
 
   before :each do
+    @type = create(:type)
     @hood = create(:neighborhood, :with_community_leader, name: "Hyde Park")
     @user = @hood.users.find_by(role: "community_leader")
     @user2 = create(:user, :community_leader)
-    @event = create(:event, organization: @user.organizations.first)
+    @event = create(:event, organization: @user.organizations.first, type: @type)
     @story = create(:story)
     @artwork = create(:artwork)
   end

@@ -58,14 +58,14 @@ function showNeighborhood(e){
                 var infowindow = new google.maps.InfoWindow({
                   content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
                            '<p>' + event.formatted_date_time + '</p>' +
-                           '<p>' + event.event_type + '</p>' +
+                           '<p>' + event.type.name + '</p>' +
                            '<p>' + stringTruncate(event.description, 50) + '</p>'
                 });
                 document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
                 marker.id = event.id;
-                marker.type = event.event_type;
+                marker.type = event.type.name;
                 marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
                 google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
@@ -78,7 +78,7 @@ function showNeighborhood(e){
               }
             });
             response.events.forEach(function(event) {
-              if (event.status === "approved" && event.event_type === "Peace Circle") {
+              if (event.status === "approved" && event.type.name === "Peace Circle") {
                 document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
               }
             });
@@ -320,7 +320,7 @@ function stringTruncate(string, length) {
 }
 
 function determineEventType(event) {
-  if (event.event_type !== "Peace Circle") {
+  if (event.type.name !== "Peace Circle") {
     return {
       "lat": event.map_lat,
       "lng": event.map_long,
@@ -375,7 +375,7 @@ var event_type = document.createElement("p");
 heading.innerHTML = event.title.link("/events/" + event.id);
 description.innerHTML = stringTruncate(event.description, 50);
 dateTime.innerHTML = event.formatted_date_time
-event_type.innerHTML = event.event_type
+event_type.innerHTML = event.type.name
 listing.appendChild(heading);
 listing.appendChild(dateTime);
 listing.appendChild(event_type);

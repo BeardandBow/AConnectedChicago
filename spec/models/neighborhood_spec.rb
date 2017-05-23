@@ -27,5 +27,11 @@ RSpec.describe Neighborhood, type: :model do
 
       expect(neighborhood.organizations.count).to eq 2
     end
+
+    it "has many locations" do
+      hood = create(:neighborhood, :with_locations, name: 'Hyde Park')
+
+      expect(hood.locations.count).to eq 2
+    end
   end
 end
