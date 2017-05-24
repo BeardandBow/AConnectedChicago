@@ -158,7 +158,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "approved",
                    user: user,
-                   type_id: 1,
+                   type_id: 5,
                    organization: org_1)
     end
 
@@ -172,7 +172,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "pending",
                    user: user,
-                   type_id: 1,
+                   type_id: 8,
                    organization: org_1)
 
       Artwork.create(title: "Art #{n + 100}",

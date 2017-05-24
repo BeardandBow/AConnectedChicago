@@ -65,7 +65,7 @@ function showNeighborhood(e){
                 var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
                 marker.id = event.id;
-                marker.type = event.type.name;
+                marker.type = event.type;
                 marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
                 google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
@@ -78,7 +78,7 @@ function showNeighborhood(e){
               }
             });
             response.events.forEach(function(event) {
-              if (event.status === "approved" && event.type.name === "Peace Circle") {
+              if (event.status === "approved" && event.type === "Peace Circle") {
                 document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
               }
             });
@@ -302,6 +302,7 @@ function showNeighborhood(e){
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          $("#org-listings").hide()
         });
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
@@ -311,6 +312,7 @@ function showNeighborhood(e){
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          $("#org-listings").hide()
           var listings = document.getElementById('artwork-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -340,6 +342,7 @@ function showNeighborhood(e){
           $("#event-listings").show()
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
+          $("#org-listings").hide()
           var listings = document.getElementById('event-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -369,6 +372,7 @@ function showNeighborhood(e){
           $("#event-listings").hide()
           $("#peace-circle-listings").show()
           $("#story-listings").hide()
+          $("#org-listings").hide()
           var listings = document.getElementById('peace-circle-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -398,6 +402,7 @@ function showNeighborhood(e){
           $("#event-listings").hide()
           $("#peace-circle-listings").hide()
           $("#story-listings").show()
+          $("#org-listings").hide()
           var listings = document.getElementById('story-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -434,7 +439,7 @@ function stringTruncate(string, length) {
 }
 
 function determineEventType(event) {
-  if (event.type.name !== "Peace Circle") {
+  if (event.type !== "Peace Circle") {
     return {
       "lat": event.map_lat,
       "lng": event.map_long,
