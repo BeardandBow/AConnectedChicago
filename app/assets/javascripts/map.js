@@ -147,6 +147,37 @@ function showNeighborhood(e){
               }
             });
           }
+          if (response.locations.length !== 0) {
+            response.locations.forEach(function(location){
+              var infowindow = new google.maps.InfoWindow({
+                content: '<h3>' + location.organization.name + '</h3>' +
+                          '<p>' + "type: " + location.organization.type + '</p>' +
+                          '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
+              });
+              document.getElementById("org-listings").appendChild(formatOrganization(location.organization));
+              var marker = handler.addMarker({
+                "lat": location.map_lat,
+                "lng": location.map_long,
+                "picture": {
+                  "height": 32,
+                  "width": 21,
+                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|f442df"
+                }
+              });
+              marker.key = "Org";
+              marker.type = location.organization.type
+              marker.id = location.organization.id;
+              marker.serviceObject.set('infowindow', infowindow)
+              markers.push(marker);
+              google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+                marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+                if (openedMarker && openedMarker !== marker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = marker
+              })
+            });
+          }
           response.bounds.forEach(function(bound){
             var marker = handler.addMarker({
               "lat": bound.lat,
@@ -165,6 +196,80 @@ function showNeighborhood(e){
           var xCenter = window.innerWidth * 0.3 / 2
           handler.map.serviceObject.panBy(xCenter, 0);
         });
+
+        var org_types = document.getElementById("org-select");
+
+        org_types.addEventListener("change", function(e){
+          for (var i = 0; i < markers.length; i++) {
+            if (e.target.selectedIndex > 1) {
+              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText) {
+                markers[i].serviceObject.setVisible(true)
+                $("#instructions").hide()
+                $("#artwork-listings").hide()
+                $("#event-listings").hide()
+                $("#peace-circle-listings").hide()
+                $("#story-listings").hide()
+                $("#org-listings").show()
+                var listings = document.getElementById('org-listings').childNodes;
+                listings.forEach(function(listing){
+                  listing.addEventListener("mouseover", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                        if (openedMarker) {
+                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                        }
+                        openedMarker = null
+                      }
+                    }
+                  });
+                  listing.addEventListener("mouseout", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                      }
+                    }
+                  });
+                });
+              } else {
+                markers[i].serviceObject.setVisible(false)
+              }
+            } else {
+              if (markers[i].key === "Org") {
+                markers[i].serviceObject.setVisible(true)
+                $("#instructions").hide()
+                $("#artwork-listings").hide()
+                $("#event-listings").hide()
+                $("#peace-circle-listings").hide()
+                $("#story-listings").hide()
+                $("#org-listings").show()
+                var listings = document.getElementById('org-listings').childNodes;
+                listings.forEach(function(listing){
+                  listing.addEventListener("mouseover", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                        if (openedMarker) {
+                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                        }
+                        openedMarker = null
+                      }
+                    }
+                  });
+                  listing.addEventListener("mouseout", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                      }
+                    }
+                  });
+                });
+              } else {
+                markers[i].serviceObject.setVisible(false)
+              }
+            }
+          }
+        })
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
           button.addEventListener("click", function(){
@@ -343,6 +448,20 @@ function determineEventType(event) {
       }
     }
   }
+}
+
+function formatOrganization(organization) {
+var listing = document.createElement("div");
+var heading = document.createElement("h3");
+var description = document.createElement("p");
+
+heading.innerHTML = organization.name;
+description.innerHTML = stringTruncate(organization.description, 50);
+listing.appendChild(heading);
+listing.appendChild(description);
+listing.className = "listing";
+listing.id = organization.id;
+return listing;
 }
 
 function formatArtwork(artwork) {

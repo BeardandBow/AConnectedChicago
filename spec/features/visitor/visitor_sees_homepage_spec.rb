@@ -12,10 +12,27 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content" do
-    scenario "visitor views events" do
-      create(:type)
+    scenario "visitor views organizations" do
+      type = create(:type, name: "RJ Hub", category: "organization")
       @hood = create(:neighborhood, name: "Hyde Park")
-      @events = create_list(:event, 2, status: "approved", type_id: 1)
+      organization = create(:organization, :with_locations, type: type)
+
+      visit root_path
+
+      select @hood.name, from: "neighborhood_select"
+      sleep(3)
+
+      select organization.type.name, from: "organization_type_select"
+      sleep(3)
+
+      expect(page).to have_content(organization.name)
+      expect(page).to have_content(organization.description)
+    end
+
+    scenario "visitor views events" do
+      type = create(:type, name: "Thing")
+      @hood = create(:neighborhood, name: "Hyde Park")
+      @events = create_list(:event, 2, status: "approved", type: type)
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
