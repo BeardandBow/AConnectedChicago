@@ -29,5 +29,17 @@ RSpec.describe Organization, type: :model do
 
       expect(org.users.count).to eq 2
     end
+
+    it "has many locations" do
+      org = create(:organization, :with_locations)
+
+      expect(org.locations.count).to eq 2
+    end
+
+    it "belongs to a type" do
+      org = build_stubbed(:organization)
+
+      expect(org).to respond_to(:type)
+    end
   end
 end

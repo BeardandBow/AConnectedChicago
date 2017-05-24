@@ -23,7 +23,7 @@ class Story < ApplicationRecord
     "/stories/#{self.id}"
   end
 
-  def type
+  def submission_type
     "story"
   end
 

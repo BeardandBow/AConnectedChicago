@@ -68,10 +68,6 @@ RSpec.describe Artwork, type: :model do
       expect(@artwork.path).to eq("/artworks/#{@artwork.id}")
     end
 
-    it "returns a type with .type" do
-      expect(@artwork.type).to eq("artwork")
-    end
-
     it ".set_pkey sets a 'primary key' based on table and id" do
       artwork = build(:artwork)
       artwork.set_pkey

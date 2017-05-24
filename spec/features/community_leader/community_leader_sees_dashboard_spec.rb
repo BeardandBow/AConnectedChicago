@@ -7,9 +7,10 @@ RSpec.feature "community leader sees dashboard" do
 
   before :each do
     # As a community leader
+    @type = create(:type)
     @user = create(:user, :community_leader, neighborhood: @neighborhood)
     @artwork = create(:artwork)
-    @event = create(:event, organization: @user.organizations.first)
+    @event = create(:event, organization: @user.organizations.first, type: @type)
     @story = create(:story)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -54,7 +55,7 @@ RSpec.feature "community leader sees dashboard" do
       expect(page).to have_content(@event.formatted_date_time)
       expect(page).to have_content("Contact for more information")
       expect(page).to have_content(@event.description)
-      expect(page).to have_content(@event.event_type)
+      expect(page).to have_content(@event.type.name)
       expect(page).to have_content(@event.address)
     end
 
@@ -176,7 +177,7 @@ RSpec.feature "community leader sees dashboard" do
       select organization.name, from: "event_organization"
       fill_in "Description", with: "description"
       fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
-      select "Peace Circle", from: "event_event_type"
+      select "Peace Circle", from: "event_type"
       select Date.tomorrow.year, from: "event_date_1i"
       select Date.tomorrow.strftime("%B"), from: "event_date_2i"
       select Date.tomorrow.day, from: "event_date_3i"

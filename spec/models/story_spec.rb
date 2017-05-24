@@ -82,10 +82,6 @@ RSpec.describe Story, type: :model do
       expect(@story.path).to eq("/stories/#{@story.id}")
     end
 
-    it "returns a type with .type" do
-      expect(@story.type).to eq("story")
-    end
-
     it ".set_pkey sets a 'primary key' based on table and id" do
       story = build(:story)
       story.set_pkey

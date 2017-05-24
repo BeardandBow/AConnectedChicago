@@ -4,9 +4,10 @@ require 'rails_helper'
 RSpec.feature "user can delete submission" do
 
   before :each do
+    @type = create(:type)
     @user  = create(:user, :registered_user)
     @user2 = create(:user, :registered_user)
-    @event = create(:event, user: @user)
+    @event = create(:event, user: @user, type: @type)
     @story = create(:story, user: @user)
     @artwork = create(:artwork, user: @user)
   end

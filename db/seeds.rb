@@ -23,21 +23,47 @@ class Seed
       sleep 0.5
     end
 
+    Type.create(name: "RJ Hub", category: 1)
+    Type.create(name: "Church", category: 1)
+    Type.create(name: "Non-Profit", category: 1)
+    Type.create(name: "Shelter", category: 1)
+
+    l1 = Location.create(address: "1918 W Farwell Ave, Chicago, IL 60626")
+    l2 = Location.create(address: "1419 W Greenleaf Ave, Chicago, IL 60626")
+    l3 = Location.create(address: "1708 W Chase Ave, Chicago, IL 60626")
+    l4 = Location.create(address: "1912 Touhy Ave, Chicago, IL 60626")
+
     org_1 = Organization.create(name: "Precious Blood Ministry of Reconciliation",
-                                website: "http://www.pbmr.org")
+                                description: "This is the description",
+                                website: "http://www.pbmr.org",
+                                type_id: 1,
+                                locations: [l1])
     org_2 = Organization.create(name: "Urban Life Skills",
-                                website: "http://www.urbanlifeskills.org")
+                                description: "This is the description",
+                                website: "http://www.urbanlifeskills.org",
+                                type_id: 2,
+                                locations: [l2])
     org_3 = Organization.create(name: "Lawndale Christian Legal Center",
-                                website: "http://lclc.net")
+                                description: "This is the description",
+                                website: "http://lclc.net",
+                                type_id: 3,
+                                locations: [l3])
     org_4 = Organization.create(name: "Community Justice for Youth Institute",
-                                website: "http://cjyiorg.publishpath.com")
+                                description: "This is the description",
+                                website: "http://cjyiorg.publishpath.com",
+                                type_id: 4,
+                                locations: [l4])
     org_5 = Organization.create(name: "Institute on Public Safety and Social Justice at Adler University",
+                                description: "This is the description",
                                 website: "http://www.adler.edu/page/institutes/institute-on-public-safety-and-social-justice/about")
     org_6 = Organization.create(name: "Circles and Ciphers",
+                                description: "This is the description",
                                 website: "http://www.ucrogerspark.org/childrenyouthprograms/circlesciphers.html")
     org_7 = Organization.create(name: "Austin Coming Together",
+                                description: "This is the description",
                                 website: "http://austincomingtogether.org")
     org_8 = Organization.create(name: "Target Area Development Corporation",
+                                description: "This is the description",
                                 website: "http://targetarea.org")
 
     user = User.create(email: "user@example.com",
@@ -60,6 +86,11 @@ class Seed
                 role: "admin",
                 neighborhood: Neighborhood.first)
 
+    Type.create(name: "Poetry Slam", category: 0)
+    Type.create(name: "Music Event", category: 0)
+    Type.create(name: "Open Mic", category: 0)
+    Type.create(name: "Peace Circle", category: 0)
+
     Event.create(title: "Event 1",
                  host_contact: "person@example.com",
                  description: "A description",
@@ -69,13 +100,13 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Poetry Slam",
+                 type_id: 5,
                  organization: org_1)
     Event.create(title: "Event 2",
                  host_contact: "person@example.com",
                  description: "A description",
                  address: "1170d W Farwell Ave, Chicago, IL 60626",
-                 event_type: "Music Event",
+                 type_id: 6,
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
                  link: "https://www.eventbrite.com/",
@@ -91,7 +122,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Open Mic",
+                 type_id: 7,
                  organization: org_2)
     Event.create(title: "Event 4",
                  host_contact: "person@example.com",
@@ -102,7 +133,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 event_type: "Peace Circle",
+                 type_id: 8,
                  organization: org_2)
 
     addresses = ["1912 Touhy Ave, Chicago, IL 60626",
@@ -127,7 +158,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "approved",
                    user: user,
-                   event_type: "Poetry Slam",
+                   type_id: 1,
                    organization: org_1)
     end
 
@@ -141,7 +172,7 @@ class Seed
                    link: "https://www.eventbrite.com/",
                    status: "pending",
                    user: user,
-                   event_type: "Poetry Slam",
+                   type_id: 1,
                    organization: org_1)
 
       Artwork.create(title: "Art #{n + 100}",

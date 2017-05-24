@@ -13233,14 +13233,14 @@ function showNeighborhood(e){
                 var infowindow = new google.maps.InfoWindow({
                   content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
                            '<p>' + event.formatted_date_time + '</p>' +
-                           '<p>' + event.event_type + '</p>' +
+                           '<p>' + event.type.name + '</p>' +
                            '<p>' + stringTruncate(event.description, 50) + '</p>'
                 });
                 document.getElementById("event-listings").appendChild(formatEvent(event));
                 var marker = handler.addMarker(determineEventType(event));
                 marker.key = event.pkey;
                 marker.id = event.id;
-                marker.type = event.event_type;
+                marker.type = event.type.name;
                 marker.serviceObject.set('infowindow', infowindow)
                 markers.push(marker);
                 google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
@@ -13253,7 +13253,7 @@ function showNeighborhood(e){
               }
             });
             response.events.forEach(function(event) {
-              if (event.status === "approved" && event.event_type === "Peace Circle") {
+              if (event.status === "approved" && event.type.name === "Peace Circle") {
                 document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
               }
             });
@@ -13322,6 +13322,38 @@ function showNeighborhood(e){
               }
             });
           }
+          if (response.locations.length !== 0) {
+            response.locations.forEach(function(location){
+              var infowindow = new google.maps.InfoWindow({
+                content: '<h3>' + location.organization.name + '</h3>' +
+                          '<p>' + location.organization.type + '</p>' +
+                          '<p>' + location.address + '</p>' +
+                          '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
+              });
+              document.getElementById("org-listings").appendChild(formatOrganization(location));
+              var marker = handler.addMarker({
+                "lat": location.map_lat,
+                "lng": location.map_long,
+                "picture": {
+                  "height": 32,
+                  "width": 21,
+                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|f442df"
+                }
+              });
+              marker.key = "Org";
+              marker.type = location.organization.type
+              marker.id = location.id;
+              marker.serviceObject.set('infowindow', infowindow)
+              markers.push(marker);
+              google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+                marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+                if (openedMarker && openedMarker !== marker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = marker
+              })
+            });
+          }
           response.bounds.forEach(function(bound){
             var marker = handler.addMarker({
               "lat": bound.lat,
@@ -13340,6 +13372,88 @@ function showNeighborhood(e){
           var xCenter = window.innerWidth * 0.3 / 2
           handler.map.serviceObject.panBy(xCenter, 0);
         });
+
+        var org_types = document.getElementById("org-select");
+
+        org_types.addEventListener("change", function(e){
+          for (var i = 0; i < markers.length; i++) {
+            if (e.target.selectedIndex > 1) {
+              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText) {
+                markers[i].serviceObject.setVisible(true)
+                $("#instructions").hide()
+                $("#artwork-listings").hide()
+                $("#event-listings").hide()
+                $("#peace-circle-listings").hide()
+                $("#story-listings").hide()
+                $("#org-listings").show()
+                var listings = document.getElementById('org-listings').childNodes;
+                listings.forEach(function(listing){
+                  listing.addEventListener("mouseover", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                        if (openedMarker) {
+                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                        }
+                        openedMarker = null
+                      }
+                    }
+                  });
+                  listing.addEventListener("mouseout", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                      }
+                    }
+                  });
+                  var id = "#" + listing.id
+                  if (parseInt(listing.id) !== markers[i].id) {
+                    $("#org-listings").find(id).hide()
+                  } else {
+                    $("#org-listings").find(id).show()
+                  }
+                });
+              } else {
+                markers[i].serviceObject.setVisible(false)
+              }
+            } else {
+              if (markers[i].key === "Org") {
+                markers[i].serviceObject.setVisible(true)
+                $("#instructions").hide()
+                $("#artwork-listings").hide()
+                $("#event-listings").hide()
+                $("#peace-circle-listings").hide()
+                $("#story-listings").hide()
+                $("#org-listings").show()
+                var listings = document.getElementById('org-listings').childNodes;
+                listings.forEach(function(listing){
+                  var id = "#" + listing.id
+                  $("#org-listings").find(id).show()
+                  listing.addEventListener("mouseover", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                        if (openedMarker) {
+                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                        }
+                        openedMarker = null
+                      }
+                    }
+                  });
+                  listing.addEventListener("mouseout", function(){
+                    for (var i = 0; i < markers.length; i++) {
+                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
+                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                      }
+                    }
+                  });
+                });
+              } else {
+                markers[i].serviceObject.setVisible(false)
+              }
+            }
+          }
+        })
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
           button.addEventListener("click", function(){
@@ -13495,7 +13609,7 @@ function stringTruncate(string, length) {
 }
 
 function determineEventType(event) {
-  if (event.event_type !== "Peace Circle") {
+  if (event.type.name !== "Peace Circle") {
     return {
       "lat": event.map_lat,
       "lng": event.map_long,
@@ -13520,44 +13634,64 @@ function determineEventType(event) {
   }
 }
 
-function formatArtwork(artwork) {
-var listing = document.createElement("div");
-var heading = document.createElement("h3");
-var artist = document.createElement("p");
-var description = document.createElement("p");
-heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
-description.innerHTML = stringTruncate(artwork.description, 50);
-artist.innerHTML = "by " + artwork.artist
-listing.appendChild(heading);
-if (artwork.image.thumb.url) {
-  var image = document.createElement("img");
-  image.src = artwork.image.thumb.url;
-  listing.appendChild(image);
+function formatOrganization(location) {
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var type = document.createElement("p");
+  var address = document.createElement("p");
+  var description = document.createElement("p");
+
+  heading.innerHTML = location.organization.name;
+  type.innerHTML = location.organization.type;
+  address.innerHTML = location.address;
+  description.innerHTML = stringTruncate(location.organization.description, 50);
+  listing.appendChild(heading);
+  listing.appendChild(type);
+  listing.appendChild(address);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = location.id;
+  return listing;
 }
-listing.appendChild(artist);
-listing.appendChild(description);
-listing.className = "listing";
-listing.id = artwork.id;
-return listing;
+
+function formatArtwork(artwork) {
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var artist = document.createElement("p");
+  var description = document.createElement("p");
+  heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
+  description.innerHTML = stringTruncate(artwork.description, 50);
+  artist.innerHTML = "by " + artwork.artist
+  listing.appendChild(heading);
+  if (artwork.image.thumb.url) {
+    var image = document.createElement("img");
+    image.src = artwork.image.thumb.url;
+    listing.appendChild(image);
+  }
+  listing.appendChild(artist);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = artwork.id;
+  return listing;
 }
 
 function formatEvent(event) {
-var listing = document.createElement("div");
-var heading = document.createElement("h3");
-var dateTime = document.createElement("p");
-var description = document.createElement("p");
-var event_type = document.createElement("p");
-heading.innerHTML = event.title.link("/events/" + event.id);
-description.innerHTML = stringTruncate(event.description, 50);
-dateTime.innerHTML = event.formatted_date_time
-event_type.innerHTML = event.event_type
-listing.appendChild(heading);
-listing.appendChild(dateTime);
-listing.appendChild(event_type);
-listing.appendChild(description);
-listing.className = "listing";
-listing.id = event.id;
-return listing;
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var dateTime = document.createElement("p");
+  var description = document.createElement("p");
+  var event_type = document.createElement("p");
+  heading.innerHTML = event.title.link("/events/" + event.id);
+  description.innerHTML = stringTruncate(event.description, 50);
+  dateTime.innerHTML = event.formatted_date_time
+  event_type.innerHTML = event.type.name
+  listing.appendChild(heading);
+  listing.appendChild(dateTime);
+  listing.appendChild(event_type);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = event.id;
+  return listing;
 }
 
 function formatStory(story) {

@@ -12,15 +12,34 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content" do
-    scenario "visitor views events" do
+    scenario "visitor views organizations" do
+      type = create(:type, name: "RJ Hub", category: "organization")
       @hood = create(:neighborhood, name: "Hyde Park")
-      @events = create_list(:event, 2, status: "approved")
+      organization = create(:organization, :with_locations, type: type)
+
+      visit root_path
+
+      select @hood.name, from: "neighborhood_select"
+      sleep(3)
+
+      select organization.type.name, from: "organization_type_select"
+      sleep(3)
+
+      expect(page).to have_content(organization.name)
+      expect(page).to have_content(organization.description)
+    end
+
+    scenario "visitor views events" do
+      type = create(:type, name: "Thing")
+      @hood = create(:neighborhood, name: "Hyde Park")
+      @events = create_list(:event, 2, status: "approved", type: type)
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
       sleep(3)
 
       click_button "Events"
+
 
       expect(page).to have_link(@events.first.title)
       expect(page).to have_link(@events.second.title)
@@ -56,8 +75,9 @@ RSpec.feature "visitor sees homepage", js: true do
 
   context "visitor views content details" do
     scenario "visitor views event details" do
+      create(:type)
       @hood = create(:neighborhood, name: "Hyde Park")
-      @events = create_list(:event, 2, status: "approved")
+      @events = create_list(:event, 2, status: "approved", type_id: 1)
 
       event = @events.first
       visit root_path
@@ -72,7 +92,7 @@ RSpec.feature "visitor sees homepage", js: true do
       expect(page).to have_content(event.formatted_date_time)
       expect(page).to have_content("Contact for more information")
       expect(page).to have_content(event.description)
-      expect(page).to have_content(event.event_type)
+      expect(page).to have_content(event.type.name)
       expect(page).to have_content(event.address)
       expect(page).to have_link("View Event Page")
     end

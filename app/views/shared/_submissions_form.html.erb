@@ -9,7 +9,7 @@
         <ul class="list-group">
 
         <% @submissions.each do |submission| %>
-          <li class="list-group-item" id="<%= submission.type %>-<%= submission.id %>">
+          <li class="list-group-item" id="<%= submission.submission_type %>-<%= submission.id %>">
             <h4><%= link_to submission.title, submission.path %></h4><br>
             Submitted At: <%= submission.formatted_create_time %><br>
             <label class="inline-radio"><input type="radio" name="<%= submission.pkey %>" value="approved"> Approve</label>

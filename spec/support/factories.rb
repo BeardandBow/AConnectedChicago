@@ -22,7 +22,6 @@ FactoryGirl.define do
     sequence(:title) {|n| "event #{n}"}
     host_contact "someguy@gmail.com"
     description "description"
-    event_type "Peace Circle"
     address "5699 S Ellis Ave, Chicago, IL 60637"
     date Date.tomorrow
     time Time.now
@@ -73,10 +72,16 @@ FactoryGirl.define do
         create(:user, :community_leader, neighborhood: hood)
       end
     end
+    trait :with_locations do
+      after(:create) do |hood|
+        create_list(:location, 2, neighborhood: hood)
+      end
+    end
   end
 
   factory :organization do
     sequence(:name) {|n| "Organization #{n}"}
+    description "A Description"
     trait :with_neighborhoods do
       after(:create) do |org|
         create_list(:neighborhood, 2, organizations: [org])
@@ -87,5 +92,29 @@ FactoryGirl.define do
         create_list(:user, 2, organizations: [org])
       end
     end
+    trait :with_locations do
+      after(:create) do |org|
+        create_list(:location, 2, organization: org)
+      end
+    end
+  end
+
+  factory :type do
+    name "Peace Circle"
+    category 0
+    trait :with_organizations do
+      after(:create) do |type|
+        create_list(:organization, 2, type: type)
+      end
+    end
+    trait :with_events do
+      after(:create) do |type|
+        create_list(:event, 2, type: type)
+      end
+    end
+  end
+
+  factory :location do
+    address "5699 S Ellis Ave, Chicago, IL 60637"
   end
 end
