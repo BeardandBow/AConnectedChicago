@@ -151,10 +151,11 @@ function showNeighborhood(e){
             response.locations.forEach(function(location){
               var infowindow = new google.maps.InfoWindow({
                 content: '<h3>' + location.organization.name + '</h3>' +
-                          '<p>' + "type: " + location.organization.type + '</p>' +
+                          '<p>' + location.organization.type + '</p>' +
+                          '<p>' + location.address + '</p>' +
                           '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
               });
-              document.getElementById("org-listings").appendChild(formatOrganization(location.organization));
+              document.getElementById("org-listings").appendChild(formatOrganization(location));
               var marker = handler.addMarker({
                 "lat": location.map_lat,
                 "lng": location.map_long,
@@ -166,7 +167,7 @@ function showNeighborhood(e){
               });
               marker.key = "Org";
               marker.type = location.organization.type
-              marker.id = location.organization.id;
+              marker.id = location.id;
               marker.serviceObject.set('infowindow', infowindow)
               markers.push(marker);
               google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
@@ -230,6 +231,12 @@ function showNeighborhood(e){
                       }
                     }
                   });
+                  var id = "#" + listing.id
+                  if (parseInt(listing.id) !== markers[i].id) {
+                    $("#org-listings").find(id).hide()
+                  } else {
+                    $("#org-listings").find(id).show()
+                  }
                 });
               } else {
                 markers[i].serviceObject.setVisible(false)
@@ -245,6 +252,8 @@ function showNeighborhood(e){
                 $("#org-listings").show()
                 var listings = document.getElementById('org-listings').childNodes;
                 listings.forEach(function(listing){
+                  var id = "#" + listing.id
+                  $("#org-listings").find(id).show()
                   listing.addEventListener("mouseover", function(){
                     for (var i = 0; i < markers.length; i++) {
                       if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
@@ -450,58 +459,64 @@ function determineEventType(event) {
   }
 }
 
-function formatOrganization(organization) {
-var listing = document.createElement("div");
-var heading = document.createElement("h3");
-var description = document.createElement("p");
+function formatOrganization(location) {
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var type = document.createElement("p");
+  var address = document.createElement("p");
+  var description = document.createElement("p");
 
-heading.innerHTML = organization.name;
-description.innerHTML = stringTruncate(organization.description, 50);
-listing.appendChild(heading);
-listing.appendChild(description);
-listing.className = "listing";
-listing.id = organization.id;
-return listing;
+  heading.innerHTML = location.organization.name;
+  type.innerHTML = location.organization.type;
+  address.innerHTML = location.address;
+  description.innerHTML = stringTruncate(location.organization.description, 50);
+  listing.appendChild(heading);
+  listing.appendChild(type);
+  listing.appendChild(address);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = location.id;
+  return listing;
 }
 
 function formatArtwork(artwork) {
-var listing = document.createElement("div");
-var heading = document.createElement("h3");
-var artist = document.createElement("p");
-var description = document.createElement("p");
-heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
-description.innerHTML = stringTruncate(artwork.description, 50);
-artist.innerHTML = "by " + artwork.artist
-listing.appendChild(heading);
-if (artwork.image.thumb.url) {
-  var image = document.createElement("img");
-  image.src = artwork.image.thumb.url;
-  listing.appendChild(image);
-}
-listing.appendChild(artist);
-listing.appendChild(description);
-listing.className = "listing";
-listing.id = artwork.id;
-return listing;
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var artist = document.createElement("p");
+  var description = document.createElement("p");
+  heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
+  description.innerHTML = stringTruncate(artwork.description, 50);
+  artist.innerHTML = "by " + artwork.artist
+  listing.appendChild(heading);
+  if (artwork.image.thumb.url) {
+    var image = document.createElement("img");
+    image.src = artwork.image.thumb.url;
+    listing.appendChild(image);
+  }
+  listing.appendChild(artist);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = artwork.id;
+  return listing;
 }
 
 function formatEvent(event) {
-var listing = document.createElement("div");
-var heading = document.createElement("h3");
-var dateTime = document.createElement("p");
-var description = document.createElement("p");
-var event_type = document.createElement("p");
-heading.innerHTML = event.title.link("/events/" + event.id);
-description.innerHTML = stringTruncate(event.description, 50);
-dateTime.innerHTML = event.formatted_date_time
-event_type.innerHTML = event.type.name
-listing.appendChild(heading);
-listing.appendChild(dateTime);
-listing.appendChild(event_type);
-listing.appendChild(description);
-listing.className = "listing";
-listing.id = event.id;
-return listing;
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var dateTime = document.createElement("p");
+  var description = document.createElement("p");
+  var event_type = document.createElement("p");
+  heading.innerHTML = event.title.link("/events/" + event.id);
+  description.innerHTML = stringTruncate(event.description, 50);
+  dateTime.innerHTML = event.formatted_date_time
+  event_type.innerHTML = event.type.name
+  listing.appendChild(heading);
+  listing.appendChild(dateTime);
+  listing.appendChild(event_type);
+  listing.appendChild(description);
+  listing.className = "listing";
+  listing.id = event.id;
+  return listing;
 }
 
 function formatStory(story) {
