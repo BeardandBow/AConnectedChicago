@@ -18,8 +18,8 @@
 
       <div class="btn-group" role="group">
         <select class="form-control center-dropdown" id="org-select" name="organization_type_select">
-          <option disabled selected>Select an organization</option>
-          <option>All Organizations</option>
+          <option disabled selected>Organizations</option>
+          <option>All</option>
           <%= @organization_types.each do |type| %>
             <option><%= type %></option>
           <% end %>

@@ -303,6 +303,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
           $("#org-listings").hide()
+          document.getElementById("org-select").selectedIndex = 0
         });
         var artworkButton = document.getElementById("btn-artwork")
         artworkButton.addEventListener("click", function(){
@@ -313,6 +314,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
           $("#org-listings").hide()
+          document.getElementById("org-select").selectedIndex = 0
           var listings = document.getElementById('artwork-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -343,6 +345,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
           $("#org-listings").hide()
+          document.getElementById("org-select").selectedIndex = 0
           var listings = document.getElementById('event-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -373,6 +376,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").show()
           $("#story-listings").hide()
           $("#org-listings").hide()
+          document.getElementById("org-select").selectedIndex = 0
           var listings = document.getElementById('peace-circle-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
@@ -403,6 +407,7 @@ function showNeighborhood(e){
           $("#peace-circle-listings").hide()
           $("#story-listings").show()
           $("#org-listings").hide()
+          document.getElementById("org-select").selectedIndex = 0
           var listings = document.getElementById('story-listings').childNodes;
           listings.forEach(function(listing){
             listing.addEventListener("mouseover", function(){
