@@ -2,25 +2,10 @@
 [![Build Status](https://travis-ci.org/CalebCowen/AConnectedChicago.svg?branch=master)](https://travis-ci.org/CalebCowen/AConnectedChicago)
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## A Connected Chicago
 
-Things you may want to cover:
+A Connected Chicago is a non-profit who's mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.
 
-* Ruby version
+## The App
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The Connected Chicago [Web App](https://aconnectedchicago.herokuapp.com/) is built using Ruby on Rails and JavaScript through the Rails asset pipeline. The main feature of the app is the custom map users can utilize to see Events, Stories, And Artwork in Chicago neighborhoods.
