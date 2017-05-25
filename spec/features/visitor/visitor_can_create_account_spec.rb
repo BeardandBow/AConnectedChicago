@@ -36,11 +36,7 @@ RSpec.feature "visitor can create account" do
       expect(page).to have_content("Welcome to A Connected Chicago! Your email has been confirmed.
       Please sign in to continue.")
       expect(user.reload.role).to eq("registered_user")
-    end
-
-    xscenario "visitor creates valid account with google" do
-      # or create an account with google or facebook
-    end
+    end  
   end
 
   context "sad paths" do
