@@ -3,41 +3,37 @@ cache: bundler
 sudo: required
 dist: trusty
 rvm:
-  - 2.3.1
+- 2.3.1
 services:
-  - postgresql
+- postgresql
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
-      - chromium-chromedriver
-
+    - google-chrome-stable
+    - chromium-chromedriver
 env:
-  - TESTFOLDER=spec/features/community_leader
-  - TESTFOLDER=spec/features/registered_user
-  - TESTFOLDER=spec/requests
-  - TESTFOLDER=spec/mailers
-  - TESTFOLDER=spec/features/admin
-  - TESTFOLDER=spec/features/pending_user
-  - TESTFOLDER=spec/models
-  - TESTFOLDER=spec/features/visitor
+- TESTFOLDER=spec/features/community_leader
+- TESTFOLDER=spec/features/registered_user
+- TESTFOLDER=spec/requests
+- TESTFOLDER=spec/mailers
+- TESTFOLDER=spec/features/admin
+- TESTFOLDER=spec/features/pending_user
+- TESTFOLDER=spec/models
+- TESTFOLDER=spec/features/visitor
 script:
-  - bundle exec rails db:test:prepare
-  - bundle exec rspec $TESTFOLDER -p
-
+- bundle exec rails db:test:prepare
+- bundle exec rspec $TESTFOLDER -p
 before_script:
-  - RAILS_ENV=test bundle exec rails db:create
-  - RAILS_ENV=test bundle exec rails db:migrate
-  - "export PATH=$PATH:/usr/lib/chromium-browser/"
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-
+- RAILS_ENV=test bundle exec rails db:create
+- RAILS_ENV=test bundle exec rails db:migrate
+- export PATH=$PATH:/usr/lib/chromium-browser/
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 notifications:
   email: false
-
   slack:
-    secure: ENV['slack_key']
+    secure: mA+62gDXSJiWpsVHs8S3yM15XQ1SkqcaeYhuXTAONkOF3rJYpeKOnmwijwF0KbTphEIMOWRu4SCiczIEwHQeeyrugxursBIcYgijPWMqOYfHDZ6fhETTNvAyWq/XLagsuX7g3VrKXYVcZj003iXLLFnr0z9sQGjTuBJHw3F9JcO95MoBxn7ROD4qc7i028L81qwcggK3HaZNvvIXji5hSm1Xi78M4H0dl9ib6o0DfRwpX1jNcSZUSPRUgXkGdPZMcszpP5C/KUoX1wgE1280GnbR09tCnuJZdhDcRfwmmOsTYjKt8D4nPiu9SCai1Q4Sww5HGmshavzFLGrSMalkftY/d94TjM0kz2Jc9eeHjxWTPInrN22BZ7frLp/SUQxI03dWUqo1NhT7lfUhsXGkpW2AxzFEiXkQios309fgS5Mvk3dLf+8WYwrbLpO970vLSJlBJg5j5Premn4Y5e+Mqtyr1BziGPJRwnG3Y8OtyczRmuBeK19wVKkHDnS1ybabDOLNL/xIOejk3BZB+hxQ3ZnD9x+t+aJUSJgRbEEoClSN28k0M8Ed+BCN0Vaawf8ySEc2mB3+mG4AqIkZ2HdSW/W5CUsjC/dsp3rTVjKsf3Q+m91a8w2V7h2rV26Xrh05y6HAtl6Xc2ZzuRa+LAgyXzJwRVfT6Qk/oqb/ZZOrbOo=
