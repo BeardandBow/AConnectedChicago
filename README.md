@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/BeardandBow/AConnectedChicago.png?label=ready&title=Ready)](https://waffle.io/BeardandBow/AConnectedChicago)
-[![Build Status](https://travis-ci.org/BeardandBow/AConnectedChicago.svg?branch=master)h](https://travis-ci.org/BeardandBow/AConnectedChicago)
+[![Build Status](https://travis-ci.org/BeardandBow/AConnectedChicago.svg?branch=master)](https://travis-ci.org/BeardandBow/AConnectedChicago)
 # README
 
 ## A Connected Chicago
