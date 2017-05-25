@@ -52,6 +52,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'simplecov', require: false
   gem 'selenium-webdriver', '~> 2.53.4'
+  gem 'chromedriver-helper'
   gem 'pry-rails'
   gem 'parallel_tests'
 end
