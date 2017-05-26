@@ -37,6 +37,7 @@ class PermissionsService
     return true if controller == 'users' && action.in?(%w(show edit update))
     return true if controller == 'admin/submissions'
     return true if controller == 'admin/users'
+    return true if controller == 'admin/types'
   end
 
   def community_leader_permissions

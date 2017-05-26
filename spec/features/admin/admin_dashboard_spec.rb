@@ -21,7 +21,7 @@ RSpec.feature "admin functionality" do
 
   context "admin interacts with pending submissions that do not have a community leader" do
     scenario "admin sees only pending submissions that do not have a community leader" do
-      click_on "Unowned Pending Submissions"
+      click_on "See Unowned Pending Submissions"
 
       expect(page).to have_link(@artwork.title)
       expect(page).not_to have_link(@event.title)
@@ -29,7 +29,7 @@ RSpec.feature "admin functionality" do
     end
 
     scenario "admin approves only pending submissions that do not have a community leader" do
-      click_on "Unowned Pending Submissions"
+      click_on "See Unowned Pending Submissions"
       within ("#artwork-#{@artwork.id}") do
         choose("Approve")
       end
@@ -40,7 +40,7 @@ RSpec.feature "admin functionality" do
     end
 
     scenario "admin rejects only pending submissions that do not have a community leader" do
-      click_on "Unowned Pending Submissions"
+      click_on "See Unowned Pending Submissions"
       within ("#artwork-#{@artwork.id}") do
         choose("Reject")
       end
@@ -53,7 +53,7 @@ RSpec.feature "admin functionality" do
 
   context "admin interacts with all pending submissions" do
     scenario "admin sees all pending submissions" do
-      click_on "All Pending Submissions"
+      click_on "See All Pending Submissions"
 
       expect(page).to have_link(@artwork.title)
       expect(page).to have_link(@event.title)
@@ -61,7 +61,7 @@ RSpec.feature "admin functionality" do
     end
 
     scenario "admin approves any pending submissions regardless of ownership" do
-      click_on "All Pending Submissions"
+      click_on "See All Pending Submissions"
       within ("#event-#{@event.id}") do
         choose("Approve")
       end
@@ -74,7 +74,7 @@ RSpec.feature "admin functionality" do
     end
 
     scenario "admin rejects any pending submissions regardless of ownership" do
-      click_on "All Pending Submissions"
+      click_on "See All Pending Submissions"
       within ("#story-#{@story.id}") do
         choose("Reject")
       end

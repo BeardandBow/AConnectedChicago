@@ -11,22 +11,42 @@ RSpec.feature "admin can create event types" do
 
   context "admin successfully adds an event type" do
     scenario "admin sees the button to add an event type" do
-      expect(page).to have_content("Add an Event Type")
+      expect(page).to have_button("Manage Event Types")
     end
 
     scenario "admin successfully adds an event type" do
       expect(Type.all.count).to eq(0)
 
-      click_on "Add an Event Type"
+      click_on "Manage Event Types"
 
-      expect(current_path).to eq(types_path)
+      expect(current_path).to eq(admin_types_path)
 
-      fill_in "Event Type", with: "New Event Type"
+      fill_in "Event Type Name", with: "New Event Type"
       click_on "Add Event Type"
 
-      expect(current_path).to eq(user_path(@admin))
       expect(Type.all.count).to eq(1)
       expect(Type.first.name).to eq("New Event Type")
+    end
+  end
+
+  context "admin cannot add an event type" do
+    scenario "admin submits an empty event type" do
+      click_on "Manage Event Types"
+      click_on "Add Event Type"
+
+      expect(Type.all.count).to eq(0)
+      expect(page).to have_content("Cannot create duplicate or blank Event Type")
+    end
+    scenario "admin submits a duplicate event type" do
+      create(:type, name: "Snorkeling", category: "event")
+
+      click_on "Manage Event Types"
+      fill_in "Event Type Name", with: "Snorkeling"
+      click_on "Add Event Type"
+
+      expect(Type.all.count).to eq(1)
+      expect(page).to have_content("Cannot create duplicate or blank Event Type")
+
     end
   end
 end

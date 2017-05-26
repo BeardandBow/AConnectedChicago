@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     put '/unowned_submissions', to: 'submissions#update'
     resources :users, only: [:new]
     put '/users', to: 'users#update'
+    resources :types, only: [:index, :create, :destroy]
   end
 
   get '/login', to: 'sessions#new'
