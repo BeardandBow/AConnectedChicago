@@ -37,6 +37,7 @@ class PermissionsService
     return true if controller == 'users' && action.in?(%w(show edit update))
     return true if controller == 'admin/submissions'
     return true if controller == 'admin/users'
+    return true if controller == 'charges'
   end
 
   def community_leader_permissions
@@ -47,6 +48,7 @@ class PermissionsService
     return true if controller == 'stories'
     return true if controller == 'submissions'
     return true if controller == 'users' && action.in?(%w(show edit update))
+    return true if controller == 'charges'
   end
 
   def registered_user_permissions
@@ -56,6 +58,7 @@ class PermissionsService
     return true if controller == 'sessions'
     return true if controller == 'stories'
     return true if controller == 'users' && action.in?(%w(show edit update))
+    return true if controller == 'charges'
   end
 
   def visitor_permissions
@@ -65,5 +68,6 @@ class PermissionsService
     return true if controller == 'sessions' && action.in?(%w(new create))
     return true if controller == 'stories' && action.in?(%w(show))
     return true if controller == 'users' && action.in?(%w(new create confirm_email))
+    return true if controller == 'charges'
   end
 end

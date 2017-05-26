@@ -1,0 +1,21 @@
+<% content_for :body_class, "dashboard-bg" %>
+<div class="center">
+  <%= form_tag charges_path, class: "centered-container aes-container" do %>
+    <article>
+      <% if flash[:error].present? %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+      <% end %>
+      <label class="amount">
+        <span>Amount</span><br><br>
+        <input type="number" name="amount" />
+      </label>
+    </article><br>
+
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="Donation"
+            data-locale="auto"></script>
+  <% end %>
+</div>
