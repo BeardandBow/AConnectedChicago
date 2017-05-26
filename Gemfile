@@ -55,6 +55,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'pry-rails'
   gem 'parallel_tests'
+  gem 'rspec-wait'
 end
 
 group :development do

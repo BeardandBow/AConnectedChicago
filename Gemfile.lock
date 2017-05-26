@@ -321,6 +321,10 @@ GEM
       trollop (~> 2.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -338,6 +342,8 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    rspec-wait (0.0.9)
+      rspec (>= 3, < 4)
     rubyzip (1.2.1)
     sass (3.4.23)
     sass-rails (5.0.6)
@@ -418,6 +424,7 @@ DEPENDENCIES
   rails_12factor
   responders
   rspec-rails
+  rspec-wait
   sass-rails
   selenium-webdriver (~> 2.53.4)
   simplecov
