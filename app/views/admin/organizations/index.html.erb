@@ -1,12 +1,14 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="center">
   <div class="centered-container">
-    <h3 class="white">All Event Types</h3>
+    <h3 class="white">All Organizations</h3>
     <ul class="list-group">
       <li class="list-group-item">
-        <%= form_for [:admin, @type], {class: "form-inline"} do |f| %>
-          <%= f.text_field :name, placeholder: "Event Type Name", class: "form-input" %>
-          <%= f.hidden_field :category, value: "event" %>
+        <%= form_for [:admin, @organization], {class: "form-inline"} do |f| %>
+          <%= f.text_field :name, placeholder: "Organization Name", class: "form-input" %>
+          <%= f.text_field :name, placeholder: "Organization Website", class: "form-input" %>
+          <%= f.text_field :name, placeholder: "Organization Description", class: "form-input" %>
+          <%= f.select :type, @types, {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
           <%= f.submit "Add Event Type", class: "form-input btn btn-success" %>
         <% end %>
       </li>

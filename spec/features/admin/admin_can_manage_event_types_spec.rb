@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "admin can create event types" do
+RSpec.feature "admin can manage event types" do
 
   before :each do
     @admin = create(:user, :admin)
@@ -48,5 +48,15 @@ RSpec.feature "admin can create event types" do
       expect(page).to have_content("Cannot create duplicate or blank Event Type")
 
     end
+  end
+
+  scenario "admin can delete an event type" do
+    create(:type, name: "Snorkeling", category: "event")
+
+    click_on "Manage Event Types"
+    click_on "Delete Event Type"
+
+    expect(Type.all.count).to eq(0)
+    expect(page).to have_content("'Snorkeling' Event Type deleted")
   end
 end
