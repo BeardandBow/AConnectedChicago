@@ -35,7 +35,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Events"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Events"
 
@@ -51,7 +51,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Art"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Art"
 
@@ -65,7 +65,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Stories"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Stories"
 
@@ -84,7 +84,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Events"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Events"
       wait_for(page).to have_content(event.title)
@@ -108,7 +108,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Art"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Art"
       wait_for(page).to have_content(artwork.title)
@@ -128,7 +128,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Stories"
-      sleep(0.3)
+      sleep(0.4)
 
       click_button "Stories"
       wait_for(page).to have_content(story.title)
