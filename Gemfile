@@ -43,6 +43,7 @@ gem 'stripe'
 
 group :production do
   gem 'rails_12factor'
+  gem 'fog'
 end
 
 group :production, :development do
