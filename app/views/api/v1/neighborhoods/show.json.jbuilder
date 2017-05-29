@@ -1,6 +1,6 @@
 json.name @hood.name
 json.bounds @hood.bounds
-json.locations @hood.locations do |location|
+json.locations @hood.locations.includes(:organization) do |location|
   json.(location, :id, :address, :map_lat, :map_long)
   json.organization do
     json.id location.organization.id
