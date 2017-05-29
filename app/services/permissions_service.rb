@@ -38,6 +38,7 @@ class PermissionsService
     return true if controller == 'admin/submissions'
     return true if controller == 'admin/users'
     return true if controller == 'admin/types'
+    return true if controller == 'admin/organizations'
   end
 
   def community_leader_permissions

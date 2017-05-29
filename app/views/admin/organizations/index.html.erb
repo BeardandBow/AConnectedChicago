@@ -6,16 +6,22 @@
       <li class="list-group-item">
         <%= form_for [:admin, @organization], {class: "form-inline"} do |f| %>
           <%= f.text_field :name, placeholder: "Organization Name", class: "form-input" %>
-          <%= f.text_field :name, placeholder: "Organization Website", class: "form-input" %>
-          <%= f.text_field :name, placeholder: "Organization Description", class: "form-input" %>
-          <%= f.select :type, @types, {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
-          <%= f.submit "Add Event Type", class: "form-input btn btn-success" %>
+          <%= f.text_field :website, placeholder: "Organization Website", class: "form-input" %>
+          <%= f.text_area :description, placeholder: "Organization Description", class: "form-input" %>
+          <%= f.fields_for :locations do |ff| %>
+            <%= ff.text_field :address, placeholder: "Organization Location", class: "form-input" %>
+            <% end %>
+          <%= f.select :type_id, (@types.map { |type| [type.name, type.id] }), {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
+          <%= f.submit "Add Organization", class: "form-input btn btn-success" %>
         <% end %>
       </li>
-      <% @types.each do |type| %>
-        <li class="list-group-item" id="<%= type.id %>">
-          <h4><%= type.name %></h4>
-          <%= button_to "Delete Event Type", admin_type_path(type), class: "btn btn-danger", method: :delete %>
+      <% @organizations.each do |organization| %>
+        <li class="list-group-item" id="<%= organization.name.downcase.tr(" ", "-") %>">
+          <h4><%= organization.name %></h4>
+          <div class="btn-group">
+            <%= link_to "Edit", edit_admin_organization_path(organization), class: "btn btn-primary", role: "button" %>
+            <%= link_to "Delete", admin_organization_path(organization), class: "btn btn-danger", method: :delete, role: "button" %>
+          </div>
         </li>
       <% end %>
     </ul>

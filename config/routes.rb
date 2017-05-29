@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :users, only: [:new]
     put '/users', to: 'users#update'
     resources :types, only: [:index, :create, :destroy]
-    resources :organizations, only: [:index, :create, :destroy]
+    resources :organizations, only: [:index, :create, :show, :edit, :update, :destroy]
   end
 
   get '/login', to: 'sessions#new'

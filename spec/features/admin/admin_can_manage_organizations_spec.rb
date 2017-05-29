@@ -25,10 +25,12 @@ RSpec.feature "admin can manage organizations" do
       fill_in "Organization Name", with: "New Organization"
       fill_in "Organization Website", with: "http://www.test.com"
       fill_in "Organization Description", with: "New Description"
-      select "RJ Hub", from: "organization_type"
+      fill_in "Organization Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
+      select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
 
       expect(Organization.all.count).to eq(1)
+      expect(Location.all.count).to eq(1)
       expect(Organization.first.name).to eq("New Organization")
     end
   end
@@ -42,7 +44,7 @@ RSpec.feature "admin can manage organizations" do
       expect(page).to have_content("Cannot create duplicate or blank Organization")
     end
     scenario "admin submits a duplicate organization" do
-      create(:type, name: "Snorkeling", category: "event")
+      create(:organization, name: "Snorkeling")
 
       click_on "Manage Organizations"
       fill_in "Organization Name", with: "Snorkeling"
@@ -50,7 +52,28 @@ RSpec.feature "admin can manage organizations" do
 
       expect(Organization.all.count).to eq(1)
       expect(page).to have_content("Cannot create duplicate or blank Organization")
+    end
+  end
 
+  context "admin can edit an organization" do
+    before :each do
+      @org = create(:organization, name: "Circles and Cyphers")
+    end
+
+    scenario "admin adds a new location" do
+      click_on "Manage Organizations"
+      within("#circles-and-cyphers") do
+        click_on "Edit"
+
+        expect(current_path).to eq(admin_organization_path(@org))
+
+        fill_in "New Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
+        click_on "Add Location"
+
+        expect(page).to have_content("Location Added")
+        expect(Location.all.count).to eq(1)
+        expect(Location.first.address).to eq("1918 W Farwell Ave, Chicago, IL 60626")
+      end
     end
   end
 end
