@@ -1,14 +1,13 @@
 /* line 1, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .center {
-  width: 300px;
+  min-width: 400px;
   height: 100%;
   margin-left: 50%;
   transform: translateX(-50%);
-  overflow: auto;
   display: flex;
 }
 
-/* line 10, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 9, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .centered-container {
   text-align: center;
   position: relative;
@@ -16,17 +15,17 @@
   margin: auto;
 }
 
-/* line 17, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 16, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .overflow-container {
   overflow: auto;
 }
 
-/* line 21, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 20, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .time-select {
   width: 100%;
 }
 
-/* line 25, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 24, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .form-input {
   width: 100%;
   margin-top: 10px;
@@ -36,42 +35,42 @@
   text-align-last: center;
 }
 
-/* line 34, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 33, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .inline-radio {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/* line 39, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 38, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .bootstrap-filestyle {
   margin-top: 10px;
 }
 
-/* line 43, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 42, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 div.btn-group-vertical form {
   display: inline;
   width: 100%;
 }
 
-/* line 48, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 47, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .white {
   color: #E7E2E4;
   margin-top: 5px;
 }
 
-/* line 53, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 52, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 label {
   margin: 0;
 }
 
-/* line 57, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 56, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .aes-container {
   background-color: rgba(231, 226, 228, 0.8);
   border-radius: 5px;
   padding: 15px;
 }
 
-/* line 63, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 62, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .aes-center {
   width: 500px;
   max-height: 90%;
@@ -83,7 +82,7 @@ label {
   overflow: auto;
 }
 
-/* line 74, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 73, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .aes-format {
   width: 100%;
   margin-top: 10px;
@@ -91,7 +90,7 @@ label {
   padding-bottom: 5px;
 }
 
-/* line 81, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 80, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .resources-center {
   width: 50%;
   margin: auto;
@@ -101,7 +100,7 @@ label {
   transform: translateX(-50%);
 }
 
-/* line 90, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 89, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .resources-container {
   background-color: rgba(231, 226, 228, 0.8);
   margin-top: 50px;
@@ -113,13 +112,13 @@ label {
   padding-bottom: 15px;
 }
 
-/* line 101, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 100, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .btn-danger {
   width: 100px;
   text-decoration-color: white;
 }
 
-/* line 106, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
+/* line 105, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/forms.css.scss */
 .list-group-item {
   background-color: rgba(231, 226, 228, 0.8);
 }
@@ -378,6 +377,11 @@ body {
 /* line 222, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 ol, li {
   padding-left: 1.1em;
+}
+
+/* line 226, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.btn-danger {
+  width: 100%;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files

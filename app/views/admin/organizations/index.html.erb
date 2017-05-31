@@ -4,6 +4,7 @@
     <h3 class="white">All Organizations</h3>
     <ul class="list-group">
       <li class="list-group-item">
+        <h3>Create An Organization</h3>
         <%= form_for [:admin, @organization], {class: "form-inline"} do |f| %>
           <%= f.text_field :name, placeholder: "Organization Name", class: "form-input" %>
           <%= f.text_field :website, placeholder: "Organization Website", class: "form-input" %>
@@ -18,8 +19,8 @@
       <% @organizations.each do |organization| %>
         <li class="list-group-item" id="<%= organization.name.downcase.tr(" ", "-") %>">
           <h4><%= organization.name %></h4>
-          <div class="btn-group">
-            <%= link_to "Edit", edit_admin_organization_path(organization), class: "btn btn-primary", role: "button" %>
+          <div class="btn-group btn-group-justified">
+            <%= link_to "Edit Info", edit_admin_organization_path(organization), class: "btn btn-primary", role: "button" %>
             <%= link_to "Delete", admin_organization_path(organization), class: "btn btn-danger", method: :delete, role: "button" %>
           </div>
         </li>

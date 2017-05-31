@@ -1,9 +1,8 @@
 .center {
-  width: 300px;
+  min-width: 400px;
   height: 100%;
   margin-left: 50%;
   transform: translateX(-50%);
-  overflow: auto;
   display: flex;
 }
 

@@ -1,28 +1,35 @@
 <% content_for :body_class, "dashboard-bg" %>
 <div class="center">
   <div class="centered-container">
-    <h3 class="white"><%= @organization.name %> - Edit</h3>
-    <%= form_for [:admin, @organization], {class: "form-inline"} do |f| %>
-      <%= f.text_field :name, class: "form-input" %>
-      <%= f.label :name %>
-      <%= f.text_field :website, placeholder: "Organization Website", class: "form-input" %>
-      <%= f.label :website %>
-      <%= f.text_area :description, placeholder: "Organization Description", class: "form-input" %>
-      <%= f.label :description %>
-      <%= f.fields_for :locations do |ff| %>
-        <%= ff.text_field :address, placeholder: "Organization Location", class: "form-input" %>
-        <% end %>
-      <%= f.select :type_id, (@types.map { |type| [type.name, type.id] }), {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
-      <%= f.submit "Update Organization", class: "form-input btn btn-success" %>
-    <% end %>
-      </li>
-      <% @organizations.each do |organization| %>
-        <li class="list-group-item" id="<%= organization.name.downcase.tr(" ", "-") %>">
-          <h4><%= organization.name %></h4>
-          <div class="btn-group">
-            <%= link_to "Edit", edit_admin_organization_path(organization), class: "btn btn-primary", role: "button" %>
-            <%= link_to "Delete", admin_organization_path(organization), class: "btn btn-danger", method: :delete, role: "button" %>
-          </div>
+    <ul class="list-group">
+      <%= form_for [:admin, @organization], {class: "form-inline"} do |f| %>
+        <li class="list-group-item"><h3><%= @organization.name %> - Edit Organization</h3>
+          <%= f.text_field :name, class: "form-input" %>
+          <%= f.label :name %>
+          <%= f.text_field :website, placeholder: "Organization Website", class: "form-input" %>
+          <%= f.label :website %>
+          <%= f.text_area :description, placeholder: "Organization Description", class: "form-input" %>
+          <%= f.label :description %>
+          <%= f.select :type_id, (@types.map { |type| [type.name, type.id] }), {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
+          <%= f.submit "Update Organization", class: "form-input btn btn-success" %>
+        </li>
+        <li class="list-group-item">
+          <h3>Add New Location</h3>
+          <%= f.fields_for :locations, @location do |ff| %>
+            <%= ff.text_field :address, placeholder: "New Address", class: "form-input" %>
+          <% end %>
+          <%= f.submit "Add New Location", class: "form-input btn btn-success" %></li>
+        </li>
+        <li class="list-group-item" id="current-locations">
+          <h3>Current Locations</h3>
+          <%= f.fields_for :locations do |ff| %>
+            <% if ff.object.persisted? %>
+              <%= ff.label :_destroy, ff.object.address %>
+              <%= ff.check_box :_destroy %>
+              <%= ff.label :_destroy, "Delete" %>
+            <% end %>
+          <% end %>
+          <%= f.submit "Delete Selected Locations", class: "form-input btn btn-danger" %>
         </li>
       <% end %>
     </ul>

@@ -4,13 +4,17 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.new
     @organization.locations.build
     @types = Type.where(category: "organization")
-    @organizations = Organization.all.order(:name)
+    @organizations = Organization.all.order("LOWER(name)")
 
   end
 
   def create
-    @organization = Organization.create(organization_params)
+    require "pry"; binding.pry
+    @organization = Organization.new(organization_params)
     if @organization.save
+      unless params[:organization][:locations_attributes]['0'][:address].blank?
+        @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+      end
       flash[:success] = "'#{@organization.name}' has been created"
     else
       flash[:error] = "Cannot create duplicate or blank Organization"
@@ -20,10 +24,15 @@ class Admin::OrganizationsController < ApplicationController
 
   def edit
     @organization = Organization.find(params[:id])
+    @location = @organization.locations.build
+    @types = Type.where(category: "organization")
   end
 
   def update
     @organization = Organization.find(params[:id])
+    unless params[:organization][:locations_attributes]['0'][:address].blank?
+      @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+    end
     if @organization.update_attributes(organization_params)
       flash[:success] = "'#{@organization.name}' has been updated"
     else
@@ -31,11 +40,10 @@ class Admin::OrganizationsController < ApplicationController
     end
     redirect_to edit_admin_organization_path
   end
-  end
 
   def destroy
     organization = Organization.find(params[:id])
-    organization.delete
+    organization.destroy
     flash[:success] = "'#{organization.name}' Organization deleted"
     redirect_to admin_organizations_path
   end
@@ -43,6 +51,6 @@ class Admin::OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :website, :description, :type, locations_attributes: [ :address ])
+    params.require(:organization).permit(:id, :name, :website, :description, :type_id, locations_attributes: [ :id, :organization_id, :address, :_destroy ])
   end
 end

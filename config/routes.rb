@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     resources :organizations, only: [:index, :create, :show, :edit, :update, :destroy]
   end
 
+  namespace :admin, as: '' do
+    get '/organizations/:id/edit_locations', to: "organizations#edit_locations", as: 'edit_admin_organization_locations'
+  end
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

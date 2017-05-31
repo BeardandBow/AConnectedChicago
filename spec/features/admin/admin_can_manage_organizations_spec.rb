@@ -28,7 +28,7 @@ RSpec.feature "admin can manage organizations" do
       fill_in "Organization Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
       select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
-
+require "pry"; binding.pry
       expect(Organization.all.count).to eq(1)
       expect(Location.all.count).to eq(1)
       expect(Organization.first.name).to eq("New Organization")
@@ -58,17 +58,30 @@ RSpec.feature "admin can manage organizations" do
   context "admin can edit an organization" do
     before :each do
       @org = create(:organization, name: "Circles and Cyphers")
+
+      click_on "Manage Organizations"
+      within("#circles-and-cyphers") do
+        click_on "Edit Info"
+    end
+
+    scenario "admin edits an organization's info" do
+      fill_in "Circles and Cyphers", with: "Squares and Neos"
+      fill_in "Organization Website", with: "http://www.example.com"
+      fill_in "Organization Description", with: "what a description this is"
+      select "RJ Hub", from: "organization_type_id"
+      click_on "Update Organization"
+
+      expect(page).to have_content("")
+      expect(page).to have_content("http://www.example.com")
+      expect(page).to have_content("")
+      expect(page).to have_content("Squares and Neos")
     end
 
     scenario "admin adds a new location" do
-      click_on "Manage Organizations"
-      within("#circles-and-cyphers") do
-        click_on "Edit"
+        expect(current_path).to eq(edit_admin_organization_path(@org))
 
-        expect(current_path).to eq(admin_organization_path(@org))
-
-        fill_in "New Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
-        click_on "Add Location"
+        fill_in "New Address", with: "1918 W Farwell Ave, Chicago, IL 60626"
+        click_on "Add New Location"
 
         expect(page).to have_content("Location Added")
         expect(Location.all.count).to eq(1)
