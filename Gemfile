@@ -55,6 +55,7 @@ end
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'parallel_tests'
 end
 
 group :test do
@@ -66,9 +67,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'selenium-webdriver', '~> 2.53.4'
   gem 'chromedriver-helper'
-  gem 'parallel_tests'
   gem 'rspec-wait'
-  gem 'pry-rails'
 end
 
 group :development do
