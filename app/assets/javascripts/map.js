@@ -50,6 +50,7 @@ function showNeighborhood(e){
         $("#event-listings").hide();
         $("#peace-circle-listings").hide();
         $("#story-listings").hide();
+        $("#org-listings").hide();
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
@@ -58,7 +59,7 @@ function showNeighborhood(e){
                 var infowindow = new google.maps.InfoWindow({
                   content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
                            '<p>' + event.formatted_date_time + '</p>' +
-                           '<p>' + event.type.name + '</p>' +
+                           '<p>' + event.type + '</p>' +
                            '<p>' + stringTruncate(event.description, 50) + '</p>'
                 });
                 document.getElementById("event-listings").appendChild(formatEvent(event));
@@ -166,7 +167,9 @@ function showNeighborhood(e){
                 }
               });
               marker.key = "Org";
-              marker.type = location.organization.type
+              if (location.organization.type !== undefined) {
+                marker.type = location.organization.type.toLowerCase()
+              }
               marker.id = location.id;
               marker.serviceObject.set('infowindow', infowindow)
               markers.push(marker);
@@ -203,7 +206,7 @@ function showNeighborhood(e){
         org_types.addEventListener("change", function(e){
           for (var i = 0; i < markers.length; i++) {
             if (e.target.selectedIndex > 1) {
-              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText) {
+              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase()) {
                 markers[i].serviceObject.setVisible(true)
                 $("#instructions").hide()
                 $("#artwork-listings").hide()
@@ -232,10 +235,10 @@ function showNeighborhood(e){
                     }
                   });
                   var id = "#" + listing.id
-                  if (parseInt(listing.id) !== markers[i].id) {
-                    $("#org-listings").find(id).hide()
-                  } else {
+                  if (listing.classList.contains(markers[i].type)) {
                     $("#org-listings").find(id).show()
+                  } else {
+                    $("#org-listings").find(id).hide()
                   }
                 });
               } else {
@@ -484,7 +487,7 @@ function formatOrganization(location) {
   listing.appendChild(type);
   listing.appendChild(address);
   listing.appendChild(description);
-  listing.className = "listing";
+  listing.className = "listing " + location.organization.type.toLowerCase();
   listing.id = location.id;
   return listing;
 }
@@ -519,7 +522,7 @@ function formatEvent(event) {
   heading.innerHTML = event.title.link("/events/" + event.id);
   description.innerHTML = stringTruncate(event.description, 50);
   dateTime.innerHTML = event.formatted_date_time
-  event_type.innerHTML = event.type.name
+  event_type.innerHTML = event.type
   listing.appendChild(heading);
   listing.appendChild(dateTime);
   listing.appendChild(event_type);
