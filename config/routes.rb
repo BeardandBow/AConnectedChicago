@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :charges, only: [:create, :new]
+
   resources :users, only: [:create, :new, :show, :edit, :update]
   get '/users/:email_token/confirm_email', to: 'users#confirm_email', as: 'confirm_user_email'
 

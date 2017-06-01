@@ -29,22 +29,35 @@ gem 'faraday'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'geocoder'
-gem 'gmaps4rails'
+
 gem 'responders'
-gem 'carrierwave'
-gem 'mini_magick'
-gem 'fog'
-gem 'aws-sdk'
+
+
+
+
 gem 'sass-rails'
+gem 'stripe'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'rails_12factor'
+  gem 'fog'
+end
+
+group :production, :development do
+  gem 'aws-sdk'
+  gem 'carrierwave'
+  gem 'mini_magick'
+  gem 'gmaps4rails'
+end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'pry-rails'
+end
+
+group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
@@ -53,8 +66,9 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'selenium-webdriver', '~> 2.53.4'
   gem 'chromedriver-helper'
-  gem 'pry-rails'
   gem 'parallel_tests'
+  gem 'rspec-wait'
+  gem 'pry-rails'
 end
 
 group :development do

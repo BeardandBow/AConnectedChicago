@@ -64,7 +64,8 @@ class Story < ApplicationRecord
   private
 
     def find_neighborhood
-      neighborhood = Neighborhood.find do |hood|
+      hoods = Neighborhood.all
+      neighborhood = hoods.find do |hood|
         hood.has?(self.map_lat.to_f, self.map_long.to_f)
       end
       self.assign_attributes(neighborhood: neighborhood)
