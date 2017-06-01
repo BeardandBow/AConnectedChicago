@@ -32,6 +32,12 @@ Rails.application.routes.draw do
     put '/unowned_submissions', to: 'submissions#update'
     resources :users, only: [:new]
     put '/users', to: 'users#update'
+    resources :types, only: [:index, :create, :destroy]
+    resources :organizations, only: [:index, :create, :show, :edit, :update, :destroy]
+  end
+
+  namespace :admin, as: '' do
+    get '/organizations/:id/edit_locations', to: "organizations#edit_locations", as: 'edit_admin_organization_locations'
   end
 
   get '/login', to: 'sessions#new'

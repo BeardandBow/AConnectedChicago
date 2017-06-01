@@ -1,9 +1,9 @@
 .center {
-  width: 300px;
+  min-width: 400px;
+  max-width: 500px;
   height: 100%;
   margin-left: 50%;
   transform: translateX(-50%);
-  overflow: auto;
   display: flex;
 }
 
@@ -28,6 +28,7 @@
   padding-top: 5px;
   padding-bottom: 5px;
   z-index: 1;
+  text-align-last: center;
 }
 
 .inline-radio {

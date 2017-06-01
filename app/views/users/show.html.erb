@@ -14,9 +14,11 @@
       <% end %>
 
       <% if admin? %>
-      <%= button_to "Unowned Pending Submissions", admin_unowned_submissions_path, class: "form-input btn btn-default", method: :get %>
-      <%= button_to "All Pending Submissions", admin_submissions_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "See Unowned Pending Submissions", admin_unowned_submissions_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "See All Pending Submissions", admin_submissions_path, class: "form-input btn btn-default", method: :get %>
       <%= button_to "Add Community Leader", new_admin_user_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "Manage Organizations", admin_organizations_path, class: "form-input btn btn-default", method: :get %>
+      <%= button_to "Manage Event Types", admin_types_path, class: "form-input btn btn-default", method: :get %>
       <% end %>
     </div>
 

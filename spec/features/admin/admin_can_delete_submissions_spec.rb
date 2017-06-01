@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 
-RSpec.feature "user can delete submission" do
+RSpec.feature "admin can delete submission" do
 
   before :each do
     @type = create(:type)
-    @user  = create(:user, :admin)
+    @admin  = create(:user, :admin)
     @event = create(:event, type: @type)
     @story = create(:story)
     @artwork = create(:artwork)
   end
 
-  scenario "user deletes event they created" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  scenario "admin deletes event they created" do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
     visit event_path(@event)
 
@@ -21,12 +21,12 @@ RSpec.feature "user can delete submission" do
     click_button("Delete")
 
     expect(Event.all).to be_empty
-    expect(current_path).to eq user_path(@user)
+    expect(current_path).to eq user_path(@admin)
     expect(page).to have_content("Event Deleted")
   end
 
-  scenario "user deletes story they created" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  scenario "admin deletes story they created" do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
     visit story_path(@story)
 
@@ -35,12 +35,12 @@ RSpec.feature "user can delete submission" do
     click_button("Delete")
 
     expect(Story.all).to be_empty
-    expect(current_path).to eq(user_path(@user))
+    expect(current_path).to eq(user_path(@admin))
     expect(page).to have_content("Story Deleted")
   end
 
-  scenario "user deletes artwork they created" do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  scenario "admin deletes artwork they created" do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
     visit artwork_path(@artwork)
 
@@ -49,7 +49,7 @@ RSpec.feature "user can delete submission" do
     click_button("Delete")
 
     expect(Artwork.all).to be_empty
-    expect(current_path).to eq(user_path(@user))
+    expect(current_path).to eq(user_path(@admin))
     expect(page).to have_content("Artwork Deleted")
   end
 end
