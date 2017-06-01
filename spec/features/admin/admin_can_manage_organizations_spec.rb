@@ -28,7 +28,6 @@ RSpec.feature "admin can manage organizations" do
       fill_in "Organization Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
       select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
-require "pry"; binding.pry
       expect(Organization.all.count).to eq(1)
       expect(Location.all.count).to eq(1)
       expect(Organization.first.name).to eq("New Organization")
@@ -62,31 +61,63 @@ require "pry"; binding.pry
       click_on "Manage Organizations"
       within("#circles-and-cyphers") do
         click_on "Edit Info"
+      end
     end
 
     scenario "admin edits an organization's info" do
-      fill_in "Circles and Cyphers", with: "Squares and Neos"
-      fill_in "Organization Website", with: "http://www.example.com"
-      fill_in "Organization Description", with: "what a description this is"
+
+      fill_in "Name", with: "Squares and Neos"
+      fill_in "Website", with: "http://www.example.com"
+      fill_in "Description", with: "what a description this is"
       select "RJ Hub", from: "organization_type_id"
       click_on "Update Organization"
 
-      expect(page).to have_content("")
-      expect(page).to have_content("http://www.example.com")
-      expect(page).to have_content("")
-      expect(page).to have_content("Squares and Neos")
+      expect(page).to have_selector("input[value='Squares and Neos']")
+      expect(page).to have_selector("input[value='http://www.example.com']")
+      expect(page).to have_content("what a description this is")
+      expect(page).to have_content("'Squares and Neos' has been updated")
     end
 
     scenario "admin adds a new location" do
-        expect(current_path).to eq(edit_admin_organization_path(@org))
+      expect(current_path).to eq(edit_admin_organization_path(@org))
 
-        fill_in "New Address", with: "1918 W Farwell Ave, Chicago, IL 60626"
-        click_on "Add New Location"
+      fill_in "New Address", with: "1918 W Farwell Ave, Chicago, IL 60626"
+      click_on "Add New Location"
 
-        expect(page).to have_content("Location Added")
-        expect(Location.all.count).to eq(1)
-        expect(Location.first.address).to eq("1918 W Farwell Ave, Chicago, IL 60626")
+      expect(page).to have_content("'Circles and Cyphers' has been updated")
+      expect(Location.all.count).to eq(1)
+      expect(Location.first.address).to eq("1918 W Farwell Ave, Chicago, IL 60626")
+    end
+  end
+
+  scenario "admin deletes an Organization" do
+    @org = create(:organization, name: "Circles and Cyphers")
+
+    click_on "Manage Organizations"
+    within("#circles-and-cyphers") do
+      click_on "Delete"
+    end
+
+    expect(page).to have_content("'Circles and Cyphers' Organization deleted")
+    expect(".center").not_to have_content("Circles and Cyphers")
+  end
+
+  context "sad paths" do
+    before :each do
+      @org = create(:organization, name: "Circles and Cyphers")
+
+      click_on "Manage Organizations"
+      within("#circles-and-cyphers") do
+        click_on "Edit Info"
       end
+    end
+
+    scenario "admin tried to delete an organization's name" do
+      fill_in "Name", with: ""
+      click_on "Update Organization"
+
+      expect(page).to have_selector("input[value='Circles and Cyphers']")
+      expect(page).to have_content("Cannot update Organization - please check your entries")
     end
   end
 end

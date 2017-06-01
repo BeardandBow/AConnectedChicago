@@ -9,7 +9,6 @@ class Admin::OrganizationsController < ApplicationController
   end
 
   def create
-    require "pry"; binding.pry
     @organization = Organization.new(organization_params)
     if @organization.save
       unless params[:organization][:locations_attributes]['0'][:address].blank?
