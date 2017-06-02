@@ -168,9 +168,9 @@ function showNeighborhood(e){
               });
               marker.key = "Org";
               if (location.organization.type !== undefined) {
-                marker.type = location.organization.type.toLowerCase()
+                marker.type = location.organization.type.toLowerCase().replace(/\s+/g, '-')
               }
-              marker.id = location.id;
+              marker.id = location.organization.id;
               marker.serviceObject.set('infowindow', infowindow)
               markers.push(marker);
               google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
@@ -200,13 +200,13 @@ function showNeighborhood(e){
           var xCenter = window.innerWidth * 0.3 / 2
           handler.map.serviceObject.panBy(xCenter, 0);
         });
-
+        //ORGANIZATIONS LISTINGS CREATED HERE
         var org_types = document.getElementById("org-select");
 
         org_types.addEventListener("change", function(e){
           for (var i = 0; i < markers.length; i++) {
             if (e.target.selectedIndex > 1) {
-              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase()) {
+              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
                 markers[i].serviceObject.setVisible(true)
                 $("#instructions").hide()
                 $("#artwork-listings").hide()
@@ -214,12 +214,13 @@ function showNeighborhood(e){
                 $("#peace-circle-listings").hide()
                 $("#story-listings").hide()
                 $("#org-listings").show()
-                var listings = document.getElementById('org-listings').childNodes;
-                listings.forEach(function(listing){
-                  listing.addEventListener("mouseover", function(){
-                    for (var i = 0; i < markers.length; i++) {
-                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
-                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                var listings = document.getElementById('org-listings').getElementsByClassName('listing');
+                for (var ii = 0; ii < listings.length; ii++) {
+                  var listing = listings[ii]
+                  listing.addEventListener("mouseover", function(e){
+                    for (var j = 0; j < markers.length; j++) {
+                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
+                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
                         if (openedMarker) {
                           openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
                         }
@@ -227,20 +228,19 @@ function showNeighborhood(e){
                       }
                     }
                   });
-                  listing.addEventListener("mouseout", function(){
-                    for (var i = 0; i < markers.length; i++) {
-                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
-                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                  listing.addEventListener("mouseout", function(e){
+                    for (var k = 0; k < markers.length; k++) {
+                      if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
+                        markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
                       }
                     }
                   });
-                  var id = "#" + listing.id
-                  if (listing.classList.contains(markers[i].type)) {
-                    $("#org-listings").find(id).show()
+                  if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
+                    $("#org-listings").find(listing).show()
                   } else {
-                    $("#org-listings").find(id).hide()
+                    $("#org-listings").find(listing).hide()
                   }
-                });
+                };
               } else {
                 markers[i].serviceObject.setVisible(false)
               }
@@ -258,9 +258,9 @@ function showNeighborhood(e){
                   var id = "#" + listing.id
                   $("#org-listings").find(id).show()
                   listing.addEventListener("mouseover", function(){
-                    for (var i = 0; i < markers.length; i++) {
-                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
-                        markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                    for (var j = 0; j < markers.length; j++) {
+                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
                         if (openedMarker) {
                           openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
                         }
@@ -269,9 +269,9 @@ function showNeighborhood(e){
                     }
                   });
                   listing.addEventListener("mouseout", function(){
-                    for (var i = 0; i < markers.length; i++) {
-                      if (markers[i].key && markers[i].key === "Org" && markers[i].id === parseInt(listing.id)) {
-                        markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                    for (var j = 0; j < markers.length; j++) {
+                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                        markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
                       }
                     }
                   });
@@ -487,8 +487,8 @@ function formatOrganization(location) {
   listing.appendChild(type);
   listing.appendChild(address);
   listing.appendChild(description);
-  listing.className = "listing " + location.organization.type.toLowerCase();
-  listing.id = location.id;
+  listing.className = "listing " + location.organization.type.toLowerCase().replace(/\s+/g, '-');
+  listing.id = location.organization.id;
   return listing;
 }
 
