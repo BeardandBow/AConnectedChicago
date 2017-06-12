@@ -20,7 +20,17 @@ function createMap () {
       showNeighborhood(hoods);
     }
     hoods.addEventListener("change", showNeighborhood);
+    var orgs = getElementById("org-select");
+    orgs.addEventListener("change", org_show);
   });
+}
+
+function org_show(e){
+  if (e.target.selectedIndex > 1) {
+    $.get("api/v1/neighborhoods", function(response){
+      debugger;
+    })
+  }
 }
 
 function showNeighborhood(e){
