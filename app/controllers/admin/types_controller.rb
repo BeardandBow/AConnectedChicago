@@ -18,8 +18,12 @@ class Admin::TypesController < ApplicationController
 
   def destroy
     type = Type.find(params[:id])
-    type.delete
-    flash[:success] = "'#{type.name}' Event Type deleted"
+    if type.events.empty?
+      type.delete
+      flash[:success] = "'#{type.name}' Event Type deleted"
+    else
+      flash[:error] = "There are Events with the type '#{type.name}' and it cannot be deleted"
+    end
     redirect_to admin_types_path
   end
 
