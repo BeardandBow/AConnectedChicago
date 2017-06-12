@@ -13123,6 +13123,7 @@ function clearSubmissionDivs() {
   $('#event-listings').empty();
   $('#peace-circle-listings').empty();
   $('#story-listings').empty();
+  $('#org-listings').empty();
 }
 
 var mapStyle = [
