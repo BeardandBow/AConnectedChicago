@@ -1,4 +1,4 @@
-  require 'rails_helper'
+require 'rails_helper'
 
 RSpec.feature "visitor sees homepage", js: true do
   scenario "visitor sees links to view content" do
@@ -12,7 +12,32 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content" do
-    scenario "visitor views organizations" do
+    scenario "visitor views organizations outside of neighborhood" do
+      type1 = create(:type, name: "RJ Hub", category: "organization")
+      type2 = create(:type, name: "Church", category: "organization")
+      create(:neighborhood, name: "Hyde Park")
+      organization1 = create(:organization, :with_locations, type: type1)
+      organization2 = create(:organization, :with_locations, type: type2)
+
+      visit root_path
+      sleep(3)
+
+      select "All", from: "organization_type_select"
+
+      wait_for(page).to have_content(organization1.name)
+      wait_for(page).to have_content(organization2.name)
+      wait_for(page).to have_content(organization1.description)
+      wait_for(page).to have_content(organization2.description)
+
+      select "RJ Hub", from: "organization_type_select"
+
+      wait_for(page).to have_content(organization1.name)
+      wait_for(page).to have_content(organization1.description)
+      expect(page).not_to have_content(organization2.name)
+      expect(page).not_to have_content(organization2.description)
+    end
+
+    scenario "visitor views organizations within neighborhood" do
       type = create(:type, name: "RJ Hub", category: "organization")
       @hood = create(:neighborhood, name: "Hyde Park")
       organization = create(:organization, :with_locations, type: type)
@@ -20,6 +45,7 @@ RSpec.feature "visitor sees homepage", js: true do
       visit root_path
 
       select @hood.name, from: "neighborhood_select"
+      sleep(0.4)
 
       select organization.type.name, from: "organization_type_select"
 
