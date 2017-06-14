@@ -12581,12 +12581,14 @@ function createMap () {
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
+    var orgs = document.getElementById("org-select");
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
+    } else if (orgs.selectedIndex > 0) {
+      orgs.addEventListener("change", orgShow);
+    } else {
+      hoods.addEventListener("change", showNeighborhood);
     }
-    hoods.addEventListener("change", showNeighborhood);
-    var orgs = document.getElementById("org-select");
-    orgs.addEventListener("change", orgShow);
   });
 }
 
