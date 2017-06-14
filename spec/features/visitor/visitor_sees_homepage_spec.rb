@@ -17,10 +17,9 @@ RSpec.feature "visitor sees homepage", js: true do
       type2 = create(:type, name: "Church", category: "organization")
       create(:neighborhood, name: "Hyde Park")
       organization1 = create(:organization, :with_locations, type: type1)
-      organization2 = create(:organization, :with_locations, type: type2)
+      organization2 = create(:organization, :with_locations, type: type2, description: "Different description")
 
       visit root_path
-      sleep(3)
 
       select "All", from: "organization_type_select"
 
@@ -35,6 +34,7 @@ RSpec.feature "visitor sees homepage", js: true do
       wait_for(page).to have_content(organization1.description)
       expect(page).not_to have_content(organization2.name)
       expect(page).not_to have_content(organization2.description)
+
     end
 
     scenario "visitor views organizations within neighborhood" do
