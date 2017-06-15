@@ -59,4 +59,19 @@ RSpec.feature "admin can manage event types" do
     expect(Type.all.count).to eq(0)
     expect(page).to have_content("'Snorkeling' Event Type deleted")
   end
+
+
+  context "sad paths" do
+    scenario "admin tries to delete event type with event" do
+      type = create(:type, name: "Snorkeling", category: "event")
+      event = create(:event)
+      type.events << event
+
+
+      click_on "Manage Event Types"
+      click_on "Delete Event Type"
+
+      expect(page).to have_content("There are Events with the type 'Snorkeling' and it cannot be deleted")
+    end
+  end
 end
