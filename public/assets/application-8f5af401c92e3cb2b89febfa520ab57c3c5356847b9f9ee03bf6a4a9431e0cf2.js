@@ -12583,16 +12583,18 @@ function createMap () {
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     var orgs = document.getElementById("org-select");
-    if (hoods.selectedIndex > 1) {
-      showNeighborhood(hoods);
-    }
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
+    if (hoods.selectedIndex > 1) {
+      showNeighborhood(hoods);
+      orgs.removeEventListener("change", orgShow);
+    }
   });
 }
 
 function orgShow(e){
   resetInfoWindow();
+  debugger;
   $.get("api/v1/organizations", function(response){
     if (response.length !== 0) {
       response.forEach(function(org){
@@ -12629,8 +12631,6 @@ function orgShow(e){
 
 function showNeighborhood(e){
   resetInfoWindow();
-  var orgs = document.getElementById("org-select");
-  orgs.removeEventListener("change", orgShow);
   document.getElementById("org-select").selectedIndex = 0;
   var openedMarker = null;
   var markers = [];

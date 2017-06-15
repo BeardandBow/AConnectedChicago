@@ -9,14 +9,18 @@ class Admin::OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.new(organization_params)
-    if @organization.save
-      unless params[:organization][:locations_attributes]['0'][:address].blank?
-        @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+    if params[:type_id]
+      @organization = Organization.new(organization_params)
+      if @organization.save
+        unless params[:organization][:locations_attributes]['0'][:address].blank?
+          @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+        end
+        flash[:success] = "'#{@organization.name}' has been created"
+      else
+        flash[:error] = "Cannot create duplicate or blank Organization"
       end
-      flash[:success] = "'#{@organization.name}' has been created"
     else
-      flash[:error] = "Cannot create duplicate or blank Organization"
+      flash[:error] = "Cannot create Organization without a type"
     end
     redirect_to admin_organizations_path
   end
