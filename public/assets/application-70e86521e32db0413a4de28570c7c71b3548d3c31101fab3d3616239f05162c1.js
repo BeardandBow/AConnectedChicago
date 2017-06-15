@@ -13191,6 +13191,7 @@ function clearSubmissionDivs() {
   $('#peace-circle-listings').empty();
   $('#story-listings').empty();
   $('#org-listings').empty();
+  document.getElementById("org-select").selectedIndex = 0
 }
 
 var mapStyle = [
