@@ -12581,11 +12581,52 @@ function createMap () {
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
+    var orgs = document.getElementById("org-select");
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
+    } else if (orgs.selectedIndex > 0) {
+      orgs.addEventListener("change", orgShow);
+    } else {
+      hoods.addEventListener("change", showNeighborhood);
     }
-    hoods.addEventListener("change", showNeighborhood);
   });
+}
+
+function orgShow(e){
+  clearSubmissionDivs();
+  $.get("api/v1/organizations", function(response){
+    if (response.length !== 0) {
+      response.forEach(function(org){
+        document.getElementById("org-listings").appendChild(formatOrganization(org));
+      })
+    }
+  }).done(function(){
+    if (e.target.selectedIndex === 1) {
+      $("#instructions").hide()
+      $("#artwork-listings").hide()
+      $("#event-listings").hide()
+      $("#peace-circle-listings").hide()
+      $("#story-listings").hide()
+      $("#org-listings").show()
+    } else if (e.target.selectedIndex > 1) {
+      $("#instructions").hide()
+      $("#artwork-listings").hide()
+      $("#event-listings").hide()
+      $("#peace-circle-listings").hide()
+      $("#story-listings").hide()
+      $("#org-listings").show()
+      var orgType = e.target.options[e.target.selectedIndex].value.toLowerCase().replace(/\s+/g, '-');
+      var listings = document.getElementById('org-listings').children;
+      for (var i = 0; i < listings.length; i++) {
+        if (listings[i].classList.contains(orgType)) {
+          $("#org-listings").find(listings[i]).show()
+        } else {
+          $("#org-listings").find(listings[i]).hide()
+        }
+      }
+    }
+  })
+
 }
 
 function showNeighborhood(e){
@@ -12721,7 +12762,7 @@ function showNeighborhood(e){
                           '<p>' + location.address + '</p>' +
                           '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
               });
-              document.getElementById("org-listings").appendChild(formatOrganization(location));
+              document.getElementById("org-listings").appendChild(formatOrganizationForNeighborhood(location));
               var marker = handler.addMarker({
                 "lat": location.map_lat,
                 "lng": location.map_long,
@@ -13037,7 +13078,33 @@ function determineEventType(event) {
   }
 }
 
-function formatOrganization(location) {
+function formatOrganization(organization) {
+  var listing = document.createElement("div");
+  var heading = document.createElement("h3");
+  var type = document.createElement("p");
+  var description = document.createElement("p");
+
+  heading.innerHTML = organization.name;
+  type.innerHTML = organization.type;
+  description.innerHTML = stringTruncate(organization.description, 500);
+  listing.appendChild(heading);
+  if (organization.type !== undefined) {
+    listing.appendChild(type);
+    listing.className = "listing " + organization.type.toLowerCase().replace(/\s+/g, '-');
+  }
+  if (organization.locations.length !== 0) {
+    organization.locations.forEach(function(location){
+      var address = document.createElement("p");
+      address.innerHTML = location.address;
+      listing.appendChild(address);
+    })
+  }
+  listing.appendChild(description);
+  listing.id = organization.id;
+  return listing;
+}
+
+function formatOrganizationForNeighborhood(location) {
   var listing = document.createElement("div");
   var heading = document.createElement("h3");
   var type = document.createElement("p");
@@ -13047,7 +13114,7 @@ function formatOrganization(location) {
   heading.innerHTML = location.organization.name;
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;
-  description.innerHTML = stringTruncate(location.organization.description, 50);
+  description.innerHTML = stringTruncate(location.organization.description, 500);
   listing.appendChild(heading);
   listing.appendChild(type);
   listing.appendChild(address);

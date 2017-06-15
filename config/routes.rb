@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         resources :stories
         resources :artworks
       end
+      get '/organizations', to: "organizations#index" do
+        resources :organizations
+      end
     end
   end
 

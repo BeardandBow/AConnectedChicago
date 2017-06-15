@@ -11,7 +11,6 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
     event = create(:event, status: "approved", type: type1)
     story = create(:story, status: "approved")
     artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626", status: "approved")
-    # require "pry"; binding.pry
 
     name = Neighborhood.second.name
 
