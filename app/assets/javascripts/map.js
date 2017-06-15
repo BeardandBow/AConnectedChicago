@@ -19,9 +19,8 @@ function createMap () {
     var orgs = document.getElementById("org-select");
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-    } else {
-      hoods.addEventListener("change", showNeighborhood);
     }
+    hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
   });
 }
