@@ -1,5 +1,6 @@
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
 function createMap () {
+  document.getElementById("org-select").selectedIndex = 0;
   var handler = Gmaps.build('Google')
   handler.buildMap({provider: {
                                 disableDefaultUI: true,
@@ -140,7 +141,7 @@ function showNeighborhood(e){
                   "picture": {
                     "height": 32,
                     "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
+                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|b9600e"
                   }
                 });
                 marker.key = story.pkey;
@@ -204,7 +205,7 @@ function showNeighborhood(e){
                 "picture": {
                   "height": 32,
                   "width": 21,
-                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|f442df"
+                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
                 }
               });
               marker.key = "Org";
@@ -516,9 +517,10 @@ function formatOrganization(organization) {
   var listing = document.createElement("div");
   var heading = document.createElement("h3");
   var type = document.createElement("p");
+  var link = document.createAttribute("href");
   var description = document.createElement("p");
 
-  heading.innerHTML = organization.name;
+  heading.innerHTML = organization.name.link(organization.website);
   type.innerHTML = organization.type;
   description.innerHTML = stringTruncate(organization.description, 500);
   listing.appendChild(heading);
@@ -545,7 +547,7 @@ function formatOrganizationForNeighborhood(location) {
   var address = document.createElement("p");
   var description = document.createElement("p");
 
-  heading.innerHTML = location.organization.name;
+  heading.innerHTML = location.organization.name.link(location.organization.website);
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;
   description.innerHTML = stringTruncate(location.organization.description, 500);

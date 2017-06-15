@@ -42,6 +42,12 @@ body {
   background-color: #E7E2E4;
 }
 
+#org-select {
+  background-color: #933B3B;
+  border-color: #4C2326;
+  color: #E7E2E4;
+}
+
 .btn-default {
   background-color: #933B3B;
   border-color: #4C2326;
@@ -220,6 +226,12 @@ body {
 }
 
 .stories-text {
+  font-weight: bold;
+  color: #933b3b;
+  color: #b9600e;
+}
+
+.orgs-text {
   font-weight: bold;
   color: #933b3b;
 }

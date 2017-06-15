@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @organizations = Organization.pluck(:name)
-    @types = Type.where(category: "event").pluck(:name)
+    @types = Type.where(category: "event").order(:name).pluck(:name)
   end
 
   def create
