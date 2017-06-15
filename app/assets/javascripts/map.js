@@ -16,19 +16,18 @@ function createMap () {
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
-    var orgs = document.getElementById("org-select");
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-    } else if (orgs.selectedIndex > 0) {
-      orgs.addEventListener("change", orgShow);
     } else {
       hoods.addEventListener("change", showNeighborhood);
     }
+    var orgs = document.getElementById("org-select");
+    orgs.addEventListener("change", orgShow);
   });
 }
 
 function orgShow(e){
-  clearSubmissionDivs();
+  resetInfoWindow();
   $.get("api/v1/organizations", function(response){
     if (response.length !== 0) {
       response.forEach(function(org){
@@ -61,11 +60,11 @@ function orgShow(e){
       }
     }
   })
-
 }
 
 function showNeighborhood(e){
-  clearSubmissionDivs();
+  resetInfoWindow();
+  document.getElementById("org-select").selectedIndex = 0;
   var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
@@ -243,7 +242,6 @@ function showNeighborhood(e){
         });
         //ORGANIZATIONS LISTINGS CREATED HERE
         var org_types = document.getElementById("org-select");
-
         org_types.addEventListener("change", function(e){
           for (var i = 0; i < markers.length; i++) {
             if (e.target.selectedIndex > 1) {
@@ -322,7 +320,8 @@ function showNeighborhood(e){
               }
             }
           }
-        })
+        });
+        console.log("hit");
         var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
         buttons.forEach(function(button){
           button.addEventListener("click", function(){
@@ -620,13 +619,18 @@ function formatStory(story) {
   return listing;
 }
 
-function clearSubmissionDivs() {
+function resetInfoWindow() {
+  $('#instructions').show();
+  $('#artwork-listings').hide();
   $('#artwork-listings').empty();
+  $('#event-listings').hide();
   $('#event-listings').empty();
+  $('#peace-circle-listings').hide();
   $('#peace-circle-listings').empty();
+  $('#story-listings').hide();
   $('#story-listings').empty();
+  $('#org-listings').hide();
   $('#org-listings').empty();
-  document.getElementById("org-select").selectedIndex = 0
 }
 
 var mapStyle = [

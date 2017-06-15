@@ -12,7 +12,7 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content" do
-    scenario "visitor views organizations outside of neighborhood" do
+    xscenario "visitor views organizations outside of neighborhood" do
       type1 = create(:type, name: "RJ Hub", category: "organization")
       type2 = create(:type, name: "Church", category: "organization")
       create(:neighborhood, name: "Hyde Park")
@@ -34,17 +34,16 @@ RSpec.feature "visitor sees homepage", js: true do
       wait_for(page).to have_content(organization1.description)
       expect(page).not_to have_content(organization2.name)
       expect(page).not_to have_content(organization2.description)
-
     end
 
     scenario "visitor views organizations within neighborhood" do
       type = create(:type, name: "RJ Hub", category: "organization")
-      @hood = create(:neighborhood, name: "Hyde Park")
+      hood = create(:neighborhood, name: "Hyde Park")
       organization = create(:organization, :with_locations, type: type)
 
       visit root_path
 
-      select @hood.name, from: "neighborhood_select"
+      select hood.name, from: "neighborhood_select"
       sleep(0.4)
 
       select organization.type.name, from: "organization_type_select"
