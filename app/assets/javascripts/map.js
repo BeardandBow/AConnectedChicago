@@ -19,11 +19,10 @@ function createMap () {
     var orgs = document.getElementById("org-select");
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-    } else if (orgs.selectedIndex > 0) {
-      orgs.addEventListener("change", orgShow);
     } else {
       hoods.addEventListener("change", showNeighborhood);
     }
+    orgs.addEventListener("change", orgShow);
   });
 }
 
@@ -65,6 +64,8 @@ function orgShow(e){
 
 function showNeighborhood(e){
   resetInfoWindow();
+  var orgs = document.getElementById("org-select");
+  orgs.removeEventListener("change", orgShow);
   document.getElementById("org-select").selectedIndex = 0;
   var openedMarker = null;
   var markers = [];
@@ -285,7 +286,7 @@ function showNeighborhood(e){
                 markers[i].serviceObject.setVisible(false)
               }
             } else {
-              if (markers[i].key === "Org") {
+              if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
                 markers[i].serviceObject.setVisible(true)
                 $("#instructions").hide()
                 $("#artwork-listings").hide()
