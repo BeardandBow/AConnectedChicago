@@ -28,6 +28,7 @@ RSpec.feature "admin can manage organizations" do
       fill_in "Organization Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
       select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
+
       expect(Organization.all.count).to eq(1)
       expect(Location.all.count).to eq(1)
       expect(Organization.first.name).to eq("New Organization")
@@ -35,8 +36,9 @@ RSpec.feature "admin can manage organizations" do
   end
 
   context "admin cannot add an organization" do
-    scenario "admin submits an empty organization" do
+    scenario "admin submits an organization with no name" do
       click_on "Manage Organizations"
+      select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
 
       expect(Organization.all.count).to eq(0)
@@ -47,10 +49,19 @@ RSpec.feature "admin can manage organizations" do
 
       click_on "Manage Organizations"
       fill_in "Organization Name", with: "Snorkeling"
+      select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
 
       expect(Organization.all.count).to eq(1)
       expect(page).to have_content("Cannot create duplicate or blank Organization")
+    end
+    scenario "admin submits an organization with no type" do
+      click_on "Manage Organizations"
+      fill_in "Organization Name", with: "New Organization"
+      click_on "Add Organization"
+
+      expect(Organization.all.count).to eq(0)
+      expect(page).to have_content("Cannot create Organization without a type")
     end
   end
 

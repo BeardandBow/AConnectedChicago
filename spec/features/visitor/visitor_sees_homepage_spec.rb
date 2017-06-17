@@ -12,7 +12,7 @@ RSpec.feature "visitor sees homepage", js: true do
   end
 
   context "visitor views content" do
-    xscenario "visitor views organizations outside of neighborhood" do
+    scenario "visitor views organizations outside of neighborhood" do
       type1 = create(:type, name: "RJ Hub", category: "organization")
       type2 = create(:type, name: "Church", category: "organization")
       create(:neighborhood, name: "Hyde Park")
