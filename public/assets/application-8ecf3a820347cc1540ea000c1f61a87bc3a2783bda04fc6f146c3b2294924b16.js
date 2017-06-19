@@ -13085,8 +13085,8 @@ function formatOrganization(organization) {
   var link = document.createAttribute("href");
   var description = document.createElement("p");
 
-  headingText.innerHTML = organization.name;
   heading.appendChild(headingText);
+  headingText.innerHTML = organization.name;
   heading.href = organization.website;
   heading.target = "_blank";
   type.innerHTML = organization.type;
@@ -13110,7 +13110,8 @@ function formatOrganization(organization) {
 
 function formatOrganizationForNeighborhood(location) {
   var listing = document.createElement("div");
-  var heading = document.createElement("h3");
+  var heading = document.createElement("a");
+  var headingText = document.createElement("h3");
   var type = document.createElement("p");
   var address = document.createElement("p");
   var description = document.createElement("p");
