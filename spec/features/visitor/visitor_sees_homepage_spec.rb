@@ -43,9 +43,9 @@ RSpec.feature "visitor sees homepage", js: true do
       organization = create(:organization, :with_locations, type: type)
 
       visit root_path
+      sleep(0.5)
 
       select hood.name, from: "neighborhood_select"
-      sleep(1)
 
       select organization.type.name, from: "organization_type_select"
 
