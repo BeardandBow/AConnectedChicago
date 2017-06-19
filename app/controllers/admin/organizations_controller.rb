@@ -3,7 +3,7 @@ class Admin::OrganizationsController < ApplicationController
   def index
     @organization = Organization.new
     @organization.locations.build
-    @types = Type.where(category: "organization")
+    @types = Type.where(category: "organization").order(:name)
     @organizations = Organization.all.order("LOWER(name)")
 
   end
@@ -28,7 +28,7 @@ class Admin::OrganizationsController < ApplicationController
   def edit
     @organization = Organization.find(params[:id])
     @location = @organization.locations.build
-    @types = Type.where(category: "organization")
+    @types = Type.where(category: "organization").order(:name)
   end
 
   def update

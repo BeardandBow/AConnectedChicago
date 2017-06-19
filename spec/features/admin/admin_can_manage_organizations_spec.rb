@@ -68,6 +68,7 @@ RSpec.feature "admin can manage organizations" do
   context "admin can edit an organization" do
     before :each do
       @org = create(:organization, name: "Circles and Cyphers")
+      hood = create(:neighborhood, name: "Rogers Park")
 
       click_on "Manage Organizations"
       within("#circles-and-cyphers") do
