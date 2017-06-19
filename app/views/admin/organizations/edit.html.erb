@@ -22,13 +22,26 @@
         </li>
         <li class="list-group-item" id="current-locations">
           <h3>Current Locations</h3>
-          <%= f.fields_for :locations do |ff| %>
-            <% if ff.object.persisted? %>
-              <%= ff.label :_destroy, ff.object.address %>
-              <%= ff.check_box :_destroy %>
-              <%= ff.label :_destroy, "Delete" %>
-            <% end %>
-          <% end %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Neighborhood</th>
+                <th>Delete?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= f.fields_for :locations do |ff| %>
+                <tr>
+                  <% if ff.object.persisted? %>
+                    <td><%= ff.label :_destroy, ff.object.address %></td>
+                    <td><%= ff.label :_destroy, ff.object.neighborhood.name %></td>
+                    <td><%= ff.check_box :_destroy %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
           <%= f.submit "Delete Selected Locations", class: "form-input btn btn-danger" %>
         </li>
       <% end %>

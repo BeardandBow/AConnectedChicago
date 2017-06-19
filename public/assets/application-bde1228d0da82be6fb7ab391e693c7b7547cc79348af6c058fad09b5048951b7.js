@@ -12594,7 +12594,6 @@ function createMap () {
 
 function orgShow(e){
   resetInfoWindow();
-  debugger;
   $.get("api/v1/organizations", function(response){
     if (response.length !== 0) {
       response.forEach(function(org){
@@ -13080,12 +13079,16 @@ function determineEventType(event) {
 
 function formatOrganization(organization) {
   var listing = document.createElement("div");
-  var heading = document.createElement("h3");
+  var heading = document.createElement("a");
+  var headingText = document.createElement("h3");
   var type = document.createElement("p");
   var link = document.createAttribute("href");
   var description = document.createElement("p");
 
-  heading.innerHTML = organization.name.link(organization.website);
+  headingText.innerHTML = organization.name;
+  heading.appendChild(headingText);
+  heading.href = organization.website;
+  heading.target = "_blank";
   type.innerHTML = organization.type;
   description.innerHTML = stringTruncate(organization.description, 500);
   listing.appendChild(heading);
@@ -13112,7 +13115,10 @@ function formatOrganizationForNeighborhood(location) {
   var address = document.createElement("p");
   var description = document.createElement("p");
 
-  heading.innerHTML = location.organization.name.link(location.organization.website);
+  headingText.innerHTML = organization.name;
+  heading.appendChild(headingText);
+  heading.href = organization.website;
+  heading.target = "_blank";
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;
   description.innerHTML = stringTruncate(location.organization.description, 500);

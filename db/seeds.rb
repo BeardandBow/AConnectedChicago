@@ -27,6 +27,7 @@ class Seed
     Type.create(name: "Church", category: 1)
     Type.create(name: "Non-Profit", category: 1)
     Type.create(name: "Shelter", category: 1)
+    Type.create(name: "RJ School", category: 1)
 
     l1 = Location.create(address: "1918 W Farwell Ave, Chicago, IL 60626")
     l2 = Location.create(address: "1419 W Greenleaf Ave, Chicago, IL 60626")
