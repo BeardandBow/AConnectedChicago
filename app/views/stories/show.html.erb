@@ -1,6 +1,6 @@
 <% content_for :body_class, "story-bg" %>
 <div class="aes-center">
-  <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name %>" data-type="stories"></span></div>
+  <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name if @story.neighborhood %>" data-type="stories"></span></div>
   <div class="aes-container">
     <div class="centered-container">
         <h1 id="title"><%= @story.title %></h1>
@@ -29,6 +29,6 @@
     </div>
   </div>
   <div id="right-arrow">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name %>" data-type="stories"></span>
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name if @story.neighborhood %>" data-type="stories"></span>
   </div>
 </div>
