@@ -13116,9 +13116,9 @@ function formatOrganizationForNeighborhood(location) {
   var address = document.createElement("p");
   var description = document.createElement("p");
 
-  headingText.innerHTML = organization.name;
+  headingText.innerHTML = location.organization.name;
   heading.appendChild(headingText);
-  heading.href = organization.website;
+  heading.href = location.organization.website;
   heading.target = "_blank";
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;

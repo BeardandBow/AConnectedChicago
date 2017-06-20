@@ -58,21 +58,28 @@ label {
   background-color: rgba(231, 226, 228, 0.8);
   border-radius: 5px;
   padding: 15px;
+  min-width: 400px;
+  max-width: 500px;
+  max-height: 90%;
+  min-height: 300px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
 }
 
 .aes-center {
-  width: 500px;
-  max-height: 90%;
-  min-height: 300px;
+  width: 600px;
+  height: 100%;
   margin: auto;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  overflow: auto;
 }
 
 .aes-format {
-  width: 100%;
+  max-width: 475px;
   margin-top: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
