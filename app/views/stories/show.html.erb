@@ -1,21 +1,19 @@
 <% content_for :body_class, "story-bg" %>
 <div class="aes-center">
-  <div class="left-arrow">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-  </div>
+  <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name %>" data-type="stories"></span></div>
   <div class="aes-container">
     <div class="centered-container">
-        <h1><%= @story.title %></h1>
-        <h3>By: <%= @story.author %></h3>
+        <h1 id="title"><%= @story.title %></h1>
+        <h3 id="author">By: <%= @story.author %></h3>
       <% if @story.youtube_link %>
         <div class="aes-format">
           <div class="iframe">
-            <iframe src="<%= @story.youtube_link %>"></iframe>
+            <iframe id="youtube" src="<%= @story.youtube_link %>"></iframe>
           </div>
         </div>
         <% end %>
       <div class="aes-format">
-        <%= @story.description %>
+        <%= @story.description, class:  %>
       </div>
       <div class="aes-format">
         <%= @story.body %>
@@ -30,7 +28,7 @@
       <% end %>
     </div>
   </div>
-  <div class="right-arrow">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <div id="right-arrow">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name %>" data-type="stories"></span>
   </div>
 </div>

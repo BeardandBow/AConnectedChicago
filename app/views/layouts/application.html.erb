@@ -9,9 +9,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-
-    <script async defer src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_secret'] %>&callback=createMap"></script>
-    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
   </head>
 
   <body class="<%= yield (:body_class) %>">

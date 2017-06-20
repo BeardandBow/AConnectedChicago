@@ -1,12 +1,10 @@
 <% content_for :body_class, "artwork-bg" %>
 <div class="aes-center">
-  <div class="left-arrow">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-  </div>
+  <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @artwork.neighborhood.name %>" data-type="artworks"></span></div>
   <div class="aes-container">
     <div class="centered-container">
       <div class="aes-format">
-        <h1><%= @artwork.title %></h1>
+        <h1 id="title"><%= @artwork.title %></h1>
       </div>
       <div class="aes-format">
         <h3>By <%= @artwork.artist %></h3>
@@ -32,7 +30,7 @@
       <% end %>
     </div>
   </div>
-  <div class="right-arrow">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <div class="art" id="right-arrow">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" data-neighborhood="<%= @artwork.neighborhood.name %>" data-type="artworks"></span>
   </div>
 </div>

@@ -5,15 +5,20 @@
 }
 
 /* line 6, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
-.left-arrow {
+.glyphicon:hover {
+  color: #9ABBE2;
+}
+
+/* line 10, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+#left-arrow {
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* line 13, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
-.right-arrow {
+/* line 17, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+#right-arrow {
   position: absolute;
   right: 0;
   top: 50%;

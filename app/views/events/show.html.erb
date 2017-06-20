@@ -1,12 +1,10 @@
 <% content_for :body_class, "event-bg" %>
 <div class="aes-center">
-  <div class="left-arrow">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-  </div>
+  <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @event.neighborhood.name %>" data-type="events"></span></div>
   <div class="aes-container">
     <div class="centered-container">
       <div class="aes-format">
-        <h1><%= @event.title %></h1>
+        <h1 id="title"><%= @event.title %></h1>
       </div>
         <% if @event.image.file %>
           <div class="aes-format">
@@ -43,7 +41,7 @@
       <% end %>
     </div>
   </div>
-  <div class="right-arrow">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <div class="event" id="right-arrow">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" data-neighborhood="<%= @event.neighborhood.name %>" data-type="events"></span>
   </div>
 </div>

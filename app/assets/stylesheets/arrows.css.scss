@@ -3,14 +3,18 @@
   color: white;
 }
 
-.left-arrow {
+.glyphicon:hover {
+  color: #9ABBE2
+}
+
+#left-arrow {
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.right-arrow {
+#right-arrow {
   position: absolute;
   right: 0;
   top: 50%;
