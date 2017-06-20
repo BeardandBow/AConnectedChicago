@@ -7,21 +7,21 @@
         <h1 id="title"><%= @artwork.title %></h1>
       </div>
       <div class="aes-format">
-        <h3>By <%= @artwork.artist %></h3>
+        <h3 id="artist">By <%= @artwork.artist %></h3>
       </div>
       <% if @artwork.image.file %>
         <div class="aes-format">
-          <img src="<%= @artwork.image %>" alt="artwork image"/><br>
+          <img src="<%= @artwork.image %>" alt="artwork image" id="image"/><br>
         </div>
       <% end %>
-      <div class="aes-format">
+      <div class="aes-format" id="description">
         <%= @artwork.description %>
       </div>
-      <div class="aes-format">
+      <div class="aes-format" id="address">
         <%= @artwork.address %>
       </div>
       <div class="aes-format">
-        Posted At: <%= @artwork.formatted_update_time %>
+        Posted On <%= @artwork.formatted_update_time %>
       </div>
       <% if @artwork.deletable_by?(current_user) %>
         <div class="aes-format">

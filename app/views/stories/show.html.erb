@@ -3,29 +3,25 @@
   <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @story.neighborhood.name if @story.neighborhood %>" data-type="stories"></span></div>
   <div class="aes-container">
     <div class="centered-container">
-        <h1 id="title"><%= @story.title %></h1>
-        <h3 id="author">By: <%= @story.author %></h3>
-      <% if @story.youtube_link %>
-        <div class="aes-format">
-          <div class="iframe">
-            <iframe id="youtube" src="<%= @story.youtube_link %>"></iframe>
-          </div>
-        </div>
-        <% end %>
+      <h1 id="title"><%= @story.title %></h1>
+      <h3 id="author">By: <%= @story.author %></h3>
       <div class="aes-format">
+        <div class="iframe">
+          <iframe id="youtube" src="<%= @story.youtube_link if @story.youtube_link %>"></iframe>
+        </div>
+      </div>
+      <div class="aes-format" id="description">
         <%= @story.description %>
       </div>
       <div class="aes-format">
         <%= @story.body %>
       </div>
-      <div class="aes-format">
-        Posted At: <%= @story.formatted_update_time %>
+      <div class="aes-format" id="created_at">
+        Posted On <%= @story.formatted_update_time %>
       </div>
-      <% if @story.deletable_by?(current_user) %>
-        <div class="aes-format">
-          <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete %>
-        </div>
-      <% end %>
+      <div class="aes-format" id="delete">
+        <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete if @story.deletable_by?(current_user)%>
+      </div>
     </div>
   </div>
   <div id="right-arrow">

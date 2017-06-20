@@ -8,11 +8,11 @@
       </div>
         <% if @event.image.file %>
           <div class="aes-format">
-            <img src="<%= @event.image %>" alt="event image"/><br>
+            <img src="<%= @event.image %>" alt="event image" id="image"/><br>
           </div>
         <% end %>
       <div class="aes-format">
-        <h4> Hosted By <%= link_to @event.organization.name, @event.organization.website, target: :_blank %></h4>
+        <h4>Hosted By <%= link_to @event.organization.name, @event.organization.website, target: :_blank %></h4>
       </div>
       <div class="aes-format">
         <h5><%= @event.formatted_date_time %></h5>
