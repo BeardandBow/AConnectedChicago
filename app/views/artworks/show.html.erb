@@ -9,11 +9,9 @@
       <div class="aes-format">
         <h3 id="artist">By <%= @artwork.artist %></h3>
       </div>
-      <% if @artwork.image.file %>
-        <div class="aes-format">
-          <img src="<%= @artwork.image %>" alt="artwork image" id="image"/><br>
-        </div>
-      <% end %>
+      <div class="aes-format" id="image">
+        <%= link_to image_tag(@artwork.image) if @artwork.image.file %>
+      </div>
       <div class="aes-format" id="description">
         <%= @artwork.description %>
       </div>
@@ -23,11 +21,9 @@
       <div class="aes-format">
         Posted On <%= @artwork.formatted_update_time %>
       </div>
-      <% if @artwork.deletable_by?(current_user) %>
-        <div class="aes-format">
-          <%= button_to "Delete", artwork_path(@artwork), class: "btn btn-danger", method: :delete %>
-        </div>
-      <% end %>
+      <div class="aes-format" id="delete">
+        <%= button_to "Delete", artwork_path(@artwork), class: "btn btn-danger", method: :delete if @artwork.deletable_by?(current_user) %>
+      </div>
     </div>
   </div>
   <div class="art" id="right-arrow">

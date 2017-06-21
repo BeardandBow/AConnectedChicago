@@ -26,3 +26,4 @@ json.events @events do |event|
 end
 json.artworks @artworks
 json.stories @stories
+json.current_user @user

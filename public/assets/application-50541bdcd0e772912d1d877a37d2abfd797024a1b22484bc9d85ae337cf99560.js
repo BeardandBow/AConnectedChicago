@@ -12567,6 +12567,7 @@ var currentIndex
 $(document).ready(function(){
   var hoodName = document.getElementById('left-arrow').firstChild.getAttribute("data-neighborhood");
   var submissionType = document.getElementById('left-arrow').firstChild.getAttribute("data-type");
+  var currentUser = findCurrentUser();
   findAllSubmissions(hoodName, submissionType);
 });
 
@@ -12580,6 +12581,7 @@ function showPrevious (previous, submissions){
 function showNext(next, submissions){
   currentIndex = submissions.indexOf(next);
   console.log(currentIndex);
+  buildNewShowPage(submissionType, next);
 };
 
 function findAllSubmissions(hoodName, submissionType){
@@ -12587,8 +12589,8 @@ function findAllSubmissions(hoodName, submissionType){
   }).done(function(response){
     var currentTitle = document.getElementById('title').innerHTML;
     var submissions = response[submissionType]
-    var next
-    var previous
+    var user = response.user.id
+    var next, previous
     submissions.forEach(function(submission){
       if (submission.title === currentTitle) {
         currentIndex = submissions.indexOf(submission);
@@ -12633,13 +12635,23 @@ function findAllSubmissions(hoodName, submissionType){
     var image = document.getElementById("image");
     var address = document.getElementById("address");
     var formattedDateTime = document.getElementById("datetime");
+    var deleteDiv = document.getElementById("delete");
     title.innerHTML = artwork.title;
     description.innerHTML = artwork.description;
     artist.innerHTML = "By " + artwork.artist;
     address.innerHTML = artwork.address;
     formattedDateTime.innerHTML = "Posted On " + artwork.formatted_date_time;
+    image.empty;
+    deleteDiv.empty;
     if (artwork.image.url) {
-      image.src = artwork.image.url;
+      var imgTag = document.createElement("img");
+      imgTag.src = artwork.image.url;
+      imgTag.alt = "artwork image";
+      image.appendChild(imgTag);
+    }
+    if isDeletable(artwork) {
+      var deleteButton = document.createElement("button")
+      // deleteButton.addEventListener
     }
   }
 
@@ -12667,6 +12679,27 @@ function findAllSubmissions(hoodName, submissionType){
       image.src = story.image.thumb.url;
     }
   }
+
+  findCurrentUser() {
+    $.get("/api/v1/users/", function(response) {
+      return response;
+    });
+  };
+
+  isDeletable(submission) {
+    if (currentUser) {
+      if (submission.user_id == currentUser.id) {
+        return true;
+      } else if (currentUser.role == "community_leader" && currentUser.organizations.some(function(e) {e.name === submission.organization.name}).length > 0)) {
+        return true;
+      } else if (currentUser.role == "community_leader" && currentUser.neighborhood_id == submission.neighborhood_id) {
+        return true;
+      } else if (currentUser.role == "admin") {
+        return true;
+      }
+    }
+  }
+
 };
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
 function createMap () {

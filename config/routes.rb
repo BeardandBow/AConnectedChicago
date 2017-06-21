@@ -7,13 +7,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       get '/neighborhoods/:name', to: "neighborhoods#show" do
-        resources :events
-        resources :stories
-        resources :artworks
+        resources :events, only: [:show]
+        resources :stories, only: [:show]
+        resources :artworks, only: [:show]
       end
       get '/organizations', to: "organizations#index" do
         resources :organizations
       end
+      resources :users, only: [:index]
     end
   end
 
