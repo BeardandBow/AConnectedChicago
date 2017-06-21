@@ -12573,7 +12573,6 @@ $(document).ready(function(){
 function showPrevious (previous, submissions){
   currentIndex = submissions.indexOf(previous);
   console.log(currentIndex);
-  buildNewShowPage(submissionType, previous);
 
 };
 
@@ -12615,58 +12614,6 @@ function findAllSubmissions(hoodName, submissionType){
       showNext(next, submissions);
     });
   });
-
-  function buildNewShowPage(type, submission) {
-    if (type === 'artworks') {
-      formatArtwork(submission);
-    } else if (type === 'events') {
-      formatEvent(submission);
-    } else {
-      formatStory(submission);
-    };
-  };
-
-  function formatArtwork(artwork) {
-    var title = document.getElementById("title");
-    var artist = document.getElementById("artist");
-    var description = document.getElementById("description");
-    var image = document.getElementById("image");
-    var address = document.getElementById("address");
-    var formattedDateTime = document.getElementById("datetime");
-    title.innerHTML = artwork.title;
-    description.innerHTML = artwork.description;
-    artist.innerHTML = "By " + artwork.artist;
-    address.innerHTML = artwork.address;
-    formattedDateTime.innerHTML = "Posted On " + artwork.formatted_date_time;
-    if (artwork.image.url) {
-      image.src = artwork.image.url;
-    }
-  }
-
-  function formatEvent(event) {
-    var title = document.getElementById("title");
-    var image = document.getElementById("image");
-    var dateTime = document.createElement("p");
-    var description = document.createElement("p");
-    var event_type = document.createElement("p");
-    description.innerHTML = event.description
-    dateTime.innerHTML = event.formatted_date_time
-    event_type.innerHTML = event.type
-  }
-
-  function formatStory(story) {
-    var title = document.getElementById("title");
-    var author = document.createElement("p");
-    var description = document.createElement("p");
-    var image = document.createElement("img");
-    heading.innerHTML = story.title.link("/stories/" + story.id);
-    description.innerHTML = stringTruncate(story.description, 50);
-    author.innerHTML = "by " + story.author
-    listing.appendChild(heading);
-    if (story.image.thumb.url) {
-      image.src = story.image.thumb.url;
-    }
-  }
 };
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
 function createMap () {
@@ -12692,7 +12639,6 @@ function createMap () {
     orgs.addEventListener("change", orgShow);
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-      orgs.removeEventListener("change", orgShow);
     }
   });
 }
@@ -12736,6 +12682,7 @@ function orgShow(e){
 function showNeighborhood(e){
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
+  document.getElementById("org-select").removeEventListener("change", orgShow);
   var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
