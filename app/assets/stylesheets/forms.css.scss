@@ -12,6 +12,7 @@
   position: relative;
   padding-bottom: 25px;
   margin: auto;
+  min-width: 450px;
 }
 
 .overflow-container {
@@ -20,6 +21,11 @@
 
 .time-select {
   width: 100%;
+}
+
+input[type=file] {
+  display: block;
+  color: white;
 }
 
 .form-input {
@@ -86,7 +92,7 @@ label {
 }
 
 .resources-center {
-  width: 50%;
+  width: 60%;
   margin: auto;
   position: absolute;
   text-align: center;
@@ -112,4 +118,33 @@ label {
 
 .list-group-item {
   background-color: rgba(231, 226, 228, 0.8);
+}
+
+@media (max-width: 450px) {
+  .aes-center {
+    width: 90%;
+  }
+
+  .aes-container {
+    min-width: 70%;
+    max-width: 80%;
+  }
+
+  .resources-container img {
+    width: 90%;
+  }
+
+  .resources-center {
+    width: 90%;
+  }
+
+  .centered-container {
+    min-width: 70%;
+    max-width: 80%;
+  }
+
+  .center {
+    min-width: 70%;
+    max-width: 400px;
+  }
 }

@@ -46,6 +46,7 @@ RSpec.feature "visitor sees homepage", js: true do
       sleep(0.5)
 
       select hood.name, from: "neighborhood_select"
+      sleep(0.5)
 
       select organization.type.name, from: "organization_type_select"
 

@@ -12857,14 +12857,246 @@ function showNeighborhood(e){
           handler.getMap().setZoom(14);
           var xCenter = window.innerWidth * 0.3 / 2
           handler.map.serviceObject.panBy(xCenter, 0);
-        });
-        //ORGANIZATIONS LISTINGS CREATED HERE
-        var org_types = document.getElementById("org-select");
-        org_types.addEventListener("change", function(e){
-          for (var i = 0; i < markers.length; i++) {
-            if (e.target.selectedIndex > 1) {
-              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
-                markers[i].serviceObject.setVisible(true)
+        }).done(function(){
+          //ORGANIZATIONS LISTINGS CREATED HERE
+          var org_types = document.getElementById("org-select");
+          if (window.innerWidth >= 450) {
+            org_types.addEventListener("change", function(e){
+              for (var i = 0; i < markers.length; i++) {
+                if (e.target.selectedIndex > 1) {
+                  if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
+                    markers[i].serviceObject.setVisible(true)
+                    $("#instructions").hide()
+                    $("#artwork-listings").hide()
+                    $("#event-listings").hide()
+                    $("#peace-circle-listings").hide()
+                    $("#story-listings").hide()
+                    $("#org-listings").show()
+                    var listings = document.getElementById('org-listings').getElementsByClassName('listing');
+                    for (var ii = 0; ii < listings.length; ii++) {
+                      var listing = listings[ii]
+                      listing.addEventListener("mouseover", function(e){
+                        for (var j = 0; j < markers.length; j++) {
+                          if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
+                            markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
+                            if (openedMarker) {
+                              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                            }
+                            openedMarker = null
+                          }
+                        }
+                      });
+                      listing.addEventListener("mouseout", function(e){
+                        for (var k = 0; k < markers.length; k++) {
+                          if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
+                            markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
+                          }
+                        }
+                      });
+                      if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
+                        $("#org-listings").find(listing).show()
+                      } else {
+                        $("#org-listings").find(listing).hide()
+                      }
+                    };
+                  } else {
+                    markers[i].serviceObject.setVisible(false)
+                  }
+                } else {
+                  if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
+                    markers[i].serviceObject.setVisible(true)
+                    $("#instructions").hide()
+                    $("#artwork-listings").hide()
+                    $("#event-listings").hide()
+                    $("#peace-circle-listings").hide()
+                    $("#story-listings").hide()
+                    $("#org-listings").show()
+                    var listings = document.getElementById('org-listings').childNodes;
+                    listings.forEach(function(listing){
+                      var id = "#" + listing.id
+                      $("#org-listings").find(id).show()
+                      listing.addEventListener("mouseover", function(){
+                        for (var j = 0; j < markers.length; j++) {
+                          if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                            markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
+                            if (openedMarker) {
+                              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                            }
+                            openedMarker = null
+                          }
+                        }
+                      });
+                      listing.addEventListener("mouseout", function(){
+                        for (var j = 0; j < markers.length; j++) {
+                          if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                            markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
+                          }
+                        }
+                      });
+                    });
+                  } else {
+                    markers[i].serviceObject.setVisible(false)
+                  }
+                }
+              }
+              var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
+              buttons.forEach(function(button){
+                button.addEventListener("click", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
+                      markers[i].serviceObject.setVisible(true)
+                    } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+                      markers[i].serviceObject.setVisible(true)
+                    } else if (button.innerText === "All") {
+                      markers[i].serviceObject.setVisible(true)
+                    } else {
+                      markers[i].serviceObject.setVisible(false)
+                    }
+                  }
+                });
+              });
+            });
+            var allButton = document.getElementById("btn-all")
+            allButton.addEventListener("click", function(){
+              $("#instructions").show()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            });
+            var artworkButton = document.getElementById("btn-artwork")
+            artworkButton.addEventListener("click", function(){
+              $("#artwork-listings")
+              $("#instructions").hide()
+              $("#artwork-listings").show()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+              var listings = document.getElementById('artwork-listings').childNodes;
+              listings.forEach(function(listing){
+                listing.addEventListener("mouseover", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                      if (openedMarker) {
+                        openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                      }
+                      openedMarker = null
+                    }
+                  }
+                });
+                listing.addEventListener("mouseout", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                    }
+                  }
+                });
+              });
+            });
+            var eventButton = document.getElementById("btn-events")
+            eventButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").show()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+              var listings = document.getElementById('event-listings').childNodes;
+              listings.forEach(function(listing){
+                listing.addEventListener("mouseover", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                      if (openedMarker) {
+                        openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                      }
+                      openedMarker = null
+                    }
+                  }
+                });
+                listing.addEventListener("mouseout", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                    }
+                  }
+                });
+              });
+            });
+            var peaceButton = document.getElementById("btn-peace-circles")
+            peaceButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").show()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+              var listings = document.getElementById('peace-circle-listings').childNodes;
+              listings.forEach(function(listing){
+                listing.addEventListener("mouseover", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                      if (openedMarker) {
+                        openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                      }
+                      openedMarker = null
+                    }
+                  }
+                });
+                listing.addEventListener("mouseout", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+                    }
+                  }
+                });
+              });
+            });
+            var storyButton = document.getElementById("btn-stories")
+            storyButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").show()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+              var listings = document.getElementById('story-listings').childNodes;
+              listings.forEach(function(listing){
+                listing.addEventListener("mouseover", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                      if (openedMarker) {
+                        openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                      }
+                      openedMarker = null
+                    }
+                  }
+                });
+                listing.addEventListener("mouseout", function(){
+                  for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
+                      markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+                    }
+                  }
+                })
+              })
+            })
+          } else {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].serviceObject.setVisible(false);
+            }
+            org_types.addEventListener("change", function(e){
+              if (e.target.selectedIndex > 1) {
                 $("#instructions").hide()
                 $("#artwork-listings").hide()
                 $("#event-listings").hide()
@@ -12874,221 +13106,73 @@ function showNeighborhood(e){
                 var listings = document.getElementById('org-listings').getElementsByClassName('listing');
                 for (var ii = 0; ii < listings.length; ii++) {
                   var listing = listings[ii]
-                  listing.addEventListener("mouseover", function(e){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
-                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                        if (openedMarker) {
-                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                        }
-                        openedMarker = null
-                      }
-                    }
-                  });
-                  listing.addEventListener("mouseout", function(e){
-                    for (var k = 0; k < markers.length; k++) {
-                      if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
-                        markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
-                      }
-                    }
-                  });
                   if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
                     $("#org-listings").find(listing).show()
                   } else {
                     $("#org-listings").find(listing).hide()
                   }
-                };
+                }
               } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            } else {
-              if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
-                markers[i].serviceObject.setVisible(true)
                 $("#instructions").hide()
                 $("#artwork-listings").hide()
                 $("#event-listings").hide()
                 $("#peace-circle-listings").hide()
                 $("#story-listings").hide()
                 $("#org-listings").show()
-                var listings = document.getElementById('org-listings').childNodes;
-                listings.forEach(function(listing){
-                  var id = "#" + listing.id
-                  $("#org-listings").find(id).show()
-                  listing.addEventListener("mouseover", function(){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                        if (openedMarker) {
-                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                        }
-                        openedMarker = null
-                      }
-                    }
-                  });
-                  listing.addEventListener("mouseout", function(){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                        markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
-                      }
-                    }
-                  });
-                });
-              } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            }
-          }
-        });
-        var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
-        buttons.forEach(function(button){
-          button.addEventListener("click", function(){
-            for (var i = 0; i < markers.length; i++) {
-              if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
-                markers[i].serviceObject.setVisible(true)
-              } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
-                markers[i].serviceObject.setVisible(true)
-              } else if (button.innerText === "All") {
-                markers[i].serviceObject.setVisible(true)
-              } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            }
-          });
-        });
-        var allButton = document.getElementById("btn-all")
-        allButton.addEventListener("click", function(){
-          $("#instructions").show()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-        });
-        var artworkButton = document.getElementById("btn-artwork")
-        artworkButton.addEventListener("click", function(){
-          $("#artwork-listings")
-          $("#instructions").hide()
-          $("#artwork-listings").show()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('artwork-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var eventButton = document.getElementById("btn-events")
-        eventButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").show()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('event-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var peaceButton = document.getElementById("btn-peace-circles")
-        peaceButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").show()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('peace-circle-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var storyButton = document.getElementById("btn-stories")
-        storyButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").show()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('story-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
-                }
               }
             })
-          })
+            var allButton = document.getElementById("btn-all")
+            allButton.addEventListener("click", function(){
+              $("#instructions").show()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            });
+            var artworkButton = document.getElementById("btn-artwork")
+            artworkButton.addEventListener("click", function(){
+              $("#artwork-listings")
+              $("#instructions").hide()
+              $("#artwork-listings").show()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            });
+            var eventButton = document.getElementById("btn-events")
+            eventButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").show()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            });
+            var peaceButton = document.getElementById("btn-peace-circles")
+            peaceButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").show()
+              $("#story-listings").hide()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            });
+            var storyButton = document.getElementById("btn-stories")
+            storyButton.addEventListener("click", function(){
+              $("#instructions").hide()
+              $("#artwork-listings").hide()
+              $("#event-listings").hide()
+              $("#peace-circle-listings").hide()
+              $("#story-listings").show()
+              $("#org-listings").hide()
+              document.getElementById("org-select").selectedIndex = 0
+            })
+          }
         })
       };
     }
