@@ -24,6 +24,29 @@ json.events @events do |event|
               :pkey)
   json.type event.type.name
 end
-json.artworks @artworks
-json.stories @stories
-json.current_user @user
+json.artworks @artworks do |artwork|
+  json.(artwork, :id,
+                 :title,
+                 :artist,
+                 :description,
+                 :map_lat,
+                 :map_long,
+                 :formatted_create_time,
+                 :image,
+                 :address,
+                 :status,
+                 :pkey)
+end
+json.stories @stories do |story|
+  json.(story, :id,
+               :title,
+               :author,
+               :description,
+               :map_lat,
+               :map_long,
+               :formatted_create_time,
+               :image,
+               :address,
+               :status,
+               :pkey)
+end

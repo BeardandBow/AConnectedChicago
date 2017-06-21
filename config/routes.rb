@@ -15,6 +15,9 @@ Rails.application.routes.draw do
         resources :organizations
       end
       resources :users, only: [:index]
+      resources :artworks, only: [:destroy]
+      resources :events, only: [:destroy]
+      resources :stories, only: [:destroy]
     end
   end
 
