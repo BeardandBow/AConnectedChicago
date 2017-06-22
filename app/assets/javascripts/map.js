@@ -22,6 +22,7 @@ function createMap () {
     orgs.addEventListener("change", orgShow);
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
+      orgs.removeEventListener("change", orgShow);
     }
   });
 }
@@ -65,7 +66,6 @@ function orgShow(e){
 function showNeighborhood(e){
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
-  document.getElementById("org-select").removeEventListener("change", orgShow);
   var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
@@ -95,156 +95,23 @@ function showNeighborhood(e){
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response){
           if (response.events.length !== 0) {
-            response.events.forEach(function(event) {
-              if (event.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
-                           '<p>' + event.formatted_date_time + '</p>' +
-                           '<p>' + event.type + '</p>' +
-                           '<p>' + stringTruncate(event.description, 50) + '</p>'
-                });
-                document.getElementById("event-listings").appendChild(formatEvent(event));
-                var marker = handler.addMarker(determineEventType(event));
-                marker.key = event.pkey;
-                marker.id = event.id;
-                marker.type = event.type;
-                marker.serviceObject.set('infowindow', infowindow)
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
-            response.events.forEach(function(event) {
-              if (event.status === "approved" && event.type === "Peace Circle") {
-                document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
-              }
-            });
+            setEvents(response, markers, handler)
           }
           if (response.stories.length !== 0) {
-            response.stories.forEach(function(story){
-              if (story.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
-                           '<p>' + "by " + story.author + '</p>' +
-                           '<p>' + stringTruncate(story.description, 50) + '</p>'
-                });
-                document.getElementById("story-listings").appendChild(formatStory(story));
-                var marker = handler.addMarker({
-                  "lat": story.map_lat,
-                  "lng": story.map_long,
-                  "picture": {
-                    "height": 32,
-                    "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|b9600e"
-                  }
-                });
-                marker.key = story.pkey;
-                marker.id = story.id;
-                marker.serviceObject.set('infowindow', infowindow);
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
+            setStories(response, markers, handler);
           }
           if (response.artworks.length !== 0) {
-            response.artworks.forEach(function(artwork){
-              if (artwork.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
-                            '<p>' + "by " + artwork.artist + '</p>' +
-                            '<p>' + stringTruncate(artwork.description, 50) + '</p>'
-                });
-                document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
-                var marker = handler.addMarker({
-                  "lat": artwork.map_lat,
-                  "lng": artwork.map_long,
-                  "picture": {
-                    "height": 32,
-                    "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|d4b411"
-                  }
-                });
-                marker.key = artwork.pkey;
-                marker.id = artwork.id;
-                marker.serviceObject.set('infowindow', infowindow)
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
+            setArtworks(response, markers, handler);
           }
           if (response.locations.length !== 0) {
-            response.locations.forEach(function(location){
-              var infowindow = new google.maps.InfoWindow({
-                content: '<h3>' + location.organization.name + '</h3>' +
-                          '<p>' + location.organization.type + '</p>' +
-                          '<p>' + location.address + '</p>' +
-                          '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
-              });
-              document.getElementById("org-listings").appendChild(formatOrganizationForNeighborhood(location));
-              var marker = handler.addMarker({
-                "lat": location.map_lat,
-                "lng": location.map_long,
-                "picture": {
-                  "height": 32,
-                  "width": 21,
-                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
-                }
-              });
-              marker.key = "Org";
-              if (location.organization.type !== undefined) {
-                marker.type = location.organization.type.toLowerCase().replace(/\s+/g, '-')
-              }
-              marker.id = location.organization.id;
-              marker.serviceObject.set('infowindow', infowindow)
-              markers.push(marker);
-              google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                if (openedMarker && openedMarker !== marker) {
-                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                }
-                openedMarker = marker
-              })
-            });
+            setLocations(response, markers, handler);
           }
-          response.bounds.forEach(function(bound){
-            var marker = handler.addMarker({
-              "lat": bound.lat,
-              "lng": bound.lng,
-              "picture": {
-                "url": "",
-                "height": 32,
-                "width": 32
-              }
-            });
-            markers.push(marker);
-          });
-          handler.bounds.extendWith(markers);
-          handler.fitMapToBounds();
-          handler.getMap().setZoom(14);
-          var xCenter = window.innerWidth * 0.3 / 2
-          handler.map.serviceObject.panBy(xCenter, 0);
+          setBounds(response, markers, handler);
         }).done(function(){
           //ORGANIZATIONS LISTINGS CREATED HERE
           var org_types = document.getElementById("org-select");
-          if (window.innerWidth >= 450) {
-            org_types.addEventListener("change", function(e){
+            if (window.innerWidth >= 450) {
+              org_types.addEventListener("change", function(e){
               for (var i = 0; i < markers.length; i++) {
                 if (e.target.selectedIndex > 1) {
                   if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
@@ -556,11 +423,164 @@ function showNeighborhood(e){
               document.getElementById("org-select").selectedIndex = 0
             })
           }
-        })
+        });
       };
     }
   )
 };
+
+function setEvents(response, markers, handler){
+  response.events.forEach(function(event) {
+    if (event.status === "approved") {
+      var infowindow = new google.maps.InfoWindow({
+        content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
+                 '<p>' + event.formatted_date_time + '</p>' +
+                 '<p>' + event.type + '</p>' +
+                 '<p>' + stringTruncate(event.description, 50) + '</p>'
+      });
+      document.getElementById("event-listings").appendChild(formatEvent(event));
+      var marker = handler.addMarker(determineEventType(event));
+      marker.key = event.pkey;
+      marker.id = event.id;
+      marker.type = event.type;
+      marker.serviceObject.set('infowindow', infowindow)
+      markers.push(marker);
+      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+        marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+        if (openedMarker && openedMarker !== marker) {
+          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+        }
+        openedMarker = marker
+      })
+    }
+  });
+  response.events.forEach(function(event) {
+    if (event.status === "approved" && event.type === "Peace Circle") {
+      document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
+    }
+  });
+}
+
+function setStories(response, markers, handler){
+  response.stories.forEach(function(story){
+    if (story.status === "approved") {
+      var infowindow = new google.maps.InfoWindow({
+        content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
+                 '<p>' + "by " + story.author + '</p>' +
+                 '<p>' + stringTruncate(story.description, 50) + '</p>'
+      });
+      document.getElementById("story-listings").appendChild(formatStory(story));
+      var marker = handler.addMarker({
+        "lat": story.map_lat,
+        "lng": story.map_long,
+        "picture": {
+          "height": 32,
+          "width": 21,
+          "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|b9600e"
+        }
+      });
+      marker.key = story.pkey;
+      marker.id = story.id;
+      marker.serviceObject.set('infowindow', infowindow);
+      markers.push(marker);
+      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+        marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+        if (openedMarker && openedMarker !== marker) {
+          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+        }
+        openedMarker = marker
+      })
+    }
+  });
+}
+
+function setArtworks(response, markers, handler){
+  response.artworks.forEach(function(artwork){
+    if (artwork.status === "approved") {
+      var infowindow = new google.maps.InfoWindow({
+        content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
+                  '<p>' + "by " + artwork.artist + '</p>' +
+                  '<p>' + stringTruncate(artwork.description, 50) + '</p>'
+      });
+      document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
+      var marker = handler.addMarker({
+        "lat": artwork.map_lat,
+        "lng": artwork.map_long,
+        "picture": {
+          "height": 32,
+          "width": 21,
+          "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|d4b411"
+        }
+      });
+      marker.key = artwork.pkey;
+      marker.id = artwork.id;
+      marker.serviceObject.set('infowindow', infowindow)
+      markers.push(marker);
+      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+        marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+        if (openedMarker && openedMarker !== marker) {
+          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+        }
+        openedMarker = marker
+      })
+    }
+  });
+}
+
+function setLocations(response, markers, handler){
+  response.locations.forEach(function(location){
+    var infowindow = new google.maps.InfoWindow({
+      content: '<h3>' + location.organization.name + '</h3>' +
+                '<p>' + location.organization.type + '</p>' +
+                '<p>' + location.address + '</p>' +
+                '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
+    });
+    document.getElementById("org-listings").appendChild(formatOrganizationForNeighborhood(location));
+    var marker = handler.addMarker({
+      "lat": location.map_lat,
+      "lng": location.map_long,
+      "picture": {
+        "height": 32,
+        "width": 21,
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
+      }
+    });
+    marker.key = "Org";
+    if (location.organization.type !== undefined) {
+      marker.type = location.organization.type.toLowerCase().replace(/\s+/g, '-')
+    }
+    marker.id = location.organization.id;
+    marker.serviceObject.set('infowindow', infowindow)
+    markers.push(marker);
+    google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+      marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+      if (openedMarker && openedMarker !== marker) {
+        openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+      }
+      openedMarker = marker
+    })
+  });
+}
+
+function setBounds(response, markers, handler){
+  response.bounds.forEach(function(bound){
+    var marker = handler.addMarker({
+      "lat": bound.lat,
+      "lng": bound.lng,
+      "picture": {
+        "url": "",
+        "height": 32,
+        "width": 32
+      }
+    });
+    markers.push(marker);
+  });
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(14);
+  var xCenter = window.innerWidth * 0.3 / 2
+  handler.map.serviceObject.panBy(xCenter, 0);
+}
 
 function stringTruncate(string, length) {
   if (string.length > length) {
