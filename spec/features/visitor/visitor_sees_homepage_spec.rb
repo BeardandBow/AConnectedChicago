@@ -40,12 +40,12 @@ RSpec.feature "visitor sees homepage", js: true do
     scenario "visitor views organizations within neighborhood" do
       type = create(:type, name: "RJ Hub", category: "organization")
       hood = create(:neighborhood, name: "Hyde Park")
-      organization = create(:organization, :with_locations, type: type)
-
+      organization = create(:organization, :with_locations, type: type, neighborhoods: [hood])
       visit root_path
       sleep(0.5)
 
       select hood.name, from: "neighborhood_select"
+      sleep(0.5)
 
       select organization.type.name, from: "organization_type_select"
 
