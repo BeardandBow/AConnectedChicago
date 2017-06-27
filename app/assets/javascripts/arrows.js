@@ -1,6 +1,7 @@
-var currentIndex
-var currentUser = findCurrentUser();
+var currentIndex;
 $(document).ready(function(){
+  var currentUser;
+  findCurrentUser();
   var hoodName = document.getElementById('left-arrow').firstChild.getAttribute("data-neighborhood");
   var submissionType = document.getElementById('left-arrow').firstChild.getAttribute("data-type");
   findAllSubmissions(hoodName, submissionType);
@@ -41,13 +42,19 @@ function findAllSubmissions(hoodName, submissionType) {
       leftArrow.removeEventListener('click', previousSubmission)
     }
     leftArrow.addEventListener('click', previousSubmission = function(){
-      incrementSubmission(previous, submissions, submissionType, hoodName);
+      $("#submission").fadeOut(300, function() {
+        incrementSubmission(previous, submissions, submissionType, hoodName);
+      });
+      setTimeout(function() {$("#submission").fadeIn(300)}, 300);
     });
     if (typeof nextSubmission != "undefined") {
       rightArrow.removeEventListener('click', nextSubmission)
     }
     rightArrow.addEventListener('click', nextSubmission = function(){
-      incrementSubmission(next, submissions, submissionType, hoodName);
+      $("#submission").fadeOut(300, function() {
+        incrementSubmission(next, submissions, submissionType, hoodName);
+      });
+      setTimeout(function() {$("#submission").fadeIn(300)}, 300);
     });
   });
 }
@@ -71,8 +78,10 @@ function formatArtworkShow(artwork) {
   var address = document.getElementById("address");
   var formattedDateTime = document.getElementById("datetime");
   var deleteDiv = document.getElementById("delete");
+
   clearDiv(image);
   clearDiv(deleteDiv);
+
   title.innerHTML = artwork.title;
   description.innerHTML = artwork.description;
   artist.innerHTML = "By " + artwork.artist;
@@ -84,9 +93,14 @@ function formatArtworkShow(artwork) {
     imgTag.alt = "artwork image";
     image.appendChild(imgTag);
   }
-  if (isDeletable(artwork, currentUser)) {
-    var deleteButton = document.createElement("button")
-    deleteButton.addEventListener()
+  if (isDeletable(artwork)) {
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-danger";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function() {
+      deleteArtwork(artwork);
+    });
+    deleteDiv.appendChild(deleteButton);
   }
 }
 
@@ -101,10 +115,12 @@ function formatEventShow(event) {
   var description = document.getElementById("description");
   var linkDiv = document.getElementById("link");
   var deleteDiv = document.getElementById("delete");
+
   clearDiv(image);
   clearDiv(mailTo);
   clearDiv(linkDiv);
   clearDiv(deleteDiv);
+
   title.innerHTML = event.title;
   if (event.organization.website) {
     organization.innerHTML = "Hosted By ";
@@ -133,33 +149,61 @@ function formatEventShow(event) {
     imgTag.alt = "event image";
     image.appendChild(imgTag);
   }
-  if (isDeletable(event, currentUser)) {
-    var deleteButton = document.createElement("button")
-    deleteButton.addEventListener()
+  if (isDeletable(event)) {
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-danger";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function() {
+      deleteEvent(event);
+    });
+    deleteDiv.appendChild(deleteButton);
   }
 }
 
-// function formatStoryShow(story) {
-//   var title = document.getElementById("title");
-//   var author = document.createElement("p");
-//   var description = document.createElement("p");
-//   var image = document.createElement("img");
-//   heading.innerHTML = story.title.link("/stories/" + story.id);
-//   description.innerHTML = stringTruncate(story.description, 50);
-//   author.innerHTML = "by " + story.author
-//   listing.appendChild(heading);
-//   if (story.image.thumb.url) {
-//     image.src = story.image.thumb.url;
-//   }
-// }
+function formatStoryShow(story) {
+  var title = document.getElementById("title");
+  var author = document.getElementById("author");
+  var youtubeDiv = document.getElementById("youtube");
+  var description = document.getElementById("description");
+  var body = document.getElementById("body");
+  var createdAt = document.getElementById("created_at");
+  var deleteDiv = document.getElementById("delete");
+
+  clearDiv(youtubeDiv);
+  clearDiv(deleteDiv);
+
+  title.innerHTML = story.title;
+  author.innerHTML = "By " + story.author
+  if (story.youtube_link) {
+    var iFrameDiv = document.createElement("div");
+    iFrameDiv.className = "iframe";
+    var youtubeIFrame = document.createElement("iframe");
+    youtubeIFrame.src = story.youtube_link;
+    iFrameDiv.appendChild(youtubeIFrame);
+    youtubeDiv.appendChild(iFrameDiv);
+  }
+  description.innerHTML = story.description;
+  body.innerHTML = story.body;
+  createdAt.innerHTML = story.formatted_create_time;
+  if (isDeletable(story)) {
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-danger";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function() {
+      deleteStory(story);
+    });
+    deleteDiv.appendChild(deleteButton);
+  }
+}
 
 function findCurrentUser() {
-  $.get("/api/v1/users/", function(response) {
-    return response;
+  $.get("/api/v1/users/").then(function(response) {
+    currentUser = response;
   });
 };
 
-function isDeletable(submission, currentUser) {
+function isDeletable(submission) {
+  debugger;
   if (currentUser) {
     if (submission.user_id == currentUser.id) {
       return true;
@@ -181,12 +225,32 @@ function clearDiv(div) {
   }
 }
 
-function deleteArtwork(artwork, currentUser) {
+function deleteArtwork(artwork) {
   $.ajax({
     url: "/api/v1/artworks/" + artwork.id,
     type: 'DELETE',
     success: function() {
       window.location("/users/") + currentUser.id
+    }
+  });
+};
+
+function deleteEvent(event) {
+  $.ajax({
+    url: "/api/v1/events/" + event.id,
+    type: 'DELETE',
+    success: function() {
+      window.location("/users/") + currentUser.id
+    }
+  });
+};
+
+function deleteStory(story) {
+  $.ajax({
+    url: "/api/v1/stories/" + story.id,
+    type: 'DELETE',
+    success: function() {
+      window.location.href = "/users/" + currentUser.id
     }
   });
 };

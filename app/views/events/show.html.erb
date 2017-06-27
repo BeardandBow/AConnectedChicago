@@ -1,7 +1,7 @@
 <% content_for :body_class, "event-bg" %>
 <div class="aes-center">
   <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @event.neighborhood.name if @event.neighborhood %>" data-type="events"></span></div>
-  <div class="aes-container">
+  <div class="aes-container" id="submission">
     <div class="centered-container">
       <div class="aes-format">
         <h1 id="title"><%= @event.title %></h1>

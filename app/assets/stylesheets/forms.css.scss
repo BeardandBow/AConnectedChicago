@@ -10,7 +10,6 @@
 .centered-container {
   text-align: center;
   position: relative;
-  padding-bottom: 25px;
   margin: auto;
 }
 
@@ -83,6 +82,11 @@ label {
   margin-top: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.text-area {
+    white-space: pre-wrap;
+    text-align: justify;
 }
 
 .resources-center {

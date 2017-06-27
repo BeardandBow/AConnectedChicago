@@ -1,7 +1,7 @@
 <% content_for :body_class, "artwork-bg" %>
 <div class="aes-center">
   <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @artwork.neighborhood.name if @artwork.neighborhood %>" data-type="artworks"></span></div>
-  <div class="aes-container">
+  <div class="aes-container" id="submission">
     <div class="centered-container">
       <div class="aes-format">
         <h1 id="title"><%= @artwork.title %></h1>

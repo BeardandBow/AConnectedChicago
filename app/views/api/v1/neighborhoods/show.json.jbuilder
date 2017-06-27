@@ -12,6 +12,7 @@ json.locations @hood.locations.includes(:organization) do |location|
 end
 json.events @events do |event|
   json.id event.id
+  json.user_id event.user_id
   json.title event.title
   json.host_contact event.host_contact
   json.description event.description
@@ -31,6 +32,7 @@ json.events @events do |event|
 end
 json.artworks @artworks do |artwork|
   json.id artwork.id
+  json.user_id artwork.user_id
   json.title artwork.title
   json.artist artwork.artist
   json.description artwork.description
@@ -45,12 +47,15 @@ json.artworks @artworks do |artwork|
 end
 json.stories @stories do |story|
   json.id story.id
+  json.user_id story.user_id
   json.title story.title
   json.author story.author
   json.description story.description
+  json.body story.body
   json.map_lat story.map_lat
   json.map_long story.map_long
   json.formatted_create_time story.formatted_create_time
+  json.youtube_link story.youtube_link
   json.image_url story.image.url
   json.thumb_url story.image.thumb.url
   json.address story.address
