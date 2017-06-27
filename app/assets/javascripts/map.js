@@ -22,7 +22,6 @@ function createMap () {
     orgs.addEventListener("change", orgShow);
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-      orgs.removeEventListener("change", orgShow);
     }
   });
 }
@@ -66,6 +65,7 @@ function orgShow(e){
 function showNeighborhood(e){
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
+  document.getElementById("org-select").removeEventListener("change", orgShow);
   var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
