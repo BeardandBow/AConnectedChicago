@@ -1,7 +1,7 @@
 <% content_for :body_class, "artwork-bg" %>
 <div class="aes-center">
   <div id="left-arrow"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-neighborhood="<%= @artwork.neighborhood.name if @artwork.neighborhood %>" data-type="artworks"></span></div>
-  <div class="aes-container">
+  <div class="aes-container" id="submission">
     <div class="centered-container">
       <div class="aes-format">
         <h1 id="title"><%= @artwork.title %></h1>
@@ -9,25 +9,21 @@
       <div class="aes-format">
         <h3 id="artist">By <%= @artwork.artist %></h3>
       </div>
-      <% if @artwork.image.file %>
-        <div class="aes-format">
-          <img src="<%= @artwork.image %>" alt="artwork image" id="image"/><br>
-        </div>
-      <% end %>
+      <div class="aes-format" id="image">
+        <%= link_to image_tag(@artwork.image) if @artwork.image.file %>
+      </div>
       <div class="aes-format" id="description">
         <%= @artwork.description %>
       </div>
       <div class="aes-format" id="address">
         <%= @artwork.address %>
       </div>
-      <div class="aes-format">
+      <div class="aes-format" id="datetime">
         Posted On <%= @artwork.formatted_update_time %>
       </div>
-      <% if @artwork.deletable_by?(current_user) %>
-        <div class="aes-format">
-          <%= button_to "Delete", artwork_path(@artwork), class: "btn btn-danger", method: :delete %>
-        </div>
-      <% end %>
+      <div class="aes-format" id="delete">
+        <%= button_to "Delete", artwork_path(@artwork), class: "btn btn-danger", method: :delete if @artwork.deletable_by?(current_user) %>
+      </div>
     </div>
   </div>
   <div class="art" id="right-arrow">
