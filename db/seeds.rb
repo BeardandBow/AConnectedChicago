@@ -101,13 +101,13 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 type_id: 5,
+                 type_id: 6,
                  organization: org_1)
     Event.create(title: "Event 2",
                  host_contact: "person@example.com",
                  description: "A description",
                  address: "1170d W Farwell Ave, Chicago, IL 60626",
-                 type_id: 6,
+                 type_id: 7,
                  date: Date.tomorrow + 2.week.to_i + 10,
                  time: Time.now + 20*60,
                  link: "https://www.eventbrite.com/",
@@ -123,7 +123,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 type_id: 7,
+                 type_id: 8,
                  organization: org_2)
     Event.create(title: "Event 4",
                  host_contact: "person@example.com",
@@ -134,7 +134,7 @@ class Seed
                  link: "https://www.eventbrite.com/",
                  status: "approved",
                  user: user,
-                 type_id: 8,
+                 type_id: 9,
                  organization: org_2)
 
     addresses = ["1912 Touhy Ave, Chicago, IL 60626",

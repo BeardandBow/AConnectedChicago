@@ -22,7 +22,6 @@ function createMap () {
     orgs.addEventListener("change", orgShow);
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
-      orgs.removeEventListener("change", orgShow);
     }
   });
 }
@@ -66,6 +65,7 @@ function orgShow(e){
 function showNeighborhood(e){
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
+  document.getElementById("org-select").removeEventListener("change", orgShow);
   var openedMarker = null;
   var markers = [];
   var handler = Gmaps.build('Google');
@@ -551,9 +551,9 @@ function formatOrganizationForNeighborhood(location) {
   var address = document.createElement("p");
   var description = document.createElement("p");
 
-  headingText.innerHTML = organization.name;
+  headingText.innerHTML = location.organization.name;
   heading.appendChild(headingText);
-  heading.href = organization.website;
+  heading.href = location.organization.website;
   heading.target = "_blank";
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;
@@ -576,9 +576,9 @@ function formatArtwork(artwork) {
   description.innerHTML = stringTruncate(artwork.description, 50);
   artist.innerHTML = "by " + artwork.artist
   listing.appendChild(heading);
-  if (artwork.image.thumb.url) {
+  if (artwork.thumb_url) {
     var image = document.createElement("img");
-    image.src = artwork.image.thumb.url;
+    image.src = artwork.thumb_url;
     listing.appendChild(image);
   }
   listing.appendChild(artist);
@@ -599,6 +599,11 @@ function formatEvent(event) {
   dateTime.innerHTML = event.formatted_date_time
   event_type.innerHTML = event.type
   listing.appendChild(heading);
+  if (event.thumb_url) {
+    var image = document.createElement("img");
+    image.src = event.thumb_url;
+    listing.appendChild(image);
+  }
   listing.appendChild(dateTime);
   listing.appendChild(event_type);
   listing.appendChild(description);
@@ -616,9 +621,9 @@ function formatStory(story) {
   description.innerHTML = stringTruncate(story.description, 50);
   author.innerHTML = "by " + story.author
   listing.appendChild(heading);
-  if (story.image.thumb.url) {
+  if (story.thumb_url) {
     var image = document.createElement("img");
-    image.src = story.image.thumb.url;
+    image.src = story.thumb_url;
     listing.appendChild(image);
   }
   listing.appendChild(author);
