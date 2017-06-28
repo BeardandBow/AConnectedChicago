@@ -498,6 +498,11 @@ ol, li {
 .btn-danger {
   width: 100%;
 }
+
+/* line 287, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.none {
+  opacity: .5;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

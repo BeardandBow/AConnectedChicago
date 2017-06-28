@@ -13,13 +13,20 @@ function createMap () {
                     internal: {id: 'map'}
                    },
   function(){
-    handler.addKml({url: kmlFile}, {preserveViewport: true});
+    handler.addKml({url: kmlFile}, {preserveViewport: true, clickable: false});
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     var orgs = document.getElementById("org-select");
+    var infoBackdrop = document.getElementById("info-backdrop");
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
+    infoBackdrop.addEventListener("click", function(e) {
+      e.stopPropogation();
+    })
+    google.maps.event.addListener(handler.getMap(), 'click', function(e){
+              console.log("Latitude: " + e.latLng.lat() + " " + ", longitude: " + e.latLng.lng());
+          });
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -35,20 +42,13 @@ function orgShow(e){
       })
     }
   }).done(function(){
-    if (e.target.selectedIndex === 1) {
-      $("#instructions").hide()
-      $("#artwork-listings").hide()
-      $("#event-listings").hide()
-      $("#peace-circle-listings").hide()
-      $("#story-listings").hide()
-      $("#org-listings").show()
-    } else if (e.target.selectedIndex > 1) {
-      $("#instructions").hide()
-      $("#artwork-listings").hide()
-      $("#event-listings").hide()
-      $("#peace-circle-listings").hide()
-      $("#story-listings").hide()
-      $("#org-listings").show()
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").show()
+    if (e.target.selectedIndex > 1) {
       var orgType = e.target.options[e.target.selectedIndex].value.toLowerCase().replace(/\s+/g, '-');
       var listings = document.getElementById('org-listings').children;
       for (var i = 0; i < listings.length; i++) {
@@ -124,6 +124,11 @@ function showNeighborhood(e){
                 document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
               }
             });
+          } else {
+            var none = document.createElement("h4");
+            none.innerHTML = "There are no events to show for this neighborhood.";
+            none.className = "none";
+            document.getElementById("event-listings").appendChild(none);
           }
           if (response.stories.length !== 0) {
             response.stories.forEach(function(story){
@@ -156,6 +161,11 @@ function showNeighborhood(e){
                 })
               }
             });
+          } else {
+            var none = document.createElement("h4");
+            none.innerHTML = "There are no stories to show for this neighborhood.";
+            none.className = "none";
+            document.getElementById("story-listings").appendChild(none);
           }
           if (response.artworks.length !== 0) {
             response.artworks.forEach(function(artwork){
@@ -188,6 +198,11 @@ function showNeighborhood(e){
                 })
               }
             });
+          } else {
+            var none = document.createElement("h4");
+            none.innerHTML = "There is no artwork to show for this neighborhood.";
+            none.className = "none";
+            document.getElementById("artwork-listings").appendChild(none);
           }
           if (response.locations.length !== 0) {
             response.locations.forEach(function(location){
@@ -219,7 +234,7 @@ function showNeighborhood(e){
                 if (openedMarker && openedMarker !== marker) {
                   openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
                 }
-                openedMarker = marker
+                openedMarker = marker;
               })
             });
           }
