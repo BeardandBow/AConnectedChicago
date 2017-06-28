@@ -1,3 +1,5 @@
+var markers = [];
+var openedMarker
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
 function createMap () {
   document.getElementById("org-select").selectedIndex = 0;
@@ -22,10 +24,12 @@ function createMap () {
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
     infoBackdrop.addEventListener("click", function(e) {
-      e.stopPropogation();
+      e.stopPropagation();
     })
     google.maps.event.addListener(handler.getMap(), 'click', function(e){
               console.log("Latitude: " + e.latLng.lat() + " " + ", longitude: " + e.latLng.lng());
+              console.log("api/v1/neighborhoods/find-neighborhood/" + e.latLng());
+              showNeighborhood(null, e.latLng())
           });
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
@@ -62,28 +66,32 @@ function orgShow(e){
   })
 }
 
-function showNeighborhood(e){
+function showNeighborhood(e, latLong = false) {
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
   document.getElementById("org-select").removeEventListener("change", orgShow);
-  var openedMarker = null;
-  var markers = [];
   var handler = Gmaps.build('Google');
-  handler.buildMap({provider: {
-                                disableDefaultUI: true,
-                                scrollwheel: false,
-                                disableDoubleClickZoom: true,
-                                styles: hoodStyle
-                              },
-                    internal: {id: 'map'}
+  handler.buildMap({ provider: { disableDefaultUI: true,
+                                 scrollwheel: false,
+                                 disableDoubleClickZoom: true,
+                                 styles: hoodStyle
+                               },
+                     internal: {id: 'map'}
                    },
-    function(){
-      handler.addKml({url: kmlFile}, {preserveViewport: true});
+    function() {
+      handler.addKml({url: kmlFile}, {preserveViewport: true, clickable: false});
       if (e.target !== undefined) {
         var hoodName = e.target.options[e.target.selectedIndex].value;
       } else {
         var hoodName = e.options[e.selectedIndex].value;
       }
+      var infoBackdrop = document.getElementById("info-backdrop");
+      infoBackdrop.addEventListener("click", function(e) {
+        e.stopPropagation();
+      })
+      google.maps.event.addListener(handler.getMap(), 'click', function(e){
+                console.log("Latitude: " + e.latLng.lat() + " " + ", longitude: " + e.latLng.lng());
+            });
       if (hoodName === "All Neighborhoods") {
         createMap();
         $("#instructions").show();
@@ -92,405 +100,469 @@ function showNeighborhood(e){
         $("#peace-circle-listings").hide();
         $("#story-listings").hide();
         $("#org-listings").hide();
-      } else {
-        $.get("api/v1/neighborhoods/" + hoodName, function(response){
-          if (response.events.length !== 0) {
-            response.events.forEach(function(event) {
-              if (event.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
-                           '<p>' + event.formatted_date_time + '</p>' +
-                           '<p>' + event.type + '</p>' +
-                           '<p>' + stringTruncate(event.description, 50) + '</p>'
-                });
-                document.getElementById("event-listings").appendChild(formatEvent(event));
-                var marker = handler.addMarker(determineEventType(event));
-                marker.key = event.pkey;
-                marker.id = event.id;
-                marker.type = event.type;
-                marker.serviceObject.set('infowindow', infowindow)
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
-            response.events.forEach(function(event) {
-              if (event.status === "approved" && event.type === "Peace Circle") {
-                document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
-              }
-            });
-          } else {
-            var none = document.createElement("h4");
-            none.innerHTML = "There are no events to show for this neighborhood.";
-            none.className = "none";
-            document.getElementById("event-listings").appendChild(none);
-          }
-          if (response.stories.length !== 0) {
-            response.stories.forEach(function(story){
-              if (story.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
-                           '<p>' + "by " + story.author + '</p>' +
-                           '<p>' + stringTruncate(story.description, 50) + '</p>'
-                });
-                document.getElementById("story-listings").appendChild(formatStory(story));
-                var marker = handler.addMarker({
-                  "lat": story.map_lat,
-                  "lng": story.map_long,
-                  "picture": {
-                    "height": 32,
-                    "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|b9600e"
-                  }
-                });
-                marker.key = story.pkey;
-                marker.id = story.id;
-                marker.serviceObject.set('infowindow', infowindow);
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
-          } else {
-            var none = document.createElement("h4");
-            none.innerHTML = "There are no stories to show for this neighborhood.";
-            none.className = "none";
-            document.getElementById("story-listings").appendChild(none);
-          }
-          if (response.artworks.length !== 0) {
-            response.artworks.forEach(function(artwork){
-              if (artwork.status === "approved") {
-                var infowindow = new google.maps.InfoWindow({
-                  content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
-                            '<p>' + "by " + artwork.artist + '</p>' +
-                            '<p>' + stringTruncate(artwork.description, 50) + '</p>'
-                });
-                document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
-                var marker = handler.addMarker({
-                  "lat": artwork.map_lat,
-                  "lng": artwork.map_long,
-                  "picture": {
-                    "height": 32,
-                    "width": 21,
-                    "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|d4b411"
-                  }
-                });
-                marker.key = artwork.pkey;
-                marker.id = artwork.id;
-                marker.serviceObject.set('infowindow', infowindow)
-                markers.push(marker);
-                google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                  marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                  if (openedMarker && openedMarker !== marker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = marker
-                })
-              }
-            });
-          } else {
-            var none = document.createElement("h4");
-            none.innerHTML = "There is no artwork to show for this neighborhood.";
-            none.className = "none";
-            document.getElementById("artwork-listings").appendChild(none);
-          }
-          if (response.locations.length !== 0) {
-            response.locations.forEach(function(location){
-              var infowindow = new google.maps.InfoWindow({
-                content: '<h3>' + location.organization.name + '</h3>' +
-                          '<p>' + location.organization.type + '</p>' +
-                          '<p>' + location.address + '</p>' +
-                          '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
-              });
-              document.getElementById("org-listings").appendChild(formatOrganizationForNeighborhood(location));
-              var marker = handler.addMarker({
-                "lat": location.map_lat,
-                "lng": location.map_long,
-                "picture": {
-                  "height": 32,
-                  "width": 21,
-                  "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
-                }
-              });
-              marker.key = "Org";
-              if (location.organization.type !== undefined) {
-                marker.type = location.organization.type.toLowerCase().replace(/\s+/g, '-')
-              }
-              marker.id = location.organization.id;
-              marker.serviceObject.set('infowindow', infowindow)
-              markers.push(marker);
-              google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
-                marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
-                if (openedMarker && openedMarker !== marker) {
-                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                }
-                openedMarker = marker;
-              })
-            });
-          }
-          response.bounds.forEach(function(bound){
-            var marker = handler.addMarker({
-              "lat": bound.lat,
-              "lng": bound.lng,
-              "picture": {
-                "url": "",
-                "height": 32,
-                "width": 32
-              }
-            });
-            markers.push(marker);
-          });
-          handler.bounds.extendWith(markers);
-          handler.fitMapToBounds();
-          handler.getMap().setZoom(14);
-          var xCenter = window.innerWidth * 0.3 / 2
-          handler.map.serviceObject.panBy(xCenter, 0);
-        });
-        //ORGANIZATIONS LISTINGS CREATED HERE
-        var org_types = document.getElementById("org-select");
-        org_types.addEventListener("change", function(e){
-          for (var i = 0; i < markers.length; i++) {
-            if (e.target.selectedIndex > 1) {
-              if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
-                markers[i].serviceObject.setVisible(true)
-                $("#instructions").hide()
-                $("#artwork-listings").hide()
-                $("#event-listings").hide()
-                $("#peace-circle-listings").hide()
-                $("#story-listings").hide()
-                $("#org-listings").show()
-                var listings = document.getElementById('org-listings').getElementsByClassName('listing');
-                for (var ii = 0; ii < listings.length; ii++) {
-                  var listing = listings[ii]
-                  listing.addEventListener("mouseover", function(e){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
-                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                        if (openedMarker) {
-                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                        }
-                        openedMarker = null
-                      }
-                    }
-                  });
-                  listing.addEventListener("mouseout", function(e){
-                    for (var k = 0; k < markers.length; k++) {
-                      if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
-                        markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
-                      }
-                    }
-                  });
-                  if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
-                    $("#org-listings").find(listing).show()
-                  } else {
-                    $("#org-listings").find(listing).hide()
-                  }
-                };
-              } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            } else {
-              if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
-                markers[i].serviceObject.setVisible(true)
-                $("#instructions").hide()
-                $("#artwork-listings").hide()
-                $("#event-listings").hide()
-                $("#peace-circle-listings").hide()
-                $("#story-listings").hide()
-                $("#org-listings").show()
-                var listings = document.getElementById('org-listings').childNodes;
-                listings.forEach(function(listing){
-                  var id = "#" + listing.id
-                  $("#org-listings").find(id).show()
-                  listing.addEventListener("mouseover", function(){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                        markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                        if (openedMarker) {
-                          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                        }
-                        openedMarker = null
-                      }
-                    }
-                  });
-                  listing.addEventListener("mouseout", function(){
-                    for (var j = 0; j < markers.length; j++) {
-                      if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                        markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
-                      }
-                    }
-                  });
-                });
-              } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            }
-          }
-        });
-        var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
-        buttons.forEach(function(button){
-          button.addEventListener("click", function(){
-            for (var i = 0; i < markers.length; i++) {
-              if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
-                markers[i].serviceObject.setVisible(true)
-              } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
-                markers[i].serviceObject.setVisible(true)
-              } else if (button.innerText === "All") {
-                markers[i].serviceObject.setVisible(true)
-              } else {
-                markers[i].serviceObject.setVisible(false)
-              }
-            }
-          });
-        });
-        var allButton = document.getElementById("btn-all")
-        allButton.addEventListener("click", function(){
-          $("#instructions").show()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-        });
-        var artworkButton = document.getElementById("btn-artwork")
-        artworkButton.addEventListener("click", function(){
-          $("#artwork-listings")
-          $("#instructions").hide()
-          $("#artwork-listings").show()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('artwork-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var eventButton = document.getElementById("btn-events")
-        eventButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").show()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('event-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var peaceButton = document.getElementById("btn-peace-circles")
-        peaceButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").show()
-          $("#story-listings").hide()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('peace-circle-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
-                }
-              }
-            });
-          });
-        });
-        var storyButton = document.getElementById("btn-stories")
-        storyButton.addEventListener("click", function(){
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").show()
-          $("#org-listings").hide()
-          document.getElementById("org-select").selectedIndex = 0
-          var listings = document.getElementById('story-listings').childNodes;
-          listings.forEach(function(listing){
-            listing.addEventListener("mouseover", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function(){
-              for (var i = 0; i < markers.length; i++) {
-                if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
-                  markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
-                }
-              }
-            })
-          })
+      } else if (latLong) {
+        $.get("api/v1/neighborhoods/find-neighborhood/" + latLong, function(response) {
+          buildMapWithMarkers(response, handler)
+          setMapListeners();
         })
-      };
+      } else {
+        $.get("api/v1/neighborhoods/" + hoodName, function(response) {
+          buildMapWithMarkers(response, handler)
+          setMapListeners();
+        });
+      }
     }
   )
+};
+
+function buildMapWithMarkers(response, handler) {
+  buildMapArtworks(response, handler);
+  buildMapEvents(response, handler);
+  buildMapStories(response, handler);
+  buildMapOrganizations(response, handler);
+  buildNeighborhoodBounds(response, handler);
+  setUpMap(handler);
+  buildOrgListings();
+}
+
+function setMapListeners() {
+  setSubmissionButtonListener();
+  setAllButtonListener();
+  setArtworkListingListener();
+  setEventListingListener();
+  setPeaceCircleListingListener();
+  setStoryListingListener();
+}
+
+function buildMapArtworks(response, handler) {
+  if (response.artworks.length !== 0) {
+    response.artworks.forEach(function(artwork){
+      if (artwork.status === "approved") {
+        var infowindow = new google.maps.InfoWindow({
+          content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
+                    '<p>' + "by " + artwork.artist + '</p>' +
+                    '<p>' + stringTruncate(artwork.description, 50) + '</p>'
+        });
+        document.getElementById("artwork-listings").appendChild(formatArtwork(artwork));
+        var marker = handler.addMarker({
+          "lat": artwork.map_lat,
+          "lng": artwork.map_long,
+          "picture": {
+            "height": 32,
+            "width": 21,
+            "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|d4b411"
+          }
+        });
+        marker.key = artwork.pkey;
+        marker.id = artwork.id;
+        marker.serviceObject.set('infowindow', infowindow)
+        markers.push(marker);
+        google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e) {
+          marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+          if (openedMarker && openedMarker !== marker) {
+            openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+          }
+          openedMarker = marker
+        })
+      }
+    });
+  } else {
+    var none = document.createElement("h4");
+    none.innerHTML = "There is no artwork to show for this neighborhood.";
+    none.className = "none";
+    document.getElementById("artwork-listings").appendChild(none);
+  }
+}
+
+function setArtworkListingListener() {
+  var artworkButton = document.getElementById("btn-artwork")
+  artworkButton.addEventListener("click", function() {
+    $("#artwork-listings")
+    $("#instructions").hide()
+    $("#artwork-listings").show()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").hide()
+    document.getElementById("org-select").selectedIndex = 0
+    var listings = document.getElementById('artwork-listings').childNodes;
+    listings.forEach(function(listing){
+      listing.addEventListener("mouseover", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+            if (openedMarker) {
+              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+            }
+            openedMarker = null
+          }
+        }
+      });
+      listing.addEventListener("mouseout", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          }
+        }
+      });
+    });
+  });
+}
+
+function buildMapEvents(response, handler) {
+  if (response.events.length !== 0) {
+    response.events.forEach(function(event) {
+      if (event.status === "approved") {
+        var infowindow = new google.maps.InfoWindow({
+          content: '<h3>' + event.title.link("/events/" + event.id) + '</h3>' +
+                   '<p>' + event.formatted_date_time + '</p>' +
+                   '<p>' + event.type + '</p>' +
+                   '<p>' + stringTruncate(event.description, 50) + '</p>'
+        });
+        document.getElementById("event-listings").appendChild(formatEvent(event));
+        var marker = handler.addMarker(determineEventType(event));
+        marker.key = event.pkey;
+        marker.id = event.id;
+        marker.type = event.type;
+        marker.serviceObject.set('infowindow', infowindow)
+        markers.push(marker);
+        google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e) {
+          marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+          if (openedMarker && openedMarker !== marker) {
+            openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+          }
+          openedMarker = marker
+        })
+      }
+    });
+    response.events.forEach(function(event) {
+      if (event.status === "approved" && event.type === "Peace Circle") {
+        document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
+      }
+    });
+  } else {
+    var none = document.createElement("h4");
+    none.innerHTML = "There are no events to show for this neighborhood.";
+    none.className = "none";
+    document.getElementById("event-listings").appendChild(none);
+  }
+}
+
+function setEventListingListener() {
+  var eventButton = document.getElementById("btn-events")
+  eventButton.addEventListener("click", function() {
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").show()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").hide()
+    document.getElementById("org-select").selectedIndex = 0
+    var listings = document.getElementById('event-listings').childNodes;
+    listings.forEach(function(listing){
+      listing.addEventListener("mouseover", function(){
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+            if (openedMarker) {
+              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+            }
+            openedMarker = null
+          }
+        }
+      });
+      listing.addEventListener("mouseout", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          }
+        }
+      });
+    });
+  });
+}
+
+function setPeaceCircleListingListener() {
+  var peaceButton = document.getElementById("btn-peace-circles")
+  peaceButton.addEventListener("click", function() {
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").show()
+    $("#story-listings").hide()
+    $("#org-listings").hide()
+    document.getElementById("org-select").selectedIndex = 0
+    var listings = document.getElementById('peace-circle-listings').childNodes;
+    listings.forEach(function(listing) {
+      listing.addEventListener("mouseover", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+            if (openedMarker) {
+              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+            }
+            openedMarker = null
+          }
+        }
+      });
+      listing.addEventListener("mouseout", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          }
+        }
+      });
+    });
+  });
+}
+
+function buildMapStories(response, handler) {
+  if (response.stories.length !== 0) {
+    response.stories.forEach(function(story){
+      if (story.status === "approved") {
+        var infowindow = new google.maps.InfoWindow({
+          content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
+                   '<p>' + "by " + story.author + '</p>' +
+                   '<p>' + stringTruncate(story.description, 50) + '</p>'
+        });
+        document.getElementById("story-listings").appendChild(formatStory(story));
+        var marker = handler.addMarker({
+          "lat": story.map_lat,
+          "lng": story.map_long,
+          "picture": {
+            "height": 32,
+            "width": 21,
+            "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|b9600e"
+          }
+        });
+        marker.key = story.pkey;
+        marker.id = story.id;
+        marker.serviceObject.set('infowindow', infowindow);
+        markers.push(marker);
+        google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e) {
+          marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+          if (openedMarker && openedMarker !== marker) {
+            openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+          }
+          openedMarker = marker
+        })
+      }
+    });
+  } else {
+    var none = document.createElement("h4");
+    none.innerHTML = "There are no stories to show for this neighborhood.";
+    none.className = "none";
+    document.getElementById("story-listings").appendChild(none);
+  }
+}
+
+function setStoryListingListener() {
+  var storyButton = document.getElementById("btn-stories")
+  storyButton.addEventListener("click", function() {
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").show()
+    $("#org-listings").hide()
+    document.getElementById("org-select").selectedIndex = 0
+    var listings = document.getElementById('story-listings').childNodes;
+    listings.forEach(function(listing){
+      listing.addEventListener("mouseover", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+            if (openedMarker) {
+              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+            }
+            openedMarker = null
+          }
+        }
+      });
+      listing.addEventListener("mouseout", function() {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
+            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+          }
+        }
+      })
+    })
+  })
+}
+
+function setSubmissionButtonListener() {
+  var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
+  buttons.forEach(function(button) {
+    button.addEventListener("click", function() {
+      for (var i = 0; i < markers.length; i++) {
+        if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
+          markers[i].serviceObject.setVisible(true)
+        } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+          markers[i].serviceObject.setVisible(true)
+        } else if (button.innerText === "All") {
+          markers[i].serviceObject.setVisible(true)
+        } else {
+          markers[i].serviceObject.setVisible(false)
+        }
+      }
+    });
+  });
+}
+
+function buildMapOrganizations(response, handler) {
+  if (response.locations.length !== 0) {
+    response.locations.forEach(function(location){
+      var infowindow = new google.maps.InfoWindow({
+        content: '<h3>' + location.organization.name + '</h3>' +
+                  '<p>' + location.organization.type + '</p>' +
+                  '<p>' + location.address + '</p>' +
+                  '<p>' + stringTruncate(location.organization.description, 50) + '</p>'
+      });
+      document.getElementById("org-listings").appendChild(formatOrganizationForNeighborhood(location));
+      var marker = handler.addMarker({
+        "lat": location.map_lat,
+        "lng": location.map_long,
+        "picture": {
+          "height": 32,
+          "width": 21,
+          "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|933b3b"
+        }
+      });
+      marker.key = "Org";
+      if (location.organization.type !== undefined) {
+        marker.type = location.organization.type.toLowerCase().replace(/\s+/g, '-')
+      }
+      marker.id = location.organization.id;
+      marker.serviceObject.set('infowindow', infowindow)
+      markers.push(marker);
+      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+        marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
+        if (openedMarker && openedMarker !== marker) {
+          openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+        }
+        openedMarker = marker;
+      })
+    });
+  }
+}
+
+function buildOrgListings() {
+  var org_types = document.getElementById("org-select");
+  org_types.addEventListener("change", function(e) {
+    for (var i = 0; i < markers.length; i++) {
+      if (e.target.selectedIndex > 1) {
+        if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
+          markers[i].serviceObject.setVisible(true)
+          $("#instructions").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+          $("#org-listings").show()
+          var listings = document.getElementById('org-listings').getElementsByClassName('listing');
+          for (var ii = 0; ii < listings.length; ii++) {
+            var listing = listings[ii]
+            listing.addEventListener("mouseover", function(e) {
+              for (var j = 0; j < markers.length; j++) {
+                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
+                  markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function(e) {
+              for (var k = 0; k < markers.length; k++) {
+                if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
+                  markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
+                }
+              }
+            });
+            if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
+              $("#org-listings").find(listing).show()
+            } else {
+              $("#org-listings").find(listing).hide()
+            }
+          };
+        } else {
+          markers[i].serviceObject.setVisible(false)
+        }
+      } else {
+        if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
+          markers[i].serviceObject.setVisible(true)
+          $("#instructions").hide()
+          $("#artwork-listings").hide()
+          $("#event-listings").hide()
+          $("#peace-circle-listings").hide()
+          $("#story-listings").hide()
+          $("#org-listings").show()
+          var listings = document.getElementById('org-listings').childNodes;
+          listings.forEach(function(listing) {
+            var id = "#" + listing.id
+            $("#org-listings").find(id).show()
+            listing.addEventListener("mouseover", function() {
+              for (var j = 0; j < markers.length; j++) {
+                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                  markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
+                  if (openedMarker) {
+                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                  }
+                  openedMarker = null
+                }
+              }
+            });
+            listing.addEventListener("mouseout", function() {
+              for (var j = 0; j < markers.length; j++) {
+                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
+                  markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
+                }
+              }
+            });
+          });
+        } else {
+          markers[i].serviceObject.setVisible(false)
+        }
+      }
+    }
+  });
+}
+
+function setAllButtonListener() {
+  var allButton = document.getElementById("btn-all")
+  allButton.addEventListener("click", function(){
+    $("#instructions").show()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").hide()
+    document.getElementById("org-select").selectedIndex = 0
+  });
+}
+
+function buildNeighborhoodBounds(response, handler) {
+  response.bounds.forEach(function(bound){
+    var marker = handler.addMarker({
+      "lat": bound.lat,
+      "lng": bound.lng,
+      "picture": {
+        "url": "",
+        "height": 32,
+        "width": 32
+      }
+    });
+    markers.push(marker);
+  });
+}
+
+function setUpMap(handler) {
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(14);
+  var xCenter = window.innerWidth * 0.3 / 2
+  handler.map.serviceObject.panBy(xCenter, 0);
 };
 
 function stringTruncate(string, length) {
