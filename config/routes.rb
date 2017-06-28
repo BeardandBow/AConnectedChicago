@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      resources :neighborhoods, only: [:index]
       get '/neighborhoods/:name', to: "neighborhoods#show" do
         resources :events, only: [:show]
         resources :stories, only: [:show]

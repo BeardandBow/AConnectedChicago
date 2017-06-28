@@ -1,6 +1,10 @@
 class Api::V1::NeighborhoodsController < Api::V1::ApiBaseController
   respond_to :json
 
+  def index
+    @hoods = Neighborhood.all
+  end
+
   def show
     @hood = Neighborhood.find_by(name: params[:name])
     @events = Event.where(status: "approved").where("date >= ?", Date.today).order(:date, :time).where(neighborhood: @hood)
