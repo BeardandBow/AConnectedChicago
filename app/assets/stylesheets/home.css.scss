@@ -247,12 +247,7 @@ body {
 
 .art-text {
   font-weight: bold;
-  color: #d4b411;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+  color: #b59804;
 }
 
 .events-text {
@@ -267,13 +262,20 @@ body {
 
 .stories-text {
   font-weight: bold;
-  color: #933b3b;
   color: #b9600e;
 }
 
 .orgs-text {
   font-weight: bold;
   color: #933b3b;
+}
+
+.shadow {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 ol, li {
