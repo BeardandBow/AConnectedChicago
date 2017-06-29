@@ -13380,6 +13380,7 @@ function buildNeighborhoodBounds(response, handler) {
 }
 
 function setUpMap(handler) {
+  handler.resetBounds();
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
   handler.getMap().setZoom(14);
