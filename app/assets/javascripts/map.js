@@ -26,11 +26,9 @@ function createMap () {
     infoBackdrop.addEventListener("click", function(e) {
       e.stopPropagation();
     })
-    google.maps.event.addListener(handler.getMap(), 'click', function(e){
-              console.log("Latitude: " + e.latLng.lat() + " " + ", longitude: " + e.latLng.lng());
-              console.log("api/v1/neighborhoods/find-neighborhood/" + e.latLng());
-              showNeighborhood(null, e.latLng())
-          });
+    google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+      showNeighborhood(null, e.latLng)
+    });
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -80,10 +78,12 @@ function showNeighborhood(e, latLong = false) {
                    },
     function() {
       handler.addKml({url: kmlFile}, {preserveViewport: true, clickable: false});
-      if (e.target !== undefined) {
-        var hoodName = e.target.options[e.target.selectedIndex].value;
-      } else {
-        var hoodName = e.options[e.selectedIndex].value;
+      if (e) {
+        if (e.target !== undefined) {
+          var hoodName = e.target.options[e.target.selectedIndex].value;
+        } else {
+          var hoodName = e.options[e.selectedIndex].value;
+        }
       }
       var infoBackdrop = document.getElementById("info-backdrop");
       infoBackdrop.addEventListener("click", function(e) {
@@ -101,9 +101,13 @@ function showNeighborhood(e, latLong = false) {
         $("#story-listings").hide();
         $("#org-listings").hide();
       } else if (latLong) {
-        $.get("api/v1/neighborhoods/find-neighborhood/" + latLong, function(response) {
-          buildMapWithMarkers(response, handler)
-          setMapListeners();
+        $.ajax({
+          url: "/api/v1/neighborhoods/find-neighborhood/",
+          data: {lat: latLong.lat(), lng: latLong.lng()},
+          success: function(response) {
+            buildMapWithMarkers(response, handler);
+            setMapListeners();
+          }
         })
       } else {
         $.get("api/v1/neighborhoods/" + hoodName, function(response) {
