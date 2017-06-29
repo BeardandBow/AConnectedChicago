@@ -1,7 +1,7 @@
 var markers = [];
 var openedMarker
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
-function createMap () {
+function createMap() {
   document.getElementById("org-select").selectedIndex = 0;
   var handler = Gmaps.build('Google')
   handler.buildMap({provider: {
@@ -14,7 +14,7 @@ function createMap () {
                               },
                     internal: {id: 'map'}
                    },
-  function(){
+  function() {
     handler.addKml({url: kmlFile}, {preserveViewport: true, clickable: false});
     var xCenter = window.innerWidth * 0.15 / 2;
     handler.map.serviceObject.panBy(xCenter, 0);
@@ -35,15 +35,15 @@ function createMap () {
   });
 }
 
-function orgShow(e){
+function orgShow(e) {
   resetInfoWindow();
-  $.get("api/v1/organizations", function(response){
+  $.get("api/v1/organizations", function(response) {
     if (response.length !== 0) {
-      response.forEach(function(org){
+      response.forEach(function(org) {
         document.getElementById("org-listings").appendChild(formatOrganization(org));
       })
     }
-  }).done(function(){
+  }).done(function() {
     $("#instructions").hide()
     $("#artwork-listings").hide()
     $("#event-listings").hide()
@@ -85,13 +85,9 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      var infoBackdrop = document.getElementById("info-backdrop");
-      infoBackdrop.addEventListener("click", function(e) {
-        e.stopPropagation();
-      })
-      google.maps.event.addListener(handler.getMap(), 'click', function(e){
-                console.log("Latitude: " + e.latLng.lat() + " " + ", longitude: " + e.latLng.lng());
-            });
+      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+        showNeighborhood(null, e.latLng)
+      });
       if (hoodName === "All Neighborhoods") {
         createMap();
         $("#instructions").show();
@@ -105,6 +101,7 @@ function showNeighborhood(e, latLong = false) {
           url: "/api/v1/neighborhoods/find-neighborhood/",
           data: {lat: latLong.lat(), lng: latLong.lng()},
           success: function(response) {
+            document.getElementById("hood-select").value = response.name;
             buildMapWithMarkers(response, handler);
             setMapListeners();
           }
@@ -140,7 +137,7 @@ function setMapListeners() {
 
 function buildMapArtworks(response, handler) {
   if (response.artworks.length !== 0) {
-    response.artworks.forEach(function(artwork){
+    response.artworks.forEach(function(artwork) {
       if (artwork.status === "approved") {
         var infowindow = new google.maps.InfoWindow({
           content: '<h3>' + artwork.title.link("/artworks/" + artwork.id) + '</h3>' +
@@ -190,7 +187,7 @@ function setArtworkListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     var listings = document.getElementById('artwork-listings').childNodes;
-    listings.forEach(function(listing){
+    listings.forEach(function(listing) {
       listing.addEventListener("mouseover", function() {
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
@@ -263,8 +260,8 @@ function setEventListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     var listings = document.getElementById('event-listings').childNodes;
-    listings.forEach(function(listing){
-      listing.addEventListener("mouseover", function(){
+    listings.forEach(function(listing) {
+      listing.addEventListener("mouseover", function() {
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
             markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
@@ -322,7 +319,7 @@ function setPeaceCircleListingListener() {
 
 function buildMapStories(response, handler) {
   if (response.stories.length !== 0) {
-    response.stories.forEach(function(story){
+    response.stories.forEach(function(story) {
       if (story.status === "approved") {
         var infowindow = new google.maps.InfoWindow({
           content: '<h3>' + story.title.link("/stories/" + story.id) + '</h3>' +
@@ -371,7 +368,7 @@ function setStoryListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     var listings = document.getElementById('story-listings').childNodes;
-    listings.forEach(function(listing){
+    listings.forEach(function(listing) {
       listing.addEventListener("mouseover", function() {
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
@@ -415,7 +412,7 @@ function setSubmissionButtonListener() {
 
 function buildMapOrganizations(response, handler) {
   if (response.locations.length !== 0) {
-    response.locations.forEach(function(location){
+    response.locations.forEach(function(location) {
       var infowindow = new google.maps.InfoWindow({
         content: '<h3>' + location.organization.name + '</h3>' +
                   '<p>' + location.organization.type + '</p>' +
@@ -439,7 +436,7 @@ function buildMapOrganizations(response, handler) {
       marker.id = location.organization.id;
       marker.serviceObject.set('infowindow', infowindow)
       markers.push(marker);
-      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e){
+      google.maps.event.addListener(marker.serviceObject, 'mouseover', function(e) {
         marker.serviceObject.infowindow.open(handler.map, marker.serviceObject)
         if (openedMarker && openedMarker !== marker) {
           openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
@@ -535,7 +532,7 @@ function buildOrgListings() {
 
 function setAllButtonListener() {
   var allButton = document.getElementById("btn-all")
-  allButton.addEventListener("click", function(){
+  allButton.addEventListener("click", function() {
     $("#instructions").show()
     $("#artwork-listings").hide()
     $("#event-listings").hide()
@@ -547,12 +544,12 @@ function setAllButtonListener() {
 }
 
 function buildNeighborhoodBounds(response, handler) {
-  response.bounds.forEach(function(bound){
+  response.bounds.forEach(function(bound) {
     var marker = handler.addMarker({
       "lat": bound.lat,
       "lng": bound.lng,
       "picture": {
-        "url": "",
+        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|000000",
         "height": 32,
         "width": 32
       }
@@ -623,7 +620,7 @@ function formatOrganization(organization) {
     listing.className = "listing " + organization.type.toLowerCase().replace(/\s+/g, '-');
   }
   if (organization.locations.length !== 0) {
-    organization.locations.forEach(function(location){
+    organization.locations.forEach(function(location) {
       var address = document.createElement("p");
       address.innerHTML = location.address;
       listing.appendChild(address);
