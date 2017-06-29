@@ -1,0 +1,573 @@
+/* line 1, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+.glyphicon {
+  font-size: 36px;
+  color: white;
+}
+
+/* line 6, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+.glyphicon:hover {
+  color: #9ABBE2;
+}
+
+/* line 10, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+#left-arrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* line 17, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/arrows.css.scss */
+#right-arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* line 1, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.center {
+  min-width: 400px;
+  max-width: 500px;
+  height: 100%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+/* line 10, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.centered-container {
+  text-align: center;
+  position: relative;
+  margin: auto;
+  min-width: 450px;
+}
+
+/* line 17, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.overflow-container {
+  overflow: auto;
+}
+
+/* line 21, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.time-select {
+  width: 100%;
+}
+
+/* line 25, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+input[type=file] {
+  display: block;
+  color: white;
+}
+
+/* line 30, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.form-input {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  z-index: 1;
+  text-align-last: center;
+}
+
+/* line 39, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.inline-radio {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* line 44, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.bootstrap-filestyle {
+  margin-top: 10px;
+}
+
+/* line 48, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+div.btn-group-vertical form {
+  display: inline;
+  width: 100%;
+}
+
+/* line 53, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.white {
+  color: #E7E2E4;
+  margin-top: 5px;
+}
+
+/* line 58, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+label {
+  margin: 0;
+}
+
+/* line 62, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.aes-container {
+  background-color: rgba(231, 226, 228, 0.8);
+  border-radius: 5px;
+  padding: 15px;
+  min-width: 400px;
+  max-width: 500px;
+  max-height: 90%;
+  min-height: 300px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+}
+
+/* line 77, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.aes-center {
+  width: 600px;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* line 86, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.aes-format {
+  max-width: 475px;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* line 93, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.text-area {
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+/* line 98, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.resources-center {
+  width: 60%;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* line 107, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.resources-container {
+  background-color: rgba(231, 226, 228, 0.8);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+/* line 118, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.btn-danger {
+  width: 100px;
+  text-decoration-color: white;
+}
+
+/* line 123, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+.list-group-item {
+  background-color: rgba(231, 226, 228, 0.8);
+}
+
+@media (max-width: 450px) {
+  /* line 128, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .aes-center {
+    width: 90%;
+  }
+
+  /* line 132, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .aes-container {
+    min-width: 70%;
+    max-width: 80%;
+  }
+
+  /* line 137, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .resources-container img {
+    width: 90%;
+  }
+
+  /* line 141, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .resources-center {
+    width: 90%;
+  }
+
+  /* line 145, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .centered-container {
+    min-width: 70%;
+    max-width: 80%;
+  }
+
+  /* line 150, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/forms.css.scss */
+  .center {
+    min-width: 70%;
+    max-width: 400px;
+  }
+}
+/* line 1, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.navbar-default {
+  background-color: #E7E2E4;
+  height: 55px;
+}
+
+/* line 5, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.navbar-default .navbar-nav li a {
+  color: #45494C;
+}
+
+/* line 9, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.navbar-default .navbar-nav li a:hover {
+  color: black;
+}
+
+/* line 13, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.navbar-default .navbar-brand:hover {
+  color: black;
+}
+
+/* line 17, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.nav > li > a {
+  padding: 17px 7px;
+}
+
+@media (max-width: 852px) {
+  /* line 22, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-header {
+    float: none;
+  }
+
+  /* line 26, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-toggle {
+    display: block;
+  }
+
+  /* line 29, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* line 33, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+  }
+
+  /* line 37, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-collapse.collapse {
+    display: none !important;
+  }
+
+  /* line 40, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-nav {
+    float: none !important;
+    margin-top: 7.5px;
+  }
+
+  /* line 44, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-nav > li {
+    float: right;
+  }
+
+  /* line 47, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* line 51, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  .collapse.in {
+    display: block !important;
+  }
+}
+/* line 56, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 61, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+html {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-height: 409px;
+}
+
+/* line 68, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+body {
+  height: 100%;
+  width: 100%;
+  padding-top: 55px;
+  overflow: auto;
+}
+
+/* line 75, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#homepage-controls {
+  width: 100%;
+  z-index: 2;
+}
+
+/* line 80, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.center-dropdown {
+  text-align-last: center;
+  background-color: #E7E2E4;
+}
+
+/* line 85, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#org-select {
+  background-color: #933B3B;
+  border-color: #4C2326;
+  color: #E7E2E4;
+}
+
+/* line 91, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-default {
+  background-color: #933B3B;
+  border-color: #4C2326;
+  color: #E7E2E4;
+}
+
+/* line 97, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-default:hover {
+  background-color: #4C2326;
+  border-color: #3F1D20;
+  color: #E7E2E4;
+}
+
+/* line 103, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-default:focus {
+  background-color: #4C2326;
+  border-color: #3F1D20;
+  color: #E7E2E4;
+}
+
+/* line 109, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-all {
+  background-color: #9ABBE2;
+  border-color: #7F9AB9;
+  color: #3E4660;
+}
+
+/* line 115, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-all:hover {
+  background-color: #7F9AB9;
+  border-color: #7189A5;
+  color: #3E4660;
+}
+
+/* line 121, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.dashboard-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/matthew-hamilton-136795-b40f75bfab7f16752e71a6ba9776f8b4319af14c1b8055833906b1c1a31f6f93.jpg) center center fixed;
+  background-size: cover;
+}
+
+/* line 126, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.login-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/chicago_map-6ce5206af739c502efcb1fc00e432b7ede7509b704abefd9f7c617ad6b168ed4.jpg) center center fixed;
+  background-size: cover;
+}
+
+/* line 131, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.artwork-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/art-b2ee75d3751f275ebfed94dd04e9d5f6bba24170a47e5de3eb0ea6c75a377b79.jpg) center center fixed;
+  background-size: cover;
+}
+
+/* line 136, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.event-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/event-ea97cb65d3769f671f69114ea7049cf6fbb3cf231982a67d5e5c917a8598154f.jpg) center center fixed;
+  background-size: cover;
+}
+
+/* line 141, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.story-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/story-082ca59d68da8876959189cf105080e675764f0aae36aba99632c5a7ec8ab36f.jpg) center center fixed;
+  background-size: cover;
+}
+
+/* line 146, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#info-backdrop {
+  position: absolute;
+  background-color: rgba(231, 226, 228, 0.8);
+  border-radius: 5px;
+  position: absolute;
+  top: 75px;
+  right: 25px;
+  bottom: 25px;
+  z-index: 2;
+  width: 30%;
+  min-height: 309px;
+}
+
+/* line 159, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#artwork-listings {
+  display: none;
+  width: 100%;
+}
+
+/* line 164, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#event-listings {
+  display: none;
+  width: 100%;
+}
+
+/* line 169, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#peace-circle-listings {
+  display: none;
+  width: 100%;
+}
+
+/* line 174, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#story-listings {
+  display: none;
+  width: 100%;
+}
+
+/* line 179, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#org-listings {
+  display: none;
+  width: 100%;
+}
+
+/* line 184, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#neighborhood {
+  position: absolute;
+  padding-left: 20px;
+  padding-right: 20px;
+  top: 240px;
+  bottom: 10px;
+  overflow: auto;
+  height: inherit;
+  width: 100%;
+}
+
+/* line 195, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.alert-fixed {
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  width: 100%;
+  z-index: 9999;
+  border-radius: 0px;
+}
+
+/* line 204, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.flash_success {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #84bb66;
+  color: #308700;
+}
+
+/* line 212, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.flash_error {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #c85b54;
+  color: #7c0700;
+}
+
+/* line 220, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+#instructions {
+  display: block;
+  overflow-y: scroll;
+}
+
+/* line 224, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.iframe {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+}
+
+/* 16x9 Aspect Ratio */
+/* 4x3 Aspect Ratio */
+/* line 236, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.iframe-4x3 {
+  padding-bottom: 75%;
+}
+
+/* line 240, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 248, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.art-text {
+  font-weight: bold;
+  color: #d4b411;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* line 258, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.events-text {
+  font-weight: bold;
+  color: #08820e;
+}
+
+/* line 263, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.peace-circles-text {
+  font-weight: bold;
+  color: #4e7eb7;
+}
+
+/* line 268, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.stories-text {
+  font-weight: bold;
+  color: #b9600e;
+}
+
+/* line 273, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.orgs-text {
+  font-weight: bold;
+  color: #933b3b;
+}
+
+/* line 278, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+ol, li {
+  padding-left: 1.1em;
+}
+
+/* line 282, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.btn-danger {
+  width: 100%;
+}
+
+@media (max-width: 450px) {
+  /* line 287, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  #info-backdrop {
+    position: absolute;
+    background-color: rgba(231, 226, 228, 0.8);
+    border-radius: 5px;
+    position: absolute;
+    top: 75px;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 90%;
+    min-height: 309px;
+  }
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
