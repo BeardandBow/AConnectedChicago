@@ -460,41 +460,44 @@ body {
 /* line 248, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .art-text {
   font-weight: bold;
-  color: #d4b411;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: #b59804;
 }
 
-/* line 258, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 253, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .events-text {
   font-weight: bold;
   color: #08820e;
 }
 
-/* line 263, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 258, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .peace-circles-text {
   font-weight: bold;
   color: #4e7eb7;
 }
 
-/* line 268, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 263, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .stories-text {
   font-weight: bold;
-  color: #933b3b;
   color: #b9600e;
 }
 
-/* line 274, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 268, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .orgs-text {
   font-weight: bold;
   color: #933b3b;
 }
 
-/* line 279, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 273, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+.shadow {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* line 281, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 ol, li {
   padding-left: 1.1em;
 }
 
-/* line 283, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
+/* line 285, /Users/zackforbing/code/2017projects/AConnectedChicago/app/assets/stylesheets/home.css.scss */
 .btn-danger {
   width: 100%;
 }
