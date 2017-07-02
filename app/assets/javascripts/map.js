@@ -108,7 +108,12 @@ function showNeighborhood(e, latLong = false) {
           },
           error: function(response){
             console.log(response.statusText);
-            createMap();
+            var hoods = document.getElementById("hood-select");
+            if (hoods.selectedIndex > 1) {
+              showNeighborhood(hoods);
+            } else {
+              createMap()
+            }
           }
         })
       } else {
