@@ -12920,12 +12920,21 @@ function showNeighborhood(e, latLong = false) {
         $("#org-listings").hide();
       } else if (latLong) {
         $.ajax({
-          url: "/api/v1/neighborhoods/find-neighborhood/",
+          url: "/api/v1/neighborhoods/find-neighborhood",
           data: {lat: latLong.lat(), lng: latLong.lng()},
           success: function(response) {
             document.getElementById("hood-select").value = response.name;
             buildMapWithMarkers(response, handler);
             setMapListeners();
+          },
+          error: function(response){
+            console.log(response.statusText);
+            var hoods = document.getElementById("hood-select");
+            if (hoods.selectedIndex > 1) {
+              showNeighborhood(hoods);
+            } else {
+              createMap()
+            }
           }
         })
       } else {
