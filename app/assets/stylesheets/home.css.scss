@@ -283,6 +283,9 @@ ol, li {
   width: 100%;
 }
 
+.none {
+  opacity: .5;
+}
 @media (max-width: 450px) {
   #info-backdrop {
     position: absolute;

@@ -41,6 +41,7 @@ class PermissionsService
     return true if controller == 'admin/organizations'
     return true if controller == 'charges'
     return true if controller == 'api/v1/users'
+    return true if controller == 'api/v1/neighborhoods'
     return true if controller == 'api/v1/artworks'
     return true if controller == 'api/v1/events'
     return true if controller == 'api/v1/stories'
@@ -56,6 +57,7 @@ class PermissionsService
     return true if controller == 'users' && action.in?(%w(show edit update))
     return true if controller == 'charges'
     return true if controller == 'api/v1/users'
+    return true if controller == 'api/v1/neighborhoods'
     return true if controller == 'api/v1/artworks'
     return true if controller == 'api/v1/events'
     return true if controller == 'api/v1/stories'
@@ -70,6 +72,7 @@ class PermissionsService
     return true if controller == 'users' && action.in?(%w(show edit update))
     return true if controller == 'charges'
     return true if controller == 'api/v1/users'
+    return true if controller == 'api/v1/neighborhoods'
     return true if controller == 'api/v1/artworks'
     return true if controller == 'api/v1/events'
     return true if controller == 'api/v1/stories'
@@ -84,5 +87,6 @@ class PermissionsService
     return true if controller == 'users' && action.in?(%w(new create confirm_email))
     return true if controller == 'charges'
     return true if controller == 'api/v1/users'
+    return true if controller == 'api/v1/neighborhoods'
   end
 end
