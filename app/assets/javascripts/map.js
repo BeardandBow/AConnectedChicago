@@ -512,7 +512,7 @@ function buildNeighborhoodBounds(response, handler) {
       "lat": bound.lat,
       "lng": bound.lng,
       "picture": {
-        "url": "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|000000",
+        "url": "",
         "height": 32,
         "width": 32
       }
