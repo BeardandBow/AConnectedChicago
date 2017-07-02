@@ -65,6 +65,7 @@ function orgShow(e) {
 }
 
 function showNeighborhood(e, latLong = false) {
+  markers = [];
   resetInfoWindow();
   document.getElementById("org-select").selectedIndex = 0;
   document.getElementById("org-select").removeEventListener("change", orgShow);
