@@ -6,11 +6,17 @@
     <%= form_for @artwork, html: {multipart: true} do |f| %>
       <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
       <%= f.text_field :artist, placeholder: "Artist", class: "form-input" %>
-      <input type="file" name="artwork[image]" class="filestyle form-input" data-classButton="btn btn-default" data-buttonText="Upload Image">
+      <div class="input-group form-input">
+        <span class="input-group-btn">
+          <span class="btn btn-success btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Add Image</span>
+          <%= f.file_field :file_upload, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
+        </span>
+        <span class="form-control img-upload-text"></span>
+      </div>
       <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
       <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
       <h4 class="white">by uploading an image, you affirm that you have permission to upload this image.</h4>
-      <%= f.submit "Share your Art", class: "form-input btn btn-success" %>
+      <%= f.submit "Share your Art", class: "submit-input btn btn-success" %>
     <% end %>
   </div>
 </div>

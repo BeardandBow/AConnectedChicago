@@ -22,11 +22,6 @@
   width: 100%;
 }
 
-input[type=file] {
-  display: block;
-  color: white;
-}
-
 .form-input {
   width: 100%;
   margin-top: 10px;
@@ -34,6 +29,21 @@ input[type=file] {
   padding-bottom: 5px;
   z-index: 1;
   text-align-last: center;
+  border-radius: 5px;
+  background-color: #E7E2E4;
+}
+
+.submit-input {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  z-index: 1;
+  text-align-last: center;
+}
+
+.img-upload-text {
+  background-color: #E7E2E4;
 }
 
 .inline-radio {
@@ -151,4 +161,8 @@ label {
     min-width: 70%;
     max-width: 400px;
   }
+}
+
+.input-group {
+  padding: 0;
 }

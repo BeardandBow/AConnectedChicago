@@ -13,7 +13,7 @@
             <%= ff.text_field :address, placeholder: "Organization Location", class: "form-input" %>
             <% end %>
           <%= f.select :type_id, (@types.map { |type| [type.name, type.id] }), {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
-          <%= f.submit "Add Organization", class: "form-input btn btn-success" %>
+          <%= f.submit "Add Organization", class: "submit-input btn btn-success" %>
         <% end %>
       </li>
       <% @organizations.each do |organization| %>

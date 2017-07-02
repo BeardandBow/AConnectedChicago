@@ -7,7 +7,7 @@
         <%= form_for [:admin, @type], {class: "form-inline"} do |f| %>
           <%= f.text_field :name, placeholder: "Event Type Name", class: "form-input" %>
           <%= f.hidden_field :category, value: "event" %>
-          <%= f.submit "Add Event Type", class: "form-input btn btn-success" %>
+          <%= f.submit "Add Event Type", class: "submit-input btn btn-success" %>
         <% end %>
       </li>
       <% @types.each do |type| %>
