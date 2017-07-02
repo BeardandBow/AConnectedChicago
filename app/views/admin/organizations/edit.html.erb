@@ -11,14 +11,14 @@
           <%= f.text_area :description, placeholder: "Organization Description", class: "form-input" %>
           <%= f.label :description %>
           <%= f.select :type_id, (@types.map { |type| [type.name, type.id] }), {prompt: "Organization Type"}, {class: "form-input form-control center-dropdown"} %>
-          <%= f.submit "Update Organization", class: "form-input btn btn-success" %>
+          <%= f.submit "Update Organization", class: "submit-input btn btn-success" %>
         </li>
         <li class="list-group-item">
           <h3>Add New Location</h3>
           <%= f.fields_for :locations, @location do |ff| %>
             <%= ff.text_field :address, placeholder: "New Address", class: "form-input" %>
           <% end %>
-          <%= f.submit "Add New Location", class: "form-input btn btn-success" %></li>
+          <%= f.submit "Add New Location", class: "submit-input btn btn-success" %></li>
         </li>
         <li class="list-group-item" id="current-locations">
           <h3>Current Locations</h3>
@@ -42,7 +42,7 @@
               <% end %>
             </tbody>
           </table>
-          <%= f.submit "Delete Selected Locations", class: "form-input btn btn-danger" %>
+          <%= f.submit "Delete Selected Locations", class: "submit-input btn btn-danger" %>
         </li>
       <% end %>
     </ul>
