@@ -267,7 +267,6 @@ body {
 
 .stories-text {
   font-weight: bold;
-  color: #933b3b;
   color: #b9600e;
 }
 
@@ -286,4 +285,19 @@ ol, li {
 
 .none {
   opacity: .5;
+}
+@media (max-width: 450px) {
+  #info-backdrop {
+    position: absolute;
+    background-color: rgba(231, 226, 228, 0.8);
+    border-radius: 5px;
+    position: absolute;
+    top: 75px;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 90%;
+    min-height: 309px;
+  }
 }

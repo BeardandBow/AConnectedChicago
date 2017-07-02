@@ -13295,55 +13295,8 @@ function buildOrgListings() {
                   openedMarker = null
                 }
               }
-            });
-            listing.addEventListener("mouseout", function(e) {
-              for (var k = 0; k < markers.length; k++) {
-                if (markers[k].key && markers[k].key === "Org" && markers[k].id === parseInt(e.currentTarget.id)) {
-                  markers[k].serviceObject.infowindow.close(markers[k].serviceObject.map, markers[k].serviceObject);
-                }
-              }
-            });
-            if (listing.classList.contains(e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-'))) {
-              $("#org-listings").find(listing).show()
-            } else {
-              $("#org-listings").find(listing).hide()
-            }
-          };
-        } else {
-          markers[i].serviceObject.setVisible(false)
-        }
-      } else {
-        if (markers[i].key === "Org" && e.target.selectedIndex === 1) {
-          markers[i].serviceObject.setVisible(true)
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").show()
-          var listings = document.getElementById('org-listings').childNodes;
-          listings.forEach(function(listing) {
-            var id = "#" + listing.id
-            $("#org-listings").find(id).show()
-            listing.addEventListener("mouseover", function() {
-              for (var j = 0; j < markers.length; j++) {
-                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                  markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
-                  }
-                  openedMarker = null
-                }
-              }
-            });
-            listing.addEventListener("mouseout", function() {
-              for (var j = 0; j < markers.length; j++) {
-                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(listing.id)) {
-                  markers[j].serviceObject.infowindow.close(markers[j].serviceObject.map, markers[j].serviceObject);
-                }
-              }
-            });
-          });
+            })
+          }
         } else {
           markers[i].serviceObject.setVisible(false)
         }
