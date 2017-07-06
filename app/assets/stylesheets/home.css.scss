@@ -50,6 +50,10 @@
     }
     .collapse.in{
         display:block !important;
+        width: 100%;
+    }
+    .container-fluid {
+      background-color: rgba(231, 226, 228, 0.8);
     }
 }
 

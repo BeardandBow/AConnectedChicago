@@ -12768,7 +12768,6 @@ function findCurrentUser() {
 };
 
 function isDeletable(submission) {
-  debugger;
   if (currentUser) {
     if (submission.user_id == currentUser.id) {
       return true;
@@ -13367,8 +13366,10 @@ function setUpMap(handler) {
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
   handler.getMap().setZoom(14);
-  var xCenter = window.innerWidth * 0.3 / 2
-  handler.map.serviceObject.panBy(xCenter, 0);
+  if (window.innerWidth > 600) {
+    var xCenter = window.innerWidth * 0.3 / 2
+    handler.map.serviceObject.panBy(xCenter, 0);
+  }
 };
 
 function stringTruncate(string, length) {
