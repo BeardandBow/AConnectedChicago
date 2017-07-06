@@ -11,7 +11,17 @@
   text-align: center;
   position: relative;
   margin: auto;
-  min-width: 450px;
+}
+
+.donate-container {
+  background-color: rgba(231, 226, 228, 0.8);
+  border-radius: 5px;
+  padding: 15px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 150px;
 }
 
 .overflow-container {
@@ -73,7 +83,6 @@ label {
   background-color: rgba(231, 226, 228, 0.8);
   border-radius: 5px;
   padding: 15px;
-  min-width: 400px;
   max-width: 500px;
   max-height: 90%;
   min-height: 300px;
@@ -134,27 +143,23 @@ label {
   background-color: rgba(231, 226, 228, 0.8);
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
   .aes-center {
     width: 90%;
   }
 
   .aes-container {
-    min-width: 70%;
-    max-width: 80%;
+    width: 80%;
   }
+}
 
+@media (max-width: 450px) {
   .resources-container img {
     width: 90%;
   }
 
   .resources-center {
     width: 90%;
-  }
-
-  .centered-container {
-    min-width: 70%;
-    max-width: 80%;
   }
 
   .center {

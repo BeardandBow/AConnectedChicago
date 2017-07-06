@@ -203,7 +203,6 @@ function findCurrentUser() {
 };
 
 function isDeletable(submission) {
-  debugger;
   if (currentUser) {
     if (submission.user_id == currentUser.id) {
       return true;
