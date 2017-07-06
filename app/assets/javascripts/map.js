@@ -1,6 +1,7 @@
 var markers = [];
 var openedMarker
 var kmlFile = "https://gist.githubusercontent.com/zackforbing/6775365ca4bf28dd1a73ef2db22f348a/raw/fa1163e6a81c7ad0826c4a4e6b56f4d38b728138/Neighborhoods.kml"
+
 function createMap() {
   document.getElementById("org-select").selectedIndex = 0;
   var handler = Gmaps.build('Google')
@@ -120,7 +121,13 @@ function showNeighborhood(e, latLong = false) {
         $.get("api/v1/neighborhoods/" + hoodName, function(response) {
           buildMapWithMarkers(response, handler)
           setMapListeners();
-        });
+        }).done(function(){
+          if (window.innerWidth < 450) {
+            markers.forEach(function(marker){
+              marker.serviceObject.setVisible(false);
+            })
+          }
+        })
       }
     }
   )
@@ -196,27 +203,30 @@ function setArtworkListingListener() {
     $("#story-listings").hide()
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
-    var listings = document.getElementById('artwork-listings').childNodes;
-    listings.forEach(function(listing) {
-      listing.addEventListener("mouseover", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-            if (openedMarker) {
-              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+    if (window.innerWidth > 450) {
+      debugger;
+      var listings = document.getElementById('artwork-listings').childNodes;
+      listings.forEach(function(listing) {
+        listing.addEventListener("mouseover", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+              if (openedMarker) {
+                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+              }
+              openedMarker = null
             }
-            openedMarker = null
           }
-        }
-      });
-      listing.addEventListener("mouseout", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+        });
+        listing.addEventListener("mouseout", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+            }
           }
-        }
+        });
       });
-    });
+    }
   });
 }
 
@@ -269,27 +279,29 @@ function setEventListingListener() {
     $("#story-listings").hide()
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
-    var listings = document.getElementById('event-listings').childNodes;
-    listings.forEach(function(listing) {
-      listing.addEventListener("mouseover", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-            if (openedMarker) {
-              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+    if (window.innerWidth > 450) {
+      var listings = document.getElementById('event-listings').childNodes;
+      listings.forEach(function(listing) {
+        listing.addEventListener("mouseover", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+              if (openedMarker) {
+                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+              }
+              openedMarker = null
             }
-            openedMarker = null
           }
-        }
-      });
-      listing.addEventListener("mouseout", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+        });
+        listing.addEventListener("mouseout", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+            }
           }
-        }
+        });
       });
-    });
+    }
   });
 }
 
@@ -303,27 +315,29 @@ function setPeaceCircleListingListener() {
     $("#story-listings").hide()
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
-    var listings = document.getElementById('peace-circle-listings').childNodes;
-    listings.forEach(function(listing) {
-      listing.addEventListener("mouseover", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-            if (openedMarker) {
-              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+    if (window.innerWidth > 450) {
+      var listings = document.getElementById('peace-circle-listings').childNodes;
+      listings.forEach(function(listing) {
+        listing.addEventListener("mouseover", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+              if (openedMarker) {
+                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+              }
+              openedMarker = null
             }
-            openedMarker = null
           }
-        }
-      });
-      listing.addEventListener("mouseout", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+        });
+        listing.addEventListener("mouseout", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+            }
           }
-        }
+        });
       });
-    });
+    }
   });
 }
 
@@ -377,27 +391,29 @@ function setStoryListingListener() {
     $("#story-listings").show()
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
-    var listings = document.getElementById('story-listings').childNodes;
-    listings.forEach(function(listing) {
-      listing.addEventListener("mouseover", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-            if (openedMarker) {
-              openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+    if (window.innerWidth > 450) {
+      var listings = document.getElementById('story-listings').childNodes;
+      listings.forEach(function(listing) {
+        listing.addEventListener("mouseover", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+              if (openedMarker) {
+                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+              }
+              openedMarker = null
             }
-            openedMarker = null
           }
-        }
-      });
-      listing.addEventListener("mouseout", function() {
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
-            markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+        });
+        listing.addEventListener("mouseout", function() {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
+              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+            }
           }
-        }
+        })
       })
-    })
+    }
   })
 }
 
@@ -405,15 +421,17 @@ function setSubmissionButtonListener() {
   var buttons = document.getElementById('homepage-controls').querySelectorAll(".btn")
   buttons.forEach(function(button) {
     button.addEventListener("click", function() {
-      for (var i = 0; i < markers.length; i++) {
-        if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
-          markers[i].serviceObject.setVisible(true)
-        } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
-          markers[i].serviceObject.setVisible(true)
-        } else if (button.innerText === "All") {
-          markers[i].serviceObject.setVisible(true)
-        } else {
-          markers[i].serviceObject.setVisible(false)
+      if (window.innerWidth > 450) {
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].key && markers[i].key.substring(0, 2).toLowerCase() === button.innerText.substring(0, 2).toLowerCase()) {
+            markers[i].serviceObject.setVisible(true)
+          } else if (button.innerText[0] === "P" && markers[i].type && markers[i].type === "Peace Circle") {
+            markers[i].serviceObject.setVisible(true)
+          } else if (button.innerText === "All") {
+            markers[i].serviceObject.setVisible(true)
+          } else {
+            markers[i].serviceObject.setVisible(false)
+          }
         }
       }
     });
@@ -470,20 +488,22 @@ function buildOrgListings() {
           $("#peace-circle-listings").hide()
           $("#story-listings").hide()
           $("#org-listings").show()
-          var listings = document.getElementById('org-listings').getElementsByClassName('listing');
-          for (var ii = 0; ii < listings.length; ii++) {
-            var listing = listings[ii]
-            listing.addEventListener("mouseover", function(e) {
-              for (var j = 0; j < markers.length; j++) {
-                if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
-                  markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
-                  if (openedMarker) {
-                    openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+          if (window.innerWidth > 450) {
+            var listings = document.getElementById('org-listings').getElementsByClassName('listing');
+            for (var ii = 0; ii < listings.length; ii++) {
+              var listing = listings[ii]
+              listing.addEventListener("mouseover", function(e) {
+                for (var j = 0; j < markers.length; j++) {
+                  if (markers[j].key && markers[j].key === "Org" && markers[j].id === parseInt(e.currentTarget.id)) {
+                    markers[j].serviceObject.infowindow.open(markers[j].serviceObject.map, markers[j].serviceObject);
+                    if (openedMarker) {
+                      openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                    }
+                    openedMarker = null
                   }
-                  openedMarker = null
                 }
-              }
-            })
+              })
+            }
           }
         } else {
           markers[i].serviceObject.setVisible(false)
