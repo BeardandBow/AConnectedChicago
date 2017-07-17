@@ -72,5 +72,5 @@ end
 private
 
   def format_date_time
-    self.update_attributes(formatted_date_time: "#{self.date.strftime("%A, %B %e, %Y")} at #{self.time.strftime("%I:%M %p")}")
+    self.update_attributes(formatted_date_time: "#{self.date.strftime("%A, %B %e, %Y")}")
   end
