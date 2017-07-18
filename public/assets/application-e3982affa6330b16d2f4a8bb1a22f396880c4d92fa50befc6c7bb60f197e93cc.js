@@ -13255,11 +13255,13 @@ function setSubmissionButtonListener() {
   });
 }
 
-function noListingsMessage(type, div) {
+function noListingsMessage(type, divName) {
+  var noListingsDiv = document.getElementById(divName)
+  noListingsDiv.innerHTML = '';
   var none = document.createElement("h4");
   none.innerHTML = "There are no " + type + " to show for this neighborhood.";
   none.className = "none";
-  document.getElementById(div).appendChild(none);
+  noListingsDiv.appendChild(none);
 }
 
 function buildMapOrganizations(response, handler) {
@@ -13302,20 +13304,22 @@ function buildMapOrganizations(response, handler) {
 }
 
 function buildOrgListings() {
+  debugger;
   var org_types = document.getElementById("org-select");
   org_types.addEventListener("change", function(e) {
+    // $("#org-listings").empty()
     var orgMarkers = []
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").show()
     for (var i = 0; i < markers.length; i++) {
       if (e.target.selectedIndex > 1) {
         if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
           orgMarkers.push(markers[i])
           markers[i].serviceObject.setVisible(true)
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").show()
           if (window.innerWidth > 450) {
             var listings = document.getElementById('org-listings').getElementsByClassName('listing');
             for (var ii = 0; ii < listings.length; ii++) {
@@ -13338,8 +13342,8 @@ function buildOrgListings() {
         }
       }
     }
-    if (orgMarkers.length === 0) {
-
+    if (orgMarkers.length === 0 && document.getElementById("org-select").value !== "All") {
+      noListingsMessage("organizations of this type", "org-listings")
     }
   });
 }
