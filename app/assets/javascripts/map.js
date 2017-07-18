@@ -185,10 +185,7 @@ function buildMapArtworks(response, handler) {
       }
     });
   } else {
-    var none = document.createElement("h4");
-    none.innerHTML = "There is no artwork to show for this neighborhood.";
-    none.className = "none";
-    document.getElementById("artwork-listings").appendChild(none);
+    noListingsMessage("artworks", "artwork-listings")
   }
 }
 
@@ -256,16 +253,19 @@ function buildMapEvents(response, handler) {
         })
       }
     });
+    var peaceCircleListings = [];
     response.events.forEach(function(event) {
       if (event.status === "approved" && event.type === "Peace Circle") {
+        peaceCircleListings.push(event)
         document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
       }
     });
+    if (peaceCircleListings.length === 0) {
+      noListingsMessage("peace circles", "peace-circle-listings")
+    }
   } else {
-    var none = document.createElement("h4");
-    none.innerHTML = "There are no events to show for this neighborhood.";
-    none.className = "none";
-    document.getElementById("event-listings").appendChild(none);
+    noListingsMessage("events", "event-listings");
+    noListingsMessage("peace circles", "peace-circle-listings")
   }
 }
 
@@ -374,10 +374,7 @@ function buildMapStories(response, handler) {
       }
     });
   } else {
-    var none = document.createElement("h4");
-    none.innerHTML = "There are no stories to show for this neighborhood.";
-    none.className = "none";
-    document.getElementById("story-listings").appendChild(none);
+    noListingsMessage("stories", "story-listings");
   }
 }
 
@@ -438,6 +435,15 @@ function setSubmissionButtonListener() {
   });
 }
 
+function noListingsMessage(type, divName) {
+  var noListingsDiv = document.getElementById(divName)
+  noListingsDiv.innerHTML = '';
+  var none = document.createElement("h4");
+  none.innerHTML = "There are no " + type + " to show for this neighborhood.";
+  none.className = "none";
+  noListingsDiv.appendChild(none);
+}
+
 function buildMapOrganizations(response, handler) {
   if (response.locations.length !== 0) {
     response.locations.forEach(function(location) {
@@ -472,22 +478,28 @@ function buildMapOrganizations(response, handler) {
         openedMarker = marker;
       })
     });
+  } else {
+    noListingsMessage("organizations", "org-listings")
   }
 }
 
 function buildOrgListings() {
+  debugger;
   var org_types = document.getElementById("org-select");
   org_types.addEventListener("change", function(e) {
+    // $("#org-listings").empty()
+    var orgMarkers = []
+    $("#instructions").hide()
+    $("#artwork-listings").hide()
+    $("#event-listings").hide()
+    $("#peace-circle-listings").hide()
+    $("#story-listings").hide()
+    $("#org-listings").show()
     for (var i = 0; i < markers.length; i++) {
       if (e.target.selectedIndex > 1) {
         if (markers[i].key === "Org" && markers[i].type === e.target.selectedOptions[0].innerText.toLowerCase().replace(/\s+/g, '-')) {
+          orgMarkers.push(markers[i])
           markers[i].serviceObject.setVisible(true)
-          $("#instructions").hide()
-          $("#artwork-listings").hide()
-          $("#event-listings").hide()
-          $("#peace-circle-listings").hide()
-          $("#story-listings").hide()
-          $("#org-listings").show()
           if (window.innerWidth > 450) {
             var listings = document.getElementById('org-listings').getElementsByClassName('listing');
             for (var ii = 0; ii < listings.length; ii++) {
@@ -509,6 +521,9 @@ function buildOrgListings() {
           markers[i].serviceObject.setVisible(false)
         }
       }
+    }
+    if (orgMarkers.length === 0 && document.getElementById("org-select").value !== "All") {
+      noListingsMessage("organizations of this type", "org-listings")
     }
   });
 }
