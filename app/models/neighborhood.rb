@@ -1,3 +1,5 @@
+require 'google_maps_service'
+
 class Neighborhood < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
@@ -14,18 +16,34 @@ class Neighborhood < ApplicationRecord
 
   def has?(lat, long)
     if self.bounds[0]
-      lat.between?(self.bounds[1]["lat"], self.bounds[0]["lat"]) && long.between?(self.bounds[1]["lng"], self.bounds[0]["lng"])
+      lat.between?(self.bounds[1][:lat], self.bounds[0][:lat]) && long.between?(self.bounds[1][:lng], self.bounds[0][:lng])
     end
   end
 
   private
 
     def geocode_location
-      if self.bounds.empty?
-        response = Geocoder.search("#{self.name}(neighborhood), Chicago IL")
+      gmaps = GoogleMapsService::Client.new(key: ENV['google_maps_secret'])
+      special_hoods = ["O'Hare", "West Garfield Park", "West Lawn", "New City", "West Englewood"]
+      if self.bounds.empty? && !special_hoods.any? { |word| self.name.include?(word) }
+        response = gmaps.geocode("#{self.name} (neighborhood), Chicago IL")
         if response[0]
-          self.bounds << response[0].data["geometry"]["viewport"]["northeast"]
-          self.bounds << response[0].data["geometry"]["viewport"]["southwest"]
+          self.bounds << response[0][:geometry][:bounds][:northeast]
+          self.bounds << response[0][:geometry][:bounds][:southwest]
+        end
+      elsif self.bounds.empty? && special_hoods.any? { |word| self.name.include?(word) }
+        if self.name == "O'Hare"
+          response = gmaps.geocode("#{self.name} (community), Chicago IL")
+          if response[0]
+            self.bounds << response[0][:geometry][:bounds][:northeast]
+            self.bounds << response[0][:geometry][:bounds][:southwest]
+          end
+        else
+          response = gmaps.geocode(nil, components: {locality: "#{self.name}, Chicago, IL"})
+          if response[0]
+            self.bounds << response[0][:geometry][:bounds][:northeast]
+            self.bounds << response[0][:geometry][:bounds][:southwest]
+          end
         end
       end
     end
