@@ -13024,7 +13024,6 @@ function setArtworkListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
-      debugger;
       var listings = document.getElementById('artwork-listings').childNodes;
       listings.forEach(function(listing) {
         listing.addEventListener("mouseover", function() {
