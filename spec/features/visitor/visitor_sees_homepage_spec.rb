@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature "visitor sees homepage", js: true do
+  scenario "visitor sees intro popup on homepage" do
+    visit root_path
+
+    expect(page).to have_css("#modal")
+    expect(page).to have_content("Welcome to Connected Chicago!")
+  end
+
   scenario "visitor sees links to view content" do
     visit root_path
 

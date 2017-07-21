@@ -484,7 +484,6 @@ function buildMapOrganizations(response, handler) {
 }
 
 function buildOrgListings() {
-  debugger;
   var org_types = document.getElementById("org-select");
   org_types.addEventListener("change", function(e) {
     // $("#org-listings").empty()

@@ -1,6 +1,42 @@
+#modal {
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
+  overflow: hidden;
+  max-width: inherit;
+  z-index: 10;
+}
+
+#modal-center {
+  min-width: 400px;
+  max-width: 500px;
+  height: 90%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  z-index: 10;
+}
+
+#modal-centered-container {
+  text-align: center;
+  background-color: rgba(231, 226, 228, 1);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  z-index:10;
+}
+
 .navbar-default {
   background-color: #E7E2E4;
   height: 55px;
+  pointer-events: none;
 }
 .navbar-default .navbar-nav li a {
   color: #45494C;
@@ -60,6 +96,8 @@
 #map {
   height: 100%;
   width: 100%;
+  position: absolute;
+  pointer-events: none;
 }
 
 html {
@@ -158,6 +196,7 @@ body {
   z-index: 2;
   width: 30%;
   min-height: 309px;
+  pointer-events: none;
 }
 
 #artwork-listings {

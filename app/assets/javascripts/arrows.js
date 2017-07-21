@@ -1,5 +1,5 @@
 var currentIndex;
-$(document).ready(function(){
+$(".aes-center").ready(function(){
   var currentUser;
   findCurrentUser();
   var hoodName = document.getElementById('left-arrow').firstChild.getAttribute("data-neighborhood");

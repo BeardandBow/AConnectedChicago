@@ -45,8 +45,6 @@
   </div>
   <div id="neighborhood">
     <div id="instructions">
-      <h3 class="text-center">Welcome to Connected Chicago!</h3>
-      <p>Our Mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.</p>
       <h3 class="text-center">How to Use Website</h3>
       <ol>
         <li>Begin by choosing a neighborhood to connect with by clicking on the “Select a Neighborhood” drop down menu on the top right hand side</li>
@@ -70,5 +68,16 @@
   </div>
 </div>
 <div id="map"></div>
+<% unless current_user %>
+  <div id="modal-center">
+    <div id="modal-centered-container">
+      <div id="modal">
+        <h3 class="text-center">Welcome to Connected Chicago!</h3>
+        <p>Our Mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.</p>
+        <%= image_tag "crowd.jpg", height: "auto", width: 300 %>
+      </div>
+    </div>
+  </div>
+<% end %>
 <script async defer src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_secret'] %>&callback=createMap"></script>
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
