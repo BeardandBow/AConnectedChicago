@@ -12857,7 +12857,6 @@ function createMap() {
 }
 
 function orgShow(e) {
-  resetInfoWindow();
   $.get("api/v1/organizations", function(response) {
     if (response.length !== 0) {
       response.forEach(function(org) {
@@ -12873,13 +12872,20 @@ function orgShow(e) {
     $("#org-listings").show()
     if (e.target.selectedIndex > 1) {
       var orgType = e.target.options[e.target.selectedIndex].value.toLowerCase().replace(/\s+/g, '-');
-      var listings = document.getElementById('org-listings').children;
-      for (var i = 0; i < listings.length; i++) {
-        if (listings[i].classList.contains(orgType)) {
-          $("#org-listings").find(listings[i]).show()
+      var $listings = $('#org-listings').children();
+      for (var i = 0; i < $listings.length; i++) {
+        if ($listings[i].classList.contains("none")) {
+          $("#org-listings").find($listings[i]).remove();
+        } else if ($listings[i].classList.contains(orgType)) {
+          $("#org-listings").find($listings[i]).show();
         } else {
-          $("#org-listings").find(listings[i]).hide()
+          $("#org-listings").find($listings[i]).hide();
         }
+      }
+      if ($('#org-listings').children(':visible').length == 0 && document.getElementById("org-select").selectedIndex > 1) {
+        noListingsMessage("organizations of this type", "org-listings");
+      } else if ($('#org-listings').children(':visible').length == 0) {
+        noListingsMessage("organizations", "org-listings")
       }
     }
   })
@@ -12888,8 +12894,13 @@ function orgShow(e) {
 function showNeighborhood(e, latLong = false) {
   markers = [];
   resetInfoWindow();
-  document.getElementById("org-select").selectedIndex = 0;
-  document.getElementById("org-select").removeEventListener("change", orgShow);
+  var orgSelect = document.getElementById("org-select")
+  var hoodSelect = document.getElementById("org-select")
+  orgSelect.selectedIndex = 0;
+  orgSelect.removeEventListener("change", orgShow);
+  if (hoodSelect.selectedIndex == 1) {
+    orgSelect.addEventListener("change", orgShow);
+  }
   var handler = Gmaps.build('Google');
   handler.buildMap({ provider: { disableDefaultUI: true,
                                  scrollwheel: false,
@@ -13021,7 +13032,6 @@ function setArtworkListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
-      debugger;
       var listings = document.getElementById('artwork-listings').childNodes;
       listings.forEach(function(listing) {
         listing.addEventListener("mouseover", function() {
@@ -13259,8 +13269,15 @@ function noListingsMessage(type, divName) {
   var noListingsDiv = document.getElementById(divName)
   noListingsDiv.innerHTML = '';
   var none = document.createElement("h4");
-  none.innerHTML = "There are no " + type + " to show for this neighborhood.";
+  if (document.getElementById("hood-select").selectedIndex > 1) {
+    none.innerHTML = "There are no " + type + " to show for this neighborhood.";
+  } else {
+    none.innerHTML = "There are no " + type + " to show."
+  }
   none.className = "none";
+  if (document.getElementById("org-select").selectedIndex > 0) {
+    none.classList.add(document.getElementById("org-select").value.toLowerCase().replace(/\s+/g, '-'));
+  }
   noListingsDiv.appendChild(none);
 }
 
@@ -13304,10 +13321,8 @@ function buildMapOrganizations(response, handler) {
 }
 
 function buildOrgListings() {
-  debugger;
   var org_types = document.getElementById("org-select");
   org_types.addEventListener("change", function(e) {
-    // $("#org-listings").empty()
     var orgMarkers = []
     $("#instructions").hide()
     $("#artwork-listings").hide()
