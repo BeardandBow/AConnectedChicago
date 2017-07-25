@@ -8,10 +8,10 @@ RSpec.feature "admin functionality" do
   end
 
   before :each do
-    @admin = create(:user, :admin)
+    @admin = create(:user, :admin, neighborhood: @neighborhood)
     @c_l = create(:user, :community_leader, neighborhood: @neighborhood)
     @neighborhood.users << @c_l
-    @artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626")
+    @artwork = create(:artwork, address: "1543 W Morse Ave, Chicago, IL 60626") # address is in Rogers Park
     @event = create(:event)
     @story = create(:story, organization: @organization, address: "1543 W Morse Ave, Chicago, IL 60626")
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
@@ -89,7 +89,7 @@ RSpec.feature "admin functionality" do
 
   context "admin promotes user to community leader" do
     scenario "admin promotes existing user" do
-      user = create(:user)
+      user = create(:user, neighborhood: @neighborhood)
 
       click_on "Add Community Leader"
       fill_in "User Email", with: user.email

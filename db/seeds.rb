@@ -16,7 +16,6 @@ class Seed
                           "Chatham", "Avalon Park", "South Chicago", "Burnside", "Calumet Heights",
                           "Roseland", "Pullman", "South Deering", "East Side", "West Pullman",
                           "Riverdale", "Hegewisch"]
-    hoods_to_fix = ["O'Hare", "West Garfield Park", "West Lawn", "New City", "West Englewood"]
 
     neighborhood_names.each do |name|
               puts "creating #{name}"
