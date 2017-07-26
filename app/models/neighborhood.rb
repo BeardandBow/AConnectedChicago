@@ -23,7 +23,10 @@ class Neighborhood < ApplicationRecord
   private
 
     def geocode_location
-      gmaps = GoogleMapsService::Client.new(key: ENV['google_maps_secret'])
+      gmaps = GoogleMapsService::Client.new(
+        key: ENV['google_maps_secret'],
+        queries_per_second: 10
+      )
       special_hoods = ["O'Hare", "West Garfield Park", "West Lawn", "New City", "West Englewood"]
       if self.bounds.empty? && !special_hoods.any? { |word| self.name.include?(word) }
         response = gmaps.geocode("#{self.name} (neighborhood), Chicago IL")

@@ -29,7 +29,7 @@ RSpec.describe Neighborhood, type: :model do
     end
 
     it "has many locations" do
-      hood = create(:neighborhood, :with_locations, name: 'Hyde Park')
+      hood = create(:neighborhood, :with_locations, name: 'Hyde Park', bounds: [{lat:41.8026339, lng:-87.5751643}, {lat:41.78583400000001, lng:-87.6064074}])
 
       expect(hood.locations.count).to eq 2
     end
