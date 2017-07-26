@@ -1,3 +1,16 @@
+<% unless current_user %>
+  <div id="modal-container">
+    <div id="modal">
+      <h3>Welcome to</h3>
+      <%= image_tag "ACC-Horizontal-Logo_wht.png", height: "auto", width: "100%" %>
+      <br>
+      <br>
+      <h4 id="mission">Our Mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.</p>
+        <br>
+      <h5><i>click anywhere to start connecting</i></p>
+    </div>
+  </div>
+<% end %>
 <div id="info-backdrop">
   <div id="homepage-controls">
 
@@ -68,16 +81,5 @@
   </div>
 </div>
 <div id="map"></div>
-<% unless current_user %>
-  <div id="modal-center">
-    <div id="modal-centered-container">
-      <div id="modal">
-        <h3 class="text-center">Welcome to Connected Chicago!</h3>
-        <p>Our Mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.</p>
-        <%= image_tag "crowd.jpg", height: "auto", width: 300 %>
-      </div>
-    </div>
-  </div>
-<% end %>
 <script async defer src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_secret'] %>&callback=createMap"></script>
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>

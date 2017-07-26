@@ -12858,12 +12858,9 @@ function createMap() {
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     var orgs = document.getElementById("org-select");
-    var infoBackdrop = document.getElementById("info-backdrop");
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
-    infoBackdrop.addEventListener("click", function(e) {
-      e.stopPropagation();
-    })
+    stopBubbling();
     google.maps.event.addListener(handler.getMap(), 'click', function(e) {
       showNeighborhood(null, e.latLng)
     });
@@ -12899,6 +12896,15 @@ function orgShow(e) {
         }
       }
     }
+  })
+}
+
+function stopBubbling() {
+  document.getElementById("info-backdrop").addEventListener("click", function(e) {
+    e.stopPropagation();
+  })
+  document.getElementById("navbar").addEventListener("click", function(e) {
+    e.stopPropogation();
   })
 }
 
@@ -13038,7 +13044,6 @@ function setArtworkListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
-      debugger;
       var listings = document.getElementById('artwork-listings').childNodes;
       listings.forEach(function(listing) {
         listing.addEventListener("mouseover", function() {
@@ -14280,19 +14285,28 @@ var hoodStyle = [
     }
 ]
 ;
-$(document).ready(function(){
+$("#map").ready(function(){
+  $("#navbar").hide();
+  noClicks();
   hideModal();
 });
 
-function hideModal(){
+function hideModal() {
   var body = document.getElementsByTagName('body')[0];
   body.addEventListener('click', function (e) {
-    $("#modal-center").hide();
-    $("#map").css("pointer-events", "auto")
-    $("#info-backdrop").css("pointer-events", "auto")
-    $("navbar-default").css("pointer-events", "auto")
+    $("#navbar").show();
+    $("#modal-container").hide();
+    $("#map").show();
+    $("#info-backdrop").show();
   });
 };
+
+function noClicks() {
+  $("#map").hide();
+  $("#info-backdrop").hide();
+  $("#navbar").hide();
+}
+;
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
