@@ -13021,7 +13021,6 @@ function setArtworkListingListener() {
     $("#org-listings").hide()
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
-      debugger;
       var listings = document.getElementById('artwork-listings').childNodes;
       listings.forEach(function(listing) {
         listing.addEventListener("mouseover", function() {
@@ -13304,7 +13303,6 @@ function buildMapOrganizations(response, handler) {
 }
 
 function buildOrgListings() {
-  debugger;
   var org_types = document.getElementById("org-select");
   org_types.addEventListener("change", function(e) {
     // $("#org-listings").empty()

@@ -17,6 +17,6 @@ RSpec.describe Api::V1::OrganizationsController, type: :request do
     expect(organizations.second["name"]).to eq(org2.name)
     expect(organizations.first["description"]).to eq(org1.description)
     expect(organizations.second["description"]).to eq(org2.description)
-    expect(organizations.first["locations"].first["address"]).to eq("5699 S Ellis Ave, Chicago, IL 60637")
+    expect(organizations.first["locations"].first["address"]).to eq("1100 E 55th St, Chicago, IL 60615")
   end
 end

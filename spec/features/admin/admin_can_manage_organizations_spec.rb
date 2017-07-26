@@ -93,12 +93,12 @@ RSpec.feature "admin can manage organizations" do
     scenario "admin adds a new location" do
       expect(current_path).to eq(edit_admin_organization_path(@org))
 
-      fill_in "New Address", with: "1918 W Farwell Ave, Chicago, IL 60626"
+      fill_in "New Address", with: "1100 E 55th St, Chicago, IL 60615"
       click_on "Add New Location"
 
       expect(page).to have_content("'Circles and Cyphers' has been updated")
       expect(Location.all.count).to eq(1)
-      expect(Location.first.address).to eq("1918 W Farwell Ave, Chicago, IL 60626")
+      expect(Location.first.address).to eq("1100 E 55th St, Chicago, IL 60615")
     end
   end
 
