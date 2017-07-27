@@ -14289,23 +14289,23 @@ $("#modal").ready(function(){
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
+    var body = document.querySelector("body")
+    body.addEventListener('click', hideModal, false)
+
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
     noClicks();
-    hideModal();
   }
 });
 
 function hideModal() {
-  var body = document.getElementsByTagName('body')[0];
-  body.addEventListener('click', function (e) {
-    $("#navbar").show();
-    $("#modal-container").hide();
-    $("#map").show();
-    createMap();
-    $("#info-backdrop").show();
-  });
-};
+  $("#navbar").show();
+  $("#modal-container").hide();
+  $("#map").show();
+  $("#info-backdrop").show();
+  this.removeEventListener('click', hideModal, false)
+  createMap()
+ }
 
 function noClicks() {
   $("#map").hide();
@@ -14315,15 +14315,11 @@ function noClicks() {
 
 function checkDate(currentDate) {
   if (currentDate !== localStorage.getItem("lastVisited")) {
-    $("#navbar").hide();
+    localStorage.setItem("lastVisited", currentDate)
     noClicks();
-    hideModal();
   } else {
-    $("#navbar").show();
-    $("#modal-container").hide();
-    $("#map").show();
+    hideModal()
     createMap();
-    $("#info-backdrop").show();
   }
 }
 ;
