@@ -9,7 +9,6 @@ $(".aes-center").ready(function(){
 
 function incrementSubmission (submission, submissions, submissionType, hoodName){
   currentIndex = submissions.indexOf(submission);
-  console.log(currentIndex)
   buildNewShowPage(submissionType, submission);
   findAllSubmissions(hoodName, submissionType);
 };
