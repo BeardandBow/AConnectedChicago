@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-readyselector
-//= require gmaps/google
 //= require underscore.min
+//= require gmaps/google
 //= require_tree .
