@@ -5,7 +5,7 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
     type1 = create(:type)
     type2 = create(:type, name: "RJ Hub")
 
-    create(:neighborhood, name: "Rogers Park")
+    create(:neighborhood, name: "Rogers Park", bounds: [{lat:42.0230385, lng:-87.65455589999999}, {lat:41.9979594, lng:-87.684653}])
     create(:neighborhood, name: "Hyde Park")
     create(:organization, :with_locations, type: type2)
     event = create(:event, status: "approved", type: type1)
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::NeighborhoodsController, type: :request do
 
     expect(neighborhood["events"].first["type"]).to eq(type1.name)
 
-    expect(neighborhood["locations"].first["address"]).to eq("5699 S Ellis Ave, Chicago, IL 60637")
+    expect(neighborhood["locations"].first["address"]).to eq("1100 E 55th St, Chicago, IL 60615")
     expect(neighborhood["locations"].first["organization"]["name"]).to eq(Organization.first.name)
     expect(neighborhood["locations"].first["organization"]["description"]).to eq("A Description")
     expect(neighborhood["locations"].first["organization"]["type"]).to eq(type2.name)
