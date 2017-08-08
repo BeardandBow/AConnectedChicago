@@ -1,5 +1,5 @@
 var currentIndex;
-$(document).ready(function(){
+$(".aes-center").ready(function(){
   var currentUser;
   findCurrentUser();
   var hoodName = document.getElementById('left-arrow').firstChild.getAttribute("data-neighborhood");
@@ -9,7 +9,6 @@ $(document).ready(function(){
 
 function incrementSubmission (submission, submissions, submissionType, hoodName){
   currentIndex = submissions.indexOf(submission);
-  console.log(currentIndex)
   buildNewShowPage(submissionType, submission);
   findAllSubmissions(hoodName, submissionType);
 };

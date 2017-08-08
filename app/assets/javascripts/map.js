@@ -21,12 +21,9 @@ function createMap() {
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     var orgs = document.getElementById("org-select");
-    var infoBackdrop = document.getElementById("info-backdrop");
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
-    infoBackdrop.addEventListener("click", function(e) {
-      e.stopPropagation();
-    })
+    stopBubbling();
     google.maps.event.addListener(handler.getMap(), 'click', function(e) {
       showNeighborhood(null, e.latLng)
     });
@@ -68,6 +65,15 @@ function orgShow(e) {
         noListingsMessage("organizations", "org-listings")
       }
     }
+  })
+}
+
+function stopBubbling() {
+  document.getElementById("info-backdrop").addEventListener("click", function(e) {
+    e.stopPropagation();
+  })
+  document.getElementById("navbar").addEventListener("click", function(e) {
+    e.stopPropogation();
   })
 }
 

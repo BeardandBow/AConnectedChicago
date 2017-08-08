@@ -116,7 +116,7 @@ label {
 
 .resources-center {
   width: 60%;
-  margin: auto;
+  margin-top: 55px;
   position: absolute;
   text-align: center;
   left: 50%;
@@ -134,13 +134,38 @@ label {
   padding-bottom: 15px;
 }
 
+.about-us-center {
+  width: 60%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.about-us-container {
+  position: absolute;
+  background-color: rgba(231, 226, 228, 0.8);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .btn-danger {
   width: 100px;
   text-decoration-color: white;
 }
 
 .list-group-item {
-  background-color: rgba(231, 226, 228, 0.8);
+  background-color: transparent;
+  border: none;
 }
 
 @media (max-width: 600px) {

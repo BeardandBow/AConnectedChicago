@@ -1,8 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature "visitor sees homepage", js: true do
+  scenario "visitor sees intro popup on homepage" do
+    visit root_path
+
+    expect(page).to have_css("#modal")
+    expect(page).to have_content("Welcome to Connected Chicago!")
+  end
+
   scenario "visitor sees links to view content" do
     visit root_path
+
 
     expect(page).to have_button("All")
     expect(page).to have_button("Peace Circles")
@@ -20,6 +28,7 @@ RSpec.feature "visitor sees homepage", js: true do
       organization2 = create(:organization, :with_locations, type: type2, description: "Different description")
 
       visit root_path
+
       sleep(0.5)
 
       select "All", from: "organization_type_select"
@@ -42,6 +51,7 @@ RSpec.feature "visitor sees homepage", js: true do
       hood = create(:neighborhood, name: "Hyde Park")
       organization = create(:organization, :with_locations, type: type, neighborhoods: [hood])
       visit root_path
+
       sleep(0.5)
 
       select hood.name, from: "neighborhood_select"
@@ -59,6 +69,7 @@ RSpec.feature "visitor sees homepage", js: true do
       @events = create_list(:event, 2, status: "approved", type: type)
       visit root_path
 
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Events"
       sleep(0.5)
@@ -75,6 +86,7 @@ RSpec.feature "visitor sees homepage", js: true do
       @artworks = create_list(:artwork, 2, status: "approved")
       visit root_path
 
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Art"
       sleep(0.5)
@@ -89,6 +101,7 @@ RSpec.feature "visitor sees homepage", js: true do
       @hood = create(:neighborhood, name: "Hyde Park")
       @stories = create_list(:story, 2, status: "approved")
       visit root_path
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Stories"
       sleep(0.5)
@@ -108,6 +121,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       event = @events.first
       visit root_path
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Events"
       sleep(0.5)
@@ -132,6 +146,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       artwork = @artworks.first
       visit root_path
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Art"
       sleep(0.5)
@@ -152,6 +167,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       story = @stories.first
       visit root_path
+      
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Stories"
       sleep(0.5)
