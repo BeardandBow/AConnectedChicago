@@ -5,5 +5,6 @@ class Api::V1::ArtworksController < ApplicationController
     artwork = Artwork.find(params[:id])
     artwork.delete
     flash[:success] = "Artwork Deleted"
+    respond_with status: :no_content
   end
 end
