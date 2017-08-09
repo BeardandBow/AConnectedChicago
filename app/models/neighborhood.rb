@@ -16,7 +16,7 @@ class Neighborhood < ApplicationRecord
 
   def has?(lat, long)
     if self.bounds[0]
-      lat.between?(self.bounds[1]["lat"], self.bounds[0]["lat"]) && long.between?(self.bounds[1]["lng"], self.bounds[0]["lng"])
+      lat.between?(self.bounds[1][:lat], self.bounds[0][:lat]) && long.between?(self.bounds[1][:lng], self.bounds[0][:lng])
     end
   end
 
