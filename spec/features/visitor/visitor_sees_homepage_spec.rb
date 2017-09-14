@@ -19,6 +19,49 @@ RSpec.feature "visitor sees homepage", js: true do
     expect(page).to have_button("Art")
   end
 
+  context "visitor views neighborhood with no content" do
+    scenario "visitor views empty events" do
+      hood = create(:neighborhood, name: "Englewood")
+      visit root_path
+      select hood.name, from: "neighborhood_select"
+      sleep(0.5)
+      click_button "Events"
+      expect(page).to have_content("Be the first to host a community building Event in this neighborhood by creating your Connected Chicago account today.")
+    end
+    scenario "visitor views empty artworks" do
+      hood = create(:neighborhood, name: "Englewood")
+      visit root_path
+      select hood.name, from: "neighborhood_select"
+      sleep(0.5)
+      click_button "Artwork"
+      expect(page).to have_content("Be the first to share your Artwork in this neighborhood by creating your Connected Chicago account today.")
+    end
+    scenario "visitor views empty peace circles" do
+      hood = create(:neighborhood, name: "Englewood")
+      visit root_path
+      select hood.name, from: "neighborhood_select"
+      sleep(0.5)
+      click_button "Peace Circles"
+      expect(page).to have_content("Be the first to promote a Peace Circle in this neighborhood by creating your Connected Chicago account today.")
+    end
+    scenario "visitor views empty stories" do
+      hood = create(:neighborhood, name: "Englewood")
+      visit root_path
+      select hood.name, from: "neighborhood_select"
+      sleep(0.5)
+      click_button "Stories"
+      expect(page).to have_content("Be the first to share your Story in this neighborhood by creating your Connected Chicago account today.")
+    end
+    scenario "visitor views empty organizations" do
+      hood = create(:neighborhood, name: "Englewood")
+      visit root_path
+      select hood.name, from: "neighborhood_select"
+      sleep(0.5)
+      select "All", from: "organization_type_select"
+      expect(page).to have_content("Be the first to upload your Organization in this neighborhood by creating your Connected Chicago account today.")
+    end
+  end
+
   context "visitor views content" do
     scenario "visitor views organizations outside of neighborhood" do
       type1 = create(:type, name: "RJ Hub", category: "organization")
@@ -167,7 +210,7 @@ RSpec.feature "visitor sees homepage", js: true do
 
       story = @stories.first
       visit root_path
-      
+
       select @hood.name, from: "neighborhood_select"
       wait_for(page).to have_button "Stories"
       sleep(0.5)

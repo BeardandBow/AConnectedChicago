@@ -38,7 +38,6 @@ gem 'responders'
 
 gem 'sass-rails'
 gem 'stripe'
-gem 'gmaps4rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

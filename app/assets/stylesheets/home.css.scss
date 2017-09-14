@@ -358,6 +358,11 @@ ol, li {
 .none {
   opacity: .5;
 }
+
+.resources-link {
+  font-weight: bold
+}
+
 @media (max-width: 450px) {
   #info-backdrop {
     position: absolute;
