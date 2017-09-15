@@ -673,8 +673,13 @@ ol, li {
   opacity: .5;
 }
 
+/* line 362, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+.resources-link {
+  font-weight: bold;
+}
+
 @media (max-width: 450px) {
-  /* line 362, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
+  /* line 367, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
   #info-backdrop {
     position: absolute;
     background-color: rgba(231, 226, 228, 0.8);

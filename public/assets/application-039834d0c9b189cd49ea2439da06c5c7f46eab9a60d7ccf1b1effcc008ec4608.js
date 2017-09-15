@@ -13291,10 +13291,79 @@ function noListingsMessage(type, divName) {
   var noListingsDiv = document.getElementById(divName)
   noListingsDiv.innerHTML = '';
   var none = document.createElement("h4");
+  var typeSpan = document.createElement("span")
+  var linebreak = document.createElement("br")
   if (document.getElementById("hood-select").selectedIndex > 1) {
-    none.innerHTML = "There are no " + type + " to show for this neighborhood.";
-  } else {
-    none.innerHTML = "There are no " + type + " to show."
+    if (type === "peace circles") {
+      var link = document.createElement("a")
+      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Peace Circle"
+      typeSpan.className = "peace-circles-text"
+      none.innerHTML = "Be the first to promote a "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
+      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + "Want to learn what a Peace Circle is? Click "
+      none.appendChild(link)
+    } else if (type === 'artworks') {
+      var link = document.createElement("a")
+      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Artwork"
+      typeSpan.className = "art-text"
+      none.innerHTML = "Be the first to share your "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
+      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + "Why is Art so important for community building? Click "
+      none.appendChild(link)
+    } else if (type === "events") {
+      var link = document.createElement("a")
+      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Event"
+      typeSpan.className = "events-text"
+      none.innerHTML = "Be the first to host a community building "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
+      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + "Want to learn what we mean by community building events? Click "
+      none.appendChild(link)
+    } else if (type === "stories") {
+      var link = document.createElement("a")
+      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Story"
+      typeSpan.className = "stories-text"
+      none.innerHTML = "Be the first to share your "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
+      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + "What does a Connected Chicago Story look like? Click "
+      none.appendChild(link)
+    } else if (type === "organizations") {
+      var link = document.createElement("a")
+      var emailLink = document.createElement("a")
+      emailLink.href = "mailto:connectedchicago@gmail.com"
+      emailLink.target = "_top"
+      link.href = "/about"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Organization"
+      typeSpan.className = "orgs-text"
+      none.innerHTML = "Be the first to upload your "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today. Register your organization by emailing us at ";
+      none.appendChild(emailLink)
+      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + "Want to see a list of Restorative Justice Organizations currently part of the Connected Chicago movement? Click "
+      none.appendChild(link)
+    }
   }
   none.className = "none";
   if (document.getElementById("org-select").selectedIndex > 0) {
