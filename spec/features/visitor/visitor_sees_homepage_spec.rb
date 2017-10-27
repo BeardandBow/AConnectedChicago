@@ -5,7 +5,7 @@ RSpec.feature "visitor sees homepage", js: true do
     visit root_path
 
     expect(page).to have_css("#modal")
-    expect(page).to have_content("Welcome to Connected Chicago!")
+    expect(page).to have_content("Click Anywhere to Start Connecting")
   end
 
   scenario "visitor sees links to view content" do

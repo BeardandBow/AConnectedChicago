@@ -5,6 +5,7 @@ $("#modal").ready(function(){
   } else {
     var body = document.querySelector("body")
     body.addEventListener('click', hideModal, false)
+    body.addEventListener('touchend', hideModal, false)
 
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();

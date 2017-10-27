@@ -15,4 +15,5 @@
 //= require jquery-readyselector
 //= require underscore.min
 //= require gmaps/google
+//= require markerclusterer
 //= require_tree .

@@ -52,6 +52,7 @@ group :production, :development do
   gem 'carrierwave'
   gem 'mini_magick'
   gem 'gmaps4rails'
+  gem 'markerclustererplus-rails'
   gem 'newrelic_rpm'
 end
 

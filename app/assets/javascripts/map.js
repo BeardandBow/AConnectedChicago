@@ -11,7 +11,8 @@ function createMap() {
                                 scrollwheel: false,
                                 center: new google.maps.LatLng(41.8581136, -87.6297982),
                                 disableDoubleClickZoom: true,
-                                styles: mapStyle
+                                styles: mapStyle,
+                                do_clustering: false
                               },
                     internal: {id: 'map'}
                    },
@@ -91,7 +92,8 @@ function showNeighborhood(e, latLong = false) {
   handler.buildMap({ provider: { disableDefaultUI: true,
                                  scrollwheel: false,
                                  disableDoubleClickZoom: true,
-                                 styles: hoodStyle
+                                 styles: hoodStyle,
+                                 do_clustering: false
                                },
                      internal: {id: 'map'}
                    },
@@ -200,7 +202,15 @@ function buildMapArtworks(response, handler) {
           openedMarker = marker
         })
       }
-    });
+    })
+    var typeSpan = document.createElement("span")
+    typeSpan.innerHTML = "Artwork"
+    typeSpan.className = "art-text"
+    var text = document.createElement("h4")
+    text.innerHTML = "</br></br>Share your own "
+    text.appendChild(typeSpan)
+    text.innerHTML = text.innerHTML + " for this neighborhood by creating your <i>Connected Chicago</i> account today."
+    document.getElementById("artwork-listings").appendChild(text)
   } else {
     noListingsMessage("artworks", "artwork-listings")
   }
@@ -388,7 +398,15 @@ function buildMapStories(response, handler) {
           openedMarker = marker
         })
       }
-    });
+    })
+    var typeSpan = document.createElement("span")
+    typeSpan.innerHTML = "Story"
+    typeSpan.className = "stories-text"
+    var text = document.createElement("h4")
+    text.innerHTML = "</br></br>Share your "
+    text.appendChild(typeSpan)
+    text.innerHTML = text.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today."
+    document.getElementById("story-listings").appendChild(text)
   } else {
     noListingsMessage("stories", "story-listings");
   }
@@ -456,7 +474,6 @@ function noListingsMessage(type, divName) {
   noListingsDiv.innerHTML = '';
   var none = document.createElement("h4");
   var typeSpan = document.createElement("span")
-  var linebreak = document.createElement("br")
   if (document.getElementById("hood-select").selectedIndex > 1) {
     if (type === "peace circles") {
       var link = document.createElement("a")
@@ -467,8 +484,7 @@ function noListingsMessage(type, divName) {
       typeSpan.className = "peace-circles-text"
       none.innerHTML = "Be the first to promote a "
       none.appendChild(typeSpan)
-      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
-      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>"
       none.innerHTML = none.innerHTML + "Want to learn what a Peace Circle is? Click "
       none.appendChild(link)
     } else if (type === 'artworks') {
@@ -480,10 +496,11 @@ function noListingsMessage(type, divName) {
       typeSpan.className = "art-text"
       none.innerHTML = "Be the first to share your "
       none.appendChild(typeSpan)
-      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
-      none.appendChild(linebreak)
-      none.innerHTML = none.innerHTML + "Why is Art so important for community building? Click "
-      none.appendChild(link)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
+      typeSpan.innerHTML = "Art"
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " can include everything from your neighborhood’s public artworks, murals, sculptures, and architecture to your personal drawings, paintings and photographs, etc. "
+      var div = document.getElementById("artwork-listings")
     } else if (type === "events") {
       var link = document.createElement("a")
       link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
@@ -493,22 +510,20 @@ function noListingsMessage(type, divName) {
       typeSpan.className = "events-text"
       none.innerHTML = "Be the first to host a community building "
       none.appendChild(typeSpan)
-      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
-      none.appendChild(linebreak)
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
       none.innerHTML = none.innerHTML + "Want to learn what we mean by community building events? Click "
       none.appendChild(link)
     } else if (type === "stories") {
       var link = document.createElement("a")
-      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.href = "https://www.youtube.com/channel/UCEFd2_O_UXCm4d7NbK9L11Q/featured"
       link.target = "_blank"
       link.innerText = "here"
       typeSpan.innerHTML = "Story"
       typeSpan.className = "stories-text"
       none.innerHTML = "Be the first to share your "
       none.appendChild(typeSpan)
-      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today.";
-      none.appendChild(linebreak)
-      none.innerHTML = none.innerHTML + "What does a Connected Chicago Story look like? Click "
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
+      none.innerHTML = none.innerHTML + "What does can a Story look like? Click "
       none.appendChild(link)
     } else if (type === "organizations") {
       var link = document.createElement("a")
@@ -522,10 +537,9 @@ function noListingsMessage(type, divName) {
       typeSpan.className = "orgs-text"
       none.innerHTML = "Be the first to upload your "
       none.appendChild(typeSpan)
-      none.innerHTML = none.innerHTML + " in this neighborhood by creating your Connected Chicago account today. Register your organization by emailing us at ";
+      none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today. Register your organization by emailing us at ";
       none.appendChild(emailLink)
-      none.appendChild(linebreak)
-      none.innerHTML = none.innerHTML + "Want to see a list of Restorative Justice Organizations currently part of the Connected Chicago movement? Click "
+      none.innerHTML = none.innerHTML + "</br></br>Want to see a list of Restorative Justice Organizations currently part of the Connected Chicago movement? Click "
       none.appendChild(link)
     }
   }
