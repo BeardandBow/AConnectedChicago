@@ -20,11 +20,11 @@
           <option disabled selected>Select a neighborhood</option>
           <option>All Neighborhoods</option>
           <%= @neighborhoods.each do |name| %>
-          <% if @role && @role > 0 && current_user.neighborhood.name == name %>
-          <option selected="selected"><%= name %></option>
-          <% else %>
-          <option><%= name %></option>
-          <% end %>
+            <% if @role && @role > 0 && current_user.neighborhood.name == name %>
+              <option selected="selected"><%= name %></option>
+            <% else %>
+              <option><%= name %></option>
+            <% end %>
           <% end %>
         </select>
       </div>
@@ -66,7 +66,7 @@
       </ol>
     </div>
     <div id="artwork-listings">
-      
+
     </div>
     <div id="event-listings">
     </div>

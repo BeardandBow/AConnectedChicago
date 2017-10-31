@@ -31,12 +31,13 @@ RSpec.feature "user sees dashboard" do
       click_on "Share your Event"
 
       # and fill in the information for a new event in the text fields
-      fill_in "Title", with: "event"
+      fill_in "Title of Event", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
-      select organization.name, from: "event_organization"
-      fill_in "Description", with: "description"
-      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
-      select "Peace Circle", from: "event_type"
+      select organization.name, from: "event_organization_id"
+      fill_in "Brief Description of Event", with: "description"
+      fill_in "Location of Event", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      select "Peace Circle", from: "event_type_id"
+      fill_in "Event Website Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       select Date.tomorrow.year, from: "event_date_1i"
       select Date.tomorrow.strftime("%B"), from: "event_date_2i"
       select Date.tomorrow.day, from: "event_date_3i"

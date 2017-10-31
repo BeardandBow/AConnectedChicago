@@ -523,7 +523,7 @@ function noListingsMessage(type, divName) {
       none.innerHTML = "Be the first to share your "
       none.appendChild(typeSpan)
       none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
-      none.innerHTML = none.innerHTML + "What does can a Story look like? Click "
+      none.innerHTML = none.innerHTML + "What can a Story look like? Click "
       none.appendChild(link)
     } else if (type === "organizations") {
       var link = document.createElement("a")

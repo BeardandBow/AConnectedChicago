@@ -2,21 +2,28 @@
 <div class="center">
   <div class="centered-container">
     <h1 class="white">Submit an Event</h1>
-    <h5 class="white">Reasons to upload that Mike will provide go here</h5>
+    <h5 class="white">
+      By hosting your events on Connected Chicago,
+      you can foster community-building opportunities for all of Chicago.
+      Events hosted can include everything from poetry slams, open mics,
+      shared meals, sporting events, religious prayer services to circle trainings,
+      restorative justice workshops, issue-based community discussions and so much more.
+    </h5>
     <%= form_for @event, html: {multipart: true} do |f| %>
-      <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
+      <%= f.text_field :title, placeholder: "Title of Event", class: "form-input" %>
       <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>
+      <%= f.text_field :link, placeholder: "Event Website Link", class: "form-input" %>
       <div class="input-group form-input">
         <span class="input-group-btn">
           <span class="btn btn-success btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Add Image</span>
-          <%= f.file_field :file_upload, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
+          <%= f.file_field :image, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
         </span>
         <span class="form-control img-upload-text"></span>
       </div>
-      <%= f.select :organization, @organizations, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"} %>
-      <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
-      <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
-      <%= f.select :type, @types, {prompt: "Event Type"}, {class: "form-input form-control center-dropdown"} %>
+      <%= f.collection_select(:organization_id, @organizations, :id, :name, {prompt: "Host Organization"}, {class: "form-input form-control center-dropdown"}) %>
+      <%= f.text_area :description, placeholder: "Brief Description of Event", class: "form-input", maxlength: 350 %>
+      <%= f.text_field :address, placeholder: "Location of Event", class: "form-input" %>
+      <%= f.collection_select(:type_id, @types, :id, :name, {prompt: "Event Type"}, {class: "form-input form-control center-dropdown"}) %>
       <%= f.date_select :date, {start_year: Date.today.year}, {class: "form-input form-control center-dropdown"} %>
         <%= f.time_select :time, { prompt: {hour: 'Choose hour', minute: 'Choose minute'}, minute_step: 15, ampm: true, time_separator: "" }, { class: 'form-input form-control center-dropdown' } %>
       <%= f.submit "Share your Event", class: "submit-input btn btn-success" %>
