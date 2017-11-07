@@ -18438,7 +18438,7 @@ $("#modal").ready(function(){
     })
 
     localStorage.setItem("lastVisited", currentDate)
-    // $("#toggle-nav").hide();
+    $("#navbar").hide();
     noClicks();
   }
 });
@@ -18455,7 +18455,7 @@ function hideModal() {
 function noClicks() {
   $("#map").hide();
   $("#info-backdrop").hide();
-  $("#toggle-nav").hide();
+  $("#navbar").hide();
 }
 
 function checkDate(currentDate) {
