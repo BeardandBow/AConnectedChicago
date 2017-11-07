@@ -44,6 +44,8 @@ GEM
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (7.1.4)
+    autoprefixer-rails (7.1.6)
+      execjs
     aws-sdk (2.6.35)
       aws-sdk-resources (= 2.6.35)
     aws-sdk-core (2.6.35)
@@ -53,6 +55,9 @@ GEM
       aws-sdk-core (= 2.6.35)
     aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     capybara (2.12.1)
       addressable
@@ -406,6 +411,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bcrypt (~> 3.1.7)
+  bootstrap-sass
   capybara
   carrierwave
   chromedriver-helper

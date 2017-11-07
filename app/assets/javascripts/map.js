@@ -25,9 +25,11 @@ function createMap() {
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
     stopBubbling();
-    google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-      showNeighborhood(null, e.latLng)
-    });
+    if (window.innerWidth > 450) {
+      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+        showNeighborhood(null, e.latLng)
+      });
+    }
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -73,8 +75,8 @@ function stopBubbling() {
   document.getElementById("info-backdrop").addEventListener("click", function(e) {
     e.stopPropagation();
   })
-  document.getElementById("navbar").addEventListener("click", function(e) {
-    e.stopPropogation();
+  document.getElementById("toggle-nav").addEventListener("click", function(e) {
+    e.stopPropagation();
   })
 }
 
@@ -530,6 +532,7 @@ function noListingsMessage(type, divName) {
       var emailLink = document.createElement("a")
       emailLink.href = "mailto:connectedchicago@gmail.com"
       emailLink.target = "_top"
+      emailLink.innerHTML = "connectedchicago@gmail.com"
       link.href = "/about"
       link.target = "_blank"
       link.innerText = "here"
