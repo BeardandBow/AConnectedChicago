@@ -16895,9 +16895,9 @@ function createMap() {
     var orgs = document.getElementById("org-select");
 
     orgs.addEventListener("change", orgShow);
+    hoods.addEventListener("change", showNeighborhood);
     stopBubbling();
-    if (screen.width > 450) {
-      hoods.addEventListener("change", showNeighborhood);
+    if (window.innerWidth > 600) {
       google.maps.event.addListener(handler.getMap(), 'click', function(e) {
         showNeighborhood(null, e.latLng)
       });
@@ -16980,7 +16980,7 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      if (screen.width > 450) {
+      if (window.innerWidth > 600) {
         google.maps.event.addListener(handler.getMap(), 'click', function(e) {
           showNeighborhood(null, e.latLng)
         });
@@ -17021,6 +17021,9 @@ function showNeighborhood(e, latLong = false) {
           if (window.innerWidth < 450) {
             markers.forEach(function(marker){
               marker.serviceObject.setVisible(false);
+              google.maps.event.removeListener(handler.getMap(), 'click', function(e) {
+                showNeighborhood(null, e.latLng)
+              });
             })
           }
         })
@@ -17543,7 +17546,7 @@ function setUpMap(handler) {
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
   handler.getMap().setZoom(14);
-  if (window.innerWidth > 600) {
+  if (window.innerWidth > 450) {
     var xCenter = window.innerWidth * 0.3 / 2
     handler.map.serviceObject.panBy(xCenter, 0);
   }
