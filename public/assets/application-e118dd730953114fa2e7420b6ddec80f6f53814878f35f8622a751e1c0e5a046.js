@@ -16893,10 +16893,11 @@ function createMap() {
     handler.map.serviceObject.panBy(xCenter, 0);
     var hoods = document.getElementById("hood-select");
     var orgs = document.getElementById("org-select");
-    hoods.addEventListener("change", showNeighborhood);
+
     orgs.addEventListener("change", orgShow);
     stopBubbling();
-    if (window.screen.width > 450) {
+    if (screen.width > 450) {
+      hoods.addEventListener("change", showNeighborhood);
       google.maps.event.addListener(handler.getMap(), 'click', function(e) {
         showNeighborhood(null, e.latLng)
       });
