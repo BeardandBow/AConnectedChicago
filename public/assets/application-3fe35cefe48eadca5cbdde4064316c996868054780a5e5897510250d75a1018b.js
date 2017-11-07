@@ -16980,9 +16980,12 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-        showNeighborhood(null, e.latLng)
-      });
+      if (screen.width > 450) {
+        google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+          showNeighborhood(null, e.latLng)
+        });
+      }
+
       if (hoodName === "All Neighborhoods") {
         createMap();
         $("#instructions").show();
