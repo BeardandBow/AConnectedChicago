@@ -18456,6 +18456,7 @@ function hideModal() {
   $("#map").show();
   $("#info-backdrop").show();
   this.removeEventListener('click', hideModal, false)
+  this.removeEventListener('touchend', hideModal, false)
   createMap()
  }
 
