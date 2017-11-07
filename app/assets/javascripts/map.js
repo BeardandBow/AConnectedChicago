@@ -25,7 +25,7 @@ function createMap() {
     hoods.addEventListener("change", showNeighborhood);
     orgs.addEventListener("change", orgShow);
     stopBubbling();
-    if (window.innerWidth > 450) {
+    if (window.screen.width > 450) {
       google.maps.event.addListener(handler.getMap(), 'click', function(e) {
         showNeighborhood(null, e.latLng)
       });
