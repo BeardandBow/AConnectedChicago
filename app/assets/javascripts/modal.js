@@ -14,7 +14,7 @@ $("#modal").ready(function(){
     })
 
     localStorage.setItem("lastVisited", currentDate)
-    $("#navbar").hide();
+    // $("#toggle-nav").hide();
     noClicks();
   }
 });
@@ -31,7 +31,7 @@ function hideModal() {
 function noClicks() {
   $("#map").hide();
   $("#info-backdrop").hide();
-  $("#navbar").hide();
+  $("#toggle-nav").hide();
 }
 
 function checkDate(currentDate) {
