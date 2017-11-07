@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-readyselector
+//= require bootstrap-sprockets
 //= require underscore.min
 //= require gmaps/google
 //= require markerclusterer

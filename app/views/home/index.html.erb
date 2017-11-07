@@ -7,7 +7,7 @@
       <br>
       <h4 id="mission">Our Mission is to Restore Human Connection in the City of Chicago through Storytelling, Peace Circles, Art and Community Relationship Building.</p>
         <br>
-      <h5><i>Click Anywhere to Start Connecting</i></p>
+      <h5><i>Click or Tap Anywhere to Start Connecting</i></p>
     </div>
   </div>
 <% end %>
@@ -20,11 +20,11 @@
           <option disabled selected>Select a neighborhood</option>
           <option>All Neighborhoods</option>
           <%= @neighborhoods.each do |name| %>
-          <% if @role && @role > 0 && current_user.neighborhood.name == name %>
-          <option selected="selected"><%= name %></option>
-          <% else %>
-          <option><%= name %></option>
-          <% end %>
+            <% if @role && @role > 0 && current_user.neighborhood.name == name %>
+              <option selected="selected"><%= name %></option>
+            <% else %>
+              <option><%= name %></option>
+            <% end %>
           <% end %>
         </select>
       </div>
@@ -65,16 +65,12 @@
         <li>Create your <strong><i>Connected Chicago</i></strong> account and Share your own Restorative Justice Events, Stories, and Artwork with the city of Chicago</li>
       </ol>
     </div>
-    <div id="artwork-listings">
-      
-    </div>
+    <div id="artwork-listings"></div>
     <div id="event-listings">
     </div>
     <div id="peace-circle-listings">
     </div>
-    <div id="story-listings">
-      <br><br><h4>Share your <span class="story-listings">Story</span> in this neighborhood by creating your Connected Chicago account today.</h4>
-    </div>
+    <div id="story-listings"></div>
     <div id="org-listings">
     </div>
     <div id="none-to-show">

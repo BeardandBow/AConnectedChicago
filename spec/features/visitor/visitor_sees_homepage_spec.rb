@@ -5,7 +5,7 @@ RSpec.feature "visitor sees homepage", js: true do
     visit root_path
 
     expect(page).to have_css("#modal")
-    expect(page).to have_content("Click Anywhere to Start Connecting")
+    expect(page).to have_content("Click or Tap Anywhere to Start Connecting")
   end
 
   scenario "visitor sees links to view content" do
@@ -54,6 +54,7 @@ RSpec.feature "visitor sees homepage", js: true do
     end
     scenario "visitor views empty organizations" do
       hood = create(:neighborhood, name: "Englewood")
+      hood.organizations.delete_all
       visit root_path
       select hood.name, from: "neighborhood_select"
       sleep(0.5)
