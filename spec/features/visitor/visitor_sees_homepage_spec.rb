@@ -54,6 +54,7 @@ RSpec.feature "visitor sees homepage", js: true do
     end
     scenario "visitor views empty organizations" do
       hood = create(:neighborhood, name: "Englewood")
+      hood.organizations.delete_all
       visit root_path
       select hood.name, from: "neighborhood_select"
       sleep(0.5)
