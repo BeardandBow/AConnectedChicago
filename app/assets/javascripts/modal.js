@@ -3,6 +3,7 @@ $("#modal").ready(function(){
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
+    //double tap functionality. The client wanted this
     var body = document.querySelector("body")
     body.addEventListener('click', function() {
         body.addEventListener('click', hideModal)
@@ -11,7 +12,7 @@ $("#modal").ready(function(){
     body.addEventListener('touchend', function() {
         body.addEventListener('touchend', hideModal)
     })
-    
+
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
     noClicks();

@@ -26,11 +26,11 @@ function createMap() {
     orgs.addEventListener("change", orgShow);
     hoods.addEventListener("change", showNeighborhood);
     stopBubbling();
-    // if (window.innerWidth > 600) {
-    //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-    //     showNeighborhood(null, e.latLng)
-    //   });
-    // }
+    if (window.innerWidth > 600) {
+      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+        showNeighborhood(null, e.latLng)
+      });
+    }
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -109,11 +109,11 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      // if (window.innerWidth > 600) {
-      //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-      //     showNeighborhood(null, e.latLng)
-      //   });
-      // }
+      if (window.innerWidth > 600) {
+        google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+          showNeighborhood(null, e.latLng)
+        });
+      }
 
       if (hoodName === "All Neighborhoods") {
         console.log("119")

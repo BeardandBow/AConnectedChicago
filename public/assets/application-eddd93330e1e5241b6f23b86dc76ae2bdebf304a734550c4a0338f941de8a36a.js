@@ -16897,11 +16897,11 @@ function createMap() {
     orgs.addEventListener("change", orgShow);
     hoods.addEventListener("change", showNeighborhood);
     stopBubbling();
-    // if (window.innerWidth > 600) {
-    //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-    //     showNeighborhood(null, e.latLng)
-    //   });
-    // }
+    if (window.innerWidth > 600) {
+      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+        showNeighborhood(null, e.latLng)
+      });
+    }
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -16980,11 +16980,11 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      // if (window.innerWidth > 600) {
-      //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-      //     showNeighborhood(null, e.latLng)
-      //   });
-      // }
+      if (window.innerWidth > 600) {
+        google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+          showNeighborhood(null, e.latLng)
+        });
+      }
 
       if (hoodName === "All Neighborhoods") {
         console.log("119")
@@ -18433,6 +18433,7 @@ $("#modal").ready(function(){
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
+    //double tap functionality. The client wanted this
     var body = document.querySelector("body")
     body.addEventListener('click', function() {
         body.addEventListener('click', hideModal)
@@ -18441,7 +18442,7 @@ $("#modal").ready(function(){
     body.addEventListener('touchend', function() {
         body.addEventListener('touchend', hideModal)
     })
-    
+
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
     noClicks();
