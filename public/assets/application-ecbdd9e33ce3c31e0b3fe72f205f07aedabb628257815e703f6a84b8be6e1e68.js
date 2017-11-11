@@ -18434,8 +18434,10 @@ $("#modal").ready(function(){
     checkDate(currentDate)
   } else {
     var body = document.querySelector("body")
-    body.addEventListener('click', hideModal)
-    body.addEventListener('touchend', hideModal)
+    body.addEventListener('click', function() {
+        body.addEventListener('click', hideModal)
+        body.addEventListener('touchend', hideModal)
+    })
 
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
