@@ -1,17 +1,11 @@
 $("#modal").ready(function(){
-  var touches = 0
   var currentDate = new Date().toDateString()
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
     var body = document.querySelector("body")
-    body.addEventListener('click', hideModal, false)
-    body.addEventListener('touchend', function() {
-      touches += 1
-      if (touches >= 2) {
-        hideModal()
-      }
-    })
+    body.addEventListener('click', hideModal)
+    body.addEventListener('touchend', hideModal)
 
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
@@ -24,8 +18,8 @@ function hideModal() {
   $("#modal-container").hide();
   $("#map").show();
   $("#info-backdrop").show();
-  this.removeEventListener('click', hideModal, false)
-  this.removeEventListener('touchend', hideModal, false)
+  this.removeEventListener('click', hideModal)
+  this.removeEventListener('touchend', hideModal)
   createMap()
  }
 

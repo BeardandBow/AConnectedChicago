@@ -16897,11 +16897,11 @@ function createMap() {
     orgs.addEventListener("change", orgShow);
     hoods.addEventListener("change", showNeighborhood);
     stopBubbling();
-    if (window.innerWidth > 600) {
-      google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-        showNeighborhood(null, e.latLng)
-      });
-    }
+    // if (window.innerWidth > 600) {
+    //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+    //     showNeighborhood(null, e.latLng)
+    //   });
+    // }
     if (hoods.selectedIndex > 1) {
       showNeighborhood(hoods);
     }
@@ -16980,13 +16980,14 @@ function showNeighborhood(e, latLong = false) {
           var hoodName = e.options[e.selectedIndex].value;
         }
       }
-      if (window.innerWidth > 600) {
-        google.maps.event.addListener(handler.getMap(), 'click', function(e) {
-          showNeighborhood(null, e.latLng)
-        });
-      }
+      // if (window.innerWidth > 600) {
+      //   google.maps.event.addListener(handler.getMap(), 'click', function(e) {
+      //     showNeighborhood(null, e.latLng)
+      //   });
+      // }
 
       if (hoodName === "All Neighborhoods") {
+        console.log("119")
         createMap();
         $("#instructions").show();
         $("#artwork-listings").hide();
@@ -17009,6 +17010,7 @@ function showNeighborhood(e, latLong = false) {
             if (hoods.selectedIndex > 1) {
               showNeighborhood(hoods);
             } else {
+              console.log("error")
               createMap()
             }
           }
@@ -17021,9 +17023,6 @@ function showNeighborhood(e, latLong = false) {
           if (window.innerWidth < 450) {
             markers.forEach(function(marker){
               marker.serviceObject.setVisible(false);
-              google.maps.event.removeListener(handler.getMap(), 'click', function(e) {
-                showNeighborhood(null, e.latLng)
-              });
             })
           }
         })
@@ -17546,7 +17545,7 @@ function setUpMap(handler) {
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
   handler.getMap().setZoom(14);
-  if (window.innerWidth > 450) {
+  if (window.innerWidth > 600) {
     var xCenter = window.innerWidth * 0.3 / 2
     handler.map.serviceObject.panBy(xCenter, 0);
   }
@@ -18430,19 +18429,13 @@ var hoodStyle = [
 ]
 ;
 $("#modal").ready(function(){
-  var touches = 0
   var currentDate = new Date().toDateString()
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
     var body = document.querySelector("body")
-    body.addEventListener('click', hideModal, false)
-    body.addEventListener('touchend', function() {
-      touches += 1
-      if (touches >= 2) {
-        hideModal()
-      }
-    })
+    body.addEventListener('click', hideModal)
+    body.addEventListener('touchend', hideModal)
 
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
@@ -18455,8 +18448,8 @@ function hideModal() {
   $("#modal-container").hide();
   $("#map").show();
   $("#info-backdrop").show();
-  this.removeEventListener('click', hideModal, false)
-  this.removeEventListener('touchend', hideModal, false)
+  this.removeEventListener('click', hideModal)
+  this.removeEventListener('touchend', hideModal)
   createMap()
  }
 
