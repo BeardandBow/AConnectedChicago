@@ -108,11 +108,15 @@ body {
 }
 
 #org-select {
-  -webkit-appearance: none;
-  background-color: #800000;
+  -webkit-appearance: button;
+  display: inlinez;
+  background-color: #933B3B;
   border-color: #4C2326;
   color: #E7E2E4;
-  text-align: -webkit-center
+}
+
+#texttest{
+    display: none;
 }
 
 .btn-default {
