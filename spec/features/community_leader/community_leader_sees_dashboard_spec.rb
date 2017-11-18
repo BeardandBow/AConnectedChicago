@@ -176,7 +176,7 @@ RSpec.feature "community leader sees dashboard" do
       fill_in "Host Contact Email", with: "someguy@gmail.com"
       select organization.name, from: "event_organization_id"
       fill_in "Brief Description of Event", with: "description"
-      fill_in "Location of Event", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Location of Event (Read Important Instructions)", with: "5699 S Ellis Ave, Chicago, IL 60637"
       select "Peace Circle", from: "event_type_id"
       select Date.tomorrow.year, from: "event_date_1i"
       select Date.tomorrow.strftime("%B"), from: "event_date_2i"
@@ -199,12 +199,12 @@ RSpec.feature "community leader sees dashboard" do
       # and click "Share your Event"
       click_on "Share your Story"
 
-      fill_in "Title", with: "story"
-      fill_in "Author", with: "some guy"
-      fill_in "Description", with: "description"
-      fill_in "Story", with: "body"
-      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
-      fill_in "YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
+      fill_in "Title of Story", with: "story"
+      fill_in "Author/s of Story", with: "some guy"
+      fill_in "Brief Description of Story", with: "description"
+      fill_in "Your Written Story", with: "body"
+      fill_in "Location/Address of Story (Read Important Instructions)", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Insert YouTube Link", with: "https://www.youtube.com/watch?v=eRBOgtp0Hac"
       # and click submit
       click_on "Share your Story"
       # I should be on my dashboard
@@ -221,11 +221,11 @@ RSpec.feature "community leader sees dashboard" do
       # and click "Share your Event"
       click_on "Share your Artwork"
       # and fill in the information for a new event in the text fields
-      fill_in "Title", with: "artwork"
-      fill_in "Artist", with: "some guy"
-      fill_in "Description", with: "description"
+      fill_in "Title of Artwork", with: "artwork"
+      fill_in "Name of Artist/s", with: "some guy"
+      fill_in "Brief Description of Artwork", with: "description"
 
-      fill_in "Address", with: "5699 S Ellis Ave, Chicago, IL 60637"
+      fill_in "Location/Address of Artwork (Read Important Instructions)", with: "5699 S Ellis Ave, Chicago, IL 60637"
       # and click submit
       click_on "Share your Art"
       # I should be on my dashboard
