@@ -2,14 +2,14 @@
 <div class="center">
   <div class="centered-container">
     <h1 class="white">We Want to Hear Your Story</h1>
-    <h5 class="white">A CONNECTED CHICAGO is a movement that aims to foster empathy through storytelling. The online storytelling component of the campaign is not a substitute for real-life engagement or proximity with persons, but merely a supplement or launching point for engaging these, at times uncomfortable, stories. By clicking and listening to the stories below, you too can foster empathy and learn what is needed to Connect Chicago by going to the source - our fellow Chicagoans.</h5>
+    <h5 class="white">By uploading your stories, you too can help build empathy and share what is needed to connect Chicago by going to the source - us fellow Chicagoans. The online storytelling component of the campaign is not a substitute for real-life engagement or proximity with persons, but a supplement for engaging these, at times unknown and difficult, Chicago stories. </h5>
     <%= form_for @story do |f| %>
-      <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
-      <%= f.text_field :author, placeholder: "Author", class: "form-input" %>
-      <%= f.text_field :youtube_link, placeholder: "YouTube Link", class: "form-input" %>
-      <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
-      <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
-      <%= f.text_area :body, placeholder: "Story", class: "form-input" %>
+      <%= f.text_field :title, placeholder: "Title of Story", class: "form-input" %>
+      <%= f.text_field :author, placeholder: "Author/s of Story", class: "form-input" %>
+      <%= f.text_field :youtube_link, placeholder: "Insert YouTube Link", class: "form-input" %>
+      <%= f.text_field :description, placeholder: "Brief Description of Story", class: "form-input" %>
+      <%= f.text_field :address, placeholder: "Location/Address of Story (Read Important Instructions)", class: "form-input" %>
+      <%= f.text_area :body, placeholder: "Your Written Story", class: "form-input" %>
       <%= f.submit "Share your Story", class: "submit-input btn btn-success" %>
     <% end %>
   </div>

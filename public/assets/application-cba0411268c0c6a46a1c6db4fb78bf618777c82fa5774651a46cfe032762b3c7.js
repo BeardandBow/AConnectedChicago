@@ -17016,11 +17016,7 @@ function showNeighborhood(e, latLong = false) {
         console.log("119")
         createMap();
         $("#instructions").show();
-        $("#artwork-listings").hide();
-        $("#event-listings").hide();
-        $("#peace-circle-listings").hide();
-        $("#story-listings").hide();
-        $("#org-listings").hide();
+        setMapListeners();
       } else if (latLong) {
         $.ajax({
           url: "/api/v1/neighborhoods/find-neighborhood",
@@ -17124,38 +17120,47 @@ function buildMapArtworks(response, handler) {
 function setArtworkListingListener() {
   var artworkButton = document.getElementById("btn-artwork")
   artworkButton.addEventListener("click", function() {
-    $("#artwork-listings")
-    $("#instructions").hide()
-    $("#artwork-listings").show()
-    $("#event-listings").hide()
-    $("#peace-circle-listings").hide()
-    $("#story-listings").hide()
-    $("#org-listings").hide()
-    document.getElementById("org-select").selectedIndex = 0
-    if (window.innerWidth > 450) {
-      var listings = document.getElementById('artwork-listings').childNodes;
-      listings.forEach(function(listing) {
-        listing.addEventListener("mouseover", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-              if (openedMarker) {
-                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+    var listings = document.getElementById('artwork-listings').childNodes;
+    if (listings.length !== 0) {
+      $("#instructions").hide()
+      $("#artwork-listings").show()
+      $("#event-listings").hide()
+      $("#peace-circle-listings").hide()
+      $("#story-listings").hide()
+      $("#org-listings").hide()
+      document.getElementById("org-select").selectedIndex = 0
+      if (window.innerWidth > 450) {
+        listings.forEach(function(listing) {
+          listing.addEventListener("mouseover", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                if (openedMarker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = null
               }
-              openedMarker = null
             }
-          }
-        });
-        listing.addEventListener("mouseout", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          });
+          listing.addEventListener("mouseout", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "A" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+              }
             }
-          }
+          });
         });
-      });
+      }
+    } else {
+      $("#instructions").show()
+      $("#artwork-listings").hide()
+      $("#event-listings").hide()
+      $("#peace-circle-listings").hide()
+      $("#story-listings").hide()
+      $("#org-listings").hide()
+      document.getElementById("org-select").selectedIndex = 0
     }
-  });
+  })
 }
 
 function buildMapEvents(response, handler) {
@@ -17190,10 +17195,34 @@ function buildMapEvents(response, handler) {
         peaceCircleListings.push(event)
         document.getElementById("peace-circle-listings").appendChild(formatEvent(event));
       }
-    });
+    })
     if (peaceCircleListings.length === 0) {
       noListingsMessage("peace circles", "peace-circle-listings")
+    } else {
+      var typeSpan = document.createElement("span")
+      typeSpan.innerHTML = "Peace Circle"
+      typeSpan.className = "peace-circles-text"
+      var link = document.createElement("a")
+      link.href = "https://www.youtube.com/watch?v=L6stLLU5VTA"
+      link.innerHTML = "here"
+      var text = document.createElement("h4")
+      text.innerHTML = "</br></br>Promote your "
+      text.appendChild(typeSpan)
+      text.innerHTML = text.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today."
+      text.innerHTML = text.innerHTML + "</br></br>Want to learn what a "
+      text.appendChild(typeSpan)
+      text.innerHTML = text.innerHTML + " is? Click "
+      text.appendChild(link)
+      document.getElementById("peace-circle-listings").appendChild(text)
     }
+    var typeSpan = document.createElement("span")
+    typeSpan.innerHTML = "Events"
+    typeSpan.className = "events-text"
+    var text = document.createElement("h4")
+    text.innerHTML = "</br></br>Community building "
+    text.appendChild(typeSpan)
+    text.innerHTML = text.innerHTML + " can involve everything from hosting poetry slams, open mics, shared meals, sporting events, religious prayer services to circle trainings, restorative justice workshops, issue-based community discussions and much more."
+    document.getElementById("event-listings").appendChild(text)
   } else {
     noListingsMessage("events", "event-listings");
     noListingsMessage("peace circles", "peace-circle-listings")
@@ -17212,28 +17241,38 @@ function setEventListingListener() {
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
       var listings = document.getElementById('event-listings').childNodes;
-      listings.forEach(function(listing) {
-        listing.addEventListener("mouseover", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-              if (openedMarker) {
-                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+      if (listings.length !== 0) {
+        listings.forEach(function(listing) {
+          listing.addEventListener("mouseover", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                if (openedMarker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = null
               }
-              openedMarker = null
             }
-          }
-        });
-        listing.addEventListener("mouseout", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          })
+          listing.addEventListener("mouseout", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+              }
             }
-          }
-        });
-      });
+          })
+        })
+      } else {
+        $("#instructions").show()
+        $("#artwork-listings").hide()
+        $("#event-listings").hide()
+        $("#peace-circle-listings").hide()
+        $("#story-listings").hide()
+        $("#org-listings").hide()
+        document.getElementById("org-select").selectedIndex = 0
+      }
     }
-  });
+  })
 }
 
 function setPeaceCircleListingListener() {
@@ -17248,28 +17287,38 @@ function setPeaceCircleListingListener() {
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
       var listings = document.getElementById('peace-circle-listings').childNodes;
-      listings.forEach(function(listing) {
-        listing.addEventListener("mouseover", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-              if (openedMarker) {
-                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+      if (listings.length !== 0) {
+        listings.forEach(function(listing) {
+          listing.addEventListener("mouseover", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                if (openedMarker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = null
               }
-              openedMarker = null
             }
-          }
-        });
-        listing.addEventListener("mouseout", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+          })
+          listing.addEventListener("mouseout", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "E" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject);
+              }
             }
-          }
-        });
-      });
+          })
+        })
+      } else {
+        $("#instructions").show()
+        $("#artwork-listings").hide()
+        $("#event-listings").hide()
+        $("#peace-circle-listings").hide()
+        $("#story-listings").hide()
+        $("#org-listings").hide()
+        document.getElementById("org-select").selectedIndex = 0
+      }
     }
-  });
+  })
 }
 
 function buildMapStories(response, handler) {
@@ -17329,26 +17378,36 @@ function setStoryListingListener() {
     document.getElementById("org-select").selectedIndex = 0
     if (window.innerWidth > 450) {
       var listings = document.getElementById('story-listings').childNodes;
-      listings.forEach(function(listing) {
-        listing.addEventListener("mouseover", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
-              if (openedMarker) {
-                openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+      if (listings.length !== 0) {
+        listings.forEach(function(listing) {
+          listing.addEventListener("mouseover", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === "S" && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.open(markers[i].serviceObject.map, markers[i].serviceObject);
+                if (openedMarker) {
+                  openedMarker.serviceObject.infowindow.close(handler.map, openedMarker.serviceObject)
+                }
+                openedMarker = null
               }
-              openedMarker = null
             }
-          }
-        });
-        listing.addEventListener("mouseout", function() {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
-              markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+          });
+          listing.addEventListener("mouseout", function() {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].key && markers[i].key[0] === 'S' && markers[i].id === parseInt(listing.id)) {
+                markers[i].serviceObject.infowindow.close(markers[i].serviceObject.map, markers[i].serviceObject)
+              }
             }
-          }
+          })
         })
-      })
+      } else {
+        $("#instructions").show()
+        $("#artwork-listings").hide()
+        $("#event-listings").hide()
+        $("#peace-circle-listings").hide()
+        $("#story-listings").hide()
+        $("#org-listings").hide()
+        document.getElementById("org-select").selectedIndex = 0
+      }
     }
   })
 }
@@ -17416,8 +17475,9 @@ function noListingsMessage(type, divName) {
       none.innerHTML = "Be the first to host a community building "
       none.appendChild(typeSpan)
       none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
-      none.innerHTML = none.innerHTML + "Want to learn what we mean by community building events? Click "
-      none.appendChild(link)
+      none.innerHTML = none.innerHTML + "Community building "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + "s can involve everything from hosting poetry slams, open mics, shared meals, sporting events, religious prayer services to circle trainings, restorative justice workshops, issue-based community discussions and much more."
     } else if (type === "stories") {
       var link = document.createElement("a")
       link.href = "https://www.youtube.com/channel/UCEFd2_O_UXCm4d7NbK9L11Q/featured"

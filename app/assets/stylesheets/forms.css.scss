@@ -169,6 +169,10 @@ label {
   border: none;
 }
 
+.email-link {
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .aes-center {
     width: 90%;
