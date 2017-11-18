@@ -9193,9 +9193,9 @@ body {
 
 /* line 122, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
 .btn-default {
-  background-color: #933B3B;
-  border-color: #4C2326;
-  color: #E7E2E4;
+  background-color: #933B3B !important;
+  border-color: #4C2326 !important;
+  color: #E7E2E4 !important;
 }
 
 /* line 128, /Users/Caleb/projects/rails/a_connected_chicago/app/assets/stylesheets/home.css.scss */
