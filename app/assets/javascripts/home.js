@@ -11,7 +11,7 @@ function centerDropdownText() {
     $(this).html($('#texttest').text());
   })
 
-  $('#hood-select option').each(function(){
+  $('#hood-select #hood-prompt').each(function(){
     $('#texttest').html($(this).text());
     while($('#texttest').width() < $('#hood-select').width()) {
         $('#texttest').html('&nbsp'+$('#texttest').text()+'&nbsp');
