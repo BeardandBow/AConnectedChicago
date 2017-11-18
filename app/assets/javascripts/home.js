@@ -3,7 +3,7 @@ $("#info-backdrop").ready(function(){
 })
 
 function centerDropdownText() {
-  $('#org-select option').each(function(){
+  $('#org-select #org-prompt').each(function(){
     $('#texttest').html($(this).text());
     while($('#texttest').width() < $('#org-select').width()) {
         $('#texttest').html('&nbsp'+$('#texttest').text()+'&nbsp');

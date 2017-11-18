@@ -16874,7 +16874,7 @@ $("#info-backdrop").ready(function(){
 })
 
 function centerDropdownText() {
-  $('#org-select option').each(function(){
+  $('#org-select #org-prompt').each(function(){
     $('#texttest').html($(this).text());
     while($('#texttest').width() < $('#org-select').width()) {
         $('#texttest').html('&nbsp'+$('#texttest').text()+'&nbsp');
@@ -16931,6 +16931,7 @@ function createMap() {
 }
 
 function orgShow(e) {
+  $("#org-listings").empty()
   $.get("api/v1/organizations", function(response) {
     if (response.length !== 0) {
       response.forEach(function(org) {
@@ -16975,6 +16976,9 @@ function stopBubbling() {
 }
 
 function showNeighborhood(e, latLong = false) {
+  if (window.innerWidth < 600) {
+    latLong = false
+  }
   markers = [];
   resetInfoWindow();
   var orgSelect = document.getElementById("org-select")
@@ -17426,7 +17430,7 @@ function noListingsMessage(type, divName) {
       none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today.</br></br>";
       none.innerHTML = none.innerHTML + "What can a Story look like? Click "
       none.appendChild(link)
-    } else if (type === "organizations") {
+    } else if (type === "organizations" || type === "organizations of this type") {
       var link = document.createElement("a")
       var emailLink = document.createElement("a")
       emailLink.href = "mailto:connectedchicago@gmail.com"
@@ -17440,6 +17444,25 @@ function noListingsMessage(type, divName) {
       none.innerHTML = "Be the first to upload your "
       none.appendChild(typeSpan)
       none.innerHTML = none.innerHTML + " in this neighborhood by creating your <i>Connected Chicago</i> account today. Register your organization by emailing us at ";
+      none.appendChild(emailLink)
+      none.innerHTML = none.innerHTML + "</br></br>Want to see a list of Restorative Justice Organizations currently part of the Connected Chicago movement? Click "
+      none.appendChild(link)
+    }
+  } else {
+    if (type === "organizations" || type === "organizations of this type") {
+      var link = document.createElement("a")
+      var emailLink = document.createElement("a")
+      emailLink.href = "mailto:connectedchicago@gmail.com"
+      emailLink.target = "_top"
+      emailLink.innerHTML = "connectedchicago@gmail.com"
+      link.href = "/about"
+      link.target = "_blank"
+      link.innerText = "here"
+      typeSpan.innerHTML = "Organization"
+      typeSpan.className = "orgs-text"
+      none.innerHTML = "Be the first to upload your "
+      none.appendChild(typeSpan)
+      none.innerHTML = none.innerHTML + " by creating your <i>Connected Chicago</i> account today. Register your organization by emailing us at ";
       none.appendChild(emailLink)
       none.innerHTML = none.innerHTML + "</br></br>Want to see a list of Restorative Justice Organizations currently part of the Connected Chicago movement? Click "
       none.appendChild(link)
