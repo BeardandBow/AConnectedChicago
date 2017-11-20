@@ -124,6 +124,15 @@ label {
   transform: translateX(-50%);
 }
 
+.resources-center .left-container {
+  text-align: left;  
+}
+
+.resources-center ul li {
+  margin-left: 10%;
+  line-height: 3rem;
+}
+
 .resources-container {
   background-color: rgba(231, 226, 228, 0.8);
   margin-top: 50px;
@@ -167,6 +176,10 @@ label {
 .list-group-item {
   background-color: transparent;
   border: none;
+}
+
+.email-link {
+  text-decoration: underline;
 }
 
 @media (max-width: 600px) {

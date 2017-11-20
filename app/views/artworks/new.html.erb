@@ -2,10 +2,10 @@
 <div class="center">
   <div class="centered-container">
     <h1 class="white">Show Us Your He<span style="color: red">Art</span></h1>
-    <h5 class="white">Art can be a collective microphone for you to be heard. Posting art on our website, and tagging your neighborhood to specific artwork, whether it be songs, graphic design, murals, photography, drawings, etc. allows Chicago to dialogue – both within and across neighborhoods. Each neighborhood will have the opportunity to be heard. The website will function as a “Living Document/Artwork” gathering testimonies, personal truths, artistic expressions and qualitative evidence of a need and desire for a Connected Chicago.</h5>
+    <h5 class="white">Art can be a collective microphone for us to be heard. Posting art on Connected Chicago, and tagging your neighborhood allows Chicago to dialogue both within and across neighborhoods. Whether it be through music, <a href="https://www.cityofchicago.org/city/en/depts/dca/supp_info/yopa/yopa0.html">public artworks</a>, murals, sculptures, architecture, your <a href="https://pbmr.org/galleries/artwork/">personal drawings</a>, paintings and/or photography, etc., each neighborhood will have the opportunity to be heard. The website functions as a kind of “Living Document/Canvas” gathering testimonies, personal truths and artistic expressions reflecting a need and desire for an interconnected Chicago.</h5>
     <%= form_for @artwork, html: {multipart: true} do |f| %>
-      <%= f.text_field :title, placeholder: "Title", class: "form-input" %>
-      <%= f.text_field :artist, placeholder: "Artist", class: "form-input" %>
+      <%= f.text_field :title, placeholder: "Title of Artwork", class: "form-input" %>
+      <%= f.text_field :artist, placeholder: "Name of Artist/s", class: "form-input" %>
       <div class="input-group form-input">
         <span class="input-group-btn">
           <span class="btn btn-success btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Add Image</span>
@@ -13,8 +13,8 @@
         </span>
         <span class="form-control img-upload-text"></span>
       </div>
-      <%= f.text_field :description, placeholder: "Description", class: "form-input" %>
-      <%= f.text_field :address, placeholder: "Address", class: "form-input" %>
+      <%= f.text_field :description, placeholder: "Brief Description of Artwork", class: "form-input" %>
+      <%= f.text_field :address, placeholder: "Location/Address of Artwork (Read Important Instructions)", class: "form-input" %>
       <h4 class="white">by uploading an image, you affirm that you have permission to upload this image.</h4>
       <%= f.submit "Share your Art", class: "submit-input btn btn-success" %>
     <% end %>

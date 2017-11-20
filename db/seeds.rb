@@ -23,7 +23,7 @@ class Seed
     end
 
     rj_hub = Type.create(name: "RJ Hub", category: 1)
-    church = Type.create(name: "Church", category: 1)
+    church = Type.create(name: "Religous Institution", category: 1)
     np = Type.create(name: "Non-Profit", category: 1)
     shelter = Type.create(name: "Shelter", category: 1)
     rj_school = Type.create(name: "RJ School", category: 1)
@@ -45,7 +45,7 @@ class Seed
     org_1 = Organization.create(name: "Precious Blood Ministry of Reconciliation",
                                 description: "PBMR is a network of reconciliation ministries inspired by a spirituality of the Precious Blood. Motivated by the belief that 'those who were once far off have been brought near through the blood of Christ' (Eph. 2:13), we work as agents of reconciliation.",
                                 website: "http://www.pbmr.org",
-                                type_id: rj_hub.id,
+                                type_id: church.id,
                                 locations: [l1])
 
     org_2 = Organization.create(name: "Urban Life Skills",
