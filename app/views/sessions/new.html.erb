@@ -7,5 +7,7 @@
       <%= f.password_field :password, placeholder: "Password", class: "form-input" %>
       <%= f.submit "Login", class: "submit-input btn btn-success" %>
     <% end %>
+    <h4 class="white">or</h4>
+    <button class="submit-input btn btn-success"><%= link_to "Create an Account", new_user_path, class: "white" %></button>
   </div>
 </div>
