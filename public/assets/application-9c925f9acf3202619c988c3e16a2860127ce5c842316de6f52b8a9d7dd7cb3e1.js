@@ -18540,19 +18540,20 @@ $("#modal").ready(function(){
   } else {
     //double tap functionality. The client wanted this
     var body = document.querySelector("body")
-    body.addEventListener('click', function() {
-        body.addEventListener('click', hideModal)
-    })
+    body.addEventListener('click', addClickListeners)
 
-    body.addEventListener('touchend', function() {
-        body.addEventListener('touchend', hideModal)
-    })
+    body.addEventListener('touchend', addClickListeners
 
     localStorage.setItem("lastVisited", currentDate)
     $("#navbar").hide();
     noClicks();
   }
 });
+
+function addClickListeners() {
+  body.addEventListener('click', hideModal)
+  body.addEventListener('touchend', hideModal)
+}
 
 function hideModal() {
   $("#navbar").show();
