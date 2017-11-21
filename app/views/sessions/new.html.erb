@@ -8,6 +8,8 @@
       <%= f.submit "Login", class: "submit-input btn btn-success" %>
     <% end %>
     <h4 class="white">or</h4>
-    <button style="width: 100%" class="btn btn-success"><%= link_to "Create an Account", new_user_path, class: "btn-success" %></button>
+    <%= link_to new_user_path do %>
+      <button style="width: 100%" class="btn btn-success">Create an Account</button>
+    <% end %>
   </div>
 </div>
