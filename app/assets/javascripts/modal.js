@@ -28,6 +28,8 @@ function hideModal() {
   $("#info-backdrop").show();
   this.removeEventListener('click', hideModal)
   this.removeEventListener('touchend', hideModal)
+  this.removeEventListener('click', addClickListeners)
+  this.removeEventListener('touchend', addClickListeners)
   createMap()
  }
 
