@@ -4,7 +4,6 @@ $("#modal").ready(function(){
     checkDate(currentDate)
   } else {
     //double tap functionality. The client wanted this
-    var body = document.querySelector("body")
     body.addEventListener('click', addClickListeners)
 
     body.addEventListener('touchend', addClickListeners)
@@ -16,6 +15,7 @@ $("#modal").ready(function(){
 });
 
 function addClickListeners() {
+  var body = document.querySelector("body")
   body.addEventListener('click', hideModal)
   body.addEventListener('touchend', hideModal)
 }
