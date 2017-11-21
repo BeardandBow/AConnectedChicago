@@ -16692,7 +16692,6 @@ function formatArtworkShow(artwork) {
   var description = document.getElementById("description");
   var image = document.getElementById("image");
   var address = document.getElementById("address");
-  var formattedDateTime = document.getElementById("datetime");
   var deleteDiv = document.getElementById("delete");
 
   clearDiv(image);
@@ -16702,7 +16701,6 @@ function formatArtworkShow(artwork) {
   description.innerHTML = artwork.description;
   artist.innerHTML = "By " + artwork.artist;
   address.innerHTML = artwork.address;
-  formattedDateTime.innerHTML = "Posted On " + artwork.formatted_create_time;
   if (artwork.image_url) {
     var imgTag = document.createElement("img");
     imgTag.src = artwork.image_url;
@@ -16782,7 +16780,6 @@ function formatStoryShow(story) {
   var youtubeDiv = document.getElementById("youtube");
   var description = document.getElementById("description");
   var body = document.getElementById("body");
-  var createdAt = document.getElementById("created_at");
   var deleteDiv = document.getElementById("delete");
 
   clearDiv(youtubeDiv);
@@ -16800,7 +16797,6 @@ function formatStoryShow(story) {
   }
   description.innerHTML = story.description;
   body.innerHTML = story.body;
-  createdAt.innerHTML = story.formatted_create_time;
   if (isDeletable(story)) {
     var deleteButton = document.createElement("button");
     deleteButton.className = "btn btn-danger";
@@ -18535,6 +18531,7 @@ var hoodStyle = [
 ;
 $("#modal").ready(function(){
   var currentDate = new Date().toDateString()
+  noClicks()
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
@@ -18545,10 +18542,10 @@ $("#modal").ready(function(){
     body.addEventListener('touchend', addClickListeners)
 
     localStorage.setItem("lastVisited", currentDate)
-    $("#navbar").hide();
-    noClicks();
+    $("#navbar").hide()
+    noClicks()
   }
-});
+})
 
 function addClickListeners() {
   var body = document.querySelector("body")
@@ -18580,6 +18577,7 @@ function checkDate(currentDate) {
     noClicks();
   } else {
     hideModal()
+    $("#navbar").show();
     createMap();
   }
 }

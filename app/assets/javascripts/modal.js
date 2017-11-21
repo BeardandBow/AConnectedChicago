@@ -1,5 +1,6 @@
 $("#modal").ready(function(){
   var currentDate = new Date().toDateString()
+  noClicks()
   if (localStorage.getItem("lastVisited")) {
     checkDate(currentDate)
   } else {
@@ -10,10 +11,10 @@ $("#modal").ready(function(){
     body.addEventListener('touchend', addClickListeners)
 
     localStorage.setItem("lastVisited", currentDate)
-    $("#navbar").hide();
-    noClicks();
+    $("#navbar").hide()
+    noClicks()
   }
-});
+})
 
 function addClickListeners() {
   var body = document.querySelector("body")
@@ -45,6 +46,7 @@ function checkDate(currentDate) {
     noClicks();
   } else {
     hideModal()
+    $("#navbar").show();
     createMap();
   }
 }
