@@ -34,6 +34,10 @@ class StoriesController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def instructions
+
+  end
+
   private
 
   def story_params

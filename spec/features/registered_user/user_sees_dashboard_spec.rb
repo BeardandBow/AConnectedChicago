@@ -30,6 +30,10 @@ RSpec.feature "user sees dashboard" do
       # and click "Share your Event"
       click_on "Share your Event"
 
+      expect(page).to have_content("By hosting your events on Connected Chicago, you can foster community-building opportunities for all of Chicago. Events hosted can include everything from poetry slams, open mics, shared meals, sporting events, religious prayer services to circle trainings, restorative justice workshops, issue-based community discussions and so much more.")
+
+      expect(page).to have_content("Click here to see important instructions for submitting an event")
+
       # and fill in the information for a new event in the text fields
       fill_in "Title of Event", with: "event"
       fill_in "Host Contact Email", with: "someguy@gmail.com"
@@ -55,6 +59,11 @@ RSpec.feature "user sees dashboard" do
       visit user_path(@user)
       # and when I click "Share your Story"
       click_on "Share your Story"
+
+      expect(page).to have_content("By uploading your stories, you too can help build empathy and share what is needed to connect Chicago by going to the source - us fellow Chicagoans.The online storytelling component of the campaign is not a substitute for real-life engagement or proximity with persons, but a supplement for engaging these, at times unknown, Chicago stories.")
+
+      expect(page).to have_content("Click here to see important instructions for submitting a story")
+
       # and fill in the information for a new event in the text fields
       fill_in "Title of Story", with: "story"
       fill_in "Author/s of Story", with: "some guy"
@@ -74,6 +83,11 @@ RSpec.feature "user sees dashboard" do
       visit user_path(@user)
       # and when I click "Share your Artwork"
       click_on "Share your Artwork"
+
+      expect(page).to have_content("Art can be a collective microphone for us to be heard. Posting art on Connected Chicago, and tagging your neighborhood allows Chicago to dialogue both within and across neighborhoods. Whether it be through music, public artworks, murals, sculptures, architecture, your personal drawings, paintings and/or photography, etc., each neighborhood will have the opportunity to be heard. The website functions as a kind of Living Document/Canvas gathering testimonies, personal truths, and artistic expressions reflecting a need and desire for an interconnected Chicago.")
+
+      expect(page).to have_content("Click here to see important instructions for submitting artwork")
+
       # and fill in the information for a new event in the text fields
       fill_in "Title of Artwork", with: "artwork"
       fill_in "Name of Artist/s", with: "some guy"

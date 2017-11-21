@@ -24,7 +24,7 @@
 
     <h1 class="white">My Organizations</h1>
       <% if @user.organizations.empty? %>
-        <h5 class="white">Are you a Community Leader in your neighborhood? Email Connected Chicago at <%= mail_to  "connectedchicago@gmail.com", "connectedchicago@gmail.com", class: "email-link white" %>, to add your name to our Community Leader Database and give you access to more Community Organizing features on your dashboard.</h5>
+        <h5 class="white">Are you a Community Leader in your neighborhood? Email Connected Chicago at <%= mail_to  "connectedchicago@gmail.com", "connectedchicago@gmail.com", class: "underline-link white" %>, to add your name to our Community Leader Database and give you access to more Community Organizing features on your dashboard.</h5>
       <% else %>
         <ul class="list-group">
           <% @user.organizations.each do |org| %>

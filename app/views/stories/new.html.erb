@@ -2,7 +2,9 @@
 <div class="center">
   <div class="centered-container">
     <h1 class="white">We Want to Hear Your Story</h1>
-    <h5 class="white">By uploading your stories, you too can help build empathy and share what is needed to connect Chicago by going to the source - us fellow Chicagoans. The online storytelling component of the campaign is not a substitute for real-life engagement or proximity with persons, but a supplement for engaging these, at times unknown and difficult, Chicago stories. </h5>
+    <h5 class="white">By uploading your stories, you too can help build empathy and share what is needed to connect Chicago by going to the source - us fellow Chicagoans.The online storytelling component of the campaign is not a substitute for real-life engagement or proximity with persons, but a supplement for engaging these, at times unknown, Chicago stories.</h5>
+
+    <p class="white">Click <%= link_to "here", story_instructions_path, class: "underline-link white" %> to see important instructions for submitting a story</p>
     <%= form_for @story do |f| %>
       <%= f.text_field :title, placeholder: "Title of Story", class: "form-input" %>
       <%= f.text_field :author, placeholder: "Author/s of Story", class: "form-input" %>

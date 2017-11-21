@@ -9,6 +9,7 @@
       shared meals, sporting events, religious prayer services to circle trainings,
       restorative justice workshops, issue-based community discussions and so much more.
     </h5>
+    <p class="white">Click <%= link_to "here", event_instructions_path, class: "underline-link white" %> to see important instructions for submitting an event</p>
     <%= form_for @event, html: {multipart: true} do |f| %>
       <%= f.text_field :title, placeholder: "Title of Event", class: "form-input" %>
       <%= f.text_field :host_contact, placeholder: "Host Contact Email", class: "form-input" %>

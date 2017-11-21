@@ -37,6 +37,10 @@ class EventsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def instructions
+
+  end
+
   private
 
   def event_params

@@ -31,6 +31,10 @@ class ArtworksController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def instructions
+
+  end
+
   private
 
   def artwork_params
