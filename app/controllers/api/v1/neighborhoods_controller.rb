@@ -19,7 +19,7 @@ class Api::V1::NeighborhoodsController < Api::V1::ApiBaseController
       @artworks = Artwork.where(status: "approved").where(neighborhood: @hood)
       render template: "api/v1/neighborhoods/show"
     else
-      render status: :bad_request
+      return head(:bad_request)
     end
   end
 end

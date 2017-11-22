@@ -43,7 +43,5 @@ RSpec.feature "user sees instructions pages" do
     expect(page).to have_content("The Brief Description of Artwork should be between 1-3 sentences (one paragraph MAX), describing the power or history of the artwork.")
 
     expect(page).to have_content("Artwork MUST be linked to a Complete Geographical Address in order to appear on Connected Chicago Map;")
-
-    expect(page).to have_content("Note: A future version of this site will include the function of uploading art through music.")
   end
 end

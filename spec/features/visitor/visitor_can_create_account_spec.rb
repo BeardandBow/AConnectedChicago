@@ -47,7 +47,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "opensesame"
       select @neighborhood.name, from: "user_neighborhood"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       expect(User.all.count).to eq(0)
       expect(page).to have_content("First name can't be blank")
@@ -60,7 +60,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "opensesame"
       select @neighborhood.name, from: "user_neighborhood"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       expect(User.all.count).to eq(0)
       expect(page).to have_content("Last name can't be blank")
@@ -73,7 +73,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "closesesame"
       select @neighborhood.name, from: "user_neighborhood"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       expect(User.all.count).to eq(0)
       expect(page).to have_content("Password confirmation doesn't match password")
@@ -86,7 +86,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: ""
       fill_in "Password Confirmation", with: "closesesame"
       select @neighborhood.name, from: "user_neighborhood"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       expect(User.all.count).to eq(0)
       expect(page).to have_content("Password can't be blank")
@@ -112,7 +112,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Last Name", with: "Smith"
       fill_in "Password", with: ""
       fill_in "Password Confirmation", with: "closesesame"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       expect(User.all.count).to eq(0)
       expect(page).to have_content("Please select your home neighborhood.")
