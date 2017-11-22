@@ -1,7 +1,7 @@
 <% content_for :body_class, "login-bg" %>
 <div class="center">
   <div class="centered-container">
-    <h3 class="white">Log in to your account</h3>
+    <h3 class="white">Log In to your Account</h3>
     <%= form_for :session, url: login_path do |f| %>
       <%= f.text_field :email, placeholder: "Email", class: "form-input" %>
       <%= f.password_field :password, placeholder: "Password", class: "form-input" %>
