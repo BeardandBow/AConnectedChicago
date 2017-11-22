@@ -10,8 +10,7 @@
       <%= f.password_field :password_confirmation, placeholder: "Password Confirmation", class: "form-input" %>
       <%= f.select :neighborhood, @neighborhoods, {prompt: "Select the neighborhood you most identify with"}, {class: "form-control center-dropdown form-input"} %>
       <%= f.select :organizations, @organizations, {prompt: "Are you affiliated with any of these organizations? (If so, select one)"}, {class: "form-control center-dropdown form-input"} %>
-      <%= f.submit "Create Account and start Connecting!", class: "submit-input btn btn-success" %>
+      <%= f.submit "Create Account", class: "submit-input btn btn-success" %>
     <% end %>
   </div>
 </div>
-

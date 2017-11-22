@@ -125,7 +125,7 @@ label {
 }
 
 .resources-center .left-container {
-  text-align: left;  
+  text-align: left;
 }
 
 .resources-center ul li {
@@ -166,6 +166,10 @@ label {
   padding-bottom: 15px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.instruction-list {
+  text-align: left;
 }
 
 .btn-danger {

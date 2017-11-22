@@ -21,7 +21,7 @@ RSpec.feature "visitor can create account" do
       fill_in "Password", with: "opensesame"
       fill_in "Password Confirmation", with: "opensesame"
       select @neighborhood.name, from: "user_neighborhood"
-      click_button "Create Account and start Connecting!"
+      click_button "Create Account"
 
       user = User.first
 
@@ -36,7 +36,7 @@ RSpec.feature "visitor can create account" do
       expect(page).to have_content("Welcome to A Connected Chicago! Your email has been confirmed.
       Please sign in to continue.")
       expect(user.reload.role).to eq("registered_user")
-    end  
+    end
   end
 
   context "sad paths" do

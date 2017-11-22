@@ -28,6 +28,7 @@ class Seed
     shelter = Type.create(name: "Shelter", category: 1)
     rj_school = Type.create(name: "RJ School", category: 1)
     gov = Type.create(name: "Government Agency", category: 1)
+    mhc = Type.create(name: "Mental Health Center", category: 1)
 
     l1 = Location.create(address: "5114 S Elizabeth St, Chicago, IL 60609")
     l2 = Location.create(address: "2657 S Lawndale Ave, Chicago, IL 60623")
