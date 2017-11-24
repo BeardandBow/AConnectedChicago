@@ -15,9 +15,11 @@
       <div class="aes-format" id="description">
         <%= @story.description %>
       </div>
-      <div class="aes-format text-area" id="body">
-        <%= @story.body %>
-      </div>
+      <% if @story.body %>
+        <div class="aes-format text-area" id="body">
+          <%= @story.body %>
+        </div>
+      <% end %>
       <div class="aes-format" id="delete">
         <%= button_to "Delete", story_path(@story), class: "btn btn-danger", method: :delete if @story.deletable_by?(current_user)%>
       </div>

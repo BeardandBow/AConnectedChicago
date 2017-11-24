@@ -25,11 +25,11 @@ RSpec.describe Story, type: :model do
       expect(story).not_to be_valid
     end
 
-    it "is not valid without body" do
-      story = build_stubbed(:story, body: nil)
-
-      expect(story).not_to be_valid
-    end
+    # it "is not valid without body" do
+    #   story = build_stubbed(:story, body: nil)
+    #
+    #   expect(story).not_to be_valid
+    # end
 
     it "is not valid without address" do
       story = build_stubbed(:story, address: nil)
