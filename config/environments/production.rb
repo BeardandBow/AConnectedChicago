@@ -56,7 +56,7 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "a_connected_chicago_#{Rails.env}"
-  config.action_mailer.default_url_options = { host: "aconnectedchicago.herokuapp.com", protocol: 'https' }
+  config.action_mailer.default_url_options = { host: "aconnectedchicago.herokuapp.com", protocol: 'http' }
 
   config.action_mailer.perform_caching = true
 
