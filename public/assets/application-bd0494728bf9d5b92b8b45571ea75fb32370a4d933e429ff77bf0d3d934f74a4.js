@@ -17699,7 +17699,7 @@ function formatOrganization(organization) {
   heading.href = organization.website;
   heading.target = "_blank";
   type.innerHTML = organization.type;
-  description.innerHTML = stringTruncate(organization.description, 500);
+  description.innerHTML = organization.description
   listing.appendChild(heading);
   if (organization.type !== undefined) {
     listing.appendChild(type);
@@ -17731,7 +17731,7 @@ function formatOrganizationForNeighborhood(location) {
   heading.target = "_blank";
   type.innerHTML = location.organization.type;
   address.innerHTML = location.address;
-  description.innerHTML = stringTruncate(location.organization.description, 500);
+  description.innerHTML = location.organization.description
   listing.appendChild(heading);
   listing.appendChild(type);
   listing.appendChild(address);
@@ -17747,7 +17747,7 @@ function formatArtwork(artwork) {
   var artist = document.createElement("p");
   var description = document.createElement("p");
   heading.innerHTML = artwork.title.link("/artworks/" + artwork.id);
-  description.innerHTML = stringTruncate(artwork.description, 50);
+  description.innerHTML = artwork.description
   artist.innerHTML = "by " + artwork.artist
   listing.appendChild(heading);
   if (artwork.thumb_url) {
@@ -17769,7 +17769,7 @@ function formatEvent(event) {
   var description = document.createElement("p");
   var event_type = document.createElement("p");
   heading.innerHTML = event.title.link("/events/" + event.id);
-  description.innerHTML = stringTruncate(event.description, 50);
+  description.innerHTML = event.description
   dateTime.innerHTML = event.formatted_date_time
   event_type.innerHTML = event.type
   listing.appendChild(heading);
@@ -17792,7 +17792,7 @@ function formatStory(story) {
   var author = document.createElement("p");
   var description = document.createElement("p");
   heading.innerHTML = story.title.link("/stories/" + story.id);
-  description.innerHTML = stringTruncate(story.description, 50);
+  description.innerHTML = story.description
   author.innerHTML = "by " + story.author
   listing.appendChild(heading);
   if (story.thumb_url) {
