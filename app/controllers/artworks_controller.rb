@@ -10,6 +10,7 @@ class ArtworksController < ApplicationController
 
   def create
     @artwork = current_user.artworks.create(artwork_params)
+    @artwork.image = params[:image]
     if @artwork.save
       if community_leader? || admin?
         @artwork.approve
@@ -19,6 +20,7 @@ class ArtworksController < ApplicationController
       end
       redirect_to user_path(current_user)
     else
+      puts @artwork.errors.full_messages
       flash[:error] = "There is a problem with your submission. Please correct and resubmit."
       render :new
     end

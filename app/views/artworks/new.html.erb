@@ -12,7 +12,7 @@
       <div class="input-group form-input">
         <span class="input-group-btn">
           <span class="btn btn-success btn-inverse" onclick="$(this).parent().find('input[type=file]').click();">Add Image</span>
-          <%= f.file_field :file_upload, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
+          <%= f.file_field :image, onchange: "$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\\\|/]/).pop());", style: "display: none;" %>
         </span>
         <span class="form-control img-upload-text"></span>
       </div>
