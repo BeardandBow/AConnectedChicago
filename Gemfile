@@ -50,6 +50,7 @@ end
 
 group :production, :development do
   gem 'aws-sdk'
+  gem 'aws-sdk-v1'
   gem 'carrierwave'
   gem 'mini_magick'
   gem 'gmaps4rails'
