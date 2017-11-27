@@ -53,8 +53,12 @@ Rails.application.routes.draw do
   namespace :admin, as: '' do
     get '/organizations/:id/edit_locations', to: "organizations#edit_locations", as: 'edit_admin_organization_locations'
   end
-
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  controller :sessions do
+      get 'login' => :new
+      post 'login' => :create
+      delete 'logout' => :destroy
+  end
+  # get '/login', to: 'sessions#new'
+  # post '/login', to: 'sessions#create'
+  # delete '/logout', to: 'sessions#destroy'
 end
