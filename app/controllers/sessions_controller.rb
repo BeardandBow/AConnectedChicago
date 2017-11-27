@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    session[:user_id] = nil
     flash[:success] = "Successfully logged out"
     redirect_to root_path
   end
