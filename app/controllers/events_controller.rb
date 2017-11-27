@@ -12,8 +12,7 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.events.create(event_params)
-    @event.image = params[:image]
-    
+
     if @event.save
       if community_leader? || admin?
         @event.approve
@@ -23,6 +22,7 @@ class EventsController < ApplicationController
       end
       redirect_to user_path(current_user)
     else
+      puts @event.errors.full_messages
       @organizations = Organization.all
       @types = Type.where(category: "event").order(:name)
       flash[:error] = "There is a problem with your submission. Please correct and resubmit."

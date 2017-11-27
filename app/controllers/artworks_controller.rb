@@ -10,7 +10,6 @@ class ArtworksController < ApplicationController
 
   def create
     @artwork = current_user.artworks.create(artwork_params)
-    @artwork.image = params[:image]
     if @artwork.save
       if community_leader? || admin?
         @artwork.approve
