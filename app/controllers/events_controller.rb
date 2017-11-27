@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.create(event_params)
 
-    if @event.save && @event.organization
+    if @event.save
       if community_leader? || admin?
         @event.approve
         flash[:success] = "Your Event has been created."

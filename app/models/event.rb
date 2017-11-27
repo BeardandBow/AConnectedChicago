@@ -19,7 +19,7 @@ class Event < ApplicationRecord
 
   belongs_to :type
   belongs_to :user
-  belongs_to :organization
+  belongs_to :organization, optional: false
   belongs_to :neighborhood, optional: true
 
   def path
