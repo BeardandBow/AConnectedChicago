@@ -4,9 +4,7 @@ json.locations @hood.locations.includes(:organization) do |location|
   json.(location, :id, :address, :map_lat, :map_long)
   json.organization do
     json.id location.organization.id
-    if location.organization
-      json.name location.organization.name
-    end
+    json.name location.organization.name
     json.description location.organization.description
     json.website location.organization.website
     json.type location.organization.type.name
