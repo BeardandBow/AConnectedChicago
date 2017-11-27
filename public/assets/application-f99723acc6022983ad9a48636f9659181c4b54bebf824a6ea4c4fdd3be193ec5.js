@@ -18575,6 +18575,8 @@ function checkDate(currentDate) {
   if (currentDate !== localStorage.getItem("lastVisited")) {
     localStorage.setItem("lastVisited", currentDate)
     noClicks();
+    body.addEventListener('click', addClickListeners)
+    body.addEventListener('touchend', addClickListeners)
   } else {
     hideModal()
     $("#navbar").show();
