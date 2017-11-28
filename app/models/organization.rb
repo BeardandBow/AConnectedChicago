@@ -12,4 +12,13 @@ class Organization < ApplicationRecord
   has_many :neighborhoods, through: :organization_neighborhoods
   has_many :organization_users
   has_many :users, through: :organization_users
+
+  before_create :strip_name
+
+
+  private
+
+    def strip_name
+      self.update_attributes(name: self.name.strip)
+    end
 end
