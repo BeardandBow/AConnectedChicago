@@ -44,6 +44,7 @@ function checkDate(currentDate) {
   if (currentDate !== localStorage.getItem("lastVisited")) {
     localStorage.setItem("lastVisited", currentDate)
     noClicks();
+    var body = document.querySelector("body")
     body.addEventListener('click', addClickListeners)
     body.addEventListener('touchend', addClickListeners)
   } else {
