@@ -35,7 +35,9 @@
                 <tr>
                   <% if ff.object.persisted? %>
                     <td><%= ff.label :_destroy, ff.object.address %></td>
-                    <td><%= ff.label :_destroy, ff.object.neighborhood.name %></td>
+                    <% if ff.object.neighborhood %>
+                      <td><%= ff.label :_destroy, ff.object.neighborhood.name %></td>
+                    <% end %>
                     <td><%= ff.check_box :_destroy %></td>
                   <% end %>
                 </tr>
