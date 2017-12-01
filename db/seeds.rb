@@ -34,6 +34,7 @@ class Seed
     rj_school = Type.create(name: "Restorative Justice School", category: 1)
     gov = Type.create(name: "Government Agency", category: 1)
     mhc = Type.create(name: "Mental Health Center", category: 1)
+    bi = Type.create(name: "Business Initiatives", category: 1) 
 
     l1 = Location.create(address: "5114 S Elizabeth St, Chicago, IL 60609")
 

@@ -1,7 +1,7 @@
 class Location < ApplicationRecord
   validates :address, presence: true
 
-  belongs_to :organization, optional: false
+  belongs_to :organization
   belongs_to :neighborhood, optional: false
 
   geocoded_by :address, latitude: :map_lat, longitude: :map_long
