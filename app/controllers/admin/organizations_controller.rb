@@ -15,9 +15,14 @@ class Admin::OrganizationsController < ApplicationController
       @organization = Organization.new(organization_params)
       if @organization.save
         unless params[:organization][:locations_attributes]['0'][:address].blank?
-          @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+          location = @organization.locations.create(address: params[:organization][:locations_attributes]['0'][:address])
+          if location.save
+            message = ""
+          else
+            message = ", however we could not find a neighborhood with that address. Please re-enter the address in the organization edit page"
+          end
         end
-        flash[:success] = "'#{@organization.name}' has been created"
+        flash[:success] = "'#{@organization.name}' has been created#{message}"
       else
         flash[:error] = "Cannot create duplicate or blank Organization"
       end

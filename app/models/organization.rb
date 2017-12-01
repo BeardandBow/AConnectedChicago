@@ -19,6 +19,6 @@ class Organization < ApplicationRecord
   private
 
     def strip_name
-      self.update_attributes(name: self.name.strip)
+      self.name = self.name.strip
     end
 end
