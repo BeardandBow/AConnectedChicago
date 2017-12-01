@@ -25,12 +25,10 @@ RSpec.feature "admin can manage organizations" do
       fill_in "Organization Name", with: "New Organization"
       fill_in "Organization Website", with: "http://www.test.com"
       fill_in "Organization Description", with: "New Description"
-      fill_in "Organization Location", with: "1918 W Farwell Ave, Chicago, IL 60626"
       select "RJ Hub", from: "organization_type_id"
       click_on "Add Organization"
 
       expect(Organization.all.count).to eq(1)
-      expect(Location.all.count).to eq(1)
       expect(Organization.first.name).to eq("New Organization")
     end
   end

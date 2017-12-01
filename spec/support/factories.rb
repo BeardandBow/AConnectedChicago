@@ -55,23 +55,6 @@ FactoryGirl.define do
     end
   end
 
-# hood_names = ["West Ridge", "Uptown", "Lincoln Square", "Edison Park",
-#                         "Norwood Park", "Jefferson Park", "Forest Glen", "North Park", "Albany Park",
-#                         "O'Hare", "Edgewater", "North Center", "Lakeview", "Lincoln Park",
-#                         "Avondale", "Logan Square", "Portage Park", "Irving Park", "Dunning",
-#                         "Montclare", "Belmont Cragin", "Hermosa", "Near North Side", "Loop",
-#                         "Near South Side", "Humboldt Park", "West Town", "Austin", "West Garfield Park",
-#                         "East Garfield Park", "Near West Side", "North Lawndale", "South Lawndale", "Lower West Side",
-#                         "Garfield Ridge", "Archer Heights", "Brighton Park", "McKinley Park", "New City",
-#                         "West Elsdon", "Gage Park", "Clearing", "West Lawn", "Chicago Lawn",
-#                         "West Englewood", "Englewood", "Armour Square", "Douglas", "Oakland",
-#                         "Fuller Park", "Grand Boulevard", "Kenwood", "Washington Park", "Hyde Park",
-#                         "Woodlawn", "South Shore", "Bridgeport", "Greater Grand Crossing", "Ashburn",
-#                         "Auburn Gresham", "Beverly", "Washington Heights", "Mount Greenwood", "Morgan Park",
-#                         "Chatham", "Avalon Park", "South Chicago", "Burnside", "Calumet Heights",
-#                         "Roseland", "Pullman", "South Deering", "East Side", "West Pullman",
-#                         "Riverdale", "Hegewisch", "Rogers Park"]
-
   factory :neighborhood do
     sequence (:name) { |n| "Hyde Park #{n}" }
     bounds [{lat:41.8026339, lng:-87.5751643}, {lat:41.78583400000001, lng:-87.6064074}]
@@ -112,7 +95,8 @@ FactoryGirl.define do
     end
     trait :with_locations do
       after(:create) do |org|
-        create_list(:location, 2, organization: org)
+        hood = create(:neighborhood)
+        create_list(:location, 2, organization: org, neighborhood: hood)
       end
     end
   end
