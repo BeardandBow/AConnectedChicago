@@ -35,7 +35,7 @@ class Admin::SubmissionsController < ApplicationController
   def get_unowned_submissions
     submissions = []
     # find events whose organizations have no community_leaders and have a status of pending
-    events_without_hood_users = Event.joins(:neighborhood).find_all { |e| e.neighborhood.users.empty? }
+    events_without_hood_users = Event.joins(:neighborhood).find_all { |e| e.neighborhood.users.empty? && s.status === "pending"}
 
     events = Event.joins(organization: [:users])
             .where.not(organization: { users: {role: "community_leader"}})
@@ -47,8 +47,8 @@ class Admin::SubmissionsController < ApplicationController
     submissions << events_without_hood_users unless events_without_hood_users.empty?
 
     pending_artworks = Artwork.where(organization_id: nil, status: "pending").to_a
-    art_without_org_users = Artwork.joins(:organization).find_all { |a| a.organization.users.empty? }
-    art_without_hood_users = Artwork.joins(:neighborhood).find_all { |a| a.neighborhood.users.empty? }
+    art_without_org_users = Artwork.joins(:organization).find_all { |a| a.organization.users.empty? && s.status === "pending"}
+    art_without_hood_users = Artwork.joins(:neighborhood).find_all { |a| a.neighborhood.users.empty? && s.status === "pending"}
 
     pending_artworks << art_without_org_users unless art_without_org_users.empty?
     pending_artworks << art_without_hood_users unless art_without_hood_users.empty?
