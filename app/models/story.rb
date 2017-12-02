@@ -14,7 +14,7 @@ class Story < ApplicationRecord
   before_create :format_embedded_youtube_link
   after_create :set_pkey
 
-  belongs_to :user
+  belongs_to :user, optional: false
   belongs_to :neighborhood, optional: true
   belongs_to :organization, optional: true
 

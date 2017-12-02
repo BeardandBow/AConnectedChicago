@@ -23,7 +23,11 @@ class Admin::SubmissionsController < ApplicationController
         submission ? submission.reject : flash[submission.pkey] = "'#{submission.title}' has already been approved or denied"
       end
     end
-    redirect_to admin_submissions_path
+    if request.env["HTTP_REFERER"].include?("unowned")
+      admin_unowned_submissions_path
+    else
+      redirect_to admin_submissions_path
+    end
   end
 
   private
@@ -32,7 +36,7 @@ class Admin::SubmissionsController < ApplicationController
     submissions = []
     # find events whose organizations have no community_leaders and have a status of pending
     events_without_hood_users = Event.joins(:neighborhood).find_all { |e| e.neighborhood.users.empty? }
-    
+
     events = Event.joins(organization: [:users])
             .where.not(organization: { users: {role: "community_leader"}})
             .joins(neighborhood: [:users])

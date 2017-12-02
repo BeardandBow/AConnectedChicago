@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :artworks
   has_many :events
   has_many :stories
-  belongs_to :neighborhood
+  belongs_to :neighborhood, optional: false
   has_many :organization_users
   has_many :organizations, through: :organization_users
 
