@@ -63,8 +63,8 @@ class Admin::SubmissionsController < ApplicationController
     submissions << pending_artworks unless pending_artworks.empty?
 
     pending_stories = Story.where(organization_id: nil, status: "pending").to_a
-    stories_without_org_users = Story.joins(:organization).find_all { |s| s.organization.users.empty? }
-    stories_without_hood_users = Story.joins(:neighborhood).find_all { |s| s.neighborhood.users.empty? }
+    stories_without_org_users = Story.joins(:organization).find_all { |s| s.organization.users.empty? && s.status === "pending"}
+    stories_without_hood_users = Story.joins(:neighborhood).find_all { |s| s.neighborhood.users.empty? && s.status === "pending"}
 
     pending_stories << stories_without_org_users unless stories_without_org_users.empty?
     pending_stories << stories_without_hood_users unless stories_without_hood_users.empty?
