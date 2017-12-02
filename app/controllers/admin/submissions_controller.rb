@@ -24,7 +24,7 @@ class Admin::SubmissionsController < ApplicationController
       end
     end
     if request.env["HTTP_REFERER"].include?("unowned")
-      admin_unowned_submissions_path
+      redirect_to admin_unowned_submissions_path
     else
       redirect_to admin_submissions_path
     end
