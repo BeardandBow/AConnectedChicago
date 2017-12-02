@@ -17,7 +17,7 @@ class Event < ApplicationRecord
   after_create :format_date_time
   after_create :set_pkey
 
-  belongs_to :type, optional: false
+  belongs_to :type
   belongs_to :user, optional: false
   belongs_to :organization, optional: false
   belongs_to :neighborhood, optional: true
